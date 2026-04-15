@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre o projeto - Carteado da Probabilidade</title>
+  <style>
+    :root{
+      --bg:#0f071d;
+      --bg-2:#160b2c;
+      --bg-3:#221043;
+      --panel:rgba(255,255,255,0.05);
+      --panel-strong:rgba(255,255,255,0.08);
+      --line:rgba(179,135,255,0.18);
+      --line-strong:rgba(179,135,255,0.32);
+      --primary:#8b5cf6;
+      --primary-2:#a855f7;
+      --primary-3:#c084fc;
+      --text:#f5efff;
+      --muted:#cbbbe8;
+      --muted-2:#a693c7;
+      --shadow:0 24px 70px rgba(0,0,0,.35);
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family: Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(168,85,247,.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(139,92,246,.14), transparent 30%),
+        linear-gradient(180deg, #0b0615 0%, #120822 35%, #170b2d 70%, #0d0719 100%);
+      line-height:1.6;
+      padding:32px 18px 50px;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size:40px 40px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.65), transparent 95%);
+      opacity:.35;
+    }
+
+    .container{
+      max-width:1120px;
+      margin:0 auto;
+      position:relative;
+      z-index:1;
+    }
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:44px 34px;
+      border:1px solid var(--line-strong);
+      border-radius:32px;
+      background:
+        linear-gradient(135deg, rgba(112,52,255,.28), rgba(168,85,247,.12)),
+        rgba(255,255,255,.04);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      margin-bottom:22px;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:360px;
+      height:360px;
+      border-radius:50%;
+      right:-120px;
+      top:-120px;
+      background: radial-gradient(circle, rgba(192,132,252,.28), transparent 68%);
+      pointer-events:none;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      left:-90px;
+      bottom:-120px;
+      background: radial-gradient(circle, rgba(139,92,246,.22), transparent 70%);
+      pointer-events:none;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:.84rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:var(--primary-3);
+      margin-bottom:16px;
+      font-weight:700;
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:34px;
+      height:1px;
+      background:linear-gradient(90deg, var(--primary-3), transparent);
+    }
+
+    .hero h1{
+      font-size:clamp(2.2rem, 4vw, 4rem);
+      line-height:1.02;
+      max-width:780px;
+      margin-bottom:16px;
+      letter-spacing:-0.03em;
+    }
+
+    .hero p{
+      max-width:780px;
+      font-size:1.05rem;
+      color:var(--muted);
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:24px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:13px 18px;
+      text-decoration:none;
+      font-weight:700;
+      border-radius:12px;
+      transition:.22s ease;
+      border:1px solid transparent;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:white;
+      box-shadow:0 12px 30px rgba(139,92,246,.28);
+    }
+
+    .btn-secondary{
+      color:var(--text);
+      border-color:var(--line);
+      background:rgba(255,255,255,.03);
+    }
+
+    .section{
+      margin-top:22px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:rgba(255,255,255,.035);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .section-head{
+      padding:28px 28px 10px;
+    }
+
+    .section-head h2{
+      font-size:1.65rem;
+      margin-bottom:8px;
+      letter-spacing:-0.02em;
+    }
+
+    .section-head p{
+      color:var(--muted-2);
+      max-width:780px;
+    }
+
+    .story-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:0;
+      border-top:1px solid rgba(255,255,255,.05);
+    }
+
+    .story-main{
+      padding:28px 26px;
+      border-right:1px solid rgba(255,255,255,.06);
+    }
+
+    .story-block + .story-block{
+      margin-top:24px;
+      padding-top:24px;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+
+    .story-label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:10px;
+      font-size:.8rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--primary-3);
+      font-weight:700;
+    }
+
+    .story-label::before{
+      content:"";
+      width:18px;
+      height:1px;
+      background:var(--primary-3);
+    }
+
+    .story-block h3{
+      font-size:1.35rem;
+      margin-bottom:10px;
+      letter-spacing:-0.02em;
+    }
+
+    .story-block p{
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    .story-side{
+      padding:28px 24px;
+      background:
+        radial-gradient(circle at top right, rgba(168,85,247,.12), transparent 45%),
+        rgba(255,255,255,.02);
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .info-card{
+      padding:18px;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.02);
+      border-radius:16px;
+    }
+
+    .info-card h4{
+      color:var(--primary-3);
+      font-size:1rem;
+      margin-bottom:8px;
+    }
+
+    .info-card p{
+      color:var(--muted);
+      font-size:.97rem;
+    }
+
+    .timeline{
+      border-top:1px solid rgba(255,255,255,.05);
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+    }
+
+    .timeline-item{
+      padding:24px 22px;
+      border-right:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+    }
+
+    .timeline-item:last-child{
+      border-right:none;
+    }
+
+    .timeline-item .number{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      border-radius:12px;
+      background:linear-gradient(135deg, var(--primary), var(--primary-2));
+      color:#fff;
+      font-weight:800;
+      margin-bottom:14px;
+      box-shadow:0 10px 22px rgba(139,92,246,.22);
+    }
+
+    .timeline-item h3{
+      font-size:1.08rem;
+      margin-bottom:8px;
+    }
+
+    .timeline-item p{
+      color:var(--muted);
+      font-size:.96rem;
+    }
+
+    .highlight{
+      border-top:1px solid rgba(255,255,255,.05);
+      padding:26px 28px;
+      background:
+        linear-gradient(135deg, rgba(139,92,246,.14), rgba(168,85,247,.05)),
+        rgba(255,255,255,.02);
+    }
+
+    .highlight h3{
+      font-size:1.45rem;
+      margin-bottom:10px;
+      letter-spacing:-0.02em;
+    }
+
+    .highlight p{
+      max-width:820px;
+      color:var(--muted);
+    }
+
+    .footer-cta{
+      margin-top:22px;
+      padding:28px;
+      border:1px solid var(--line-strong);
+      border-radius:28px;
+      background:
+        linear-gradient(135deg, rgba(139,92,246,.18), rgba(168,85,247,.08)),
+        rgba(255,255,255,.035);
+      box-shadow: var(--shadow);
+    }
+
+    .footer-cta h3{
+      font-size:1.6rem;
+      margin-bottom:10px;
+      letter-spacing:-0.02em;
+    }
+
+    .footer-cta p{
+      max-width:760px;
+      color:var(--muted);
+      margin-bottom:18px;
+    }
+
+    .footer-note{
+      margin-top:16px;
+      color:var(--muted-2);
+      font-size:.93rem;
+    }
+
+    @media (max-width: 900px){
+      .story-grid{
+        grid-template-columns:1fr;
+      }
+
+      .story-main{
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
+
+      .timeline{
+        grid-template-columns:1fr;
+      }
+
+      .timeline-item{
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
+
+      .timeline-item:last-child{
+        border-bottom:none;
+      }
+    }
+
+    @media (max-width: 680px){
+      body{
+        padding:18px 12px 36px;
+      }
+
+      .hero{
+        padding:30px 20px;
+        border-radius:24px;
+      }
+
+      .section-head,
+      .story-main,
+      .story-side,
+      .highlight,
+      .footer-cta,
+      .timeline-item{
+        padding:20px 18px;
+      }
+
+      .hero h1{
+        line-height:1.06;
+      }
+    }
+  
+/* ===== Navegação global ===== */
+:root{
+  --nav-height: 78px;
+}
+
+body{
+  padding-top: calc(var(--nav-height) + 24px) !important;
+}
+
+.site-header{
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  right: 14px;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.site-header-inner,
+.mobile-panel{
+  max-width: 1160px;
+  margin: 0 auto;
+  pointer-events: auto;
+}
+
+.site-header-inner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 12px 16px;
+  border: 1px solid rgba(179,135,255,0.22);
+  border-radius: 18px;
+  background: rgba(13,7,25,0.72);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 48px rgba(0,0,0,.28);
+}
+
+.brand-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--text, #f5efff);
+  min-width: 0;
+}
+
+.brand-mark{
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: .95rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--primary, #8b5cf6), var(--primary-2, #a855f7));
+  box-shadow: 0 10px 24px rgba(139,92,246,.26);
+  flex: 0 0 auto;
+}
+
+.brand-text{
+  font-weight: 700;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.site-nav{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.nav-link{
+  text-decoration: none;
+  color: var(--muted, #cbbbe8);
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  border: 1px solid transparent;
+  transition: .22s ease;
+}
+
+.nav-link:hover{
+  color: var(--text, #f5efff);
+  background: rgba(255,255,255,.04);
+  border-color: rgba(179,135,255,0.14);
+  transform: translateY(-1px);
+}
+
+.nav-link.active{
+  color: #fff;
+  background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(168,85,247,.12));
+  border-color: rgba(179,135,255,0.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.nav-toggle{
+  display: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  border: 1px solid rgba(179,135,255,0.22);
+  background: rgba(255,255,255,.04);
+  cursor: pointer;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-toggle span{
+  width: 18px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--text, #f5efff);
+  display: block;
+}
+
+.mobile-panel{
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid rgba(179,135,255,0.20);
+  border-radius: 18px;
+  background: rgba(13,7,25,0.86);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 48px rgba(0,0,0,.28);
+}
+
+.mobile-nav{
+  display: grid;
+  gap: 8px;
+}
+
+.mobile-nav .nav-link{
+  width: 100%;
+}
+
+@media (max-width: 900px){
+  .desktop-nav{
+    display: none;
+  }
+
+  .nav-toggle{
+    display: inline-flex;
+  }
+
+  .brand-text{
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 640px){
+  :root{
+    --nav-height: 74px;
+  }
+
+  .site-header{
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .site-header-inner{
+    padding: 10px 12px;
+    border-radius: 16px;
+  }
+
+  .brand-mark{
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    font-size: .88rem;
+  }
+
+  .brand-text{
+    max-width: 140px;
+    font-size: .95rem;
+  }
+}
+
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand-link" href="index.html" aria-label="Carteado da Probabilidade - Página inicial">
+        <span class="brand-mark">CP</span>
+        <span class="brand-text">Carteado da Probabilidade</span>
+      </a>
+
+      <nav class="site-nav desktop-nav" aria-label="Navegação principal">
+        <a class="nav-link" href="index.html">Início</a>
+        <a class="nav-link active" href="sobre.html">Sobre</a>
+        <a class="nav-link" href="como-jogar.html">Como jogar</a>
+        <a class="nav-link" href="baixar.html">Baixar</a>
+        <a class="nav-link" href="contato.html">Contato</a>
+        <a class="nav-link" href="simulador.html">Simulador</a>
+      </nav>
+
+      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile-panel" id="mobile-menu" hidden>
+      <nav class="mobile-nav" aria-label="Navegação mobile">
+        <a class="nav-link" href="index.html">Início</a>
+        <a class="nav-link active" href="sobre.html">Sobre</a>
+        <a class="nav-link" href="como-jogar.html">Como jogar</a>
+        <a class="nav-link" href="baixar.html">Baixar</a>
+        <a class="nav-link" href="contato.html">Contato</a>
+        <a class="nav-link" href="simulador.html">Simulador</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <section class="hero">
+      <div class="eyebrow">Sobre o projeto</div>
+      <h1>Um jogo que nasceu na formação docente e segue evoluindo como pesquisa em ensino de matemática</h1>
+      <p>
+        O Carteado da Probabilidade surgiu do interesse em transformar o estudo da probabilidade
+        em uma experiência mais concreta, estratégica e significativa. Mais do que um jogo,
+        o projeto busca aproximar conceitos matemáticos de situações de escolha, análise e tomada de decisão.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-secondary" href="baixar.html">Baixar arquivos</a>
+      </div>
+    </section>
+
+    <section class="section" id="trajetoria">
+      <div class="section-head">
+        <h2>Trajetória do projeto</h2>
+        <p>
+          Esta página apresenta de onde o projeto veio, como ele evoluiu e em que contexto acadêmico
+          ele continua sendo desenvolvido.
+        </p>
+      </div>
+
+      <div class="story-grid">
+        <div class="story-main">
+          <div class="story-block">
+            <div class="story-label">Primeira versão</div>
+            <h3>Um jogo criado no contexto da formação</h3>
+            <p>
+              A primeira versão do Carteado da Probabilidade foi desenvolvida na disciplina de
+              Laboratório de Matemática. Essa etapa foi importante para estruturar a ideia inicial,
+              testar o formato do jogo e definir seus elementos centrais. Ao mesmo tempo, essa versão
+              ainda não havia sido validada em contextos externos ao ambiente da própria disciplina.
+            </p>
+          </div>
+
+          <div class="story-block">
+            <div class="story-label">Continuidade</div>
+            <h3>Do experimento inicial ao aprofundamento da pesquisa</h3>
+            <p>
+              Com o amadurecimento da proposta, o projeto passou a ser retomado, revisto e ampliado.
+              O que antes era uma versão inicial construída em um contexto formativo passou a ganhar
+              fôlego como investigação acadêmica, com mais intenção pedagógica, mais refinamento visual
+              e mais clareza sobre suas possibilidades para o ensino.
+            </p>
+          </div>
+        </div>
+
+        <aside class="story-side">
+          
+
+          <div class="info-card">
+            <h4>Laboratório de Matemática</h4>
+            <p>
+              A disciplina funcionou como ponto de partida para a criação do jogo e para as primeiras decisões sobre sua estrutura.
+            </p>
+          </div>
+
+          <div class="info-card">
+            <h4>PPGECM / UFU</h4>
+            <p>
+              Atualmente, o desenvolvimento do projeto está vinculado ao Programa de Pós-Graduação em Ensino de Ciências e Matemática da UFU.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+         <div class="highlight">
+        <h3>Projeto em continuidade</h3>
+        <p>
+          Atualmente, o Carteado da Probabilidade está vinculado ao Programa de Pós-Graduação em Ensino
+          de Ciências e Matemática da Universidade Federal de Uberlândia. Isso marca uma nova fase do projeto:
+          mais madura, mais fundamentada e mais comprometida com sua contribuição para o ensino e aprendizagem da matemática.
+        </p>
+      </div>
+    </section>
+
+    <section class="footer-cta">
+      <h3>Quer se aprofundar no projeto?</h3>
+      <p>
+        Você pode acessar a dissertação, explorar os materiais disponíveis no site ou testar a proposta
+        no simulador do jogo.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#" aria-disabled="true">Ler dissertação</a>
+        <a class="btn btn-secondary" href="simulador.html">Ir para o simulador</a>
+      </div>
+
+      <div class="footer-note">
+        Carteado da Probabilidade • projeto desenvolvido na UFU e vinculado ao PPGECM
+      </div>
+    </section>
+
+  </div>
+
+<script>
+(function () {
+  const toggle = document.querySelector('.nav-toggle');
+  const panel = document.getElementById('mobile-menu');
+  if (!toggle || !panel) return;
+
+  function closeMenu() {
+    panel.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', function () {
+    const willOpen = panel.hidden;
+    panel.hidden = !panel.hidden;
+    toggle.setAttribute('aria-expanded', String(willOpen));
+  });
+
+  panel.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  document.addEventListener('click', function (event) {
+    if (panel.hidden) return;
+    if (!panel.contains(event.target) && !toggle.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 900) closeMenu();
+  });
+})();
+</script>
+
+</body>
+</html>
