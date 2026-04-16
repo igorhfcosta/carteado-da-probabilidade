@@ -5,25 +5,32 @@
   <link rel="icon" type="image/ico" href="favicon.ico">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Carteado da Probabilidade: jogo educativo com cartas e dados para aprender probabilidade de forma estratégica, interativa e significativa." />
   <title>Carteado da Probabilidade - Início</title>
-  <link rel="stylesheet" href="menu.css">
+
   <style>
-    
     :root{
-      --bg:#0f071d;
-      --bg-2:#160b2c;
-      --bg-3:#221043;
-      --panel:rgba(255,255,255,0.05);
-      --panel-strong:rgba(255,255,255,0.08);
-      --line:rgba(179,135,255,0.18);
-      --line-strong:rgba(179,135,255,0.32);
+      --bg:#080510;
+      --bg-2:#12091f;
+      --bg-3:#1a1030;
+      --surface:rgba(255,255,255,0.05);
+      --surface-strong:rgba(255,255,255,0.08);
+      --line:rgba(255,255,255,0.10);
+      --line-strong:rgba(170,132,255,0.24);
       --primary:#8b5cf6;
-      --primary-2:#a855f7;
-      --primary-3:#c084fc;
-      --text:#f5efff;
-      --muted:#cbbbe8;
-      --muted-2:#a693c7;
-      --shadow:0 24px 70px rgba(0,0,0,.35);
+      --primary-2:#6d4aff;
+      --primary-3:#c4b5fd;
+      --white:#ffffff;
+      --text:#f8f5ff;
+      --muted:#cfc5e6;
+      --muted-2:#a899c7;
+      --success:#ffffff;
+      --shadow:0 24px 70px rgba(0,0,0,.36);
+      --shadow-soft:0 14px 34px rgba(0,0,0,.22);
+      --radius-xl:34px;
+      --radius-lg:24px;
+      --radius-md:18px;
+      --radius-sm:14px;
     }
 
     *{
@@ -40,11 +47,12 @@
       font-family: Arial, Helvetica, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at top left, rgba(168,85,247,.24), transparent 26%),
-        radial-gradient(circle at top right, rgba(139,92,246,.16), transparent 30%),
-        linear-gradient(180deg, #090511 0%, #120822 35%, #170b2d 72%, #0d0719 100%);
+        radial-gradient(circle at top left, rgba(139,92,246,.18), transparent 24%),
+        radial-gradient(circle at top right, rgba(255,255,255,.06), transparent 20%),
+        radial-gradient(circle at 50% 0%, rgba(109,74,255,.14), transparent 26%),
+        linear-gradient(180deg, #07040d 0%, #10081c 36%, #140b26 72%, #090510 100%);
       line-height:1.6;
-      padding:24px 18px 50px;
+      padding:24px 18px 60px;
       overflow-x:hidden;
     }
 
@@ -54,11 +62,11 @@
       inset:0;
       pointer-events:none;
       background:
-        linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
-      background-size:40px 40px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,.68), transparent 95%);
-      opacity:.35;
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 92%);
+      opacity:.32;
     }
 
     .container{
@@ -68,34 +76,19 @@
       z-index:1;
     }
 
-    .notice{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      margin-bottom:16px;
-      padding:10px 14px;
-      border:1px solid rgba(192,132,252,.22);
-      background:rgba(168,85,247,.08);
-      color:var(--primary-3);
-      border-radius:999px;
-      font-size:.9rem;
-      font-weight:700;
-      backdrop-filter:blur(8px);
-    }
-
     .hero{
       position:relative;
       overflow:hidden;
-      padding:54px 40px 38px;
+      padding:34px;
       border:1px solid var(--line-strong);
-      border-radius:34px;
+      border-radius:var(--radius-xl);
       background:
-        radial-gradient(circle at 78% 22%, rgba(192,132,252,.20), transparent 24%),
-        linear-gradient(135deg, rgba(112,52,255,.30), rgba(168,85,247,.10)),
-        rgba(255,255,255,.04);
-      backdrop-filter: blur(10px);
-      box-shadow:var(--shadow);
-      margin-bottom:22px;
+        linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+        radial-gradient(circle at 82% 18%, rgba(196,181,253,.18), transparent 18%),
+        linear-gradient(135deg, rgba(109,74,255,.20), rgba(255,255,255,.02) 55%);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      margin-bottom:24px;
     }
 
     .hero::before{
@@ -103,38 +96,40 @@
       position:absolute;
       width:420px;
       height:420px;
-      right:-140px;
-      top:-130px;
+      right:-170px;
+      top:-150px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(192,132,252,.28), transparent 68%);
+      background:radial-gradient(circle, rgba(255,255,255,.10), transparent 70%);
       pointer-events:none;
     }
 
     .hero::after{
       content:"";
       position:absolute;
-      width:340px;
-      height:340px;
-      left:-120px;
-      bottom:-150px;
+      width:360px;
+      height:360px;
+      left:-140px;
+      bottom:-180px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(139,92,246,.18), transparent 70%);
+      background:radial-gradient(circle, rgba(139,92,246,.18), transparent 72%);
       pointer-events:none;
     }
 
     .hero-grid{
       display:grid;
       grid-template-columns:1.15fr .85fr;
-      gap:22px;
-      align-items:center;
+      gap:24px;
+      align-items:stretch;
+      position:relative;
+      z-index:1;
     }
 
     .eyebrow{
       display:inline-flex;
       align-items:center;
       gap:10px;
-      font-size:.84rem;
-      letter-spacing:.12em;
+      font-size:.82rem;
+      letter-spacing:.14em;
       text-transform:uppercase;
       color:var(--primary-3);
       margin-bottom:18px;
@@ -143,21 +138,26 @@
 
     .eyebrow::before{
       content:"";
-      width:34px;
+      width:36px;
       height:1px;
       background:linear-gradient(90deg, var(--primary-3), transparent);
     }
 
     .hero h1{
-      font-size:clamp(2.8rem, 6vw, 5.2rem);
-      line-height:.95;
-      max-width:760px;
+      font-size:clamp(2.7rem, 6vw, 5.1rem);
+      line-height:.93;
+      max-width:720px;
       margin-bottom:18px;
-      letter-spacing:-0.05em;
+      letter-spacing:-0.055em;
+    }
+
+    .hero h1 .highlight-word{
+      color:var(--white);
+      text-shadow:0 0 24px rgba(196,181,253,.16);
     }
 
     .hero p{
-      max-width:700px;
+      max-width:690px;
       font-size:1.08rem;
       color:var(--muted);
     }
@@ -166,19 +166,22 @@
       display:flex;
       flex-wrap:wrap;
       gap:12px;
-      margin-top:26px;
+      margin-top:28px;
     }
 
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
+      gap:10px;
+      min-height:52px;
       padding:14px 20px;
       text-decoration:none;
       font-weight:700;
-      border-radius:12px;
+      border-radius:14px;
       transition:.22s ease;
       border:1px solid transparent;
+      cursor:pointer;
     }
 
     .btn:hover{
@@ -186,302 +189,396 @@
     }
 
     .btn-primary{
-      background:linear-gradient(135deg, var(--primary), var(--primary-2));
-      color:#fff;
-      box-shadow:0 12px 30px rgba(139,92,246,.28);
+      background:linear-gradient(135deg, var(--white), #e9e3ff);
+      color:#1b1030;
+      box-shadow:0 14px 30px rgba(255,255,255,.14);
+    }
+
+    .btn-primary:hover{
+      box-shadow:0 18px 34px rgba(255,255,255,.18);
     }
 
     .btn-secondary{
       color:var(--text);
-      border-color:var(--line);
-      background:rgba(255,255,255,.03);
+      border-color:rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+    }
+
+    .btn-secondary:hover{
+      border-color:rgba(196,181,253,.30);
+      background:rgba(255,255,255,.06);
+    }
+
+    .hero-mini{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .mini-pill{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:.92rem;
+      font-weight:700;
     }
 
     .hero-side{
       display:grid;
       gap:14px;
+      height:100%;
     }
 
-    .hero-card{
-      padding:20px;
+    .showcase-card{
+      position:relative;
+      overflow:hidden;
+      padding:22px;
+      border-radius:24px;
       border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;
-      background:rgba(255,255,255,.04);
-      backdrop-filter:blur(10px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)),
+        rgba(255,255,255,.02);
+      min-height:170px;
+      box-shadow:var(--shadow-soft);
     }
 
-    .hero-card h3{
-      font-size:1.04rem;
+    .showcase-card.primary{
+      background:
+        radial-gradient(circle at top right, rgba(255,255,255,.18), transparent 22%),
+        linear-gradient(135deg, rgba(139,92,246,.36), rgba(109,74,255,.18) 55%, rgba(255,255,255,.04));
+    }
+
+    .showcase-label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:10px;
       color:var(--primary-3);
-      margin-bottom:8px;
+      font-size:.8rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:700;
     }
 
-    .hero-card p{
-      font-size:.97rem;
+    .showcase-card h3{
+      font-size:1.28rem;
+      margin-bottom:8px;
+      letter-spacing:-0.03em;
+    }
+
+    .showcase-card p{
       color:var(--muted);
+      font-size:.98rem;
       max-width:none;
     }
 
-    .hero-card strong{
+    .showcase-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:14px;
       color:#fff;
+      text-decoration:none;
+      font-weight:700;
     }
 
     .section{
-      margin-top:22px;
-      border:1px solid var(--line);
-      border-radius:28px;
+      margin-top:24px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:30px;
       background:rgba(255,255,255,.035);
-      backdrop-filter: blur(8px);
-      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-soft);
       overflow:hidden;
     }
 
     .section-head{
-      padding:28px 28px 10px;
+      padding:28px 28px 12px;
     }
 
     .section-head h2{
-      font-size:1.7rem;
+      font-size:1.85rem;
       margin-bottom:8px;
-      letter-spacing:-0.02em;
+      letter-spacing:-0.03em;
     }
 
     .section-head p{
       color:var(--muted-2);
-      max-width:780px;
+      max-width:760px;
     }
 
-    .impact-grid{
+    .feature-grid{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
-      border-top:1px solid rgba(255,255,255,.05);
+      gap:0;
+      border-top:1px solid rgba(255,255,255,.06);
     }
 
-    .impact-card{
-      padding:24px 22px;
+    .feature-card{
+      padding:26px 24px;
       border-right:1px solid rgba(255,255,255,.06);
       background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      transition:.22s ease;
     }
 
-    .impact-card:last-child{
+    .feature-card:last-child{
       border-right:none;
     }
 
-    .impact-number{
-      font-size:2rem;
+    .feature-card:hover{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+    }
+
+    .feature-icon{
+      width:54px;
+      height:54px;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      background:linear-gradient(135deg, #ffffff, #d8cbff);
+      color:#221238;
+      font-size:1.3rem;
       font-weight:800;
-      color:#fff;
-      line-height:1;
-      margin-bottom:10px;
-      letter-spacing:-0.04em;
+      box-shadow:0 12px 26px rgba(255,255,255,.10);
+      margin-bottom:16px;
     }
 
-    .impact-card h3{
-      font-size:1.06rem;
+    .feature-card h3{
+      font-size:1.12rem;
       margin-bottom:8px;
+      letter-spacing:-0.02em;
     }
 
-    .impact-card p{
+    .feature-card p{
       color:var(--muted);
       font-size:.97rem;
     }
 
-    .nav-grid{
+    .path-grid{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
       gap:0;
-      border-top:1px solid rgba(255,255,255,.05);
+      border-top:1px solid rgba(255,255,255,.06);
     }
 
-    .nav-card{
+    .path-card{
       display:flex;
       flex-direction:column;
-      gap:10px;
-      padding:24px 22px;
+      gap:12px;
+      padding:24px;
       text-decoration:none;
       color:inherit;
       border-right:1px solid rgba(255,255,255,.06);
       border-bottom:1px solid rgba(255,255,255,.06);
       background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-      transition:.2s ease;
+      transition:.22s ease;
+      min-height:220px;
     }
 
-    .nav-card:hover{
-      background:linear-gradient(180deg, rgba(139,92,246,.10), rgba(255,255,255,.02));
-      transform:translateY(-2px);
+    .path-card:hover{
+      transform:translateY(-3px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+        linear-gradient(135deg, rgba(139,92,246,.14), rgba(255,255,255,.02));
     }
 
-    .nav-card:nth-child(3n){
+    .path-card:nth-child(3n){
       border-right:none;
     }
 
-    .nav-card:nth-last-child(-n+3){
+    .path-card:nth-last-child(-n+3){
       border-bottom:none;
     }
 
-    .nav-icon{
+    .path-tag{
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:var(--primary-3);
+      font-size:.76rem;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .path-icon{
       width:52px;
       height:52px;
       display:grid;
       place-items:center;
-      border-radius:14px;
-      background:linear-gradient(135deg, var(--primary), var(--primary-2));
-      color:#fff;
+      border-radius:16px;
+      background:linear-gradient(135deg, rgba(255,255,255,.98), rgba(212,198,255,.86));
+      color:#261540;
       font-size:1.35rem;
-      box-shadow:0 10px 24px rgba(139,92,246,.24);
+      box-shadow:0 10px 22px rgba(255,255,255,.10);
     }
 
-    .nav-card h3{
-      font-size:1.14rem;
+    .path-card h3{
+      font-size:1.2rem;
       letter-spacing:-0.02em;
     }
 
-    .nav-card p{
+    .path-card p{
       color:var(--muted);
+      font-size:.97rem;
+    }
+
+    .path-link{
+      margin-top:auto;
+      color:#fff;
+      font-weight:700;
       font-size:.96rem;
     }
 
-    .manifesto{
+    .split-section{
       display:grid;
-      grid-template-columns:1.05fr .95fr;
+      grid-template-columns:1.08fr .92fr;
       gap:0;
-      border-top:1px solid rgba(255,255,255,.05);
+      border-top:1px solid rgba(255,255,255,.06);
     }
 
-    .manifesto-main{
-      padding:28px 26px;
+    .split-main{
+      padding:30px 28px;
       border-right:1px solid rgba(255,255,255,.06);
     }
 
-    .manifesto-main h3{
-      font-size:1.5rem;
+    .split-main h3{
+      font-size:1.6rem;
       margin-bottom:12px;
-      letter-spacing:-0.02em;
+      letter-spacing:-0.03em;
     }
 
-    .manifesto-main p{
+    .split-main p{
       color:var(--muted);
-      max-width:760px;
       margin-bottom:14px;
+      max-width:760px;
     }
 
-    .manifesto-side{
+    .split-side{
       padding:28px 24px;
       background:
-        radial-gradient(circle at top right, rgba(168,85,247,.12), transparent 45%),
+        radial-gradient(circle at top right, rgba(255,255,255,.08), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(139,92,246,.16), transparent 38%),
         rgba(255,255,255,.02);
       display:grid;
-      gap:16px;
+      gap:14px;
     }
 
     .info-card{
       padding:18px;
-      border:1px solid rgba(255,255,255,.06);
-      background:rgba(255,255,255,.02);
-      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      border-radius:18px;
     }
 
     .info-card h4{
-      color:var(--primary-3);
+      color:#fff;
       font-size:1rem;
       margin-bottom:8px;
     }
 
     .info-card p{
       color:var(--muted);
-      font-size:.97rem;
+      font-size:.96rem;
     }
 
-    .footer-cta{
-      margin-top:22px;
+    .cta-band{
+      margin-top:24px;
       padding:30px 28px;
-      border:1px solid var(--line-strong);
-      border-radius:28px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:30px;
       background:
-        linear-gradient(135deg, rgba(139,92,246,.18), rgba(168,85,247,.08)),
-        rgba(255,255,255,.035);
-      box-shadow: var(--shadow);
+        radial-gradient(circle at top right, rgba(255,255,255,.10), transparent 20%),
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(139,92,246,.16));
+      box-shadow: var(--shadow-soft);
     }
 
-    .footer-cta h3{
-      font-size:1.8rem;
+    .cta-band h3{
+      font-size:1.9rem;
       margin-bottom:10px;
-      letter-spacing:-0.03em;
+      letter-spacing:-0.04em;
     }
 
-    .footer-cta p{
-      max-width:820px;
+    .cta-band p{
+      max-width:760px;
       color:var(--muted);
       margin-bottom:18px;
     }
 
     .footer-note{
-      margin-top:16px;
+      margin-top:18px;
       color:var(--muted-2);
       font-size:.93rem;
     }
 
     @media (max-width: 980px){
       .hero-grid,
-      .manifesto{
+      .split-section{
         grid-template-columns:1fr;
       }
 
-      .manifesto-main{
+      .split-main{
         border-right:none;
         border-bottom:1px solid rgba(255,255,255,.06);
       }
 
-      .impact-grid{
+      .feature-grid{
         grid-template-columns:1fr;
       }
 
-      .impact-card{
+      .feature-card{
         border-right:none;
         border-bottom:1px solid rgba(255,255,255,.06);
       }
 
-      .impact-card:last-child{
+      .feature-card:last-child{
         border-bottom:none;
       }
 
-      .nav-grid{
+      .path-grid{
         grid-template-columns:1fr 1fr;
       }
 
-      .nav-card:nth-child(3n){
+      .path-card:nth-child(3n){
         border-right:1px solid rgba(255,255,255,.06);
       }
 
-      .nav-card:nth-child(2n){
+      .path-card:nth-child(2n){
         border-right:none;
       }
 
-      .nav-card:nth-last-child(-n+3){
+      .path-card:nth-last-child(-n+3){
         border-bottom:1px solid rgba(255,255,255,.06);
       }
 
-      .nav-card:nth-last-child(-n+2){
+      .path-card:nth-last-child(-n+2){
         border-bottom:none;
       }
     }
 
     @media (max-width: 680px){
       body{
-        padding:18px 12px 36px;
+        padding:18px 12px 40px;
       }
 
       .hero{
-        padding:32px 20px 24px;
+        padding:28px 20px 22px;
         border-radius:24px;
       }
 
       .section-head,
-      .impact-card,
-      .nav-card,
-      .manifesto-main,
-      .manifesto-side,
-      .footer-cta{
+      .feature-card,
+      .path-card,
+      .split-main,
+      .split-side,
+      .cta-band{
         padding:20px 18px;
       }
 
@@ -497,22 +594,21 @@
         width:100%;
       }
 
-      .nav-grid{
+      .path-grid{
         grid-template-columns:1fr;
       }
 
-      .nav-card{
+      .path-card{
         border-right:none !important;
         border-bottom:1px solid rgba(255,255,255,.06) !important;
+        min-height:auto;
       }
 
-      .nav-card:last-child{
+      .path-card:last-child{
         border-bottom:none !important;
       }
     }
-  
-
-</style>
+  </style>
 </head>
 <body>
 
@@ -520,37 +616,41 @@
 
   <div class="container">
 
-    <div class="notice">O site está em manutenção</div>
-
     <section class="hero">
       <div class="hero-grid">
         <div>
-          <div class="eyebrow">Carteado da Probabilidade</div>
-          <h1>Aprenda probabilidade jogando</h1>
+          <div class="eyebrow">Jogo educativo de probabilidade</div>
+          <h1>Aprenda <span class="highlight-word">probabilidade</span> jogando.</h1>
           <p>
-            Um jogo pensado para transformar conceitos de probabilidade em experiência, estratégia e tomada de decisão.
-            Aqui você pode conhecer as regras, baixar os materiais, explorar o simulador e acessar os conteúdos voltados para professores.
+            Um jogo com cartas e dados que transforma chance, escolha e estratégia em experiência real de aprendizagem.
+            Explore o simulador, baixe os materiais e descubra como aplicar a proposta em contextos educativos.
           </p>
 
           <div class="hero-actions">
             <a class="btn btn-primary" href="simulador.html">Jogar agora</a>
-            <a class="btn btn-secondary" href="como-jogar.html">Como jogar</a>
+            <a class="btn btn-secondary" href="baixar.html">Baixar o jogo</a>
+            <a class="btn btn-secondary" href="como-jogar.html">Ver regras</a>
           </div>
+
         </div>
 
         <div class="hero-side">
-          <div class="hero-card">
-            <h3>Jogo, estratégia e matemática</h3>
+          <div class="showcase-card primary">
+            <div class="showcase-label">Comece pelo essencial</div>
+            <h3>Entre no simulador e sinta a lógica do jogo</h3>
             <p>
-              O projeto aproxima a probabilidade de situações reais de <strong>escolha</strong>, <strong>chance</strong> e <strong>análise de possibilidades</strong>.
+              A melhor forma de entender a proposta é jogar. A dinâmica coloca a probabilidade em ação durante cada escolha.
             </p>
+            <a class="showcase-link" href="simulador.html">Abrir simulador →</a>
           </div>
 
-          <div class="hero-card">
-            <h3>Para estudantes e professores</h3>
+          <div class="showcase-card">
+            <div class="showcase-label">Para professores</div>
+            <h3>Use o jogo como recurso didático</h3>
             <p>
-              Além do jogo, o site reúne materiais para aplicação didática, fundamentação teórica e recursos para uso em sala de aula.
+              Acesse as páginas voltadas ao professor e conheça possibilidades pedagógicas e fundamentos da proposta.
             </p>
+            <a class="showcase-link" href="proposta-didatica.html">Explorar aplicação →</a>
           </div>
         </div>
       </div>
@@ -558,76 +658,59 @@
 
     <section class="section">
       <div class="section-head">
-        <h2>Por que entrar nesse projeto?</h2>
+        <h2>Escolha seu próximo passo</h2>
         <p>
-          O Carteado da Probabilidade não foi pensado só para entreter. Ele organiza o conteúdo em uma experiência de jogo que mobiliza raciocínio, comparação de chances e escolhas estratégicas.
+          Os caminhos principais do projeto estão organizados aqui para deixar a navegação mais clara e mais útil.
         </p>
       </div>
 
-      <div class="impact-grid">
-        <div class="impact-card">
-          <div class="impact-number">1</div>
-          <h3>Probabilidade em ação</h3>
-          <p>Os conceitos aparecem durante a partida, não apenas como explicação teórica isolada.</p>
-        </div>
-
-        <div class="impact-card">
-          <div class="impact-number">2</div>
-          <h3>Experiência interativa</h3>
-          <p>Jogadores tomam decisões, observam padrões e desenvolvem intuição probabilística jogando.</p>
-        </div>
-
-        <div class="impact-card">
-          <div class="impact-number">3</div>
-          <h3>Uso pedagógico</h3>
-          <p>O projeto também oferece caminhos para professores aplicarem o jogo em contextos educativos.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head">
-        <h2>Explore o site</h2>
-        <p>
-          Os principais caminhos do projeto estão organizados aqui para facilitar a navegação.
-        </p>
-      </div>
-
-      <div class="nav-grid">
-        <a class="nav-card" href="como-jogar.html">
-          <div class="nav-icon">🎮</div>
-          <h3>Como jogar</h3>
-          <p>Entenda as regras, a lógica da rodada e as estratégias principais do jogo.</p>
-        </a>
-
-        <a class="nav-card" href="simulador.html">
-          <div class="nav-icon">🕹️</div>
+      <div class="path-grid">
+        <a class="path-card" href="simulador.html">
+          <span class="path-tag">Experimente</span>
+          <div class="path-icon">🕹️</div>
           <h3>Simulador</h3>
-          <p>Teste a proposta em uma versão digital e experimente a dinâmica da partida.</p>
+          <p>Teste a proposta em uma versão digital e entenda a dinâmica da partida na prática.</p>
+          <span class="path-link">Abrir simulador →</span>
         </a>
 
-        <a class="nav-card" href="baixar.html">
-          <div class="nav-icon">⬇️</div>
+        <a class="path-card" href="como-jogar.html">
+          <span class="path-tag">Entenda</span>
+          <div class="path-icon">🎮</div>
+          <h3>Como jogar</h3>
+          <p>Veja as regras, a lógica das rodadas e os passos básicos para começar a jogar.</p>
+          <span class="path-link">Ver regras →</span>
+        </a>
+
+        <a class="path-card" href="baixar.html">
+          <span class="path-tag">Monte</span>
+          <div class="path-icon">⬇️</div>
           <h3>Baixar arquivos</h3>
-          <p>Acesse cartas, manual, caixa e dados para montar o jogo.</p>
+          <p>Acesse cartas, manual, caixa e outros materiais para montar o jogo.</p>
+          <span class="path-link">Baixar materiais →</span>
         </a>
 
-        <a class="nav-card" href="proposta-didatica.html">
-          <div class="nav-icon">📚</div>
-          <h3>Em sala de aula</h3>
-          <p>Veja possibilidades de uso pedagógico e caminhos para aplicação com estudantes.</p>
+        <a class="path-card" href="proposta-didatica.html">
+          <span class="path-tag">Professor</span>
+          <div class="path-icon">📚</div>
+          <h3>Proposta didática</h3>
+          <p>Explore possibilidades de aplicação pedagógica e caminhos de uso em contextos de ensino.</p>
+          <span class="path-link">Explorar proposta →</span>
         </a>
 
-        <a class="nav-card" href="embasamento-teorico.html">
-          <div class="nav-icon">🧠</div>
+        <a class="path-card" href="embasamento-teorico.html">
+          <span class="path-tag">Professor</span>
+          <div class="path-icon">🧠</div>
           <h3>Embasamento teórico</h3>
-          <p>Conheça os fundamentos que sustentam a proposta do projeto.</p>
+          <p>Conheça os fundamentos que sustentam o projeto e fortalecem sua proposta educativa.</p>
+          <span class="path-link">Ler fundamentos →</span>
         </a>
 
-        <a class="nav-card" href="sobre.html">
-          <div class="nav-icon">✨</div>
+        <a class="path-card" href="sobre.html">
+          <span class="path-tag">Projeto</span>
+          <div class="path-icon">✨</div>
           <h3>Sobre o projeto</h3>
           <p>Descubra a origem do jogo, seu desenvolvimento e seu vínculo acadêmico.</p>
+          <span class="path-link">Conhecer trajetória →</span>
         </a>
       </div>
     </section>
@@ -636,51 +719,55 @@
       <div class="section-head">
         <h2>Mais do que um jogo</h2>
         <p>
-          Esta página inicial precisa mostrar de imediato que o projeto tem identidade, proposta e direção.
+          O projeto articula experiência lúdica, intenção pedagógica e aprofundamento teórico em uma mesma proposta.
         </p>
       </div>
 
-      <div class="manifesto">
-        <div class="manifesto-main">
+      <div class="split-section">
+        <div class="split-main">
           <h3>Uma proposta para aproximar matemática, jogo e formação</h3>
           <p>
-            O Carteado da Probabilidade foi desenvolvido para tornar o estudo da probabilidade mais concreto, envolvente e significativo.
-            A ideia é colocar o jogador diante de situações em que pensar matematicamente faz diferença na própria experiência de jogar.
+            O Carteado da Probabilidade foi desenvolvido para tornar o estudo da probabilidade mais concreto, envolvente e significativo. A ideia é colocar o jogador diante de situações em que pensar matematicamente faz diferença na própria experiência de jogar.
           </p>
           <p>
-            Ao mesmo tempo, o projeto se amplia para além da partida. Ele também serve como material de apoio para professores,
-            abre espaço para discussões didáticas e se articula com uma proposta acadêmica mais ampla de ensino de matemática.
+            Ao mesmo tempo, o projeto se amplia para além da partida. Ele também serve como material de apoio para professores, abre espaço para discussões didáticas e se articula com uma proposta acadêmica mais ampla de ensino de matemática.
           </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="proposta-didatica.html">Ver páginas do professor</a>
+            <a class="btn btn-secondary" href="sobre.html">Conhecer o projeto</a>
+          </div>
         </div>
 
-        <aside class="manifesto-side">
+        <aside class="split-side">
           <div class="info-card">
             <h4>Aprender jogando</h4>
-            <p>O jogo transforma o conteúdo em vivência, não apenas em explicação.</p>
+            <p>O jogo transforma o conteúdo em experiência e favorece uma relação mais ativa com a matemática.</p>
           </div>
 
           <div class="info-card">
             <h4>Escolhas com sentido</h4>
-            <p>Os jogadores observam possibilidades, analisam resultados e tomam decisões.</p>
+            <p>Os jogadores observam possibilidades, analisam resultados e tomam decisões com base em chances.</p>
           </div>
 
           <div class="info-card">
-            <h4>Projeto em desenvolvimento</h4>
-            <p>O site reúne o jogo, os materiais e as páginas que apresentam sua dimensão pedagógica e acadêmica.</p>
+            <h4>Aplicação em contextos educativos</h4>
+            <p>O site concentra materiais e páginas que ajudam a levar a proposta para discussões pedagógicas reais.</p>
           </div>
         </aside>
       </div>
     </section>
 
-    <section class="footer-cta">
-      <h3>Entre no jogo e explore o projeto completo</h3>
+    <section class="cta-band">
+      <h3>Comece pelo que faz mais sentido para você</h3>
       <p>
-        A página inicial atual do site já destaca o jogo, os atalhos principais e o foco em aprender probabilidade jogando. Nesta versão, isso foi reorganizado para ficar mais forte visualmente e mais marcante como porta de entrada do projeto. 
+        Quer experimentar a dinâmica? Vá para o simulador. Quer montar o jogo? Baixe os arquivos. Quer levar a proposta para a sala de aula? Explore as páginas voltadas ao professor.
       </p>
 
       <div class="hero-actions">
         <a class="btn btn-primary" href="simulador.html">Jogar agora</a>
-        <a class="btn btn-secondary" href="contato.html">Contato</a>
+        <a class="btn btn-secondary" href="baixar.html">Baixar o jogo</a>
+        <a class="btn btn-secondary" href="contato.html">Entrar em contato</a>
       </div>
 
       <div class="footer-note">
@@ -690,6 +777,6 @@
 
   </div>
 
-<script src="menu.js"></script>
+  <script src="menu.js"></script>
 </body>
 </html>
