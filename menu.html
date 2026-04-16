@@ -1,6 +1,5 @@
 <header class="site-header">
   <div class="site-header-inner">
-    
     <a class="brand-link" href="index.html" aria-label="Carteado da Probabilidade - Página inicial">
       <span class="brand-mark">
         <img src="Imagens/logo.png" alt="Carteado da Probabilidade">
@@ -8,17 +7,24 @@
       <span class="brand-text">Carteado da Probabilidade</span>
     </a>
 
-    <nav class="site-nav desktop-nav">
+    <nav class="site-nav desktop-nav" aria-label="Navegação principal">
       <a class="nav-link" href="index.html">Início</a>
       <a class="nav-link" href="sobre.html">Sobre</a>
       <a class="nav-link" href="como-jogar.html">Como jogar</a>
       <a class="nav-link" href="baixar.html">Baixar</a>
       <a class="nav-link" href="simulador.html">Simulador</a>
-      <a class="nav-link dropdown-toggle">Professor ▾</a>
-    <a class="dropdown-item" href="proposta-didatica.html">Proposta didática</a>
-    <a class="dropdown-item" href="embasamento-teorico.html">Embasamento teórico</a>
-  </div>
-</div>
+
+      <div class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#">
+          Professor <span class="dropdown-arrow">▾</span>
+        </a>
+
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="proposta-didatica.html">Proposta didática</a>
+          <a class="dropdown-item" href="embasamento-teorico.html">Embasamento teórico</a>
+        </div>
+      </div>
+
       <a class="nav-link" href="contato.html">Contato</a>
     </nav>
 
@@ -28,14 +34,15 @@
   </div>
 
   <div class="mobile-panel" id="mobile-menu" hidden>
-    <nav class="mobile-nav">
+    <nav class="mobile-nav" aria-label="Navegação mobile">
       <a class="nav-link" href="index.html">Início</a>
       <a class="nav-link" href="sobre.html">Sobre</a>
       <a class="nav-link" href="como-jogar.html">Como jogar</a>
       <a class="nav-link" href="baixar.html">Baixar</a>
-      <a class="nav-link" href="contato.html">Contato</a>
       <a class="nav-link" href="simulador.html">Simulador</a>
-      <a class="nav-link" href="professor.html">Professor</a>
+      <a class="nav-link" href="proposta-didatica.html">Proposta didática</a>
+      <a class="nav-link" href="embasamento-teorico.html">Embasamento teórico</a>
+      <a class="nav-link" href="contato.html">Contato</a>
     </nav>
   </div>
 </header>
