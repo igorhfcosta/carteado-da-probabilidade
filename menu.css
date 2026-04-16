@@ -80,6 +80,7 @@ body{
   justify-content: flex-end;
   gap: 8px;
   flex-wrap: wrap;
+  overflow: visible;
 }
 
 .nav-link{
@@ -152,52 +153,7 @@ body{
   width: 100%;
 }
 
-/* ===== RESPONSIVO ===== */
-
-@media (max-width: 900px){
-  .desktop-nav{
-    display: none;
-  }
-
-  .nav-toggle{
-    display: inline-flex;
-  }
-
-  .brand-text{
-    max-width: 180px;
-  }
-}
-
-@media (max-width: 640px){
-  :root{
-    --nav-height: 74px;
-  }
-
-  .site-header{
-    top: 10px;
-    left: 10px;
-    right: 10px;
-  }
-
-  .site-header-inner{
-    padding: 10px 12px;
-    border-radius: 16px;
-  }
-
-  .brand-mark{
-    width: 36px;
-    height: 36px;
-  }
-
-  .brand-text{
-    max-width: 140px;
-    font-size: .95rem;
-  }
 /* ===== DROPDOWN ===== */
-
-.site-nav{
-  overflow: visible;
-}
 
 .dropdown{
   position: relative;
@@ -207,7 +163,7 @@ body{
 
 .dropdown-toggle{
   cursor: pointer;
-  background: rgba(255,255,255,.04);
+  background: transparent;
   appearance: none;
   -webkit-appearance: none;
   border: 1px solid transparent;
@@ -255,7 +211,21 @@ body{
   color: #fff;
 }
 
+/* ===== RESPONSIVO ===== */
+
 @media (max-width: 900px){
+  .desktop-nav{
+    display: none;
+  }
+
+  .nav-toggle{
+    display: inline-flex;
+  }
+
+  .brand-text{
+    max-width: 180px;
+  }
+
   .dropdown{
     width: 100%;
     display: block;
@@ -276,4 +246,30 @@ body{
     border-radius: 14px;
   }
 }
+
+@media (max-width: 640px){
+  :root{
+    --nav-height: 74px;
+  }
+
+  .site-header{
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .site-header-inner{
+    padding: 10px 12px;
+    border-radius: 16px;
+  }
+
+  .brand-mark{
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-text{
+    max-width: 140px;
+    font-size: .95rem;
+  }
 }
