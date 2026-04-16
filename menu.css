@@ -159,6 +159,7 @@ body{
   position: relative;
   display: inline-flex;
   align-items: center;
+  padding-bottom: 10px;
 }
 
 .dropdown-toggle{
@@ -176,7 +177,7 @@ body{
 
 .dropdown-menu{
   position: absolute;
-  top: calc(100% + 10px);
+  top: 100%;
   left: 0;
   min-width: 230px;
   display: none;
