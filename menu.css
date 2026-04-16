@@ -157,28 +157,15 @@ body{
 
 .dropdown{
   position: relative;
-  display: inline-block; 
+  display: inline-flex;
   align-items: center;
   padding-bottom: 10px;
 }
 
 .dropdown-toggle{
-  cursor: pointer;
-  background: transparent;
-  border: none;
-
-  /* ESSAS LINHAS RESOLVEM */
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--muted, #cbbbe8);
-  padding: 10px 14px;
-  border-radius: 12px;
-
   display: inline-flex;
   align-items: center;
-
-  transition: .22s ease;
+  text-decoration: none;
 }
 
 .dropdown-arrow{
