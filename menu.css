@@ -193,48 +193,87 @@ body{
     max-width: 140px;
     font-size: .95rem;
   }
-  /* ===== DROPDOWN ===== */
+/* ===== DROPDOWN ===== */
 
-.dropdown {
+.site-nav{
+  overflow: visible;
+}
+
+.dropdown{
   position: relative;
+  display: inline-flex;
+  align-items: center;
 }
 
-.dropdown-toggle {
+.dropdown-toggle{
   cursor: pointer;
-  background: none;
+  background: rgba(255,255,255,.04);
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid transparent;
 }
 
-.dropdown-menu {
+.dropdown-arrow{
+  font-size: .8em;
+  margin-left: 6px;
+}
+
+.dropdown-menu{
   position: absolute;
-  top: 120%;
+  top: calc(100% + 10px);
   left: 0;
-  min-width: 200px;
-  background: rgba(13,7,25,0.95);
-  border: 1px solid rgba(179,135,255,0.22);
-  border-radius: 14px;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 20px 40px rgba(0,0,0,.35);
+  min-width: 230px;
   display: none;
   flex-direction: column;
-  overflow: hidden;
+  padding: 8px;
+  background: rgba(13,7,25,0.96);
+  border: 1px solid rgba(179,135,255,0.22);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.35);
   z-index: 9999;
 }
 
-.dropdown-menu a {
-  padding: 12px 14px;
-  text-decoration: none;
-  color: var(--muted);
-  font-weight: 600;
-  transition: .2s;
+.dropdown:hover .dropdown-menu{
+  display: flex;
 }
 
-.dropdown-menu a:hover {
+.dropdown-item{
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--muted, #cbbbe8);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: .2s ease;
+}
+
+.dropdown-item:hover{
   background: rgba(139,92,246,.15);
   color: #fff;
 }
 
-/* Mostrar ao passar o mouse */
-.dropdown:hover .dropdown-menu {
-  display: flex;
+@media (max-width: 900px){
+  .dropdown{
+    width: 100%;
+    display: block;
+  }
+
+  .dropdown-toggle{
+    width: 100%;
+    text-align: left;
+    justify-content: space-between;
+  }
+
+  .dropdown-menu{
+    position: static;
+    display: flex;
+    margin-top: 8px;
+    min-width: 100%;
+    box-shadow: none;
+    border-radius: 14px;
+  }
 }
 }
