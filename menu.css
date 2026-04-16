@@ -157,15 +157,15 @@ body{
 
 .dropdown{
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  padding-bottom: 10px;
+  height: 100%;
 }
 
 .dropdown-toggle{
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  text-decoration: none;
+  height: 100%;
 }
 
 .dropdown-arrow{
