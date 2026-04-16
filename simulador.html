@@ -1,3710 +1,782 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
-<link rel="stylesheet" href="menu.css">
-<link rel="icon" type="image/ico" href="favicon.ico">
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Simulador - Carteado da Probabilidade</title>
-<style>
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(8, 4, 16, 0.78);
-      backdrop-filter: blur(6px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      padding: 20px;
-      animation: overlayFadeIn .28s ease;
+  <link rel="stylesheet" href="menu.css">
+  <link rel="icon" type="image/ico" href="favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Carteado da Probabilidade: jogo educativo com cartas e dados para aprender probabilidade de forma estratégica, interativa e significativa." />
+  <title>Carteado da Probabilidade - Início</title>
+
+  <style>
+    :root{
+      --bg:#080510;
+      --bg-2:#12091f;
+      --bg-3:#1a1030;
+      --surface:rgba(255,255,255,0.05);
+      --surface-strong:rgba(255,255,255,0.08);
+      --line:rgba(255,255,255,0.10);
+      --line-strong:rgba(170,132,255,0.24);
+      --primary:#8b5cf6;
+      --primary-2:#6d4aff;
+      --primary-3:#c4b5fd;
+      --white:#ffffff;
+      --text:#f8f5ff;
+      --muted:#cfc5e6;
+      --muted-2:#a899c7;
+      --success:#ffffff;
+      --shadow:0 24px 70px rgba(0,0,0,.36);
+      --shadow-soft:0 14px 34px rgba(0,0,0,.22);
+      --radius-xl:34px;
+      --radius-lg:24px;
+      --radius-md:18px;
+      --radius-sm:14px;
     }
 
-    .overlay.hidden {
-      display: none;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
     }
 
-    .overlay-card {
-      width: min(520px, 100%);
-      background:
-        linear-gradient(180deg, rgba(37,17,63,.98), rgba(20,10,34,.98)),
-        linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,0) 34%);
-      border: 1px solid rgba(184,145,255,.25);
-      border-radius: 24px;
-      box-shadow:
-        0 24px 70px rgba(0,0,0,.42),
-        inset 0 1px 0 rgba(255,255,255,.05);
-      padding: 28px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      animation: overlayCardIn .34s ease;
+    html{
+      scroll-behavior:smooth;
     }
 
-    .overlay-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(135deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.025) 22%, rgba(255,255,255,0) 46%);
-      opacity: .9;
-    }
-
-    .overlay-card h2 {
-      margin: 0 0 10px;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      color: var(--primary-light);
-    }
-
-    .overlay-card p {
-      margin: 0 0 22px;
-      color: var(--muted);
-      line-height: 1.5;
-      font-size: 1rem;
-    }
-
-    .confirm-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
-
-    .overlay-btn.secondary-btn {
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      color: #efe5ff;
-      border: 1px solid rgba(184,145,255,.22);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.05),
-        0 10px 24px rgba(0,0,0,.18);
-    }
-
-    .overlay-btn.secondary-btn:hover {
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.06),
-        0 14px 30px rgba(0,0,0,.22);
-    }
-
-    .overlay-btn {
-      border: none;
-      border-radius: 16px;
-      padding: 14px 22px;
-      font-size: 1.05rem;
-      font-weight: bold;
-      cursor: pointer;
-      color: white;
-      background: linear-gradient(180deg, #b275ff 0%, #8b45f2 55%, #7233dd 100%);
-      box-shadow:
-        0 12px 26px rgba(122,55,233,.30),
-        inset 0 1px 0 rgba(255,255,255,.12);
-      transition: transform .14s ease, filter .14s ease, box-shadow .14s ease;
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .overlay-btn::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.08) 38%, rgba(255,255,255,.30) 50%, rgba(255,255,255,.08) 62%, transparent 100%);
-      transform: translateX(-140%);
-      transition: transform .45s ease;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .overlay-btn:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.06);
-      box-shadow:
-        0 16px 34px rgba(122,55,233,.38),
-        inset 0 1px 0 rgba(255,255,255,.16);
-    }
-
-    .overlay-btn:hover::before {
-      transform: translateX(140%);
-    }
-
-    .overlay-btn:active {
-      transform: translateY(1px) scale(.985);
-      box-shadow:
-        0 8px 16px rgba(122,55,233,.24),
-        inset 0 2px 4px rgba(0,0,0,.14);
-    }
-
-    .hidden {
-      display: none !important;
-    }
-    :root {
-      --bg: #12071f;
-      --panel: #1d0d31;
-      --panel-2: #2a1244;
-      --border: #6f3acb;
-      --primary: #8d4dff;
-      --primary-dark: #6f31df;
-      --primary-light: #b891ff;
-      --text: #f3ecff;
-      --muted: #ccb8ef;
-      --danger: #ff6ba2;
-      --success: #7dffb3;
-      --warning: #ffd76b;
-      --shadow: 0 10px 30px rgba(0,0,0,.28);
-      --radius: 18px;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
+    body{
       font-family: Arial, Helvetica, sans-serif;
+      color:var(--text);
       background:
-        radial-gradient(circle at 50% 16%, rgba(167, 111, 255, .20) 0%, rgba(167, 111, 255, 0) 24%),
-        radial-gradient(circle at 50% 42%, rgba(120, 62, 214, .16) 0%, rgba(120, 62, 214, 0) 32%),
-        radial-gradient(circle at top, #2a1244 0%, #12071f 55%, #0c0615 100%);
-      color: var(--text);
-      min-height: 100vh;
-      padding: 20px;
-      position: relative;
-      overflow-x: hidden;
+        radial-gradient(circle at top left, rgba(139,92,246,.18), transparent 24%),
+        radial-gradient(circle at top right, rgba(255,255,255,.06), transparent 20%),
+        radial-gradient(circle at 50% 0%, rgba(109,74,255,.14), transparent 26%),
+        linear-gradient(180deg, #07040d 0%, #10081c 36%, #140b26 72%, #090510 100%);
+      line-height:1.6;
+      padding:24px 18px 60px;
+      overflow-x:hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
       background:
-        linear-gradient(rgba(255,255,255,.018), rgba(255,255,255,.018)),
-        repeating-linear-gradient(
-          90deg,
-          rgba(255,255,255,.015) 0,
-          rgba(255,255,255,.015) 1px,
-          transparent 1px,
-          transparent 120px
-        ),
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,.012) 0,
-          rgba(255,255,255,.012) 1px,
-          transparent 1px,
-          transparent 120px
-        );
-      mix-blend-mode: soft-light;
-      opacity: .35;
-      z-index: 0;
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 92%);
+      opacity:.32;
     }
 
-    body::after {
-      content: "";
-      position: fixed;
-      width: 720px;
-      height: 720px;
-      left: 50%;
-      top: 180px;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      pointer-events: none;
-      background: radial-gradient(circle, rgba(141,77,255,.16) 0%, rgba(141,77,255,.06) 24%, rgba(141,77,255,0) 68%);
-      filter: blur(14px);
-      z-index: 0;
+    .container{
+      max-width:1160px;
+      margin:0 auto;
+      position:relative;
+      z-index:1;
     }
 
-    .container {
-      max-width: 1250px;
-      margin: 0 auto;
-      display: grid;
-      gap: 20px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .header {
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:34px;
+      border:1px solid var(--line-strong);
+      border-radius:var(--radius-xl);
       background:
-        linear-gradient(145deg, rgba(141,77,255,.18), rgba(111,49,223,.12)),
-        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0));
-      border: 1px solid rgba(184,145,255,.25);
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 18px 45px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.05);
-      position: relative;
-      overflow: hidden;
+        linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+        radial-gradient(circle at 82% 18%, rgba(196,181,253,.18), transparent 18%),
+        linear-gradient(135deg, rgba(109,74,255,.20), rgba(255,255,255,.02) 55%);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
+      margin-bottom:24px;
     }
 
-    .header::after {
-      content: "";
-      position: absolute;
-      inset: auto -8% 0 auto;
-      width: 280px;
-      height: 140px;
-      background: radial-gradient(circle, rgba(184,145,255,.16) 0%, rgba(184,145,255,0) 72%);
-      pointer-events: none;
+    .hero::before{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      right:-170px;
+      top:-150px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,255,255,.10), transparent 70%);
+      pointer-events:none;
     }
 
-    .title {
-      margin: 0 0 8px;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      line-height: 1.1;
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:360px;
+      height:360px;
+      left:-140px;
+      bottom:-180px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(139,92,246,.18), transparent 72%);
+      pointer-events:none;
     }
 
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.5;
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:24px;
+      align-items:stretch;
+      position:relative;
+      z-index:1;
     }
 
-    .header-top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:.82rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:var(--primary-3);
+      margin-bottom:18px;
+      font-weight:700;
     }
 
-    .sound-toggle {
-      white-space: nowrap;
-      min-width: 155px;
+    .eyebrow::before{
+      content:"";
+      width:36px;
+      height:1px;
+      background:linear-gradient(90deg, var(--primary-3), transparent);
     }
 
-    .sound-toggle.sound-off {
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      color: #e6dbff;
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.03),
-        0 8px 18px rgba(0,0,0,.10);
+    .hero h1{
+      font-size:clamp(2.7rem, 6vw, 5.1rem);
+      line-height:.93;
+      max-width:720px;
+      margin-bottom:18px;
+      letter-spacing:-0.055em;
     }
 
-
-    .panel-header-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
+    .hero h1 .highlight-word{
+      color:var(--white);
+      text-shadow:0 0 24px rgba(196,181,253,.16);
     }
 
-    .panel-header-row h3 {
-      margin: 0;
+    .hero p{
+      max-width:690px;
+      font-size:1.08rem;
+      color:var(--muted);
     }
 
-    .panel-header-row .sound-toggle {
-      min-width: auto;
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:28px;
     }
 
-    .layout {
-      display: grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap: 20px;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-height:52px;
+      padding:14px 20px;
+      text-decoration:none;
+      font-weight:700;
+      border-radius:14px;
+      transition:.22s ease;
+      border:1px solid transparent;
+      cursor:pointer;
     }
 
-    .panel {
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--white), #e9e3ff);
+      color:#1b1030;
+      box-shadow:0 14px 30px rgba(255,255,255,.14);
+    }
+
+    .btn-primary:hover{
+      box-shadow:0 18px 34px rgba(255,255,255,.18);
+    }
+
+    .btn-secondary{
+      color:var(--text);
+      border-color:rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+    }
+
+    .btn-secondary:hover{
+      border-color:rgba(196,181,253,.30);
+      background:rgba(255,255,255,.06);
+    }
+
+    .hero-mini{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .mini-pill{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:.92rem;
+      font-weight:700;
+    }
+
+    .hero-side{
+      display:grid;
+      gap:14px;
+      height:100%;
+    }
+
+    .showcase-card{
+      position:relative;
+      overflow:hidden;
+      padding:22px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.08);
       background:
-        radial-gradient(circle at top center, rgba(184,145,255,.08) 0%, rgba(184,145,255,0) 32%),
-        linear-gradient(180deg, rgba(29,13,49,.97), rgba(20,10,34,.98));
-      border: 1px solid rgba(184,145,255,.16);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow:
-        0 18px 40px rgba(0,0,0,.34),
-        inset 0 1px 0 rgba(255,255,255,.04),
-        inset 0 -1px 0 rgba(0,0,0,.18);
-      position: relative;
-      overflow: hidden;
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)),
+        rgba(255,255,255,.02);
+      min-height:170px;
+      box-shadow:var(--shadow-soft);
     }
 
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
+    .showcase-card.primary{
       background:
-        linear-gradient(135deg, rgba(255,255,255,.02), rgba(255,255,255,0) 28%),
-        radial-gradient(circle at 50% 12%, rgba(184,145,255,.05), transparent 34%);
+        radial-gradient(circle at top right, rgba(255,255,255,.18), transparent 22%),
+        linear-gradient(135deg, rgba(139,92,246,.36), rgba(109,74,255,.18) 55%, rgba(255,255,255,.04));
     }
 
-    .panel h2, .panel h3 { margin-top: 0; }
-
-    .section-label {
-      font-size: .9rem;
-      letter-spacing: .05em;
-      color: var(--primary-light);
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      display: block;
+    .showcase-label{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:10px;
+      color:var(--primary-3);
+      font-size:.8rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-weight:700;
     }
 
-    .turn-banner-extended {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 13px 18px;
-      border-radius: 16px;
-      font-weight: bold;
-      margin-bottom: 14px;
-      position: relative;
-      overflow: hidden;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.05),
-        0 10px 24px rgba(0,0,0,.16);
-      animation: turnBannerEnter .34s ease;
+    .showcase-card h3{
+      font-size:1.28rem;
+      margin-bottom:8px;
+      letter-spacing:-0.03em;
     }
 
-    .turn-banner-extended::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: .95;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.08) 50%, rgba(255,255,255,0) 100%);
-      transform: translateX(-100%);
-      animation: bannerSweep 2.6s linear infinite;
+    .showcase-card p{
+      color:var(--muted);
+      font-size:.98rem;
+      max-width:none;
     }
 
-    .turn-banner-extended.show {
-      display: flex;
+    .showcase-link{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top:14px;
+      color:#fff;
+      text-decoration:none;
+      font-weight:700;
     }
 
-    .turn-player {
-      background: linear-gradient(180deg, rgba(120,255,160,.12), rgba(141,77,255,.09));
-      border: 1px solid rgba(120,255,160,.28);
-      color: #c7ffd8;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.06),
-        0 10px 24px rgba(0,0,0,.18),
-        0 0 22px rgba(120,255,160,.08);
+    .section{
+      margin-top:24px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:30px;
+      background:rgba(255,255,255,.035);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-soft);
+      overflow:hidden;
     }
 
-    .turn-opponent {
-      background: linear-gradient(180deg, rgba(255,215,107,.13), rgba(255,194,82,.08));
-      border: 1px solid rgba(255,215,107,.28);
-      color: #fff1b8;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.06),
-        0 10px 24px rgba(0,0,0,.18),
-        0 0 22px rgba(255,215,107,.08);
+    .section-head{
+      padding:28px 28px 12px;
     }
 
-    .turn-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      box-shadow: 0 0 10px rgba(255,255,255,.5);
-      animation: pulseDot 1s infinite ease-in-out;
+    .section-head h2{
+      font-size:1.85rem;
+      margin-bottom:8px;
+      letter-spacing:-0.03em;
     }
 
-    .dot-player {
-      background: #78ffa0;
-      box-shadow: 0 0 10px rgba(120,255,160,.7);
+    .section-head p{
+      color:var(--muted-2);
+      max-width:760px;
     }
 
-    .dot-opponent {
-      background: #ffd76b;
-      box-shadow: 0 0 10px rgba(255,215,107,.7);
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:0;
+      border-top:1px solid rgba(255,255,255,.06);
     }
 
-    .opponent-banner.show {
-      display: flex;
+    .feature-card{
+      padding:26px 24px;
+      border-right:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      transition:.22s ease;
     }
 
-    .opponent-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #ffd76b;
-      box-shadow: 0 0 10px rgba(255,215,107,.7);
-      animation: pulseDot 1s infinite ease-in-out;
+    .feature-card:last-child{
+      border-right:none;
     }
 
-    @keyframes pulseDot {
-      0% { transform: scale(1); opacity: .7; }
-      50% { transform: scale(1.25); opacity: 1; }
-      100% { transform: scale(1); opacity: .7; }
+    .feature-card:hover{
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
     }
 
-    @keyframes turnBannerEnter {
-      0% { opacity: 0; transform: translateY(-5px) scale(.985); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+    .feature-icon{
+      width:54px;
+      height:54px;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      background:linear-gradient(135deg, #ffffff, #d8cbff);
+      color:#221238;
+      font-size:1.3rem;
+      font-weight:800;
+      box-shadow:0 12px 26px rgba(255,255,255,.10);
+      margin-bottom:16px;
     }
 
-    @keyframes bannerSweep {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(130%); }
+    .feature-card h3{
+      font-size:1.12rem;
+      margin-bottom:8px;
+      letter-spacing:-0.02em;
     }
 
-    @keyframes turnBannerPulse {
-      0% { transform: scale(.985); }
-      55% { transform: scale(1.012); }
-      100% { transform: scale(1); }
+    .feature-card p{
+      color:var(--muted);
+      font-size:.97rem;
     }
 
-    @keyframes timerSweep {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(130%); }
+    .path-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:0;
+      border-top:1px solid rgba(255,255,255,.06);
     }
 
-    @keyframes urgentPulse {
-      0%, 100% { transform: translateY(-1px) scale(1); }
-      50% { transform: translateY(-1px) scale(1.018); }
+    .path-card{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      padding:24px;
+      text-decoration:none;
+      color:inherit;
+      border-right:1px solid rgba(255,255,255,.06);
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      transition:.22s ease;
+      min-height:220px;
     }
 
-    @keyframes sideGlowPulse {
-      0%, 100% { opacity: .72; }
-      50% { opacity: 1; }
-    }
-
-    .timer-panel {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .timer-box {
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(184,145,255,.18);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
-      position: relative;
-      overflow: hidden;
-      transition: border-color .25s ease, box-shadow .25s ease, background .25s ease, transform .25s ease;
-    }
-
-    .timer-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity .25s ease;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.08) 50%, rgba(255,255,255,0) 100%);
-      transform: translateX(-100%);
-    }
-
-    .timer-box.active {
-      border-color: rgba(184,145,255,.40);
-      box-shadow:
-        0 0 0 2px rgba(184,145,255,.10) inset,
-        0 10px 24px rgba(0,0,0,.16);
-      transform: translateY(-1px);
-    }
-
-    .timer-box.active::before {
-      opacity: 1;
-      animation: timerSweep 2.4s linear infinite;
-    }
-
-    .timer-box.warning {
-      border-color: rgba(255,215,107,.38);
-      background: linear-gradient(180deg, rgba(255,215,107,.13), rgba(255,215,107,.06));
-      box-shadow:
-        0 0 0 2px rgba(255,215,107,.08) inset,
-        0 10px 24px rgba(0,0,0,.16),
-        0 0 18px rgba(255,215,107,.10);
-    }
-
-    .timer-box.urgent {
-      border-color: rgba(255,107,162,.45);
-      background: linear-gradient(180deg, rgba(255,107,162,.16), rgba(255,107,162,.06));
-      box-shadow:
-        0 0 0 2px rgba(255,107,162,.10) inset,
-        0 10px 24px rgba(0,0,0,.16),
-        0 0 24px rgba(255,107,162,.16);
-      animation: urgentPulse 1s ease-in-out infinite;
-    }
-
-    .timer-label {
-      font-size: .88rem;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    .timer-value {
-      font-size: 1.35rem;
-      font-weight: bold;
-      color: var(--text);
-    }
-
-    .compact-top-bar {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: stretch;
-      margin-bottom: 12px;
-    }
-
-    .turn-status-badge {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 16px;
-      font-weight: bold;
-      position: relative;
-      overflow: hidden;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.05),
-        0 10px 24px rgba(0,0,0,.16);
-      animation: turnBannerEnter .34s ease;
-      min-height: 56px;
-      text-align: center;
-    }
-
-    .turn-status-badge::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: .95;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.08) 50%, rgba(255,255,255,0) 100%);
-      transform: translateX(-100%);
-      animation: bannerSweep 2.6s linear infinite;
-    }
-
-    .turn-status-badge.turn-player {
-      background: linear-gradient(180deg, rgba(120,255,160,.12), rgba(141,77,255,.09));
-      border: 1px solid rgba(120,255,160,.28);
-      color: #c7ffd8;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.06),
-        0 10px 24px rgba(0,0,0,.18),
-        0 0 22px rgba(120,255,160,.08);
-    }
-
-    .turn-status-badge.turn-opponent {
-      background: linear-gradient(180deg, rgba(255,215,107,.13), rgba(255,194,82,.08));
-      border: 1px solid rgba(255,215,107,.28);
-      color: #fff1b8;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.06),
-        0 10px 24px rgba(0,0,0,.18),
-        0 0 22px rgba(255,215,107,.08);
-    }
-
-    .timer-box.compact-single {
-      min-width: 190px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 10px 14px;
-    }
-
-    .turn-banner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(141,77,255,.22), rgba(94,41,176,.15));
-      border: 1px solid rgba(184,145,255,.25);
-      margin-bottom: 16px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color .25s ease, box-shadow .25s ease, background .25s ease, transform .25s ease;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.04),
-        0 10px 24px rgba(0,0,0,.14);
-    }
-.turn-banner{display:none !important;}
-
-    .turn-banner::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.10) 50%, rgba(255,255,255,0) 100%);
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-
-    .turn-banner.player-turn {
-      border-color: rgba(120,255,160,.22);
-      background: linear-gradient(180deg, rgba(120,255,160,.08), rgba(141,77,255,.16));
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.05),
-        0 10px 24px rgba(0,0,0,.16),
-        0 0 22px rgba(120,255,160,.08);
-    }
-
-    .turn-banner.bot-turn {
-      border-color: rgba(255,215,107,.24);
-      background: linear-gradient(180deg, rgba(255,215,107,.10), rgba(141,77,255,.10));
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.05),
-        0 10px 24px rgba(0,0,0,.16),
-        0 0 22px rgba(255,215,107,.08);
-    }
-
-    .turn-banner.turn-animate {
-      animation: turnBannerPulse .42s ease;
-    }
-
-    .turn-banner.turn-animate::before {
-      opacity: 1;
-      animation: bannerSweep .7s ease;
-    }
-
-    .turn-banner strong {
-      font-size: 1.05rem;
-      color: var(--primary-light);
-    }
-
-    .turn-step {
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .board-top {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 16px;
-      align-items: start;
-      margin-bottom: 20px;
-      position: relative;
-      padding: 22px 18px 18px;
-      border-radius: 24px;
+    .path-card:hover{
+      transform:translateY(-3px);
       background:
-        radial-gradient(circle at center, rgba(141,77,255,.09) 0%, rgba(141,77,255,.03) 34%, rgba(141,77,255,0) 72%),
-        linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.012));
-      border: 1px solid rgba(184,145,255,.12);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.04),
-        inset 0 0 0 1px rgba(255,255,255,.015),
-        0 20px 35px rgba(0,0,0,.18);
-      overflow: hidden;
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)),
+        linear-gradient(135deg, rgba(139,92,246,.14), rgba(255,255,255,.02));
     }
 
-    .board-top::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
+    .path-card:nth-child(3n){
+      border-right:none;
+    }
+
+    .path-card:nth-last-child(-n+3){
+      border-bottom:none;
+    }
+
+    .path-tag{
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.04);
+      color:var(--primary-3);
+      font-size:.76rem;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+
+    .path-icon{
+      width:52px;
+      height:52px;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      background:linear-gradient(135deg, rgba(255,255,255,.98), rgba(212,198,255,.86));
+      color:#261540;
+      font-size:1.35rem;
+      box-shadow:0 10px 22px rgba(255,255,255,.10);
+    }
+
+    .path-card h3{
+      font-size:1.2rem;
+      letter-spacing:-0.02em;
+    }
+
+    .path-card p{
+      color:var(--muted);
+      font-size:.97rem;
+    }
+
+    .path-link{
+      margin-top:auto;
+      color:#fff;
+      font-weight:700;
+      font-size:.96rem;
+    }
+
+    .split-section{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:0;
+      border-top:1px solid rgba(255,255,255,.06);
+    }
+
+    .split-main{
+      padding:30px 28px;
+      border-right:1px solid rgba(255,255,255,.06);
+    }
+
+    .split-main h3{
+      font-size:1.6rem;
+      margin-bottom:12px;
+      letter-spacing:-0.03em;
+    }
+
+    .split-main p{
+      color:var(--muted);
+      margin-bottom:14px;
+      max-width:760px;
+    }
+
+    .split-side{
+      padding:28px 24px;
       background:
-        radial-gradient(circle at center, rgba(184,145,255,.10) 0%, rgba(184,145,255,0) 46%),
-        linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,0) 12%, rgba(255,255,255,0) 88%, rgba(255,255,255,.02));
-      opacity: .9;
+        radial-gradient(circle at top right, rgba(255,255,255,.08), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(139,92,246,.16), transparent 38%),
+        rgba(255,255,255,.02);
+      display:grid;
+      gap:14px;
     }
 
-    .board-top::after {
-      content: "";
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      pointer-events: none;
-      background: radial-gradient(circle, rgba(141,77,255,.14) 0%, rgba(141,77,255,.04) 35%, rgba(141,77,255,0) 72%);
-      filter: blur(8px);
+    .info-card{
+      padding:18px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      border-radius:18px;
     }
 
-    .player-box {
+    .info-card h4{
+      color:#fff;
+      font-size:1rem;
+      margin-bottom:8px;
+    }
+
+    .info-card p{
+      color:var(--muted);
+      font-size:.96rem;
+    }
+
+    .cta-band{
+      margin-top:24px;
+      padding:30px 28px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:30px;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025)),
-        rgba(16, 8, 28, .52);
-      border: 1px solid rgba(184,145,255,.15);
-      border-radius: 18px;
-      padding: 14px;
-      min-height: 208px;
-      position: relative;
-      z-index: 1;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.035),
-        inset 0 -18px 30px rgba(0,0,0,.10),
-        0 12px 26px rgba(0,0,0,.16);
-      backdrop-filter: blur(2px);
+        radial-gradient(circle at top right, rgba(255,255,255,.10), transparent 20%),
+        linear-gradient(135deg, rgba(255,255,255,.08), rgba(139,92,246,.16));
+      box-shadow: var(--shadow-soft);
     }
 
-    .player-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0) 26%);
+    .cta-band h3{
+      font-size:1.9rem;
+      margin-bottom:10px;
+      letter-spacing:-0.04em;
     }
 
-    .player-box.active {
-      border-color: rgba(184,145,255,.42);
-      box-shadow:
-        0 0 0 2px rgba(184,145,255,.11) inset,
-        0 14px 28px rgba(0,0,0,.20),
-        0 0 28px rgba(141,77,255,.08);
+    .cta-band p{
+      max-width:760px;
+      color:var(--muted);
+      margin-bottom:18px;
     }
 
-    .player-box.turn-player-active {
-      border-color: rgba(120,255,160,.30);
-      box-shadow:
-        0 0 0 2px rgba(120,255,160,.08) inset,
-        0 14px 28px rgba(0,0,0,.20),
-        0 0 26px rgba(120,255,160,.10);
+    .footer-note{
+      margin-top:18px;
+      color:var(--muted-2);
+      font-size:.93rem;
     }
 
-    .player-box.turn-player-active::after,
-    .player-box.turn-bot-active::after {
-      content: "";
-      position: absolute;
-      top: 10px;
-      bottom: 10px;
-      left: 0;
-      width: 4px;
-      border-radius: 999px;
-      pointer-events: none;
-      animation: sideGlowPulse 1.8s ease-in-out infinite;
-    }
-
-    .player-box.turn-player-active::after {
-      background: linear-gradient(180deg, rgba(120,255,160,.18), rgba(141,77,255,.62), rgba(120,255,160,.18));
-      box-shadow: 0 0 14px rgba(120,255,160,.22);
-    }
-
-    .player-box.turn-bot-active {
-      border-color: rgba(255,215,107,.34);
-      box-shadow:
-        0 0 0 2px rgba(255,215,107,.08) inset,
-        0 14px 28px rgba(0,0,0,.20),
-        0 0 26px rgba(255,215,107,.12);
-    }
-
-    .player-box.turn-bot-active::after {
-      background: linear-gradient(180deg, rgba(255,215,107,.18), rgba(255,194,82,.72), rgba(255,215,107,.18));
-      box-shadow: 0 0 14px rgba(255,215,107,.22);
-    }
-
-    .player-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-size: .84rem;
-      font-weight: bold;
-      background: rgba(141,77,255,.15);
-      color: var(--primary-light);
-      border: 1px solid rgba(184,145,255,.2);
-    }
-
-    .bot-identity {
-      display: grid;
-      gap: 4px;
-    }
-
-    .bot-title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .bot-title-row h2 {
-      margin: 0;
-    }
-
-    .bot-avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      background: linear-gradient(180deg, rgba(255,215,107,.22), rgba(141,77,255,.18));
-      border: 1px solid rgba(255,215,107,.28);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.08),
-        0 8px 18px rgba(0,0,0,.18);
-    }
-
-    .bot-role-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px 9px;
-      border-radius: 999px;
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .08em;
-      color: #fff4c7;
-      background: linear-gradient(180deg, rgba(255,215,107,.18), rgba(255,194,82,.10));
-      border: 1px solid rgba(255,215,107,.28);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
-    }
-
-    .bot-mood {
-      min-height: 18px;
-      font-size: .82rem;
-      color: #fff1b8;
-      opacity: .88;
-    }
-
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      min-height: 116px;
-      align-items: flex-start;
-    }
-
-    .card {
-      width: 62px;
-      height: 92px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, #fff 0%, #f7f0ff 52%, #efe4ff 100%);
-      color: #3c146d;
-      border: 2px solid #dcc8ff;
-      box-shadow:
-        0 10px 18px rgba(0,0,0,.22),
-        0 18px 30px rgba(0,0,0,.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.25rem;
-      cursor: pointer;
-      position: relative;
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, filter .18s ease;
-      user-select: none;
-      overflow: hidden;
-      transform-origin: center bottom;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      background: linear-gradient(135deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,.18) 24%, rgba(255,255,255,0) 48%);
-      pointer-events: none;
-      opacity: .95;
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      inset: 3px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.42);
-      pointer-events: none;
-      opacity: .7;
-    }
-
-    .card:hover {
-      box-shadow:
-        0 14px 24px rgba(0,0,0,.26),
-        0 24px 36px rgba(0,0,0,.18),
-        0 0 0 1px rgba(255,255,255,.18) inset;
-      filter: brightness(1.02);
-    }
-
-    .cards .card:nth-child(odd):hover {
-      transform: translateY(-5px) rotate(-1.25deg);
-    }
-
-    .cards .card:nth-child(even):hover {
-      transform: translateY(-5px) rotate(1.25deg);
-    }
-
-    .card.selected {
-      border-color: var(--primary-light);
-      box-shadow:
-        0 0 0 3px rgba(141,77,255,.24),
-        0 0 22px rgba(141,77,255,.24),
-        0 14px 24px rgba(0,0,0,.26),
-        0 24px 38px rgba(0,0,0,.18);
-      animation: selectedPulse 1.25s ease-in-out infinite;
-      transform: translateY(-6px) scale(1.02);
-    }
-
-    .card.bot {
-      background: linear-gradient(180deg, #8a5be2 0%, #6632bd 52%, #4f2299 100%);
-      color: #efe5ff;
-      border-color: #c3a0ff;
-      cursor: default;
-      box-shadow:
-        0 10px 18px rgba(0,0,0,.24),
-        0 18px 30px rgba(0,0,0,.16);
-    }
-
-    .card.bot::before {
-      background: linear-gradient(135deg, rgba(255,255,255,.24) 0%, rgba(255,255,255,.10) 24%, rgba(255,255,255,0) 48%);
-      opacity: .9;
-    }
-
-    .card.bot::after {
-      border-color: rgba(255,255,255,.18);
-      opacity: .55;
-    }
-
-    .card.bot:hover { transform: none; }
-
-    @keyframes selectedPulse {
-      0%, 100% {
-        box-shadow:
-          0 0 0 3px rgba(141,77,255,.22),
-          0 0 18px rgba(141,77,255,.18),
-          0 14px 24px rgba(0,0,0,.26),
-          0 24px 38px rgba(0,0,0,.18);
+    @media (max-width: 980px){
+      .hero-grid,
+      .split-section{
+        grid-template-columns:1fr;
       }
-      50% {
-        box-shadow:
-          0 0 0 3px rgba(141,77,255,.34),
-          0 0 28px rgba(141,77,255,.30),
-          0 16px 28px rgba(0,0,0,.28),
-          0 26px 42px rgba(0,0,0,.20);
+
+      .split-main{
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
+
+      .feature-grid{
+        grid-template-columns:1fr;
+      }
+
+      .feature-card{
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
+
+      .feature-card:last-child{
+        border-bottom:none;
+      }
+
+      .path-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .path-card:nth-child(3n){
+        border-right:1px solid rgba(255,255,255,.06);
+      }
+
+      .path-card:nth-child(2n){
+        border-right:none;
+      }
+
+      .path-card:nth-last-child(-n+3){
+        border-bottom:1px solid rgba(255,255,255,.06);
+      }
+
+      .path-card:nth-last-child(-n+2){
+        border-bottom:none;
       }
     }
 
-
-    .card.discarding {
-      pointer-events: none;
-      z-index: 8;
-      animation: discardLiftFade .42s cubic-bezier(.22,.8,.24,1) forwards;
-    }
-
-    .card.discarding::before {
-      animation: discardFlash .42s ease forwards;
-    }
-
-    @keyframes discardLiftFade {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: brightness(1);
-      }
-      35% {
-        opacity: 1;
-        transform: translateY(-10px) scale(1.05);
-        filter: brightness(1.08);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-34px) scale(.88);
-        filter: brightness(1.18);
-      }
-    }
-
-    @keyframes discardFlash {
-      0% {
-        opacity: .95;
-        box-shadow: 0 0 0 rgba(255,255,255,0);
-      }
-      45% {
-        opacity: 1;
-        box-shadow: 0 0 22px rgba(255,255,255,.42);
-      }
-      100% {
-        opacity: 0;
-        box-shadow: 0 0 0 rgba(255,255,255,0);
-      }
-    }
-
-    .corner {
-      position: absolute;
-      font-size: .68rem;
-      opacity: .9;
-    }
-
-    .corner.tl { top: 7px; left: 8px; }
-    .corner.br { bottom: 7px; right: 8px; transform: rotate(180deg); }
-
-    .deck-area {
-      display: grid;
-      gap: 12px;
-      justify-items: center;
-      align-content: start;
-      min-width: 170px;
-      position: relative;
-      z-index: 1;
-      padding-top: 6px;
-    }
-
-    .deck-area::before {
-      content: "";
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      width: 150px;
-      height: 150px;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(141,77,255,.20) 0%, rgba(141,77,255,.08) 34%, rgba(141,77,255,0) 72%);
-      filter: blur(10px);
-      pointer-events: none;
-      transition: opacity .25s ease, transform .25s ease, background .25s ease;
-      animation: deckAuraPulse 2.4s ease-in-out infinite;
-    }
-
-    .deck-area.empty::before {
-      background: radial-gradient(circle, rgba(255,107,162,.14) 0%, rgba(255,107,162,.04) 34%, rgba(255,107,162,0) 72%);
-      opacity: .6;
-      animation: none;
-    }
-
-    .deck-stack {
-      width: 82px;
-      height: 112px;
-      position: relative;
-      z-index: 1;
-      animation: deckFloat 3.2s ease-in-out infinite;
-      transform-origin: center bottom;
-      transition: filter .25s ease, transform .25s ease;
-    }
-
-    .deck-area.empty .deck-stack {
-      animation: none;
-      transform: translateY(2px) scale(.985);
-      filter: grayscale(.18) saturate(.82);
-    }
-
-    .deck-stack::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -18px;
-      width: 92px;
-      height: 24px;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,0,0,.28) 0%, rgba(0,0,0,.08) 48%, rgba(0,0,0,0) 72%);
-      filter: blur(4px);
-      opacity: .9;
-      animation: deckShadowPulse 2.4s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    .deck-area.empty .deck-stack::after {
-      animation: none;
-      opacity: .45;
-      transform: translateX(-50%) scale(.88);
-    }
-
-    .deck-stack.draw-burst {
-      animation: deckDrawBurst .42s ease;
-    }
-
-    .deck-layer,
-    .deck-card {
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      transition: opacity .25s ease, transform .25s ease, filter .25s ease, border-color .25s ease, background .25s ease;
-    }
-
-    .deck-layer {
-      background: linear-gradient(180deg, #5d2aad 0%, #3a176f 100%);
-      border: 2px solid #b891ff;
-      box-shadow: 0 8px 16px rgba(0,0,0,.22);
-    }
-
-    .deck-layer:nth-child(1) { transform: translate(8px, 8px); opacity: .5; }
-    .deck-layer:nth-child(2) { transform: translate(4px, 4px); opacity: .75; }
-
-    .deck-card {
-      background: linear-gradient(180deg, #8d4dff 0%, #5e29b0 100%);
-      border: 2px solid #e3d3ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1rem;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.08),
-        0 14px 24px rgba(0,0,0,.18);
-      overflow: hidden;
-    }
-
-    .deck-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,.05) 26%, rgba(255,255,255,0) 52%);
-      pointer-events: none;
-    }
-
-    .deck-area.empty .deck-layer {
-      opacity: .22;
-      filter: grayscale(.22);
-      border-color: rgba(255,255,255,.18);
-    }
-
-    .deck-area.empty .deck-card {
-      background: linear-gradient(180deg, #50316f 0%, #301942 100%);
-      border-color: rgba(255,255,255,.22);
-      color: #d9c7f5;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.04),
-        0 10px 16px rgba(0,0,0,.14);
-    }
-
-    .deck-area.empty .deck-card::after {
-      content: "Vazio";
-      position: absolute;
-      inset: auto 0 12px 0;
-      font-size: .78rem;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.68);
-    }
-
-    .deck-count {
-      font-size: .92rem;
-      color: var(--muted);
-      text-align: center;
-      line-height: 1.4;
-      transition: color .25s ease, text-shadow .25s ease;
-    }
-
-    .deck-area:not(.empty) .deck-count {
-      text-shadow: 0 0 14px rgba(141,77,255,.14);
-    }
-
-    .deck-area.empty .deck-count {
-      color: #e7c0d8;
-    }
-
-    .board-top.center-highlight::after {
-      width: 340px;
-      height: 340px;
-      background: radial-gradient(circle, rgba(141,77,255,.22) 0%, rgba(141,77,255,.08) 35%, rgba(141,77,255,0) 72%);
-      filter: blur(10px);
-      animation: boardCenterHit .75s ease;
-    }
-
-    @keyframes deckFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
-    }
-
-    @keyframes deckShadowPulse {
-      0%, 100% { opacity: .72; transform: translateX(-50%) scale(1); }
-      50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
-    }
-
-    @keyframes deckAuraPulse {
-      0%, 100% { opacity: .82; transform: translateX(-50%) scale(1); }
-      50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
-    }
-
-    @keyframes deckDrawBurst {
-      0% { transform: translateY(0) scale(1); filter: brightness(1); }
-      30% { transform: translateY(-8px) scale(1.05); filter: brightness(1.12); }
-      100% { transform: translateY(0) scale(1); filter: brightness(1); }
-    }
-
-    @keyframes boardCenterHit {
-      0% { opacity: .2; transform: translate(-50%, -50%) scale(.72); }
-      40% { opacity: 1; transform: translate(-50%, -50%) scale(1.04); }
-      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    }
-
-    .controls { display: grid; gap: 16px; }
-
-    .dice-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    .die-btn, .btn {
-      border-radius: 18px;
-      padding: 14px 18px;
-      font-weight: bold;
-      font-size: 0.95rem;
-      background: linear-gradient(180deg, #8d4dff 0%, #6d2de1 58%, #5520b0 100%);
-      color: #ffffff;
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow:
-        0 12px 26px rgba(124,58,237,.34),
-        inset 0 1px 0 rgba(255,255,255,.10);
-      transition: transform .14s ease, filter .14s ease, box-shadow .14s ease, border-color .14s ease, background .14s ease;
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
-    }
-
-    .die-btn::before, .btn::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.05) 36%, rgba(255,255,255,.24) 50%, rgba(255,255,255,.05) 64%, transparent 100%);
-      transform: translateX(-150%);
-      transition: transform .48s ease;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .btn.secondary {
-      background: linear-gradient(180deg, #b275ff 0%, #8a45f0 55%, #7333dd 100%);
-      color: white;
-      border: 1px solid rgba(255,255,255,.12);
-      box-shadow:
-        0 12px 28px rgba(161,97,255,.26),
-        inset 0 1px 0 rgba(255,255,255,.12);
-    }
-
-    .btn.ghost {
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      border: 1px solid rgba(124,58,237,.42);
-      color: #d7c7ff;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.03),
-        0 8px 18px rgba(0,0,0,.08);
-    }
-
-    .btn:disabled, .die-btn:disabled {
-      cursor: not-allowed;
-      transform: none;
-      background: transparent;
-      color: var(--muted);
-      border: 1px solid rgba(184,145,255,.35);
-      box-shadow: none;
-      opacity: 0.7;
-    }
-
-    .die-btn.selected {
-      outline: 2px solid #22c55e;
-      box-shadow:
-        0 0 0 3px rgba(34,197,94,.25),
-        0 14px 28px rgba(124,58,237,.42),
-        inset 0 1px 0 rgba(255,255,255,.12);
-      transform: scale(1.05);
-      filter: brightness(1.1);
-      background: linear-gradient(180deg, #9260ff 0%, #6e2de1 58%, #5520b0 100%);
-    }
-
-    .btn:hover:not(:disabled), .die-btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-      filter: brightness(1.05);
-      box-shadow:
-        0 16px 32px rgba(124,58,237,.40),
-        inset 0 1px 0 rgba(255,255,255,.14);
-    }
-
-    .btn:hover:not(:disabled)::before, .die-btn:hover:not(:disabled)::before {
-      transform: translateX(145%);
-    }
-
-    .btn:active:not(:disabled), .die-btn:active:not(:disabled) {
-      transform: translateY(1px) scale(.985);
-      box-shadow:
-        0 8px 16px rgba(124,58,237,.22),
-        inset 0 2px 4px rgba(0,0,0,.16);
-    }
-
-    #rollBtn:not(:disabled),
-    #startGameBtn,
-    #confirmNameBtn,
-    #restartGameBtn {
-      background: linear-gradient(180deg, #c58bff 0%, #9c56ff 50%, #7a37e9 100%);
-      border-color: rgba(255,255,255,.16);
-      box-shadow:
-        0 16px 34px rgba(156,86,255,.34),
-        inset 0 1px 0 rgba(255,255,255,.16),
-        0 0 26px rgba(156,86,255,.14);
-    }
-
-    #rollBtn:not(:disabled):hover,
-    #startGameBtn:hover,
-    #confirmNameBtn:hover,
-    #restartGameBtn:hover {
-      box-shadow:
-        0 18px 38px rgba(156,86,255,.42),
-        inset 0 1px 0 rgba(255,255,255,.18),
-        0 0 32px rgba(156,86,255,.20);
-    }
-
-    .actions {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .roll-result {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      position: relative;
-    }
-
-    .mini-box {
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03)),
-        rgba(20, 10, 34, .82);
-      border: 1px solid rgba(184,145,255,.18);
-      border-radius: 16px;
-      padding: 14px 12px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.05),
-        0 10px 20px rgba(0,0,0,.18);
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
-    }
-
-    .mini-box::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,.02) 24%, rgba(255,255,255,0) 50%);
-      pointer-events: none;
-      opacity: .9;
-    }
-
-    .mini-box strong {
-      display: block;
-      font-size: 1.9rem;
-      margin-top: 6px;
-      color: var(--primary-light);
-      letter-spacing: .02em;
-      transition: transform .18s ease, filter .18s ease, color .18s ease;
-    }
-
-    .mini-box.has-value {
-      border-color: rgba(184,145,255,.30);
-      background:
-        linear-gradient(180deg, rgba(141,77,255,.16), rgba(255,255,255,.03)),
-        rgba(20, 10, 34, .88);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.06),
-        0 12px 24px rgba(0,0,0,.22),
-        0 0 22px rgba(141,77,255,.08);
-    }
-
-    .mini-box.has-value strong {
-      color: #f4ecff;
-    }
-
-    .mini-box.roll-flash {
-      animation: rollFlash .44s ease;
-    }
-
-    .mini-box.roll-flash strong {
-      animation: rollValuePop .42s ease;
-    }
-
-    .mini-box.sum-hit {
-      border-color: rgba(184,145,255,.50);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.08),
-        0 14px 28px rgba(0,0,0,.24),
-        0 0 32px rgba(141,77,255,.20),
-        0 0 56px rgba(141,77,255,.10);
-      background:
-        radial-gradient(circle at center, rgba(184,145,255,.18) 0%, rgba(184,145,255,.05) 34%, rgba(184,145,255,0) 70%),
-        linear-gradient(180deg, rgba(141,77,255,.22), rgba(255,255,255,.03)),
-        rgba(20, 10, 34, .9);
-      animation: sumPulse 1.05s ease;
-      transform: translateY(-2px) scale(1.02);
-    }
-
-    .mini-box.sum-hit::after {
-      content: "";
-      position: absolute;
-      inset: -18%;
-      border-radius: inherit;
-      background: radial-gradient(circle, rgba(184,145,255,.24) 0%, rgba(184,145,255,0) 58%);
-      pointer-events: none;
-      animation: sumBurst .9s ease forwards;
-    }
-
-    @keyframes rollFlash {
-      0% {
-        transform: scale(.96);
-        box-shadow: 0 0 0 rgba(141,77,255,0);
-      }
-      45% {
-        transform: scale(1.04);
-        box-shadow:
-          inset 0 1px 0 rgba(255,255,255,.06),
-          0 16px 30px rgba(0,0,0,.24),
-          0 0 24px rgba(141,77,255,.18);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    @keyframes rollValuePop {
-      0% {
-        transform: scale(.72);
-        filter: blur(1px);
-      }
-      55% {
-        transform: scale(1.18);
-        filter: blur(0);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    @keyframes sumPulse {
-      0% {
-        transform: translateY(0) scale(.96);
-      }
-      35% {
-        transform: translateY(-3px) scale(1.05);
-      }
-      100% {
-        transform: translateY(-2px) scale(1.02);
-      }
-    }
-
-    @keyframes sumBurst {
-      0% {
-        opacity: 0;
-        transform: scale(.55);
-      }
-      35% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-        transform: scale(1.18);
-      }
-    }
-
-    .log {
-      max-height: 460px;
-      overflow: auto;
-      display: grid;
-      gap: 12px;
-      padding-right: 4px;
-      align-content: start;
-    }
-
-    .turn-log {
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)),
-        rgba(18, 8, 31, .78);
-      border: 1px solid rgba(184,145,255,.14);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.04),
-        0 10px 20px rgba(0,0,0,.12);
-    }
-
-    .turn-log-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 10px 12px;
-      background: linear-gradient(180deg, rgba(141,77,255,.16), rgba(141,77,255,.08));
-      border-bottom: 1px solid rgba(184,145,255,.12);
-    }
-
-    .turn-log-title {
-      font-size: .95rem;
-      font-weight: bold;
-      color: #f1e8ff;
-    }
-
-    .turn-log-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 9px;
-      border-radius: 999px;
-      font-size: .76rem;
-      font-weight: bold;
-      border: 1px solid rgba(255,255,255,.10);
-      color: #f7f0ff;
-      background: rgba(255,255,255,.06);
-    }
-
-    .turn-log-badge.player {
-      background: rgba(120,255,160,.10);
-      color: #c8ffdb;
-      border-color: rgba(120,255,160,.18);
-    }
-
-    .turn-log-badge.bot {
-      background: rgba(255,215,107,.12);
-      color: #fff1b8;
-      border-color: rgba(255,215,107,.18);
-    }
-
-    .turn-log-body {
-      display: grid;
-      gap: 8px;
-      padding: 10px;
-    }
-
-    .log-item {
-      background: rgba(255,255,255,.04);
-      border-left: 4px solid var(--primary);
-      border-radius: 12px;
-      padding: 10px 12px;
-      line-height: 1.45;
-      color: var(--muted);
-    }
-
-    .log-item.important {
-      background: linear-gradient(180deg, rgba(141,77,255,.10), rgba(255,255,255,.04));
-      border-left-color: var(--primary-light);
-      color: #f1e8ff;
-      box-shadow: 0 0 0 1px rgba(184,145,255,.08) inset;
-    }
-
-    .log-item.success {
-      border-left-color: var(--success);
-      background: linear-gradient(180deg, rgba(125,255,179,.10), rgba(255,255,255,.04));
-      color: #eafff3;
-    }
-
-    .log-item.warn {
-      border-left-color: var(--warning);
-      background: linear-gradient(180deg, rgba(255,215,107,.10), rgba(255,255,255,.04));
-      color: #fff7dc;
-    }
-
-    .log-item .log-label {
-      display: block;
-      font-size: .74rem;
-      text-transform: uppercase;
-      letter-spacing: .05em;
-      opacity: .8;
-      margin-bottom: 4px;
-    }
-
-    .log-item .log-main {
-      display: block;
-      font-size: .95rem;
-    }
-
-    .log-item .log-sub {
-      display: block;
-      font-size: .82rem;
-      opacity: .9;
-      margin-top: 5px;
-    }
-
-    .status {
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: rgba(125,255,179,.08);
-      border: 1px solid rgba(125,255,179,.18);
-      color: var(--text);
-      line-height: 1.45;
-    }
-
-    .status.warn {
-      background: rgba(255,215,107,.08);
-      border-color: rgba(255,215,107,.18);
-    }
-
-    .status.danger {
-      background: rgba(255,107,162,.08);
-      border-color: rgba(255,107,162,.18);
-    }
-
-    .footer-note {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: .88rem;
-      line-height: 1.45;
-    }
-
-    .exploration-panel {
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(184,145,255,.18);
-      background: linear-gradient(180deg, rgba(141,77,255,.10), rgba(255,255,255,.03));
-    }
-
-    .exploration-panel h3 {
-      margin: 0 0 10px;
-      font-size: 1rem;
-      color: var(--primary-light);
-    }
-
-    .prob-summary {
-      color: var(--muted);
-      line-height: 1.5;
-      margin-bottom: 12px;
-      font-size: .95rem;
-    }
-
-    .prob-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(78px, 1fr));
-      gap: 8px;
-    }
-
-    .prob-item {
-      padding: 10px 8px;
-      border-radius: 12px;
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(184,145,255,.14);
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .prob-item strong {
-      display: block;
-      font-size: 1rem;
-      color: var(--text);
-      margin-bottom: 0;
-    }
-
-    .prob-item span {
-      font-size: .84rem;
-      color: var(--muted);
-      display: block;
-    }
-
-    .prob-percent {
-      font-size: .82rem;
-      color: var(--muted);
-    }
-
-    .fraction {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      line-height: 1;
-      min-width: 24px;
-      color: var(--muted);
-      font-size: .82rem;
-    }
-
-    .fraction .top,
-    .fraction .bottom {
-      display: block;
-      padding: 0 2px;
-    }
-
-    .fraction .bar {
-      width: 100%;
-      min-width: 24px;
-      border-top: 1px solid rgba(204,184,239,.85);
-      margin: 2px 0;
-    }
-
-    .mode-note {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: .88rem;
-      line-height: 1.45;
-    }
-
-    @keyframes overlayFadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    @keyframes overlayCardIn {
-      0% { opacity: 0; transform: scale(.96) translateY(10px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    @media (max-width: 980px) {
-      .layout { grid-template-columns: 1fr; }
-      .board-top { grid-template-columns: 1fr; }
-      .deck-area { justify-items: start; }
-      .turn-banner { flex-direction: column; align-items: flex-start; }
-.turn-banner{display:none !important;}
-    }
-
-    @media (max-height: 920px), (max-width: 1366px) {
-      body { padding: 14px; }
-      .container, .layout { gap: 14px; }
-      .header { padding: 18px 20px; }
-      .title { font-size: clamp(1.5rem, 3vw, 2.2rem); }
-      .subtitle { font-size: .95rem; line-height: 1.35; }
-      .panel { padding: 14px; }
-      .section-label { margin-bottom: 8px; font-size: .82rem; }
-      .turn-banner-extended { padding: 10px 14px; margin-bottom: 10px; }
-      .compact-top-bar { gap: 8px; margin-bottom: 10px; }
-      .turn-status-badge { min-height: 50px; padding: 9px 12px; }
-      .timer-box.compact-single { min-width: 165px; padding: 9px 12px; }
-      .turn-banner { padding: 11px 14px; margin-bottom: 12px; }
-.turn-banner{display:none !important;}
-      .timer-panel { gap: 10px; margin-bottom: 10px; }
-      .timer-box { padding: 10px 12px; }
-      .timer-value { font-size: 1.15rem; }
-      .board-top { padding: 16px 14px 14px; gap: 12px; margin-bottom: 14px; }
-      .player-box { padding: 12px; min-height: 170px; }
-      .player-top { margin-bottom: 8px; }
-      .badge { padding: 5px 8px; font-size: .78rem; }
-      .bot-avatar { width: 24px; height: 24px; font-size: .92rem; }
-      .bot-role-badge { padding: 3px 8px; font-size: .66rem; }
-      .bot-mood { font-size: .76rem; min-height: 16px; }
-      .cards { gap: 8px; min-height: 96px; }
-      .card { width: 54px; height: 80px; font-size: 1.05rem; border-radius: 12px; }
-      .corner { font-size: .62rem; }
-      .deck-area { min-width: 132px; gap: 8px; }
-      .deck-area::before { width: 128px; height: 128px; top: 8px; }
-      .deck-stack { width: 68px; height: 94px; }
-      .deck-stack::after { width: 76px; bottom: -15px; }
-      .deck-layer, .deck-card { border-radius: 14px; }
-      .deck-card { padding: 8px; font-size: .92rem; }
-      .deck-count { font-size: .84rem; }
-      .controls { gap: 12px; }
-      .dice-grid { gap: 8px; }
-      .die-btn, .btn { padding: 11px 14px; font-size: .88rem; border-radius: 15px; }
-      .roll-result { gap: 10px; }
-      .mini-box { padding: 11px 10px; }
-      .actions { gap: 8px; }
-      .status { padding: 10px 12px; font-size: .92rem; line-height: 1.35; }
-      .log { max-height: 340px; gap: 10px; }
-      .turn-log-header { padding: 9px 11px; }
-      .turn-log-body { padding: 9px; }
-      .log-item { padding: 9px 11px; }
-      .footer-note, .mode-note { font-size: .82rem; }
-      .exploration-panel { margin-top: 12px; padding: 12px; }
-    }
-
-    @media (max-width: 640px) {
-      body { padding: 10px; }
-      .header { padding: 16px; }
-      .header-top-row { gap: 10px; }
-      .title { font-size: 1.45rem; }
-      .subtitle { font-size: .9rem; }
-      .dice-grid { grid-template-columns: repeat(2, 1fr); }
-      .actions, .roll-result { grid-template-columns: 1fr; }
-      .card { width: 50px; height: 74px; }
-      .player-box { min-height: auto; }
-      .board-top { padding: 14px 12px 12px; }
-    }
-  
-/* Ajustes solicitados */
-.header {
-  text-align: center;
-}
-
-.header-top-row {
-  justify-content: center !important;
-}
-
-.title {
-  text-align: center;
-}
-
-    @media (max-width: 700px) {
-      .compact-top-bar {
-        grid-template-columns: 1fr;
+    @media (max-width: 680px){
+      body{
+        padding:18px 12px 40px;
       }
 
-      .timer-box.compact-single {
-        min-width: 0;
+      .hero{
+        padding:28px 20px 22px;
+        border-radius:24px;
+      }
+
+      .section-head,
+      .feature-card,
+      .path-card,
+      .split-main,
+      .split-side,
+      .cta-band{
+        padding:20px 18px;
+      }
+
+      .hero h1{
+        line-height:.98;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+      }
+
+      .hero-actions .btn{
+        width:100%;
+      }
+
+      .path-grid{
+        grid-template-columns:1fr;
+      }
+
+      .path-card{
+        border-right:none !important;
+        border-bottom:1px solid rgba(255,255,255,.06) !important;
+        min-height:auto;
+      }
+
+      .path-card:last-child{
+        border-bottom:none !important;
       }
     }
-
-
-.phase-inline{
-  font-size:0.85rem;
-  color:var(--muted);
-  margin-bottom:4px;
-  text-align:right;
-}
-
-
-.phase-box{
-  width: 320px;
-  max-width: 40vw;
-  text-align: center;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 14px;
-  border-radius:14px;
-  background: linear-gradient(180deg, rgba(141,77,255,.18), rgba(94,41,176,.12));
-  border:1px solid rgba(184,145,255,.25);
-  font-size:0.9rem;
-  color:var(--muted);
-  min-height:56px;
-}
-.top-bar, .compact-top-bar{
-  grid-template-columns: 1fr auto auto !important;
-}
-
-
-/* ===== Navegação global ===== */
-:root{
-  --nav-height: 78px;
-}
-
-body{
-  padding-top: calc(var(--nav-height) + 24px) !important;
-}
-
-.site-header{
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  right: 14px;
-  z-index: 10000;
-  pointer-events: none;
-}
-
-.site-header-inner,
-.mobile-panel{
-  max-width: 1160px;
-  margin: 0 auto;
-  pointer-events: auto;
-}
-
-.site-header-inner{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 12px 16px;
-  border: 1px solid rgba(179,135,255,0.22);
-  border-radius: 18px;
-  background: rgba(13,7,25,0.72);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 20px 48px rgba(0,0,0,.28);
-}
-
-.brand-link{
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: var(--text, #f5efff);
-  min-width: 0;
-}
-
-.brand-mark{
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  font-size: .95rem;
-  color: #fff;
-  background: linear-gradient(135deg, var(--primary, #8b5cf6), var(--primary-2, #a855f7));
-  box-shadow: 0 10px 24px rgba(139,92,246,.26);
-  flex: 0 0 auto;
-}
-
-.brand-text{
-  font-weight: 700;
-  letter-spacing: -.02em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.site-nav{
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.nav-link{
-  text-decoration: none;
-  color: var(--muted, #cbbbe8);
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 700;
-  border: 1px solid transparent;
-  transition: .22s ease;
-}
-
-.nav-link:hover{
-  color: var(--text, #f5efff);
-  background: rgba(255,255,255,.04);
-  border-color: rgba(179,135,255,0.14);
-  transform: translateY(-1px);
-}
-
-.nav-link.active{
-  color: #fff;
-  background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(168,85,247,.12));
-  border-color: rgba(179,135,255,0.28);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-}
-
-.nav-toggle{
-  display: none;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  border: 1px solid rgba(179,135,255,0.22);
-  background: rgba(255,255,255,.04);
-  cursor: pointer;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.nav-toggle span{
-  width: 18px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--text, #f5efff);
-  display: block;
-}
-
-.mobile-panel{
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid rgba(179,135,255,0.20);
-  border-radius: 18px;
-  background: rgba(13,7,25,0.86);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 20px 48px rgba(0,0,0,.28);
-}
-
-.mobile-nav{
-  display: grid;
-  gap: 8px;
-}
-
-.mobile-nav .nav-link{
-  width: 100%;
-}
-
-@media (max-width: 900px){
-  .desktop-nav{
-    display: none;
-  }
-
-  .nav-toggle{
-    display: inline-flex;
-  }
-
-  .brand-text{
-    max-width: 180px;
-  }
-}
-
-@media (max-width: 640px){
-  :root{
-    --nav-height: 74px;
-  }
-
-  .site-header{
-    top: 10px;
-    left: 10px;
-    right: 10px;
-  }
-
-  .site-header-inner{
-    padding: 10px 12px;
-    border-radius: 16px;
-  }
-
-  .brand-mark{
-    width: 36px;
-    height: 36px;
-    border-radius: 11px;
-    font-size: .88rem;
-  }
-
-  .brand-text{
-    max-width: 140px;
-    font-size: .95rem;
-  }
-}
-
-</style>
+  </style>
 </head>
 <body>
-<div id="menu-container"></div>
-<div class="overlay" id="startOverlay">
-<div class="overlay-card">
-<h2>Carteado da Probabilidade</h2>
-<p id="startOverlayText">Clique no botão para iniciar a partida. Antes disso, nenhuma ação do jogo fica disponível.</p>
-<div id="startMenu">
-<button class="overlay-btn" id="startGameBtn">Iniciar jogo</button>
-<br/><br/>
-<button class="overlay-btn" id="explorationModeBtn" style="background: linear-gradient(180deg, #7c47dd 0%, #5a2ca0 100%);">Modo exploração</button>
-<br/><br/>
-<button class="overlay-btn" id="howToPlayBtn" style="background: linear-gradient(180deg, #5a2ca0 0%, #3b1c6e 100%);">Como jogar</button>
-</div>
-<div class="hidden" id="difficultyMenu">
-<button class="overlay-btn difficulty-btn" data-difficulty="facil">Fácil</button>
-<br/><br/>
-<button class="overlay-btn difficulty-btn" data-difficulty="medio">Médio</button>
-<br/><br/>
-<button class="overlay-btn difficulty-btn" data-difficulty="dificil">Difícil</button>
-<br/><br/>
-<button class="overlay-btn" id="backToStartBtn" style="background: linear-gradient(180deg, #5a2ca0 0%, #3b1c6e 100%);">Voltar</button>
-</div>
-<div class="hidden" id="nameMenu">
-<input id="playerNameInput" maxlength="24" placeholder="Digite seu nome" style="width:100%; padding:14px 16px; border-radius:16px; border:1px solid rgba(184,145,255,.25); background: rgba(255,255,255,.06); color: white; font-size: 1rem; outline:none; margin-bottom:16px;" type="text"/>
-<button class="overlay-btn" id="confirmNameBtn">Começar partida</button>
-<br/><br/>
-<button class="overlay-btn" id="backToDifficultyBtn" style="background: linear-gradient(180deg, #5a2ca0 0%, #3b1c6e 100%);">Voltar</button>
-</div>
-</div>
-</div>
 
-<div class="overlay hidden" id="howToPlayOverlay">
-<div class="overlay-card">
-<h2 id="howToPlayTitle">Como jogar</h2>
-<p id="howToPlayContent" style="text-align:left">
-      1. No início do seu turno, você compra uma carta automaticamente.<br/><br/>
-      2. Antes de rolar os dados, você pode descartar <b>1 carta qualquer</b>.<br/><br/>
-      3. Clique em "Rolar dados" para avançar e escolha dois dados.<br/><br/>
-      4. Após rolar, você pode descartar cartas se:<br/>
-      - tiverem o mesmo valor da soma dos dados<br/>
-      - e forem iguais entre si (pode descartar várias)<br/><br/>
-      5. Se não puder jogar, clique em "Passar turno".<br/><br/>
-      6. Vence quem ficar sem cartas primeiro.
-      </p>
-<button class="overlay-btn" id="closeHowToPlayBtn">Voltar</button>
-</div>
-</div>
-<div class="overlay hidden" id="endOverlay">
-<div class="overlay-card">
-<h2 id="endTitle">Fim de jogo</h2>
-<p id="endMessage">Clique abaixo para começar outra partida.</p>
-<button class="overlay-btn" id="restartGameBtn">Jogar novamente</button>
-</div>
-</div>
-<div class="overlay hidden" id="leaveConfirmOverlay">
-<div class="overlay-card">
-<h2 id="leaveConfirmTitle">Sair para o menu?</h2>
-<p id="leaveConfirmMessage">Seu progresso atual será perdido.</p>
-<div class="confirm-actions">
-<button class="overlay-btn secondary-btn" id="stayHereBtn">Ficar aqui</button>
-<button class="overlay-btn" id="confirmLeaveBtn">Ir para o menu</button>
-</div>
-</div>
-</div>
-<div class="container">
+  <div id="menu-container"></div>
 
-<div class="layout">
-<section class="panel">
-<span class="section-label">Mesa de jogo</span>
-<div class="compact-top-bar" id="compactTopBar">
-<div class="turn-status-badge turn-player" id="turnStatusBadge">
-<span class="turn-dot dot-player" id="turnStatusDot"></span>
-<span id="turnStatusText">Sua vez</span>
-</div>
-<div class="phase-box" id="phaseBox"><span id="phaseInline"></span></div>
-<div class="timer-box compact-single" id="activeTimerBox">
-<div class="timer-label" id="activeTimerLabel">Tempo de Você</div>
-<div class="timer-value" id="activeTimerValue">02:00</div>
-</div>
-</div>
-<div class="turn-banner" id="turnBanner">
-<strong id="turnIndicator">Vez de jogar: Você</strong>
-<span class="turn-step" id="phaseIndicator">Fase: compre 1 carta, descarte 1 carta livremente e depois role os dados.</span>
-</div>
-<div class="board-top" id="boardTop">
-<div class="player-box" id="botBox">
-<div class="player-top">
-<div class="bot-identity">
-<div class="bot-title-row">
-<span aria-hidden="true" class="bot-avatar">🤖</span>
-<h2>Igor</h2>
-<span class="bot-role-badge">BOT</span>
-</div>
-<div class="bot-mood" id="botMood">Pronto para jogar.</div>
-</div>
-<span class="badge" id="botCount">7 cartas</span>
-</div>
-<div class="cards" id="botHand"></div>
-</div>
-<div class="deck-area">
-<div aria-hidden="true" class="deck-stack">
-<div class="deck-layer" id="deckLayerBack"></div>
-<div class="deck-layer" id="deckLayerMid"></div>
-<div class="deck-card" id="deckCardFace">Baralho</div>
-</div>
-<div class="deck-count" id="deckCount">0 cartas no monte</div>
-</div>
-<div class="player-box active" id="playerBox">
-<div class="player-top">
-<h2 id="playerNameLabel">Você</h2>
-<span class="badge" id="playerCount">7 cartas</span>
-</div>
-<div class="cards" id="playerHand"></div>
-</div>
-</div>
-<div class="controls">
-<div>
-<span class="section-label">1. Escolha exatamente 2 dados</span>
-<div class="dice-grid" id="diceButtons"></div>
-</div>
-<div>
-<span class="section-label">2. Role os dados</span>
-<div class="roll-result">
-<div class="mini-box">Dado 1<strong id="die1">-</strong></div>
-<div class="mini-box">Dado 2<strong id="die2">-</strong></div>
-<div class="mini-box">Soma<strong id="sumBox">-</strong></div>
-</div>
-</div>
-<div class="actions">
-<button class="btn" disabled="" id="freeDiscardBtn">Descartar antes de rolar</button>
-<button class="btn" id="rollBtn">Rolar dados</button>
-<button class="btn secondary" disabled="" id="discardBtn">Descartar carta(s)</button>
-<button class="btn ghost" disabled="" id="passBtn">Passar turno</button>
-<button class="btn ghost" id="returnMenuBtn">Voltar ao menu</button>
-<button class="btn ghost" id="newGameBtn">Novo jogo</button>
-<button class="btn ghost" id="inGameHowToPlayBtn">Como jogar</button>
-</div>
-<div class="status" id="statusBox">
-            No início do seu turno, você compra 1 carta automaticamente. Depois pode descartar 1 carta livremente antes da rolagem. Em seguida escolha 2 dados, role e descarte carta(s) compatíveis com a soma.
+  <div class="container">
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Jogo educativo de probabilidade</div>
+          <h1>Aprenda <span class="highlight-word">probabilidade</span> jogando.</h1>
+          <p>
+            Um jogo com cartas e dados que transforma chance, escolha e estratégia em experiência real de aprendizagem.
+            Explore o simulador, baixe os materiais e descubra como aplicar a proposta em contextos educativos.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="simulador.html">Jogar agora</a>
+            <a class="btn btn-secondary" href="baixar.html">Baixar o jogo</a>
+            <a class="btn btn-secondary" href="como-jogar.html">Ver regras</a>
           </div>
-<div class="exploration-panel hidden" id="explorationPanel">
-<h3>Probabilidades da combinação escolhida</h3>
-<div class="prob-summary" id="probabilitySummary">Escolha 2 dados para ver a distribuição das somas.</div>
-<div class="prob-grid" id="probabilityGrid"></div>
-<div class="mode-note" id="simulationCountText">Simulações realizadas: 0</div>
-</div>
-</div>
-</section>
-<aside class="panel">
-<span class="section-label">Painel</span>
-<div class="panel-header-row">
-<h3>Registro da partida</h3>
-<button aria-pressed="true" class="btn ghost sound-toggle" id="soundToggleBtn" type="button">🔊 Som: ligado</button>
-</div>
-<div class="log" id="log"></div>
-<div class="footer-note">
-          Regras desta versão: compra obrigatória no início do turno; descarte livre de 1 carta antes da rolagem; após rolar, descarte apenas cartas com valor igual à soma. Se descartar mais de uma, todas devem ter o mesmo valor e ser iguais entre si.
+
         </div>
-</aside>
-</div>
-</div>
-<script>
-    const diceOptions = [4, 6, 8, 10];
 
-    const state = {
-      difficulty: 'medio',
-      gameMode: 'duelo',
-      playerName: 'Você',
-      turnTimeLimit: 120,
-      playerTimeLeft: 120,
-      startTurnDrawDelay: 700,
-      botTimeLeft: 120,
-      activeTimerId: null,
-      started: false,
-      deck: [],
-      playerHand: [],
-      botHand: [],
-      selectedDice: [],
-      currentRoll: null,
-      turn: 'player',
-      selectedCardIndices: [],
-      gameOver: false,
-      phase: 'pre_roll_discard',
-      soundEnabled: true,
-      audioCtx: null,
-      turnNumber: 0,
-      playerTurns: 0,
-      playerDiscardedCards: 0,
-      explorationSimulationCount: 0,
-      currentTurnLogBody: null,
-    };
-
-    const els = {
-      startOverlayText: document.getElementById('startOverlayText'),
-      startMenu: document.getElementById('startMenu'),
-      nameMenu: document.getElementById('nameMenu'),
-      playerNameInput: document.getElementById('playerNameInput'),
-      confirmNameBtn: document.getElementById('confirmNameBtn'),
-      backToDifficultyBtn: document.getElementById('backToDifficultyBtn'),
-      playerNameLabel: document.getElementById('playerNameLabel'),
-      activeTimerBox: document.getElementById('activeTimerBox'),
-      activeTimerLabel: document.getElementById('activeTimerLabel'),
-      activeTimerValue: document.getElementById('activeTimerValue'),
-      turnStatusBadge: document.getElementById('turnStatusBadge'),
-      turnStatusDot: document.getElementById('turnStatusDot'),
-      turnStatusText: document.getElementById('turnStatusText'),
-      difficultyMenu: document.getElementById('difficultyMenu'),
-      backToStartBtn: document.getElementById('backToStartBtn'),
-      startOverlay: document.getElementById('startOverlay'),
-      endOverlay: document.getElementById('endOverlay'),
-      startGameBtn: document.getElementById('startGameBtn'),
-      explorationModeBtn: document.getElementById('explorationModeBtn'),
-      howToPlayBtn: document.getElementById('howToPlayBtn'),
-      howToPlayOverlay: document.getElementById('howToPlayOverlay'),
-      howToPlayTitle: document.getElementById('howToPlayTitle'),
-      howToPlayContent: document.getElementById('howToPlayContent'),
-      closeHowToPlayBtn: document.getElementById('closeHowToPlayBtn'),
-      inGameHowToPlayBtn: document.getElementById('inGameHowToPlayBtn'),
-      restartGameBtn: document.getElementById('restartGameBtn'),
-      leaveConfirmOverlay: document.getElementById('leaveConfirmOverlay'),
-      leaveConfirmTitle: document.getElementById('leaveConfirmTitle'),
-      leaveConfirmMessage: document.getElementById('leaveConfirmMessage'),
-      stayHereBtn: document.getElementById('stayHereBtn'),
-      confirmLeaveBtn: document.getElementById('confirmLeaveBtn'),
-      endTitle: document.getElementById('endTitle'),
-      endMessage: document.getElementById('endMessage'),
-      diceButtons: document.getElementById('diceButtons'),
-      playerHand: document.getElementById('playerHand'),
-      botHand: document.getElementById('botHand'),
-      playerCount: document.getElementById('playerCount'),
-      botCount: document.getElementById('botCount'),
-      deckCount: document.getElementById('deckCount'),
-      turnIndicator: document.getElementById('turnIndicator'),
-
-      turnBanner: document.getElementById('turnBanner'),
-      compactTopBar: document.getElementById('compactTopBar'),
-      boardTop: document.getElementById('boardTop'),
-      phaseIndicator: document.getElementById('phaseIndicator'),
-      freeDiscardBtn: document.getElementById('freeDiscardBtn'),
-      rollBtn: document.getElementById('rollBtn'),
-      discardBtn: document.getElementById('discardBtn'),
-      passBtn: document.getElementById('passBtn'),
-      returnMenuBtn: document.getElementById('returnMenuBtn'),
-      newGameBtn: document.getElementById('newGameBtn'),
-      die1: document.getElementById('die1'),
-      die2: document.getElementById('die2'),
-      sumBox: document.getElementById('sumBox'),
-      statusBox: document.getElementById('statusBox'),
-      log: document.getElementById('log'),
-      playerBox: document.getElementById('playerBox'),
-      botBox: document.getElementById('botBox'),
-      botMood: document.getElementById('botMood'),
-      deckArea: document.querySelector('.deck-area'),
-      deckStack: document.querySelector('.deck-stack'),
-      deckCardFace: document.getElementById('deckCardFace'),
-      soundToggleBtn: document.getElementById('soundToggleBtn'),
-      explorationPanel: document.getElementById('explorationPanel'),
-      probabilitySummary: document.getElementById('probabilitySummary'),
-      probabilityGrid: document.getElementById('probabilityGrid'),
-      simulationCountText: document.getElementById('simulationCountText'),
-      difficultyButtons: document.querySelectorAll('.difficulty-btn'),
-    };
-
-    function shuffle(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    function createDeck() {
-      const deck = [];
-      for (let copy = 0; copy < 2; copy++) {
-        for (let n = 1; n <= 20; n++) deck.push({ type: 'number', value: n });
-        deck.push({ type: 'joker', value: 'C' });
-      }
-      return shuffle(deck);
-    }
-
-    function drawCard() {
-      return state.deck.length ? state.deck.pop() : null;
-    }
-
-    function cardLabel(card) {
-      return card.type === 'joker' ? 'C' : String(card.value);
-    }
-
-    function startTurnLog(owner, summary = '') {
-      state.turnNumber += 1;
-
-      const actorName = owner === 'player' ? state.playerName : 'Igor';
-
-      const turnCard = document.createElement('div');
-      turnCard.className = 'turn-log';
-
-      const header = document.createElement('div');
-      header.className = 'turn-log-header';
-
-      const title = document.createElement('div');
-      title.className = 'turn-log-title';
-      title.textContent = `Turno ${state.turnNumber} — ${actorName}`;
-
-      const badge = document.createElement('div');
-      badge.className = `turn-log-badge ${owner === 'player' ? 'player' : 'bot'}`;
-      badge.textContent = owner === 'player' ? 'Jogador' : 'BOT';
-
-      header.appendChild(title);
-      header.appendChild(badge);
-
-      const body = document.createElement('div');
-      body.className = 'turn-log-body';
-
-      turnCard.appendChild(header);
-      turnCard.appendChild(body);
-      els.log.prepend(turnCard);
-      state.currentTurnLogBody = body;
-
-      if (summary) {
-        addLog(summary, 'important');
-      }
-    }
-
-    function addLog(message, variant = 'default', details = '') {
-      if (!state.currentTurnLogBody) {
-        startTurnLog(state.turn === 'bot' ? 'bot' : 'player', '');
-      }
-
-      const item = document.createElement('div');
-      item.className = 'log-item';
-      if (variant && variant !== 'default') item.classList.add(variant);
-
-      let label = 'Ação';
-      if (variant === 'important') label = 'Jogada importante';
-      if (variant === 'success') label = 'Descarte';
-      if (variant === 'warn') label = 'Aviso';
-
-      item.innerHTML = `<span class="log-label">${label}</span><span class="log-main">${message}</span>${details ? `<span class="log-sub">${details}</span>` : ''}`;
-      state.currentTurnLogBody.prepend(item);
-    }
-
-    
-    function randomFrom(list) {
-      return list[Math.floor(Math.random() * list.length)];
-    }
-
-    function getBotFlavor(kind) {
-      const lines = {
-        start: [
-          'Entrando na rodada.',
-          'Analisando a mesa.',
-          'Preparando a jogada.'
-        ],
-        thinking: [
-          'Pensando...',
-          'Calculando possibilidades...',
-          'Lendo a própria mão...'
-        ],
-        choosing: [
-          'Escolhendo os dados...',
-          'Buscando a melhor combinação...',
-          'Comparando chances...'
-        ],
-        rolling: [
-          'Hora de arriscar.',
-          'Vamos ver essa soma.',
-          'Rolando os dados...'
-        ],
-        good: [
-          'Boa jogada.',
-          'Essa veio forte.',
-          'Deu certo.'
-        ],
-        pass: [
-          'Não compensou arriscar.',
-          'Sem jogada útil agora.',
-          'Melhor passar.'
-        ],
-        draw: [
-          'Comprando uma carta...',
-          'Mais uma opção na mão.',
-          'Reforçando a estratégia.'
-        ]
-      };
-      return randomFrom(lines[kind] || ['Jogando...']);
-    }
-
-    function updateBotMood(text) {
-      if (els.botMood) els.botMood.textContent = text;
-    }
-
-function setStatus(message, variant = 'normal') {
-      els.statusBox.textContent = message;
-      els.statusBox.className = 'status';
-      if (variant === 'warn') els.statusBox.classList.add('warn');
-      if (variant === 'danger') els.statusBox.classList.add('danger');
-    }
-
-    function triggerDeckDrawEffect() {
-      if (!els.deckStack) return;
-      els.deckStack.classList.remove('draw-burst');
-      void els.deckStack.offsetWidth;
-      els.deckStack.classList.add('draw-burst');
-    }
-
-    function triggerBoardCenterHighlight() {
-      if (!els.playerBox) return;
-      const board = els.playerBox.closest('.board-top');
-      if (!board) return;
-      board.classList.remove('center-highlight');
-      void board.offsetWidth;
-      board.classList.add('center-highlight');
-      setTimeout(() => board.classList.remove('center-highlight'), 760);
-    }
-
-    function getAudioContext() {
-      if (!state.soundEnabled) return null;
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return null;
-      if (!state.audioCtx) state.audioCtx = new AudioCtx();
-      if (state.audioCtx.state === 'suspended') state.audioCtx.resume();
-      return state.audioCtx;
-    }
-
-    function playTone({ frequency = 440, type = 'sine', duration = 0.12, volume = 0.03, when = 0 }) {
-      const ctx = getAudioContext();
-      if (!ctx) return;
-      const start = ctx.currentTime + when;
-      const end = start + duration;
-
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-
-      osc.type = type;
-      osc.frequency.setValueAtTime(frequency, start);
-
-      gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(volume, start + 0.01);
-      gain.gain.exponentialRampToValueAtTime(0.0001, end);
-
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-
-      osc.start(start);
-      osc.stop(end + 0.02);
-    }
-
-    function playRollSound() {
-      playTone({ frequency: 220, type: 'triangle', duration: 0.08, volume: 0.026, when: 0 });
-      playTone({ frequency: 320, type: 'triangle', duration: 0.08, volume: 0.024, when: 0.06 });
-      playTone({ frequency: 480, type: 'triangle', duration: 0.10, volume: 0.022, when: 0.12 });
-    }
-
-    function playDiscardSound() {
-      playTone({ frequency: 520, type: 'square', duration: 0.05, volume: 0.018, when: 0 });
-      playTone({ frequency: 260, type: 'triangle', duration: 0.06, volume: 0.014, when: 0.03 });
-    }
-
-    function playPassTurnSound() {
-      playTone({ frequency: 360, type: 'sine', duration: 0.07, volume: 0.015, when: 0 });
-      playTone({ frequency: 300, type: 'sine', duration: 0.08, volume: 0.013, when: 0.08 });
-    }
-
-    function playVictorySound() {
-      playTone({ frequency: 523.25, type: 'triangle', duration: 0.12, volume: 0.026, when: 0 });
-      playTone({ frequency: 659.25, type: 'triangle', duration: 0.12, volume: 0.024, when: 0.12 });
-      playTone({ frequency: 783.99, type: 'triangle', duration: 0.18, volume: 0.022, when: 0.24 });
-    }
-
-    function playDefeatSound() {
-      playTone({ frequency: 392.00, type: 'sine', duration: 0.10, volume: 0.018, when: 0 });
-      playTone({ frequency: 329.63, type: 'sine', duration: 0.12, volume: 0.016, when: 0.10 });
-      playTone({ frequency: 261.63, type: 'sine', duration: 0.18, volume: 0.015, when: 0.22 });
-    }
-
-    function updateSoundButtonUI() {
-      if (!els.soundToggleBtn) return;
-      els.soundToggleBtn.textContent = state.soundEnabled ? '🔊 Som: ligado' : '🔇 Som: desligado';
-      els.soundToggleBtn.setAttribute('aria-pressed', String(state.soundEnabled));
-      els.soundToggleBtn.classList.toggle('sound-off', !state.soundEnabled);
-    }
-
-    function toggleSound() {
-      state.soundEnabled = !state.soundEnabled;
-      updateSoundButtonUI();
-      if (state.soundEnabled) {
-        const ctx = getAudioContext();
-        if (ctx) playTone({ frequency: 540, type: 'triangle', duration: 0.06, volume: 0.012 });
-      }
-    }
-
-    function updateDeckCount() {
-      els.deckCount.textContent = `${state.deck.length} carta${state.deck.length !== 1 ? 's' : ''} no monte`;
-      if (els.deckArea) {
-        const isEmpty = state.deck.length === 0;
-        els.deckArea.classList.toggle('empty', isEmpty);
-        if (els.deckCardFace) {
-          els.deckCardFace.textContent = isEmpty ? 'Baralho' : 'Baralho';
-        }
-      }
-    }
-
-    function formatTime(totalSeconds) {
-      const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
-      const seconds = String(totalSeconds % 60).padStart(2, '0');
-      return `${minutes}:${seconds}`;
-    }
-
-    function updateTimerUI() {
-      const playerActive = state.turn === 'player' && state.started && !state.gameOver;
-      const botActive = state.turn === 'bot' && state.started && !state.gameOver;
-      const activeTime = playerActive ? state.playerTimeLeft : state.botTimeLeft;
-      const activeLabel = playerActive ? `Tempo de ${state.playerName}` : 'Tempo de Igor';
-
-      els.activeTimerLabel.textContent = activeLabel;
-      els.activeTimerValue.textContent = formatTime(activeTime);
-
-      els.turnStatusText.textContent = playerActive ? 'Sua vez' : 'Vez do Igor';
-      els.turnStatusBadge.classList.toggle('turn-player', playerActive);
-      els.turnStatusBadge.classList.toggle('turn-opponent', botActive);
-      els.turnStatusDot.className = `turn-dot ${playerActive ? 'dot-player' : 'dot-opponent'}`;
-
-      els.activeTimerBox.classList.remove('active', 'warning', 'urgent');
-      if (playerActive || botActive) {
-        els.activeTimerBox.classList.add('active');
-        if (activeTime <= 10) {
-          els.activeTimerBox.classList.add('urgent');
-        } else if (activeTime <= 20) {
-          els.activeTimerBox.classList.add('warning');
-        }
-      }
-    }
-
-    function stopTurnTimer() {
-      if (state.activeTimerId) {
-        clearInterval(state.activeTimerId);
-        state.activeTimerId = null;
-      }
-    }
-
-    function handleTurnTimeout() {
-      stopTurnTimer();
-
-      if (state.turn === 'player' && !state.gameOver) {
-        addLog(`${state.playerName} ficou sem tempo e o turno foi passado automaticamente.`);
-        setStatus(`${state.playerName} ficou sem tempo. O turno foi passado para Igor.`, 'danger');
-        startBotTurn();
-        return;
-      }
-
-      if (state.turn === 'bot' && !state.gameOver) {
-        addLog('Igor ficou sem tempo e o turno foi passado automaticamente.');
-        setStatus('Igor ficou sem tempo. O turno voltou para você.', 'warn');
-        updateRollBoxes();
-        startPlayerTurn();
-      }
-    }
-
-    function startTurnTimer(forPlayer) {
-      stopTurnTimer();
-
-      if (!state.started || state.gameOver) {
-        updateTimerUI();
-        return;
-      }
-
-      if (forPlayer === 'player') {
-        state.playerTimeLeft = state.turnTimeLimit;
-      } else {
-        state.botTimeLeft = state.turnTimeLimit;
-      }
-
-      updateTimerUI();
-
-      state.activeTimerId = setInterval(() => {
-        if (!state.started || state.gameOver) {
-          stopTurnTimer();
-          return;
-        }
-
-        if (forPlayer === 'player') {
-          state.playerTimeLeft = Math.max(0, state.playerTimeLeft - 1);
-          updateTimerUI();
-          if (state.playerTimeLeft === 0) handleTurnTimeout();
-        } else {
-          state.botTimeLeft = Math.max(0, state.botTimeLeft - 1);
-          updateTimerUI();
-          if (state.botTimeLeft === 0) handleTurnTimeout();
-        }
-      }, 1000);
-    }
-
-    function updateTurnInfo() {
-      if (state.gameMode === 'exploracao') {
-        els.turnStatusText.textContent = 'Modo exploração';
-        els.turnStatusBadge.classList.remove('turn-player', 'turn-opponent');
-        els.turnStatusBadge.classList.add('turn-player');
-        els.turnStatusDot.className = 'turn-dot dot-player';
-        els.turnIndicator.textContent = 'Modo exploração';
-        els.phaseIndicator.textContent = 'Fase: escolha 2 dados, veja as probabilidades e simule quantas vezes quiser.';
-        els.playerBox.classList.remove('turn-player-active', 'active');
-        els.botBox.classList.remove('turn-bot-active', 'active');
-        els.turnIndicator.parentElement.classList.remove('player-turn', 'bot-turn', 'turn-animate');
-        updateTimerUI();
-        return;
-      }
-
-      els.turnIndicator.textContent = `Vez de jogar: ${state.turn === 'player' ? state.playerName : 'Igor'}`;
-      const isBot = state.turn === 'bot' && !state.gameOver;
-      const isPlayer = state.turn === 'player' && !state.gameOver;
-
-      els.playerBox.classList.toggle('turn-player-active', isPlayer);
-      els.botBox.classList.toggle('turn-bot-active', isBot);
-
-      els.turnIndicator.parentElement.classList.remove('player-turn', 'bot-turn', 'turn-animate');
-      els.turnIndicator.parentElement.classList.add(isPlayer ? 'player-turn' : 'bot-turn');
-      void els.turnIndicator.parentElement.offsetWidth;
-      els.turnIndicator.parentElement.classList.add('turn-animate');
-
-      let phaseText = '';
-      if (state.turn === 'bot') {
-        phaseText = 'Fase: Igor está jogando.';
-      } else if (state.phase === 'pre_roll_discard') {
-        phaseText = 'Fase: descarte 1 carta livremente ou siga para a rolagem.';
-      } else if (state.phase === 'rolling') {
-        phaseText = 'Fase: escolha 2 dados e clique em rolar.';
-      } else if (state.phase === 'post_roll_discard') {
-        phaseText = 'Fase: descarte carta(s) com o valor da soma ou passe o turno.';
-      }
-      els.phaseIndicator.textContent = phaseText;
-      const phaseInline = document.getElementById('phaseInline');
-      if(phaseInline){
-        phaseInline.textContent = phaseText.replace(/^Fase:\s*/,'');
-      }
-      updateTimerUI();
-    }
-
-    function updateOverlays() {
-      els.startOverlay.style.display = state.started ? 'none' : 'flex';
-    }
-
-    function showDifficultyMenu() {
-      state.gameMode = 'duelo';
-      els.startOverlayText.textContent = 'Escolha a dificuldade. Isso altera apenas a inteligência do Igor, sem mudar a mecânica do jogo.';
-      els.startMenu.classList.add('hidden');
-      els.nameMenu.classList.add('hidden');
-      els.difficultyMenu.classList.remove('hidden');
-    }
-
-    function showNameMenu() {
-      els.startOverlayText.textContent = 'Agora digite seu nome para aparecer na partida.';
-      els.startMenu.classList.add('hidden');
-      els.difficultyMenu.classList.add('hidden');
-      els.nameMenu.classList.remove('hidden');
-      els.playerNameInput.value = state.playerName === 'Você' ? '' : state.playerName;
-      setTimeout(() => els.playerNameInput.focus(), 50);
-    }
-
-    function showStartMenu() {
-      els.startOverlayText.textContent = 'Escolha o modo desejado. No modo exploração você só escolhe os dados, vê as probabilidades e simula as rolagens.';
-      els.difficultyMenu.classList.add('hidden');
-      els.nameMenu.classList.add('hidden');
-      els.startMenu.classList.remove('hidden');
-    }
-
-    function updatePlayerNameUI() {
-      els.playerNameLabel.textContent = state.playerName;
-    }
-
-    function showEndOverlay(title, message) {
-      els.endTitle.textContent = title;
-      els.endMessage.innerHTML = message;
-      els.endOverlay.classList.remove('hidden');
-    }
-
-    function hideEndOverlay() {
-      els.endOverlay.classList.add('hidden');
-    }
-
-    function getModeLabel() {
-      return state.gameMode === 'exploracao' ? 'exploração' : 'duelo';
-    }
-    function formatFractionVertical(numerator, denominator) {
-      return `<span class="fraction"><span class="top">${numerator}</span><span class="bar"></span><span class="bottom">${denominator}</span></span>`;
-    }
-
-    function formatSumsList(items) {
-      if (!items.length) return '';
-      const sums = items.map(item => `<b>${item.sum}</b>`).join(', ');
-      return items.length > 1 ? `somas ${sums}` : `soma ${sums}`;
-    }
-
-
-    function getProbabilityData(dieA, dieB) {
-      if (!dieA || !dieB) return [];
-      const counts = new Map();
-      let total = 0;
-
-      for (let a = 1; a <= dieA; a++) {
-        for (let b = 1; b <= dieB; b++) {
-          const sum = a + b;
-          counts.set(sum, (counts.get(sum) || 0) + 1);
-          total += 1;
-        }
-      }
-
-      return Array.from(counts.entries())
-        .sort((x, y) => x[0] - y[0])
-        .map(([sum, count]) => ({
-          sum,
-          count,
-          probability: (count / total) * 100,
-          fraction: `${count}/${total}`
-        }));
-    }
-
-    function renderProbabilityPanel() {
-      if (!els.explorationPanel) return;
-
-      if (state.gameMode !== 'exploracao') {
-        els.explorationPanel.classList.add('hidden');
-        return;
-      }
-
-      els.explorationPanel.classList.remove('hidden');
-      const [dieA, dieB] = state.selectedDice;
-
-      if (!dieA || !dieB) {
-        els.probabilitySummary.textContent = 'Escolha 2 dados para ver a distribuição das somas.';
-        els.probabilityGrid.innerHTML = '';
-        els.simulationCountText.textContent = `Simulações realizadas: ${state.explorationSimulationCount}`;
-        return;
-      }
-
-      const data = getProbabilityData(dieA, dieB);
-      const maxProbability = Math.max(...data.map(item => item.probability));
-      const minProbability = Math.min(...data.map(item => item.probability));
-      const mostLikely = data.filter(item => item.probability === maxProbability);
-      const leastLikely = data.filter(item => item.probability === minProbability);
-      const totalOutcomes = dieA * dieB;
-
-      els.probabilitySummary.innerHTML = `Dados escolhidos: <b>d${dieA}</b> e <b>d${dieB}</b>.<br>Mais prováveis: ${formatSumsList(mostLikely)} (${mostLikely[0].fraction} = ${mostLikely[0].probability.toFixed(2)}%). Menos prováveis: ${formatSumsList(leastLikely)} (${leastLikely[0].fraction} = ${leastLikely[0].probability.toFixed(2)}%).`;
-      els.probabilityGrid.innerHTML = data.map(item => `<div class="prob-item"><strong>${item.sum}</strong>${formatFractionVertical(item.count, totalOutcomes)}<span class="prob-percent">(${item.probability.toFixed(2)}%)</span></div>`).join('');
-      els.simulationCountText.textContent = `Simulações realizadas: ${state.explorationSimulationCount}`;
-    }
-
-    function updateModeUI() {
-      const inExploration = state.gameMode === 'exploracao';
-
-      if (els.compactTopBar) {
-        els.compactTopBar.classList.toggle('hidden', false);
-      }
-      els.turnBanner.classList.toggle('hidden', inExploration);
-      els.boardTop.classList.toggle('hidden', inExploration);
-      els.freeDiscardBtn.classList.toggle('hidden', inExploration);
-      els.discardBtn.classList.toggle('hidden', inExploration);
-      els.passBtn.classList.toggle('hidden', inExploration);
-      els.returnMenuBtn.classList.remove('hidden');
-
-      els.rollBtn.textContent = inExploration ? 'Simular rolagem' : 'Rolar dados';
-      els.newGameBtn.textContent = inExploration ? 'Reiniciar exploração' : 'Novo jogo';
-
-      if (inExploration) {
-        els.startOverlayText.textContent = 'Escolha o modo desejado. No modo exploração você só escolhe os dados, vê as probabilidades e simula as rolagens.';
-        setStatus('Modo exploração: escolha 2 dados para ver as probabilidades e clique em “Simular rolagem”.');
-      }
-
-      renderProbabilityPanel();
-      updateTimerUI();
-    }
-
-    function startExplorationMode() {
-      state.gameMode = 'exploracao';
-      state.started = true;
-      state.gameOver = false;
-      state.turn = 'player';
-      state.phase = 'rolling';
-      state.selectedDice = [];
-      state.currentRoll = null;
-      state.selectedCardIndices = [];
-      state.explorationSimulationCount = 0;
-      stopTurnTimer();
-      els.log.innerHTML = '';
-      hideEndOverlay();
-      updateModeUI();
-      updateOverlays();
-      updateRollBoxes();
-      renderDiceButtons();
-      updateActionButtons();
-      addLog('Modo exploração iniciado. Escolha 2 dados para analisar as probabilidades.', 'important');
-    }
-
-    function simulateExplorationRoll() {
-      if (state.selectedDice.length !== 2) return;
-      const [a, b] = state.selectedDice;
-      const r1 = Math.floor(Math.random() * a) + 1;
-      const r2 = Math.floor(Math.random() * b) + 1;
-      const sum = r1 + r2;
-
-      state.currentRoll = { dice: [a, b], rolls: [r1, r2], sum };
-      state.explorationSimulationCount += 1;
-
-      playRollSound();
-      updateRollBoxes(r1, r2, sum);
-      renderProbabilityPanel();
-      addLog(`Simulação ${state.explorationSimulationCount}: d${a} = ${r1} e d${b} = ${r2}. Soma ${sum}.`, 'important', 'Use as probabilidades para comparar combinações de dados.');
-      setStatus(`Resultado da simulação: d${a} = ${r1}, d${b} = ${r2}, soma = ${sum}.`);
-      updateActionButtons();
-    }
-
-    function getEfficiencyLabel(discardedCards, turns) {
-      if (turns <= 0) return 'baixa';
-      const efficiency = discardedCards / turns;
-      if (efficiency >= 2.5) return 'alta';
-      if (efficiency >= 1.5) return 'média';
-      return 'baixa';
-    }
-
-    function buildVictoryMessage() {
-      const turns = state.playerTurns;
-      const discardedCards = state.playerDiscardedCards;
-      const efficiencyLabel = getEfficiencyLabel(discardedCards, turns);
-      return `Você venceu em ${turns} turno${turns === 1 ? '' : 's'}.<br>Descartou ${discardedCards} carta${discardedCards === 1 ? '' : 's'}.<br>Eficiência: ${efficiencyLabel}.`;
-    }
-
-    function renderDiceButtons() {
-      els.diceButtons.innerHTML = '';
-      diceOptions.forEach(sides => {
-        const btn = document.createElement('button');
-        btn.className = 'die-btn';
-        if (state.selectedDice.includes(sides)) btn.classList.add('selected');
-        btn.textContent = 'd' + sides;
-        btn.addEventListener('click', () => toggleDie(sides));
-        btn.disabled = state.gameMode === 'exploracao' ? state.gameOver : (state.turn !== 'player' || state.phase !== 'rolling' || state.currentRoll !== null || state.gameOver);
-        els.diceButtons.appendChild(btn);
-      });
-    }
-
-    function toggleDie(sides) {
-      if (state.gameMode === 'exploracao') {
-        if (state.gameOver) return;
-      } else if (state.turn !== 'player' || state.phase !== 'rolling' || state.currentRoll !== null || state.gameOver) return;
-
-      if (state.selectedDice.includes(sides)) {
-        state.selectedDice = state.selectedDice.filter(d => d !== sides);
-      } else {
-        if (state.selectedDice.length >= 2) {
-          setStatus('Você só pode escolher 2 dados por turno.', 'warn');
-          return;
-        }
-        state.selectedDice.push(sides);
-      }
-
-      if (state.gameMode === 'exploracao') state.currentRoll = null;
-      renderDiceButtons();
-      renderProbabilityPanel();
-      updateActionButtons();
-    }
-
-    function renderHands() {
-      els.playerHand.innerHTML = '';
-      state.playerHand.forEach((card, index) => {
-        const div = document.createElement('div');
-        div.className = 'card';
-        if (state.selectedCardIndices.includes(index)) div.classList.add('selected');
-        div.innerHTML = `
-          <span class="corner tl">${cardLabel(card)}</span>
-          ${cardLabel(card)}
-          <span class="corner br">${cardLabel(card)}</span>
-        `;
-        div.addEventListener('click', () => selectPlayerCard(index));
-        els.playerHand.appendChild(div);
-      });
-
-      els.botHand.innerHTML = '';
-      state.botHand.forEach(() => {
-        const div = document.createElement('div');
-        div.className = 'card bot';
-        div.textContent = '?';
-        els.botHand.appendChild(div);
-      });
-
-      els.playerCount.textContent = `${state.playerHand.length} carta${state.playerHand.length !== 1 ? 's' : ''}`;
-      els.botCount.textContent = `${state.botHand.length} carta${state.botHand.length !== 1 ? 's' : ''}`;
-      els.playerBox.classList.toggle('active', state.turn === 'player');
-      els.botBox.classList.toggle('active', state.turn === 'bot');
-      updateDeckCount();
-    }
-
-    function selectPlayerCard(index) {
-      if (state.turn !== 'player' || state.gameOver) return;
-      if (state.phase !== 'pre_roll_discard' && state.phase !== 'post_roll_discard') return;
-
-      if (state.selectedCardIndices.includes(index)) {
-        state.selectedCardIndices = state.selectedCardIndices.filter(i => i !== index);
-      } else {
-        state.selectedCardIndices.push(index);
-      }
-
-      state.selectedCardIndices.sort((a, b) => a - b);
-      renderHands();
-      updateActionButtons();
-    }
-
-    function clearSelection() {
-      state.selectedCardIndices = [];
-      renderHands();
-      updateActionButtons();
-    }
-
-    function updateRollBoxes(d1 = '-', d2 = '-', sum = '-') {
-      const die1Box = els.die1.parentElement;
-      const die2Box = els.die2.parentElement;
-      const sumValueBox = els.sumBox.parentElement;
-      const boxes = [
-        { box: die1Box, valueEl: els.die1, value: d1, isSum: false },
-        { box: die2Box, valueEl: els.die2, value: d2, isSum: false },
-        { box: sumValueBox, valueEl: els.sumBox, value: sum, isSum: true }
-      ];
-
-      boxes.forEach(({ box, valueEl, value, isSum }) => {
-        if (!box) return;
-
-        box.classList.remove('roll-flash', 'sum-hit');
-        void box.offsetWidth;
-        valueEl.textContent = value;
-
-        const hasValue = value !== '-';
-        box.classList.toggle('has-value', hasValue);
-
-        if (hasValue) {
-          box.classList.add('roll-flash');
-          if (isSum) box.classList.add('sum-hit');
-        }
-      });
-    }
-
-    function selectedCards() {
-      return state.selectedCardIndices.map(index => state.playerHand[index]);
-    }
-
-    function canFreeDiscard() {
-      return state.turn === 'player' && state.phase === 'pre_roll_discard' && state.selectedCardIndices.length === 1 && !state.gameOver;
-    }
-
-    function canPostRollDiscard() {
-      if (!(state.turn === 'player' && state.phase === 'post_roll_discard' && state.currentRoll && state.selectedCardIndices.length >= 1 && !state.gameOver)) {
-        return false;
-      }
-
-      const cards = selectedCards();
-      const sum = state.currentRoll.sum;
-
-      const jokers = cards.filter(card => card.type === 'joker');
-      const numbers = cards.filter(card => card.type === 'number');
-
-      // Só coringa(s): permitido, pois todos podem assumir o valor da soma
-      if (numbers.length === 0) {
-        return jokers.length >= 1;
-      }
-
-      // Todas as cartas numéricas precisam ter o mesmo valor
-      const firstValue = numbers[0].value;
-      const sameValue = numbers.every(card => card.value === firstValue);
-      if (!sameValue) return false;
-
-      // Esse valor precisa ser exatamente a soma obtida
-      if (firstValue !== sum) return false;
-
-      // Coringas podem complementar o grupo
-      return true;
-    }
-
-    function updateActionButtons() {
-      const gameEnabled = state.started && !state.gameOver;
-      const hasTwoDice = state.selectedDice.length === 2;
-
-      const canRollNow = gameEnabled && state.turn === 'player' && state.phase === 'rolling' && hasTwoDice && !state.currentRoll;
-      const canPass = gameEnabled && state.turn === 'player' && state.phase === 'post_roll_discard' && !!state.currentRoll;
-      const canClear = gameEnabled && state.turn === 'player' && state.selectedCardIndices.length > 0;
-
-      const noPossibleDiscard = state.phase === 'post_roll_discard' && !canPostRollDiscard();
-
-      els.freeDiscardBtn.disabled = !(gameEnabled && canFreeDiscard());
-      els.rollBtn.disabled = !canRollNow;
-      els.discardBtn.disabled = !(gameEnabled && canPostRollDiscard());
-      els.passBtn.disabled = !canPass;
-      els.returnMenuBtn.disabled = !state.started;
-      els.newGameBtn.disabled = !state.started;
-      els.inGameHowToPlayBtn.disabled = !state.started;
-
-      // destaque automático do botão "Passar turno"
-      if (noPossibleDiscard && canPass) {
-        els.passBtn.classList.remove('ghost');
-      } else if (els.passBtn.disabled) {
-        els.passBtn.classList.add('ghost');
-      }
-
-      renderDiceButtons();
-      updateTurnInfo();
-    }
-
-    function startPlayerTurn() {
-      if (!state.started) return;
-      updateBotMood('Aguardando a sua jogada.');
-      state.playerTurns += 1;
-      state.turn = 'player';
-      state.selectedDice = [];
-      state.currentRoll = null;
-      state.selectedCardIndices = [];
-      state.phase = 'pre_roll_discard';
-      renderHands();
-      updateRollBoxes();
-      startTurnTimer('player');
-      updateActionButtons();
-      startTurnLog('player');
-      setStatus(`${state.playerName}, seu turno começou com 7 cartas. Aguarde a compra automática de 1 carta.`, 'warn');
-
-      setTimeout(() => {
-        if (!state.started || state.gameOver || state.turn !== 'player' || state.phase !== 'pre_roll_discard') return;
-        const drewCard = drawAtTurnStart(state.playerHand, state.playerName);
-        renderHands();
-
-        if (drewCard) {
-          updateActionButtons();
-          setStatus(`${state.playerName}, você comprou 1 carta. Agora descarte 1 carta antes de poder rolar os dados.`);
-        } else {
-          state.phase = 'rolling';
-          updateActionButtons();
-          setStatus(`${state.playerName}, o baralho acabou. Agora não há descarte antes da rolagem: escolha 2 dados e clique em "Rolar dados".`, 'warn');
-        }
-      }, state.startTurnDrawDelay);
-    }
-
-    function movePlayerToRollingPhase() {
-      if (state.turn !== 'player' || state.gameOver) return;
-      state.phase = 'rolling';
-      state.selectedCardIndices = [];
-      renderHands();
-      updateActionButtons();
-      setStatus('Agora escolha exatamente 2 dados e clique em "Rolar dados".');
-    }
-
-    function startBotTurn() {
-      if (!state.started) return;
-      state.turn = 'bot';
-      state.selectedDice = [];
-      state.currentRoll = null;
-      state.selectedCardIndices = [];
-      state.phase = 'pre_roll_discard';
-      renderHands();
-      updateRollBoxes();
-      startTurnTimer('bot');
-      updateActionButtons();
-      startTurnLog('bot');
-      updateBotMood(getBotFlavor('start'));
-      setStatus('Vez do oponente. Igor vai comprar 1 carta e jogar...', 'warn');
-
-      setTimeout(() => {
-        if (!state.started || state.gameOver || state.turn !== 'bot' || state.phase !== 'pre_roll_discard') return;
-        updateBotMood(getBotFlavor('draw'));
-        const drewCard = drawAtTurnStart(state.botHand, 'Igor');
-        renderHands();
-
-        if (!drewCard) {
-          state.phase = 'rolling';
-        }
-
-        updateActionButtons();
-        updateBotMood(drewCard ? getBotFlavor('thinking') : getBotFlavor('choosing'));
-        setStatus(drewCard ? 'Vez do oponente. Aguarde a jogada de Igor...' : 'O baralho acabou. Igor vai jogar sem descarte antes da rolagem.', 'warn');
-        setTimeout(() => {
-          if (state.turn === 'bot' && !state.gameOver) botTurn();
-        }, 1100);
-      }, state.startTurnDrawDelay);
-    }
-
-    function drawAtTurnStart(hand, ownerName) {
-      const card = drawCard();
-      if (card) {
-        triggerDeckDrawEffect();
-        hand.push(card);
-        addLog('comprou 1 carta no início do turno.', 'default', `Baralho: ${state.deck.length} carta(s) restante(s).`);
-        updateDeckCount();
-        return true;
-      } else {
-        addLog('o monte acabou; não comprou carta no início do turno.', 'warn');
-        updateDeckCount();
-        return false;
-      }
-    }
-
-
-    function animateDiscardCards(container, indices, onComplete) {
-      if (!container || !indices || !indices.length) {
-        if (typeof onComplete === 'function') onComplete();
-        return;
-      }
-
-      const children = [...container.children];
-      const uniqueSorted = [...new Set(indices)].sort((a, b) => a - b);
-      const targets = uniqueSorted
-        .map(index => children[index])
-        .filter(Boolean);
-
-      if (!targets.length) {
-        if (typeof onComplete === 'function') onComplete();
-        return;
-      }
-
-      let finished = 0;
-      const total = targets.length;
-
-      targets.forEach((card, order) => {
-        card.style.animationDelay = `${order * 60}ms`;
-        card.classList.add('discarding');
-        card.addEventListener('animationend', () => {
-          finished += 1;
-          if (finished === total && typeof onComplete === 'function') {
-            onComplete();
-          }
-        }, { once: true });
-      });
-    }
-
-    function freeDiscardBeforeRoll() {
-      if (!canFreeDiscard()) return;
-      const discardIndex = state.selectedCardIndices[0];
-
-      animateDiscardCards(els.playerHand, [discardIndex], () => {
-        playDiscardSound();
-        const removed = state.playerHand.splice(discardIndex, 1)[0];
-        state.playerDiscardedCards += 1;
-        addLog(`descartou a carta ${cardLabel(removed)} antes da rolagem.`, 'success');
-        triggerBoardCenterHighlight();
-        state.selectedCardIndices = [];
-        renderHands();
-        if (checkWinner()) return;
-        movePlayerToRollingPhase();
-      });
-    }
-
-    function playerRoll() {
-      if (state.gameMode === 'exploracao') {
-        if (state.selectedDice.length !== 2 || state.gameOver) return;
-        simulateExplorationRoll();
-        return;
-      }
-      if (state.selectedDice.length !== 2 || state.currentRoll || state.turn !== 'player' || state.gameOver || state.phase !== 'rolling') return;
-
-      playRollSound();
-      const [a, b] = state.selectedDice;
-      const r1 = Math.floor(Math.random() * a) + 1;
-      const r2 = Math.floor(Math.random() * b) + 1;
-      const sum = r1 + r2;
-      state.currentRoll = { dice: [a, b], results: [r1, r2], sum };
-      state.selectedCardIndices = [];
-      state.phase = 'post_roll_discard';
-      updateRollBoxes(r1, r2, sum);
-
-      const playable = state.playerHand.some(card => card.type === 'joker' || (card.type === 'number' && card.value === sum));
-      if (playable) {
-        setStatus(`Você tirou ${r1} e ${r2}. Soma ${sum}. Agora selecione uma ou mais cartas ${sum} iguais entre si e clique em "Descartar carta(s)".`, 'normal');
-      } else {
-        setStatus(`Você tirou ${r1} e ${r2}. Soma ${sum}. Você não tem carta compatível. Clique em "Passar turno".`, 'warn');
-      }
-
-      addLog(`escolheu d${a} e d${b}.`);
-      addLog(`tirou ${r1} + ${r2} = ${sum}.`);
-      renderHands();
-      updateActionButtons();
-    }
-
-    function discardAfterRoll() {
-      if (!canPostRollDiscard()) {
-        setStatus('Não é possível descartar essa seleção. Após a rolagem, as cartas precisam ter o mesmo valor da soma e, se forem várias, devem ser iguais entre si.', 'danger');
-        return;
-      }
-
-      const selectedIndicesAsc = [...state.selectedCardIndices].sort((a, b) => a - b);
-
-      animateDiscardCards(els.playerHand, selectedIndicesAsc, () => {
-        playDiscardSound();
-        const cardsToRemove = [...state.selectedCardIndices].sort((a, b) => b - a).map(index => state.playerHand[index]);
-        const labels = cardsToRemove.map(cardLabel).reverse().join(', ');
-
-        [...state.selectedCardIndices].sort((a, b) => b - a).forEach(index => {
-          state.playerHand.splice(index, 1);
-        });
-        state.playerDiscardedCards += cardsToRemove.length;
-
-        addLog(`descartou ${cardsToRemove.length} carta(s): ${labels}.`, 'success');
-        triggerBoardCenterHighlight();
-        state.selectedCardIndices = [];
-        renderHands();
-
-        stopTurnTimer();
-        if (checkWinner()) return;
-        startBotTurn();
-      });
-    }
-
-    function passTurn() {
-      if (!(state.turn === 'player' && state.phase === 'post_roll_discard' && state.currentRoll && !state.gameOver)) return;
-      playPassTurnSound();
-      addLog('passou o turno sem descartar.', 'warn');
-      stopTurnTimer();
-      startBotTurn();
-    }
-
-    function chooseBotFreeDiscard() {
-      if (!state.botHand.length) return false;
-
-      let discardIndex = 0;
-
-      if (state.difficulty === 'facil') {
-        discardIndex = Math.floor(Math.random() * state.botHand.length);
-      } else if (state.difficulty === 'medio') {
-        // descarta a carta com menor potencial futuro: primeiro coringa, depois extremos menos prováveis
-        const jokerIndex = state.botHand.findIndex(card => card.type === 'joker');
-        if (jokerIndex !== -1) {
-          discardIndex = jokerIndex;
-        } else {
-          let worstScore = Infinity;
-          state.botHand.forEach((card, index) => {
-            const distanceToCenter = Math.abs(11 - card.value);
-            if (distanceToCenter < worstScore) return;
-            worstScore = distanceToCenter;
-            discardIndex = index;
-          });
-          // fallback mais estável
-          if (discardIndex === 0) {
-            const highestIndex = state.botHand.reduce((best, card, index, arr) => {
-              if (card.type !== 'number') return best;
-              if (arr[best]?.type !== 'number') return index;
-              return card.value > arr[best].value ? index : best;
-            }, 0);
-            discardIndex = highestIndex;
-          }
-        }
-      } else {
-        // difícil: preserva cartas com maior chance de combinação futura e descarta a de menor utilidade
-        let worstScore = Infinity;
-        state.botHand.forEach((card, index) => {
-          let score = 0;
-          if (card.type === 'joker') {
-            score = 100; // coringa é muito valioso
-          } else {
-            for (const a of diceOptions) {
-              for (const b of diceOptions) {
-                if (a === b) continue;
-                const minSum = 2;
-                const maxSum = a + b;
-                if (card.value >= minSum && card.value <= maxSum) score += 1;
-              }
-            }
-            score -= Math.abs(11 - card.value) * 0.2;
-          }
-          if (score < worstScore) {
-            worstScore = score;
-            discardIndex = index;
-          }
-        });
-      }
-
-      const removed = state.botHand.splice(discardIndex, 1)[0];
-      playDiscardSound();
-      addLog(`descartou a carta ${cardLabel(removed)} antes da rolagem.`, 'success', `Estratégia: ${state.difficulty}.`);
-      triggerBoardCenterHighlight();
-      return true;
-    }
-
-    function chooseBotDice() {
-      const pairs = [];
-      for (let i = 0; i < diceOptions.length; i++) {
-        for (let j = i + 1; j < diceOptions.length; j++) {
-          pairs.push([diceOptions[i], diceOptions[j]]);
-        }
-      }
-
-      if (state.difficulty === 'facil') {
-        return pairs[Math.floor(Math.random() * pairs.length)];
-      }
-
-      let bestPair = pairs[0];
-      let bestScore = -Infinity;
-
-      for (const pair of pairs) {
-        const [a, b] = pair;
-        let score = 0;
-        const total = a * b;
-        const sumFrequency = new Map();
-
-        for (let x = 1; x <= a; x++) {
-          for (let y = 1; y <= b; y++) {
-            const sum = x + y;
-            sumFrequency.set(sum, (sumFrequency.get(sum) || 0) + 1);
-          }
-        }
-
-        if (state.difficulty === 'medio') {
-          // maximiza quantidade esperada de descarte
-          state.botHand.forEach(card => {
-            if (card.type === 'joker') return;
-            score += (sumFrequency.get(card.value) || 0);
-          });
-          const jokerCount = state.botHand.filter(card => card.type === 'joker').length;
-          if (jokerCount > 0) score += jokerCount * 1.5;
-          score = score / total;
-        } else {
-          // difícil: maximiza chance real de ter jogada útil considerando grupos e coringas
-          let playableOutcomes = 0;
-          let discardPotential = 0;
-
-          for (const [sum, freq] of sumFrequency.entries()) {
-            const matchingCards = state.botHand.filter(card => card.type === 'number' && card.value === sum).length;
-            const jokerCards = state.botHand.filter(card => card.type === 'joker').length;
-            if (matchingCards > 0 || jokerCards > 0) {
-              playableOutcomes += freq;
-              discardPotential += freq * (matchingCards + (matchingCards === 0 ? jokerCards * 0.75 : jokerCards * 0.35));
-            }
-          }
-
-          // bônus para distribuições mais concentradas em somas úteis
-          score = (playableOutcomes / total) * 8 + (discardPotential / total);
-        }
-
-        if (score > bestScore) {
-          bestScore = score;
-          bestPair = pair;
-        }
-      }
-
-      return bestPair;
-    }
-
-    function botTurn() {
-      if (state.gameOver) return;
-
-      const shouldFreeDiscard = state.phase === 'pre_roll_discard';
-      updateBotMood(getBotFlavor(shouldFreeDiscard ? 'thinking' : 'choosing'));
-      setStatus(shouldFreeDiscard ? 'Igor pensando no descarte inicial...' : 'Igor escolhendo os dados...', 'warn');
-
-      setTimeout(() => {
-        if (shouldFreeDiscard) {
-          chooseBotFreeDiscard();
-          renderHands();
-          if (checkWinner()) return;
-        }
-
-        state.phase = 'rolling';
-        updateActionButtons();
-        updateBotMood(getBotFlavor('choosing'));
-        setStatus('Igor escolhendo os dados...', 'warn');
-        const [a, b] = chooseBotDice();
-
-        setTimeout(() => {
-          updateBotMood(getBotFlavor('rolling'));
-          setStatus(`Igor rolando d${a} e d${b}...`, 'warn');
-          playRollSound();
-          const r1 = Math.floor(Math.random() * a) + 1;
-          const r2 = Math.floor(Math.random() * b) + 1;
-          const sum = r1 + r2;
-          updateRollBoxes(r1, r2, sum);
-          addLog(`escolheu d${a} e d${b}.`, 'important');
-          addLog(`tirou ${r1} + ${r2} = ${sum}.`);
-
-          setTimeout(() => {
-            const matchingIndices = [];
-            state.botHand.forEach((card, index) => {
-              if (card.type === 'number' && card.value === sum) matchingIndices.push(index);
-            });
-
-            let removedLabels = [];
-            let usedJoker = false;
-
-            if (state.difficulty === 'facil') {
-              if (matchingIndices.length > 0) {
-                const randomIndex = matchingIndices[Math.floor(Math.random() * matchingIndices.length)];
-                removedLabels = [cardLabel(state.botHand[randomIndex])];
-                state.botHand.splice(randomIndex, 1);
-              } else {
-                const jokerIndex = state.botHand.findIndex(card => card.type === 'joker');
-                if (jokerIndex !== -1) {
-                  removedLabels = [cardLabel(state.botHand[jokerIndex])];
-                  state.botHand.splice(jokerIndex, 1);
-                  usedJoker = true;
-                }
-              }
-            } else if (state.difficulty === 'medio') {
-              if (matchingIndices.length > 0) {
-                // tenta maximizar descarte
-                removedLabels = matchingIndices.map(index => cardLabel(state.botHand[index]));
-                matchingIndices.sort((a, b) => b - a).forEach(index => state.botHand.splice(index, 1));
-              } else {
-                const jokerIndex = state.botHand.findIndex(card => card.type === 'joker');
-                if (jokerIndex !== -1) {
-                  removedLabels = [cardLabel(state.botHand[jokerIndex])];
-                  state.botHand.splice(jokerIndex, 1);
-                  usedJoker = true;
-                }
-              }
-            } else {
-              if (matchingIndices.length > 0) {
-                // difícil: sempre maximiza descarte e preserva coringa se já tem cartas numéricas
-                removedLabels = matchingIndices.map(index => cardLabel(state.botHand[index]));
-                matchingIndices.sort((a, b) => b - a).forEach(index => state.botHand.splice(index, 1));
-              } else {
-                const jokerIndex = state.botHand.findIndex(card => card.type === 'joker');
-                if (jokerIndex !== -1) {
-                  removedLabels = [cardLabel(state.botHand[jokerIndex])];
-                  state.botHand.splice(jokerIndex, 1);
-                  usedJoker = true;
-                }
-              }
-            }
-
-            if (removedLabels.length > 0) {
-              const removalCount = removedLabels.length;
-              const botIndicesToAnimate = Array.from({ length: removalCount }, (_, i) => i);
-
-              animateDiscardCards(els.botHand, botIndicesToAnimate, () => {
-                playDiscardSound();
-                const detail = usedJoker
-                  ? `Coringa usado para representar a soma ${sum}.`
-                  : `Descarte feito após a soma ${sum}.`;
-                addLog(`descartou ${removedLabels.length} carta(s): ${removedLabels.join(', ')}.`, 'success', `${detail} Estratégia: ${state.difficulty}.`);
-                triggerBoardCenterHighlight();
-                updateBotMood(getBotFlavor('good'));
-                setStatus('Igor descartou carta(s).', 'warn');
-
-                renderHands();
-                if (checkWinner()) return;
-
-                setTimeout(() => {
-                  updateRollBoxes();
-                  startPlayerTurn();
-                }, 900);
-              });
-            } else {
-              addLog('não tinha carta compatível e passou o turno.', 'warn', `Estratégia: ${state.difficulty}.`);
-              updateBotMood(getBotFlavor('pass'));
-              setStatus('Igor passou o turno.', 'warn');
-
-              renderHands();
-              if (checkWinner()) return;
-
-              setTimeout(() => {
-                updateRollBoxes();
-                startPlayerTurn();
-              }, 900);
-            }
-          }, 1100);
-        }, 1000);
-      }, 900);
-    }
-
-    function checkWinner() {
-      if (state.playerHand.length === 0) {
-        state.gameOver = true;
-        stopTurnTimer();
-        playVictorySound();
-        setStatus(`${state.playerName} venceu! Ficou sem cartas primeiro.`);
-        addLog(`Fim de jogo: ${state.playerName} venceu.`, 'important');
-        updateActionButtons();
-        renderDiceButtons();
-        updateTurnInfo();
-        showEndOverlay('Você venceu!', buildVictoryMessage());
-        return true;
-      }
-
-      if (state.botHand.length === 0) {
-        state.gameOver = true;
-        stopTurnTimer();
-        playDefeatSound();
-        setStatus('Você perdeu. Igor venceu.', 'danger');
-        addLog('Fim de jogo: Igor venceu.', 'important');
-        updateActionButtons();
-        renderDiceButtons();
-        updateTurnInfo();
-        showEndOverlay('Você perdeu!', 'Clique no botão abaixo para tentar novamente.');
-        return true;
-      }
-
-      return false;
-    }
-
-    function newGame() {
-      updateBotMood('Pronto para jogar.');
-      if (state.gameMode === 'exploracao') {
-        state.deck = [];
-        state.playerHand = [];
-        state.botHand = [];
-        state.selectedDice = [];
-        state.currentRoll = null;
-        state.turn = 'player';
-        state.selectedCardIndices = [];
-        state.gameOver = false;
-        state.phase = 'rolling';
-        state.turnNumber = 0;
-        state.playerTurns = 0;
-        state.playerDiscardedCards = 0;
-        state.explorationSimulationCount = 0;
-        state.currentTurnLogBody = null;
-        stopTurnTimer();
-        els.log.innerHTML = '';
-        hideEndOverlay();
-        updateModeUI();
-        renderHands();
-        updateRollBoxes();
-        updateTurnInfo();
-        updateActionButtons();
-        addLog('Exploração reiniciada. Escolha 2 dados para analisar as probabilidades.', 'important');
-        return;
-      }
-
-      state.deck = createDeck();
-      state.playerHand = [];
-      state.botHand = [];
-      state.selectedDice = [];
-      state.currentRoll = null;
-      state.turn = 'player';
-      state.selectedCardIndices = [];
-      state.gameOver = false;
-      state.phase = 'pre_roll_discard';
-      state.turnNumber = 0;
-      state.playerTurns = 0;
-      state.playerDiscardedCards = 0;
-      state.currentTurnLogBody = null;
-      state.playerTimeLeft = state.turnTimeLimit;
-      state.botTimeLeft = state.turnTimeLimit;
-      stopTurnTimer();
-      els.log.innerHTML = '';
-      hideEndOverlay();
-
-      for (let i = 0; i < 7; i++) {
-        state.playerHand.push(drawCard());
-        state.botHand.push(drawCard());
-      }
-
-      updateModeUI();
-      renderHands();
-      updateTimerUI();
-      addLog('Nova partida iniciada. Cada jogador recebeu 7 cartas.');
-      startPlayerTurn();
-    }
-
-    function resetBoardBeforeStart() {
-      state.started = false;
-      state.deck = [];
-      state.playerHand = [];
-      state.botHand = [];
-      state.selectedDice = [];
-      state.currentRoll = null;
-      state.turn = 'player';
-      state.selectedCardIndices = [];
-      state.gameOver = false;
-      state.phase = 'pre_roll_discard';
-      state.turnNumber = 0;
-      state.playerTurns = 0;
-      state.playerDiscardedCards = 0;
-      state.explorationSimulationCount = 0;
-      state.currentTurnLogBody = null;
-      state.difficulty = 'medio';
-      state.gameMode = 'duelo';
-      state.playerName = 'Você';
-      state.playerTimeLeft = state.turnTimeLimit;
-      state.botTimeLeft = state.turnTimeLimit;
-      stopTurnTimer();
-      els.log.innerHTML = '';
-      hideEndOverlay();
-      closeHowToPlay();
-      closeLeaveConfirm();
-      showStartMenu();
-      renderHands();
-      updatePlayerNameUI();
-      updateRollBoxes();
-      updateTimerUI();
-      renderProbabilityPanel();
-      setStatus('Clique em “Iniciar jogo” para começar a partida.');
-      updateModeUI();
-      updateActionButtons();
-      updateOverlays();
-      els.startOverlay.classList.remove('hidden');
-      els.startOverlay.style.display = 'flex';
-    }
-
-    function openHowToPlay() {
-      if (state.gameMode === 'exploracao') {
-        els.howToPlayTitle.textContent = 'Como usar o modo exploração';
-        els.howToPlayContent.innerHTML = '1. Escolha <b>2 dados</b> para montar a combinação que deseja analisar.<br><br>2. Veja as probabilidades de cada soma possível para essa combinação.<br><br>3. Clique em <b>"Simular rolagem"</b> para testar um resultado aleatório com os dados escolhidos.<br><br>4. Repita quantas vezes quiser para comparar resultados e perceber quais somas aparecem com mais frequência.<br><br>5. Use o modo exploração para estudar o comportamento dos dados, sem bot e sem cartas.';
-      } else {
-        els.howToPlayTitle.textContent = 'Como jogar';
-        els.howToPlayContent.innerHTML = '1. No início do seu turno, você compra uma carta automaticamente.<br><br>2. Antes de rolar os dados, você pode descartar <b>1 carta qualquer</b>.<br><br>3. Clique em "Rolar dados" para avançar e escolha dois dados.<br><br>4. Após rolar, você pode descartar cartas se:<br>- tiverem o mesmo valor da soma dos dados<br>- e forem iguais entre si (pode descartar várias)<br><br>5. Se não puder jogar, clique em "Passar turno".<br><br>6. Vence quem ficar sem cartas primeiro.';
-      }
-      els.howToPlayOverlay.classList.remove('hidden');
-    }
-
-    function closeHowToPlay() {
-      els.howToPlayOverlay.classList.add('hidden');
-    }
-
-    function closeLeaveConfirm() {
-      els.leaveConfirmOverlay.classList.add('hidden');
-    }
-
-    function confirmBackToMenu() {
-      const isExploration = state.gameMode === 'exploracao';
-
-      els.leaveConfirmTitle.textContent = isExploration ? 'Sair do modo exploração?' : 'Sair para o menu principal?';
-      els.leaveConfirmMessage.textContent = isExploration
-        ? 'Você vai sair do modo exploração e voltar ao menu principal.'
-        : 'Você vai sair da partida atual e perder o progresso desta rodada.';
-      els.leaveConfirmOverlay.classList.remove('hidden');
-    }
-
-    function confirmLeaveToMenu() {
-      closeLeaveConfirm();
-      resetBoardBeforeStart();
-    }
-
-    function startGame(difficulty = state.difficulty) {
-      state.gameMode = 'duelo';
-      state.difficulty = difficulty;
-      state.started = true;
-      hideEndOverlay();
-      updatePlayerNameUI();
-      updateOverlays();
-      updateTimerUI();
-      newGame();
-    }
-
-    function confirmPlayerNameAndStart() {
-      const typedName = els.playerNameInput.value.trim();
-      state.playerName = typedName || 'Você';
-      startGame(state.difficulty);
-    }
-
-    els.startGameBtn.addEventListener('click', showDifficultyMenu);
-    els.explorationModeBtn.addEventListener('click', startExplorationMode);
-    els.backToStartBtn.addEventListener('click', showStartMenu);
-    els.backToDifficultyBtn.addEventListener('click', showDifficultyMenu);
-    els.confirmNameBtn.addEventListener('click', confirmPlayerNameAndStart);
-    els.playerNameInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') confirmPlayerNameAndStart();
-    });
-    els.difficultyButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        state.difficulty = button.dataset.difficulty;
-        showNameMenu();
-      });
-    });
-    els.howToPlayBtn.addEventListener('click', openHowToPlay);
-    els.closeHowToPlayBtn.addEventListener('click', closeHowToPlay);
-    els.inGameHowToPlayBtn.addEventListener('click', openHowToPlay);
-    els.restartGameBtn.addEventListener('click', newGame);
-    els.stayHereBtn.addEventListener('click', closeLeaveConfirm);
-    els.confirmLeaveBtn.addEventListener('click', confirmLeaveToMenu);
-    els.freeDiscardBtn.addEventListener('click', freeDiscardBeforeRoll);
-    els.rollBtn.addEventListener('click', playerRoll);
-    els.discardBtn.addEventListener('click', discardAfterRoll);
-    els.passBtn.addEventListener('click', passTurn);
-    els.returnMenuBtn.addEventListener('click', confirmBackToMenu);
-    els.newGameBtn.addEventListener('click', newGame);
-    els.soundToggleBtn.addEventListener('click', toggleSound);
-
-    updateSoundButtonUI();
-    updateModeUI();
-    newGame();
-  </script>
-
-
-<script src="menu.js"></script>
+        <div class="hero-side">
+          <div class="showcase-card primary">
+            <div class="showcase-label">Comece pelo essencial</div>
+            <h3>Entre no simulador e sinta a lógica do jogo</h3>
+            <p>
+              A melhor forma de entender a proposta é jogar. A dinâmica coloca a probabilidade em ação durante cada escolha.
+            </p>
+            <a class="showcase-link" href="simulador.html">Abrir simulador →</a>
+          </div>
+
+          <div class="showcase-card">
+            <div class="showcase-label">Para professores</div>
+            <h3>Use o jogo como recurso didático</h3>
+            <p>
+              Acesse as páginas voltadas ao professor e conheça possibilidades pedagógicas e fundamentos da proposta.
+            </p>
+            <a class="showcase-link" href="proposta-didatica.html">Explorar aplicação →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Escolha seu próximo passo</h2>
+        <p>
+          Os caminhos principais do projeto estão organizados aqui para deixar a navegação mais clara e mais útil.
+        </p>
+      </div>
+
+      <div class="path-grid">
+        <a class="path-card" href="simulador.html">
+          <span class="path-tag">Experimente</span>
+          <div class="path-icon">🕹️</div>
+          <h3>Simulador</h3>
+          <p>Teste a proposta em uma versão digital e entenda a dinâmica da partida na prática.</p>
+          <span class="path-link">Abrir simulador →</span>
+        </a>
+
+        <a class="path-card" href="como-jogar.html">
+          <span class="path-tag">Entenda</span>
+          <div class="path-icon">🎮</div>
+          <h3>Como jogar</h3>
+          <p>Veja as regras, a lógica das rodadas e os passos básicos para começar a jogar.</p>
+          <span class="path-link">Ver regras →</span>
+        </a>
+
+        <a class="path-card" href="baixar.html">
+          <span class="path-tag">Monte</span>
+          <div class="path-icon">⬇️</div>
+          <h3>Baixar arquivos</h3>
+          <p>Acesse cartas, manual, caixa e outros materiais para montar o jogo.</p>
+          <span class="path-link">Baixar materiais →</span>
+        </a>
+
+        <a class="path-card" href="proposta-didatica.html">
+          <span class="path-tag">Professor</span>
+          <div class="path-icon">📚</div>
+          <h3>Proposta didática</h3>
+          <p>Explore possibilidades de aplicação pedagógica e caminhos de uso em contextos de ensino.</p>
+          <span class="path-link">Explorar proposta →</span>
+        </a>
+
+        <a class="path-card" href="embasamento-teorico.html">
+          <span class="path-tag">Professor</span>
+          <div class="path-icon">🧠</div>
+          <h3>Embasamento teórico</h3>
+          <p>Conheça os fundamentos que sustentam o projeto e fortalecem sua proposta educativa.</p>
+          <span class="path-link">Ler fundamentos →</span>
+        </a>
+
+        <a class="path-card" href="sobre.html">
+          <span class="path-tag">Projeto</span>
+          <div class="path-icon">✨</div>
+          <h3>Sobre o projeto</h3>
+          <p>Descubra a origem do jogo, seu desenvolvimento e seu vínculo acadêmico.</p>
+          <span class="path-link">Conhecer trajetória →</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Mais do que um jogo</h2>
+        <p>
+          O projeto articula experiência lúdica, intenção pedagógica e aprofundamento teórico em uma mesma proposta.
+        </p>
+      </div>
+
+      <div class="split-section">
+        <div class="split-main">
+          <h3>Uma proposta para aproximar matemática, jogo e formação</h3>
+          <p>
+            O Carteado da Probabilidade foi desenvolvido para tornar o estudo da probabilidade mais concreto, envolvente e significativo. A ideia é colocar o jogador diante de situações em que pensar matematicamente faz diferença na própria experiência de jogar.
+          </p>
+          <p>
+            Ao mesmo tempo, o projeto se amplia para além da partida. Ele também serve como material de apoio para professores, abre espaço para discussões didáticas e se articula com uma proposta acadêmica mais ampla de ensino de matemática.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="proposta-didatica.html">Ver páginas do professor</a>
+            <a class="btn btn-secondary" href="sobre.html">Conhecer o projeto</a>
+          </div>
+        </div>
+
+        <aside class="split-side">
+          <div class="info-card">
+            <h4>Aprender jogando</h4>
+            <p>O jogo transforma o conteúdo em experiência e favorece uma relação mais ativa com a matemática.</p>
+          </div>
+
+          <div class="info-card">
+            <h4>Escolhas com sentido</h4>
+            <p>Os jogadores observam possibilidades, analisam resultados e tomam decisões com base em chances.</p>
+          </div>
+
+          <div class="info-card">
+            <h4>Aplicação em contextos educativos</h4>
+            <p>O site concentra materiais e páginas que ajudam a levar a proposta para discussões pedagógicas reais.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="cta-band">
+      <h3>Comece pelo que faz mais sentido para você</h3>
+      <p>
+        Quer experimentar a dinâmica? Vá para o simulador. Quer montar o jogo? Baixe os arquivos. Quer levar a proposta para a sala de aula? Explore as páginas voltadas ao professor.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="simulador.html">Jogar agora</a>
+        <a class="btn btn-secondary" href="baixar.html">Baixar o jogo</a>
+        <a class="btn btn-secondary" href="contato.html">Entrar em contato</a>
+      </div>
+
+      <div class="footer-note">
+        © 2026 – Carteado da Probabilidade | Igor Henrique Ferreira da Costa. Projeto desenvolvido no Programa de Pós-Graduação em Ensino de Ciências e Matemática – UFU.
+      </div>
+    </section>
+
+  </div>
+
+  <script src="menu.js"></script>
 </body>
 </html>
