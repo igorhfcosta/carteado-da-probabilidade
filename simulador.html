@@ -2,6 +2,7 @@
 
 <html lang="pt-BR">
 <head>
+<link rel="stylesheet" href="menu.css">
 <link rel="icon" type="image/ico" href="favicon.ico">
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -2033,40 +2034,7 @@ body{
 </style>
 </head>
 <body>
-
-  <header class="site-header">
-    <div class="site-header-inner">
-      <a class="brand-link" href="index.html" aria-label="Carteado da Probabilidade - Página inicial">
-        <span class="brand-mark">CP</span>
-        <span class="brand-text">Carteado da Probabilidade</span>
-      </a>
-
-      <nav class="site-nav desktop-nav" aria-label="Navegação principal">
-        <a class="nav-link" href="index.html">Início</a>
-        <a class="nav-link" href="sobre.html">Sobre</a>
-        <a class="nav-link" href="como-jogar.html">Como jogar</a>
-        <a class="nav-link" href="baixar.html">Baixar</a>
-        <a class="nav-link" href="contato.html">Contato</a>
-        <a class="nav-link active" href="simulador.html">Simulador</a>
-      </nav>
-
-      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-
-    <div class="mobile-panel" id="mobile-menu" hidden>
-      <nav class="mobile-nav" aria-label="Navegação mobile">
-        <a class="nav-link" href="index.html">Início</a>
-        <a class="nav-link" href="sobre.html">Sobre</a>
-        <a class="nav-link" href="como-jogar.html">Como jogar</a>
-        <a class="nav-link" href="baixar.html">Baixar</a>
-        <a class="nav-link" href="contato.html">Contato</a>
-        <a class="nav-link active" href="simulador.html">Simulador</a>
-      </nav>
-    </div>
-  </header>
-
+<div id="menu-container"></div>
 <div class="overlay" id="startOverlay">
 <div class="overlay-card">
 <h2>Carteado da Probabilidade</h2>
@@ -3736,39 +3704,7 @@ function setStatus(message, variant = 'normal') {
     newGame();
   </script>
 
-<script>
-(function () {
-  const toggle = document.querySelector('.nav-toggle');
-  const panel = document.getElementById('mobile-menu');
-  if (!toggle || !panel) return;
 
-  function closeMenu() {
-    panel.hidden = true;
-    toggle.setAttribute('aria-expanded', 'false');
-  }
-
-  toggle.addEventListener('click', function () {
-    const willOpen = panel.hidden;
-    panel.hidden = !panel.hidden;
-    toggle.setAttribute('aria-expanded', String(willOpen));
-  });
-
-  panel.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('click', function (event) {
-    if (panel.hidden) return;
-    if (!panel.contains(event.target) && !toggle.contains(event.target)) {
-      closeMenu();
-    }
-  });
-
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 900) closeMenu();
-  });
-})();
-</script>
-
+<script src="menu.js"></script>
 </body>
 </html>
