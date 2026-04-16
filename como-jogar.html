@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <link rel="stylesheet" href="menu.css">
   <link rel="icon" type="image/ico" href="favicon.ico">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -541,196 +542,10 @@
       }
     }
   
-/* ===== Navegação global ===== */
-:root{
-  --nav-height: 78px;
-}
-
-body{
-  padding-top: calc(var(--nav-height) + 24px) !important;
-}
-
-.site-header{
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  right: 14px;
-  z-index: 10000;
-  pointer-events: none;
-}
-
-.site-header-inner,
-.mobile-panel{
-  max-width: 1160px;
-  margin: 0 auto;
-  pointer-events: auto;
-}
-
-.site-header-inner{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 12px 16px;
-  border: 1px solid rgba(179,135,255,0.22);
-  border-radius: 18px;
-  background: rgba(13,7,25,0.72);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 20px 48px rgba(0,0,0,.28);
-}
-
-.brand-link{
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: var(--text, #f5efff);
-  min-width: 0;
-}
-
-.brand-mark{
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-weight: 800;
-  font-size: .95rem;
-  color: #fff;
-  background: linear-gradient(135deg, var(--primary, #8b5cf6), var(--primary-2, #a855f7));
-  box-shadow: 0 10px 24px rgba(139,92,246,.26);
-  flex: 0 0 auto;
-}
-
-.brand-text{
-  font-weight: 700;
-  letter-spacing: -.02em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.site-nav{
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.nav-link{
-  text-decoration: none;
-  color: var(--muted, #cbbbe8);
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 700;
-  border: 1px solid transparent;
-  transition: .22s ease;
-}
-
-.nav-link:hover{
-  color: var(--text, #f5efff);
-  background: rgba(255,255,255,.04);
-  border-color: rgba(179,135,255,0.14);
-  transform: translateY(-1px);
-}
-
-.nav-link.active{
-  color: #fff;
-  background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(168,85,247,.12));
-  border-color: rgba(179,135,255,0.28);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-}
-
-.nav-toggle{
-  display: none;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  border: 1px solid rgba(179,135,255,0.22);
-  background: rgba(255,255,255,.04);
-  cursor: pointer;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.nav-toggle span{
-  width: 18px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--text, #f5efff);
-  display: block;
-}
-
-.mobile-panel{
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid rgba(179,135,255,0.20);
-  border-radius: 18px;
-  background: rgba(13,7,25,0.86);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 20px 48px rgba(0,0,0,.28);
-}
-
-.mobile-nav{
-  display: grid;
-  gap: 8px;
-}
-
-.mobile-nav .nav-link{
-  width: 100%;
-}
-
-@media (max-width: 900px){
-  .desktop-nav{
-    display: none;
-  }
-
-  .nav-toggle{
-    display: inline-flex;
-  }
-
-  .brand-text{
-    max-width: 180px;
-  }
-}
-
-@media (max-width: 640px){
-  :root{
-    --nav-height: 74px;
-  }
-
-  .site-header{
-    top: 10px;
-    left: 10px;
-    right: 10px;
-  }
-
-  .site-header-inner{
-    padding: 10px 12px;
-    border-radius: 16px;
-  }
-
-  .brand-mark{
-    width: 36px;
-    height: 36px;
-    border-radius: 11px;
-    font-size: .88rem;
-  }
-
-  .brand-text{
-    max-width: 140px;
-    font-size: .95rem;
-  }
-}
-
 </style>
 </head>
 <body>
-
+  <div id="menu-container"></div>
   <header class="site-header">
     <div class="site-header-inner">
       <a class="brand-link" href="index.html" aria-label="Carteado da Probabilidade - Página inicial">
@@ -1004,39 +819,6 @@ body{
 
   </div>
 
-<script>
-(function () {
-  const toggle = document.querySelector('.nav-toggle');
-  const panel = document.getElementById('mobile-menu');
-  if (!toggle || !panel) return;
-
-  function closeMenu() {
-    panel.hidden = true;
-    toggle.setAttribute('aria-expanded', 'false');
-  }
-
-  toggle.addEventListener('click', function () {
-    const willOpen = panel.hidden;
-    panel.hidden = !panel.hidden;
-    toggle.setAttribute('aria-expanded', String(willOpen));
-  });
-
-  panel.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', closeMenu);
-  });
-
-  document.addEventListener('click', function (event) {
-    if (panel.hidden) return;
-    if (!panel.contains(event.target) && !toggle.contains(event.target)) {
-      closeMenu();
-    }
-  });
-
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 900) closeMenu();
-  });
-})();
-</script>
-
+<script src="menu.js"></script>
 </body>
 </html>
