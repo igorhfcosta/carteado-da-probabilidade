@@ -165,9 +165,20 @@ body{
 .dropdown-toggle{
   cursor: pointer;
   background: transparent;
-  appearance: none;
-  -webkit-appearance: none;
-  border: 1px solid transparent;
+  border: none;
+
+  /* ESSAS LINHAS RESOLVEM */
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--muted, #cbbbe8);
+  padding: 10px 14px;
+  border-radius: 12px;
+
+  display: inline-flex;
+  align-items: center;
+
+  transition: .22s ease;
 }
 
 .dropdown-arrow{
