@@ -157,7 +157,7 @@ body{
 
 .dropdown{
   position: relative;
-  display: inline-flex;
+  display: inline-block; 
   align-items: center;
   padding-bottom: 10px;
 }
@@ -190,15 +190,20 @@ body{
   position: absolute;
   top: 100%;
   left: 0;
-  min-width: 230px;
+
   display: none;
   flex-direction: column;
+
+  min-width: 230px;
   padding: 8px;
+
   background: rgba(13,7,25,0.96);
   border: 1px solid rgba(179,135,255,0.22);
   border-radius: 16px;
+
   backdrop-filter: blur(16px);
   box-shadow: 0 20px 40px rgba(0,0,0,.35);
+
   z-index: 9999;
 }
 
