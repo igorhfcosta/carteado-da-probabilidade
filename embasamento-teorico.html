@@ -2,56 +2,14 @@
 <html lang="pt-BR">
 <head>
   <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="content-pages.css">
   <link rel="icon" type="image/ico" href="favicon.ico">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Embasamento teórico - Carteado da Probabilidade</title>
-  <style>
-    :root{
-      --bg:#0f071d; --primary:#8b5cf6; --primary-2:#a855f7; --primary-3:#c084fc;
-      --text:#f5efff; --muted:#cbbbe8; --line:rgba(179,135,255,0.18); --line-strong:rgba(179,135,255,0.32);
-      --shadow:0 24px 70px rgba(0,0,0,.35);
-    }
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{
-      font-family: Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(168,85,247,.22), transparent 28%),
-        radial-gradient(circle at top right, rgba(139,92,246,.14), transparent 30%),
-        linear-gradient(180deg, #0b0615 0%, #120822 35%, #170b2d 70%, #0d0719 100%);
-      line-height:1.6;
-      padding:32px 18px 50px;
-      overflow-x:hidden;
-    }
-    body::before{
-      content:"";
-      position:fixed; inset:0; pointer-events:none;
-      background:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size:40px 40px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,.65), transparent 95%);
-      opacity:.35;
-    }
-    .container{max-width:1120px;margin:0 auto;position:relative;z-index:1;}
-    .hero{
-      position:relative; overflow:hidden; padding:44px 34px; border:1px solid var(--line-strong); border-radius:32px;
-      background: linear-gradient(135deg, rgba(112,52,255,.28), rgba(168,85,247,.12)), rgba(255,255,255,.04);
-      backdrop-filter: blur(10px); box-shadow: var(--shadow);
-    }
-    .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.84rem;letter-spacing:.12em;text-transform:uppercase;color:var(--primary-3);margin-bottom:16px;font-weight:700;}
-    .eyebrow::before{content:"";width:34px;height:1px;background:linear-gradient(90deg, var(--primary-3), transparent);}
-    h1{font-size:clamp(2.2rem, 4vw, 4rem);line-height:1.02;max-width:780px;margin-bottom:16px;letter-spacing:-0.03em;}
-    p{max-width:760px;font-size:1.04rem;color:var(--muted);}
-    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px;}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;text-decoration:none;font-weight:700;border-radius:12px;transition:.22s ease;border:1px solid transparent;}
-    .btn-primary{background:linear-gradient(135deg, var(--primary), var(--primary-2));color:white;box-shadow:0 12px 30px rgba(139,92,246,.28);}
-
-
-  </style>
-</head>
-<body>
+  </head>
+<body class="content-page">
 <div id="menu-container"></div>
    <div class="container">
     <section class="hero">
@@ -65,6 +23,7 @@
   </div>
 
 <script src="menu.js"></script>
+<script src="site-animations.js"></script>
 
 </body>
 </html>
