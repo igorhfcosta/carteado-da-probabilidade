@@ -1,0 +1,47 @@
+
+/* Animações discretas do site */
+html.js-enabled {
+  scroll-behavior: smooth;
+}
+
+.js-animate-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .55s ease, transform .55s ease;
+  will-change: opacity, transform;
+}
+
+.js-animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.site-header {
+  transition: top .25s ease;
+}
+
+.site-header .site-header-inner,
+.site-header .mobile-panel {
+  transition: background .25s ease, border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+.site-header.is-scrolled .site-header-inner {
+  background: rgba(13,7,25,0.88);
+  border-color: rgba(179,135,255,0.30);
+  box-shadow: 0 20px 56px rgba(0,0,0,.34);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-enabled {
+    scroll-behavior: auto;
+  }
+  .js-animate-on-scroll,
+  .js-animate-on-scroll.is-visible,
+  .site-header,
+  .site-header .site-header-inner,
+  .site-header .mobile-panel {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
