@@ -1,41 +1,46 @@
 document.documentElement.classList.add('js-enabled');
 
 document.addEventListener('DOMContentLoaded', () => {
-  const selectors = [
-    '.hero', '.section', '.highlight', '.footer-cta', '.timeline-item',
-    '.contact-main', '.contact-side', '.story-main', '.story-side',
-    '.stat-card', '.step', '.download-card', '.faq-card', '.resource-card',
-    '.feature-card', '.cta', '.section-head', '.hero-visual', '.hero-copy',
-    '.hero-card', '.showcase-card', '.card', '.panel'
-  ];
+  const header = document.querySelector('.site-header');
+  const revealItems = document.querySelectorAll('.section, .path-card, .info-card, .showcase-card, .cta-band');
 
-  const targets = [...new Set(selectors.flatMap(selector => Array.from(document.querySelectorAll(selector))))];
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (header) {
+    const updateHeaderState = () => {
+      if (window.scrollY > 12) {
+        header.classList.add('is-scrolled');
+      } else {
+        header.classList.remove('is-scrolled');
+      }
+    };
 
-  if (!reduceMotion && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-    targets.forEach((element, index) => {
-      element.classList.add('js-animate-on-scroll');
-      element.style.transitionDelay = `${Math.min(index % 4, 3) * 60}ms`;
-      observer.observe(element);
-    });
-  } else {
-    targets.forEach((element) => element.classList.add('is-visible'));
+    updateHeaderState();
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
   }
 
-  const header = document.querySelector('.site-header');
-  const setHeaderState = () => {
-    if (!header) return;
-    header.classList.toggle('is-scrolled', window.scrollY > 14);
-  };
-  setHeaderState();
-  window.addEventListener('scroll', setHeaderState, { passive: true });
+  revealItems.forEach(item => {
+    item.classList.add('reveal');
+  });
+
+  const firstSection = document.querySelector('.section');
+  if (firstSection) {
+    firstSection.classList.add('revealed');
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  revealItems.forEach(item => {
+    if (!item.classList.contains('revealed')) {
+      observer.observe(item);
+    }
+  });
 });
