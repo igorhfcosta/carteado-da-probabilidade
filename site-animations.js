@@ -1,8 +1,5 @@
-
-
 document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('.site-header');
-  const revealItems = document.querySelectorAll('.section, .path-card, .info-card, .showcase-card, .cta-band');
 
   if (header) {
     const updateHeaderState = () => {
@@ -17,13 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateHeaderState, { passive: true });
   }
 
-  revealItems.forEach(item => {
-    item.classList.add('reveal');
-  });
+  const revealItems = document.querySelectorAll('.reveal');
 
-  const firstSection = document.querySelector('.section');
-  if (firstSection) {
-    firstSection.classList.add('revealed');
+  if (!revealItems.length) return;
+
+  const firstReveal = revealItems[0];
+  if (firstReveal) {
+    firstReveal.classList.add('revealed');
   }
 
   const observer = new IntersectionObserver((entries) => {
