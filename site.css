@@ -45,4 +45,26 @@ html.js-enabled {
     transform: none !important;
     opacity: 1 !important;
   }
+  /* ===== REVEAL NO SCROLL ===== */
+
+.reveal{
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+  will-change: opacity, transform;
+}
+
+.reveal.revealed{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== HEADER AO ROLAR ===== */
+
+.site-header.is-scrolled .site-header-inner{
+  background: rgba(13,7,25,0.88);
+  box-shadow: 0 22px 54px rgba(0,0,0,.34);
+}
 }
