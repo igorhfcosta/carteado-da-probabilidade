@@ -16,9 +16,6 @@ html.js-enabled {
   transform: translateY(0);
 }
 
-.container {
-  margin-top: 110px;
-}
 
 .site-header {
   transition: top .25s ease;
