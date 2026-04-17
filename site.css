@@ -50,9 +50,7 @@ html.js-enabled {
 .reveal{
   opacity: 0;
   transform: translateY(26px);
-  transition:
-    opacity .7s ease,
-    transform .7s ease;
+  transition: opacity .7s ease, transform .7s ease;
   will-change: opacity, transform;
 }
 
@@ -60,8 +58,6 @@ html.js-enabled {
   opacity: 1;
   transform: translateY(0);
 }
-
-/* ===== HEADER AO ROLAR ===== */
 
 .site-header.is-scrolled .site-header-inner{
   background: rgba(13,7,25,0.88);
