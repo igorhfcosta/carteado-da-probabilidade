@@ -1,4 +1,4 @@
-document.documentElement.classList.add('js-enabled');
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('.site-header');
