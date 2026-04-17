@@ -2,9 +2,7 @@
   --nav-height: 78px;
 }
 
-body{
-  padding-top: calc(var(--nav-height) + 24px) !important;
-}
+
 
 /* ===== HEADER ===== */
 
