@@ -1,279 +1,184 @@
-:root{
-  --nav-height: 78px;
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/ico" href="favicon.ico">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Carteado da Probabilidade: jogo educativo com cartas e dados para aprender probabilidade de forma estratégica, interativa e significativa." />
+  <title>Carteado da Probabilidade - Início</title>
 
-body{
-  padding-top: calc(var(--nav-height) + 24px) !important;
-}
+  </head>
+<body>
 
-/* ===== HEADER ===== */
+  <div id="menu-container"></div>
 
-.site-header{
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  right: 14px;
-  z-index: 10000;
-  pointer-events: none;
-}
+  <div class="container">
 
-.site-header-inner,
-.mobile-panel{
-  max-width: 1160px;
-  margin: 0 auto;
-  pointer-events: auto;
-}
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Jogo educativo de probabilidade</div>
+          <h1>Aprenda <span class="highlight-word">probabilidade</span> jogando.</h1>
+          <p>
+            Um jogo com cartas e dados que transforma chance, escolha e estratégia em experiência real de aprendizagem.
+            Explore o simulador, baixe os materiais e descubra como aplicar a proposta em contextos educativos.
+          </p>
 
-.site-header-inner{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 12px 16px;
-  border: 1px solid rgba(179,135,255,0.22);
-  border-radius: 18px;
-  background: rgba(13,7,25,0.72);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 20px 48px rgba(0,0,0,.28);
-}
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="simulador.html">Jogar agora</a>
+            <a class="btn btn-secondary" href="baixar.html">Baixar o jogo</a>
+            <a class="btn btn-secondary" href="como-jogar.html">Ver regras</a>
+          </div>
 
-/* ===== LOGO ===== */
+        </div>
 
-.brand-link{
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: var(--text, #f5efff);
-  min-width: 0;
-}
+        <div class="hero-side">
+          <div class="showcase-card primary">
+            <div class="showcase-label">Comece pelo essencial</div>
+            <h3>Entre no simulador e sinta a lógica do jogo</h3>
+            <p>
+              A melhor forma de entender a proposta é jogar. A dinâmica coloca a probabilidade em ação durante cada escolha.
+            </p>
+            <a class="showcase-link" href="simulador.html">Abrir simulador →</a>
+          </div>
 
-.brand-mark{
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  flex: 0 0 auto;
-}
+          <div class="showcase-card">
+            <div class="showcase-label">Para professores</div>
+            <h3>Use o jogo como recurso didático</h3>
+            <p>
+              Acesse as páginas voltadas ao professor e conheça possibilidades pedagógicas e fundamentos da proposta.
+            </p>
+            <a class="showcase-link" href="proposta-didatica.html">Explorar aplicação →</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-.brand-mark img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 10px;
-}
+    <section class="section">
+      <div class="section-head">
+        <h2>Escolha seu próximo passo</h2>
+        <p>
+          Os caminhos principais do projeto estão organizados aqui para deixar a navegação mais clara e mais útil.
+        </p>
+      </div>
 
-.brand-text{
-  font-weight: 700;
-  letter-spacing: -.02em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+      <div class="path-grid">
+        <a class="path-card" href="simulador.html">
+          <span class="path-tag">Experimente</span>
+          <div class="path-icon">🕹️</div>
+          <h3>Simulador</h3>
+          <p>Teste a proposta em uma versão digital e entenda a dinâmica da partida na prática.</p>
+          <span class="path-link">Abrir simulador →</span>
+        </a>
 
-/* ===== MENU ===== */
+        <a class="path-card" href="como-jogar.html">
+          <span class="path-tag">Entenda</span>
+          <div class="path-icon">🎮</div>
+          <h3>Como jogar</h3>
+          <p>Veja as regras, a lógica das rodadas e os passos básicos para começar a jogar.</p>
+          <span class="path-link">Ver regras →</span>
+        </a>
 
-.site-nav{
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  flex-wrap: wrap;
-  overflow: visible;
-}
+        <a class="path-card" href="baixar.html">
+          <span class="path-tag">Monte</span>
+          <div class="path-icon">⬇️</div>
+          <h3>Baixar arquivos</h3>
+          <p>Acesse cartas, manual, caixa e outros materiais para montar o jogo.</p>
+          <span class="path-link">Baixar materiais →</span>
+        </a>
 
-.nav-link{
-  text-decoration: none;
-  color: var(--muted, #cbbbe8);
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 700;
-  border: 1px solid transparent;
-  transition: .22s ease;
-}
+        <a class="path-card" href="proposta-didatica.html">
+          <span class="path-tag">Professor</span>
+          <div class="path-icon">📚</div>
+          <h3>Proposta didática</h3>
+          <p>Explore possibilidades de aplicação pedagógica e caminhos de uso em contextos de ensino.</p>
+          <span class="path-link">Explorar proposta →</span>
+        </a>
 
-.nav-link:hover{
-  color: var(--text, #f5efff);
-  background: rgba(255,255,255,.04);
-  border-color: rgba(179,135,255,0.14);
-  transform: translateY(-1px);
-}
+        <a class="path-card" href="embasamento-teorico.html">
+          <span class="path-tag">Professor</span>
+          <div class="path-icon">🧠</div>
+          <h3>Embasamento teórico</h3>
+          <p>Conheça os fundamentos que sustentam o projeto e fortalecem sua proposta educativa.</p>
+          <span class="path-link">Ler fundamentos →</span>
+        </a>
 
-.nav-link.active{
-  color: #fff;
-  background: linear-gradient(135deg, rgba(139,92,246,.22), rgba(168,85,247,.12));
-  border-color: rgba(179,135,255,0.28);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-}
+        <a class="path-card" href="sobre.html">
+          <span class="path-tag">Projeto</span>
+          <div class="path-icon">✨</div>
+          <h3>Sobre o projeto</h3>
+          <p>Descubra a origem do jogo, seu desenvolvimento e seu vínculo acadêmico.</p>
+          <span class="path-link">Conhecer trajetória →</span>
+        </a>
+      </div>
+    </section>
 
-/* ===== BOTÃO MOBILE ===== */
+    <section class="section">
+      <div class="section-head">
+        <h2>Mais do que um jogo</h2>
+        <p>
+          O projeto articula experiência lúdica, intenção pedagógica e aprofundamento teórico em uma mesma proposta.
+        </p>
+      </div>
 
-.nav-toggle{
-  display: none;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  border: 1px solid rgba(179,135,255,0.22);
-  background: rgba(255,255,255,.04);
-  cursor: pointer;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 5px;
-}
+      <div class="split-section">
+        <div class="split-main">
+          <h3>Uma proposta para aproximar matemática, jogo e formação</h3>
+          <p>
+            O Carteado da Probabilidade foi desenvolvido para tornar o estudo da probabilidade mais concreto, envolvente e significativo. A ideia é colocar o jogador diante de situações em que pensar matematicamente faz diferença na própria experiência de jogar.
+          </p>
+          <p>
+            Ao mesmo tempo, o projeto se amplia para além da partida. Ele também serve como material de apoio para professores, abre espaço para discussões didáticas e se articula com uma proposta acadêmica mais ampla de ensino de matemática.
+          </p>
 
-.nav-toggle span{
-  width: 18px;
-  height: 2px;
-  border-radius: 999px;
-  background: var(--text, #f5efff);
-  display: block;
-}
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="proposta-didatica.html">Ver páginas do professor</a>
+            <a class="btn btn-secondary" href="sobre.html">Conhecer o projeto</a>
+          </div>
+        </div>
 
-/* ===== MENU MOBILE ===== */
+        <aside class="split-side">
+          <div class="info-card">
+            <h4>Aprender jogando</h4>
+            <p>O jogo transforma o conteúdo em experiência e favorece uma relação mais ativa com a matemática.</p>
+          </div>
 
-.mobile-panel{
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid rgba(179,135,255,0.20);
-  border-radius: 18px;
-  background: rgba(13,7,25,0.86);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 20px 48px rgba(0,0,0,.28);
-}
+          <div class="info-card">
+            <h4>Escolhas com sentido</h4>
+            <p>Os jogadores observam possibilidades, analisam resultados e tomam decisões com base em chances.</p>
+          </div>
 
-.mobile-nav{
-  display: grid;
-  gap: 8px;
-}
+          <div class="info-card">
+            <h4>Aplicação em contextos educativos</h4>
+            <p>O site concentra materiais e páginas que ajudam a levar a proposta para discussões pedagógicas reais.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-.mobile-nav .nav-link{
-  width: 100%;
-}
+    <section class="cta-band">
+      <h3>Comece pelo que faz mais sentido para você</h3>
+      <p>
+        Quer experimentar a dinâmica? Vá para o simulador. Quer montar o jogo? Baixe os arquivos. Quer levar a proposta para a sala de aula? Explore as páginas voltadas ao professor.
+      </p>
 
-/* ===== DROPDOWN ===== */
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="simulador.html">Jogar agora</a>
+        <a class="btn btn-secondary" href="baixar.html">Baixar o jogo</a>
+        <a class="btn btn-secondary" href="contato.html">Entrar em contato</a>
+      </div>
 
-.dropdown{
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
+      <div class="footer-note">
+        © 2026 – Carteado da Probabilidade | Igor Henrique Ferreira da Costa. Projeto desenvolvido no Programa de Pós-Graduação em Ensino de Ciências e Matemática – UFU.
+      </div>
+    </section>
 
-.dropdown-toggle{
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
+  </div>
 
-.dropdown-arrow{
-  font-size: .8em;
-  margin-left: 6px;
-}
-
-.dropdown-menu{
-  position: absolute;
-  top: 100%;
-  left: 0;
-
-  display: none;
-  flex-direction: column;
-
-  min-width: 230px;
-  padding: 8px;
-
-  background: rgba(13,7,25,0.96);
-  border: 1px solid rgba(179,135,255,0.22);
-  border-radius: 16px;
-
-  backdrop-filter: blur(16px);
-  box-shadow: 0 20px 40px rgba(0,0,0,.35);
-
-  z-index: 9999;
-}
-
-.dropdown:hover .dropdown-menu{
-  display: flex;
-}
-
-.dropdown-item{
-  display: block;
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--muted, #cbbbe8);
-  font-weight: 600;
-  white-space: nowrap;
-  transition: .2s ease;
-}
-
-.dropdown-item:hover{
-  background: rgba(139,92,246,.15);
-  color: #fff;
-}
-
-/* ===== RESPONSIVO ===== */
-
-@media (max-width: 900px){
-  .desktop-nav{
-    display: none;
-  }
-
-  .nav-toggle{
-    display: inline-flex;
-  }
-
-  .brand-text{
-    max-width: 180px;
-  }
-
-  .dropdown{
-    width: 100%;
-    display: block;
-  }
-
-  .dropdown-toggle{
-    width: 100%;
-    text-align: left;
-    justify-content: space-between;
-  }
-
-  .dropdown-menu{
-    position: static;
-    display: flex;
-    margin-top: 8px;
-    min-width: 100%;
-    box-shadow: none;
-    border-radius: 14px;
-  }
-}
-
-@media (max-width: 640px){
-  :root{
-    --nav-height: 74px;
-  }
-
-  .site-header{
-    top: 10px;
-    left: 10px;
-    right: 10px;
-  }
-
-  .site-header-inner{
-    padding: 10px 12px;
-    border-radius: 16px;
-  }
-
-  .brand-mark{
-    width: 36px;
-    height: 36px;
-  }
-
-  .brand-text{
-    max-width: 140px;
-    font-size: .95rem;
-  }
-}
+  <script src="menu.js"></script>
+<script src="site-animations.js"></script>
+</body>
+</html>
