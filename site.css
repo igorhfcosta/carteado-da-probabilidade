@@ -45,6 +45,38 @@ html.js-enabled {
     transform: none !important;
     opacity: 1 !important;
   }
+  
+  .hero{
+  position: relative;
+  padding-bottom: 28px;
+  margin-bottom: 14px;
+}
+
+.hero::before{
+  content: "⌄";
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  font-size: 1.2rem;
+  line-height: 1;
+  color: rgba(255,255,255,.72);
+  pointer-events: none;
+  z-index: 2;
+  animation: heroScrollHint 1.8s ease-in-out infinite;
+}
+
+@keyframes heroScrollHint{
+  0%, 100%{
+    transform: translateX(-50%) translateY(0);
+    opacity: .45;
+  }
+  50%{
+    transform: translateX(-50%) translateY(6px);
+    opacity: .95;
+  }
+}
+  
   /* ===== REVEAL NO SCROLL ===== */
 
 .reveal{
