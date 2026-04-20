@@ -4375,6 +4375,7 @@ function setStatus(message, variant = 'normal') {
           const r2 = Math.floor(Math.random() * b) + 1;
           const sum = r1 + r2;
           state.currentRoll = { dice: [a, b], results: [r1, r2], sum };
+          setPhase('post_roll_discard');
           updateRollBoxes(r1, r2, sum);
           addLog(`escolheu d${a} e d${b}.`, 'important');
           addLog(`tirou ${r1} + ${r2} = ${sum}.`);
