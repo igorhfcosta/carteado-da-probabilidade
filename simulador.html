@@ -852,12 +852,14 @@
     }
 
     .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 56px);
+      display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       min-height: 172px;
-      align-content: start;
+      align-content: flex-start;
       justify-content: center;
+      margin-inline: auto;
+      width: 100%;
     }
 
     .card {
@@ -1981,7 +1983,16 @@
       .bot-avatar { width: 24px; height: 24px; font-size: .92rem; }
       .bot-role-badge { padding: 3px 8px; font-size: .66rem; }
       .bot-mood { font-size: .76rem; min-height: 16px; }
-      .cards { grid-template-columns: repeat(3, 50px); gap: 6px; min-height: 154px; justify-content: center; }
+      .cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        min-height: 154px;
+        justify-content: center;
+        align-content: flex-start;
+        margin-inline: auto;
+        width: 100%;
+      }
       .card { width: 50px; height: 74px; font-size: .96rem; border-radius: 11px; }
       .corner { font-size: .58rem; }
       .deck-area { min-width: 118px; gap: 8px; }
