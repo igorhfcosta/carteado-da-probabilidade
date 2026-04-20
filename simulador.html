@@ -1939,7 +1939,20 @@
     @media (max-width: 980px) {
       .layout { grid-template-columns: 1fr; }
       .board-top { grid-template-columns: 1fr; }
-      .deck-area { justify-items: start; }
+      .deck-row {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+      }
+      .deck-area {
+        justify-items: center;
+        min-width: 118px;
+      }
+      .deck-area.effect-deck {
+        min-width: 118px;
+      }
       .turn-banner { flex-direction: column; align-items: flex-start; }
 .turn-banner{display:none !important;}
     }
@@ -1972,7 +1985,7 @@
       .card { width: 50px; height: 74px; font-size: .96rem; border-radius: 11px; }
       .corner { font-size: .58rem; }
       .deck-area { min-width: 118px; gap: 8px; }
-      .deck-row { gap: 10px; }
+      .deck-row { flex-direction: column; justify-content: flex-start; align-items: center; gap: 10px; }
       .deck-area.effect-deck .deck-stack { width: 60px; height: 84px; }
       .deck-area::before { width: 112px; height: 112px; top: 8px; }
       .deck-stack { width: 60px; height: 84px; }
@@ -2003,8 +2016,18 @@
       .subtitle { font-size: .9rem; }
       .dice-grid { grid-template-columns: repeat(2, 1fr); }
       .actions, .roll-result { grid-template-columns: 1fr; }
+      .deck-row {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 10px;
+        width: 100%;
+      }
+      .deck-area {
+        min-width: 118px;
+      }
       .card { width: 50px; height: 74px; }
-      .card.effect-card { width: 56px; height: 84px; }
+      .card.effect-card { width: 50px; height: 74px; }
       .stats-grid { grid-template-columns: 1fr; }
       .player-box { min-height: auto; }
       .board-top { padding: 14px 12px 12px; }
