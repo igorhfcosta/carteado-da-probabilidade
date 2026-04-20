@@ -951,6 +951,215 @@
 
     .card.bot:hover { transform: none; }
 
+
+    .deck-row {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .deck-area.effect-deck {
+      min-width: 132px;
+    }
+
+    .deck-area.effect-deck::before {
+      width: 132px;
+      height: 132px;
+      background: radial-gradient(circle, rgba(125,255,179,.18) 0%, rgba(125,255,179,.06) 34%, rgba(125,255,179,0) 72%);
+    }
+
+    .deck-area.effect-deck.empty::before {
+      background: radial-gradient(circle, rgba(255,107,162,.14) 0%, rgba(255,107,162,.04) 34%, rgba(255,107,162,0) 72%);
+    }
+
+    .deck-area.effect-deck .deck-stack {
+      width: 78px;
+      height: 78px;
+      animation-duration: 3.4s;
+    }
+
+    .deck-area.effect-deck .deck-stack::after {
+      width: 82px;
+      bottom: -16px;
+    }
+
+    .deck-area.effect-deck .deck-layer,
+    .deck-area.effect-deck .deck-card {
+      border-radius: 20px;
+    }
+
+    .deck-area.effect-deck .deck-layer {
+      background: linear-gradient(180deg, #1d6943 0%, #114127 100%);
+      border-color: #a8ffd0;
+    }
+
+    .deck-area.effect-deck .deck-card {
+      background: linear-gradient(180deg, #35b66f 0%, #1b7c49 100%);
+      border-color: #d4ffe7;
+      font-size: .84rem;
+      line-height: 1.2;
+      padding: 10px 8px;
+    }
+
+    .deck-area.effect-deck.empty .deck-card {
+      background: linear-gradient(180deg, #325243 0%, #22362d 100%);
+      border-color: rgba(255,255,255,.22);
+    }
+
+    .card.effect-trigger {
+      background: linear-gradient(180deg, #fff4d8 0%, #ffe9b8 52%, #ffdd96 100%);
+      color: #6b4200;
+      border-color: #ffcb66;
+    }
+
+    .card.effect-card {
+      width: 74px;
+      height: 74px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #dbffea 0%, #baf7d4 52%, #8de8b5 100%);
+      color: #0f5830;
+      border-color: #65d892;
+      font-size: 1rem;
+      text-transform: uppercase;
+    }
+
+    .card.effect-card .corner {
+      font-size: .56rem;
+    }
+
+    .card.effect-card::after {
+      inset: 4px;
+      border-radius: 15px;
+    }
+
+    .card.has-tooltip {
+      overflow: visible;
+    }
+
+    .tooltip-bubble {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 10px);
+      transform: translateX(-50%) translateY(4px);
+      min-width: 138px;
+      max-width: 200px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(12, 6, 21, .96);
+      border: 1px solid rgba(184,145,255,.22);
+      color: #f3ecff;
+      font-size: .78rem;
+      line-height: 1.3;
+      text-align: center;
+      white-space: normal;
+      z-index: 40;
+      box-shadow: 0 14px 26px rgba(0,0,0,.28);
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .16s ease, transform .16s ease, visibility .16s ease;
+    }
+
+    .tooltip-bubble::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      border-width: 7px 6px 0 6px;
+      border-style: solid;
+      border-color: rgba(12, 6, 21, .96) transparent transparent transparent;
+    }
+
+    .card.has-tooltip:hover .tooltip-bubble,
+    .card.has-tooltip:focus-visible .tooltip-bubble {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+
+    .effect-notice {
+      position: fixed;
+      left: 50%;
+      bottom: 34px;
+      transform: translateX(-50%) translateY(24px);
+      min-width: 260px;
+      max-width: min(88vw, 520px);
+      padding: 16px 20px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(37,17,63,.97), rgba(20,10,34,.98));
+      border: 1px solid rgba(184,145,255,.26);
+      color: #f7f0ff;
+      text-align: center;
+      font-weight: bold;
+      line-height: 1.35;
+      box-shadow:
+        0 20px 42px rgba(0,0,0,.34),
+        inset 0 1px 0 rgba(255,255,255,.06);
+      z-index: 10020;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+    }
+
+    .effect-notice.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .effect-notice.warn {
+      border-color: rgba(255,215,107,.30);
+      background: linear-gradient(180deg, rgba(74,46,9,.96), rgba(37,24,7,.98));
+      color: #fff2bf;
+    }
+
+    .effect-notice.danger {
+      border-color: rgba(255,107,162,.34);
+      background: linear-gradient(180deg, rgba(67,20,46,.96), rgba(34,11,24,.98));
+      color: #ffe0ec;
+    }
+
+    .effect-notice.success {
+      border-color: rgba(125,255,179,.30);
+      background: linear-gradient(180deg, rgba(19,58,40,.96), rgba(10,30,21,.98));
+      color: #dcffea;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+      text-align: left;
+    }
+
+    .stats-card {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(184,145,255,.18);
+    }
+
+    .stats-card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--primary-light);
+    }
+
+    .stats-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
     @keyframes selectedPulse {
       0%, 100% {
         box-shadow:
@@ -1758,6 +1967,8 @@
       .card { width: 54px; height: 80px; font-size: 1.05rem; border-radius: 12px; }
       .corner { font-size: .62rem; }
       .deck-area { min-width: 132px; gap: 8px; }
+      .deck-row { gap: 10px; }
+      .deck-area.effect-deck .deck-stack { width: 66px; height: 66px; }
       .deck-area::before { width: 128px; height: 128px; top: 8px; }
       .deck-stack { width: 68px; height: 94px; }
       .deck-stack::after { width: 76px; bottom: -15px; }
@@ -1788,6 +1999,8 @@
       .dice-grid { grid-template-columns: repeat(2, 1fr); }
       .actions, .roll-result { grid-template-columns: 1fr; }
       .card { width: 50px; height: 74px; }
+      .card.effect-card { width: 64px; height: 64px; }
+      .stats-grid { grid-template-columns: 1fr; }
       .player-box { min-height: auto; }
       .board-top { padding: 14px 12px 12px; }
     }
@@ -2083,7 +2296,7 @@ body{
 <div class="overlay hidden" id="endOverlay">
 <div class="overlay-card">
 <h2 id="endTitle">Fim de jogo</h2>
-<p id="endMessage">Clique abaixo para começar outra partida.</p>
+<div id="endMessage">Clique abaixo para começar outra partida.</div>
 <button class="overlay-btn" id="restartGameBtn">Jogar novamente</button>
 </div>
 </div>
@@ -2132,13 +2345,23 @@ body{
 </div>
 <div class="cards" id="botHand"></div>
 </div>
+<div class="deck-row">
 <div class="deck-area">
 <div aria-hidden="true" class="deck-stack">
 <div class="deck-layer" id="deckLayerBack"></div>
 <div class="deck-layer" id="deckLayerMid"></div>
-<div class="deck-card" id="deckCardFace">Baralho</div>
+<div class="deck-card" id="deckCardFace">Baralho numérico</div>
 </div>
 <div class="deck-count" id="deckCount">0 cartas no monte</div>
+</div>
+<div class="deck-area effect-deck">
+<div aria-hidden="true" class="deck-stack" id="effectDeckStack">
+<div class="deck-layer"></div>
+<div class="deck-layer"></div>
+<div class="deck-card" id="effectDeckCardFace">Baralho de efeito</div>
+</div>
+<div class="deck-count" id="effectDeckCount">0 cartas de efeito</div>
+</div>
 </div>
 <div class="player-box active" id="playerBox">
 <div class="player-top">
@@ -2165,6 +2388,7 @@ body{
 <button class="btn" disabled="" id="freeDiscardBtn">Descartar antes de rolar</button>
 <button class="btn" id="rollBtn">Rolar dados</button>
 <button class="btn secondary" disabled="" id="discardBtn">Descartar carta(s)</button>
+<button class="btn secondary" disabled="" id="useEffectBtn">Usar carta de efeito</button>
 <button class="btn ghost" disabled="" id="passBtn">Passar turno</button>
 <button class="btn ghost" id="returnMenuBtn">Voltar ao menu</button>
 <button class="btn ghost" id="newGameBtn">Novo jogo</button>
@@ -2173,6 +2397,7 @@ body{
 <div class="status" id="statusBox">
             No início do seu turno, você compra 1 carta automaticamente. Depois pode descartar 1 carta livremente antes da rolagem. Em seguida escolha 2 dados, role e descarte carta(s) compatíveis com a soma.
           </div>
+<div aria-live="polite" class="effect-notice" id="effectNotice"></div>
 <div class="exploration-panel hidden" id="explorationPanel">
 <h3>Probabilidades da combinação escolhida</h3>
 <div class="prob-summary" id="probabilitySummary">Escolha 2 dados para ver a distribuição das somas.</div>
@@ -2208,21 +2433,49 @@ body{
       activeTimerId: null,
       started: false,
       deck: [],
+      effectDeck: [],
       playerHand: [],
       botHand: [],
       selectedDice: [],
       currentRoll: null,
       turn: 'player',
-      selectedCardIndices: [],
+      selectedCardIds: [],
       gameOver: false,
       phase: 'pre_roll_discard',
       soundEnabled: true,
       audioCtx: null,
       turnNumber: 0,
       playerTurns: 0,
+      botTurns: 0,
       playerDiscardedCards: 0,
+      botDiscardedCards: 0,
+      playerEffectsUsed: 0,
+      botEffectsUsed: 0,
       explorationSimulationCount: 0,
       currentTurnLogBody: null,
+      skipPlayerTurn: 0,
+      skipBotTurn: 0,
+      effectPendingResolution: false,
+      lastEffectUsedBy: null,
+      currentTurnReason: 'inicio_partida',
+      lastEffectApplied: null,
+      lastProgressSnapshot: null,
+      stalledTurnsWithoutProgress: 0,
+      maxStalledTurns: 8,
+      cardIdCounter: 0,
+      stats: {
+        player: { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 },
+        bot: { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 }
+      },
+      manualTestCases: [
+        'usar +1E no primeiro turno',
+        'comprar efeito imediato com 1 carta no baralho',
+        'bloquear turno seguido de perda de vez',
+        'fim de baralho com várias cartas de efeito em mão'
+      ],
+      pendingTurnStartTimeoutId: null,
+      pendingActionTimeoutIds: new Set(),
+      effectNoticeTimeoutId: null,
     };
 
     const els = {
@@ -2265,6 +2518,7 @@ body{
       playerCount: document.getElementById('playerCount'),
       botCount: document.getElementById('botCount'),
       deckCount: document.getElementById('deckCount'),
+      effectDeckCount: document.getElementById('effectDeckCount'),
       turnIndicator: document.getElementById('turnIndicator'),
 
       turnBanner: document.getElementById('turnBanner'),
@@ -2274,6 +2528,7 @@ body{
       freeDiscardBtn: document.getElementById('freeDiscardBtn'),
       rollBtn: document.getElementById('rollBtn'),
       discardBtn: document.getElementById('discardBtn'),
+      useEffectBtn: document.getElementById('useEffectBtn'),
       passBtn: document.getElementById('passBtn'),
       returnMenuBtn: document.getElementById('returnMenuBtn'),
       newGameBtn: document.getElementById('newGameBtn'),
@@ -2281,14 +2536,17 @@ body{
       die2: document.getElementById('die2'),
       sumBox: document.getElementById('sumBox'),
       statusBox: document.getElementById('statusBox'),
+      effectNotice: document.getElementById('effectNotice'),
       log: document.getElementById('log'),
       playerBox: document.getElementById('playerBox'),
       botBox: document.getElementById('botBox'),
       botMood: document.getElementById('botMood'),
       deckArea: document.querySelector('.deck-area'),
-      deckStack: document.querySelector('.deck-stack'),
+      deckStack: document.querySelector('.deck-area .deck-stack'),
+      effectDeckStack: document.getElementById('effectDeckStack'),
       deckCardFace: document.getElementById('deckCardFace'),
       soundToggleBtn: document.getElementById('soundToggleBtn'),
+      effectDeckCardFace: document.getElementById('effectDeckCardFace'),
       explorationPanel: document.getElementById('explorationPanel'),
       probabilitySummary: document.getElementById('probabilitySummary'),
       probabilityGrid: document.getElementById('probabilityGrid'),
@@ -2304,21 +2562,237 @@ body{
       return array;
     }
 
+
+
+    function nextCardId() {
+      state.cardIdCounter += 1;
+      return `card_${state.cardIdCounter}`;
+    }
+
+    function createCard(type, extra = {}) {
+      return { id: nextCardId(), type, ...extra };
+    }
+
+    function cloneSelectionIds() {
+      return [...state.selectedCardIds];
+    }
+
+    function getCardIndexById(hand, cardId) {
+      return hand.findIndex(card => card && card.id === cardId);
+    }
+
+    function getSelectedIndicesFromHand(hand) {
+      return state.selectedCardIds
+        .map(cardId => getCardIndexById(hand, cardId))
+        .filter(index => index !== -1);
+    }
+
+    function getSelectedCardsFromHand(hand) {
+      return getSelectedIndicesFromHand(hand).map(index => hand[index]).filter(Boolean);
+    }
+
+    function clearSelectionState() {
+      state.selectedCardIds = [];
+    }
+
+    function setTurnReason(reason, details = '') {
+      state.currentTurnReason = reason;
+      if (details) {
+        state.lastEffectApplied = details;
+      }
+    }
+
+    function rememberEffect(effect, owner, details = '') {
+      const actorName = owner === 'player' ? state.playerName : 'Igor';
+      state.lastEffectApplied = details || `${actorName}: ${effectName(effect)}`;
+      state.lastEffectUsedBy = owner;
+    }
+
+    function getActorStats(owner) {
+      return owner === 'player' ? state.stats.player : state.stats.bot;
+    }
+
+    function getHandSignature(hand) {
+      return hand
+        .map(card => `${card.type}:${card.effect || card.value || ''}`)
+        .sort()
+        .join('|');
+    }
+
+    function getProgressSnapshot() {
+      return JSON.stringify({
+        deck: state.deck.length,
+        effectDeck: state.effectDeck.length,
+        playerHand: getHandSignature(state.playerHand),
+        botHand: getHandSignature(state.botHand),
+        skipPlayerTurn: state.skipPlayerTurn,
+        skipBotTurn: state.skipBotTurn,
+        currentRoll: state.currentRoll ? state.currentRoll.sum : null
+      });
+    }
+
+    function checkNoProgressLock() {
+      if (state.gameOver || !state.started || state.gameMode !== 'duelo') return false;
+      const snapshot = getProgressSnapshot();
+
+      if (state.lastProgressSnapshot === snapshot) {
+        state.stalledTurnsWithoutProgress += 1;
+      } else {
+        state.lastProgressSnapshot = snapshot;
+        state.stalledTurnsWithoutProgress = 0;
+      }
+
+      if (state.stalledTurnsWithoutProgress < state.maxStalledTurns) return false;
+
+      state.gameOver = true;
+      stopTurnTimer();
+      clearPendingTurnStartTimeout();
+      clearScheduledActions();
+      setStatus('Empate técnico: a partida ficou sem progresso por vários turnos seguidos.', 'warn');
+      addLog('Fim de jogo: empate técnico por ausência de progresso.', 'warn', 'O estado da partida se repetiu por muitos turnos consecutivos.');
+      showEndOverlay('Empate técnico', buildEndMessage('<p>A partida entrou em repetição sem progresso e foi encerrada automaticamente.</p>'));
+      return true;
+    }
+
+    function validateTurnState(context = '') {
+      if (state.selectedCardIds.length) {
+        const hand = state.turn === 'player' ? state.playerHand : state.botHand;
+        const validIds = new Set(hand.map(card => card.id));
+        state.selectedCardIds = state.selectedCardIds.filter(cardId => validIds.has(cardId));
+      }
+
+      if (state.phase === 'pre_roll_discard' || state.phase === 'rolling') {
+        if (state.currentRoll) state.currentRoll = null;
+      }
+
+      if (state.phase !== 'rolling' && state.phase !== 'post_roll_discard') {
+        state.selectedDice = [];
+      }
+
+      if (state.phase === 'turn_transition') {
+        clearSelectionState();
+      }
+
+      if (state.gameMode === 'exploracao') {
+        state.turn = 'player';
+      }
+
+      return true;
+    }
+
+    function commitState(context = '', options = {}) {
+      validateTurnState(context);
+      if (options.checkWinner !== false && checkWinner()) return true;
+      if (options.checkProgress) {
+        if (checkNoProgressLock()) return true;
+      }
+      if (options.render !== false) {
+        renderHands();
+        updateActionButtons();
+        updateTurnInfo();
+      }
+      return false;
+    }
+
     function createDeck() {
       const deck = [];
       for (let copy = 0; copy < 2; copy++) {
-        for (let n = 1; n <= 20; n++) deck.push({ type: 'number', value: n });
-        deck.push({ type: 'joker', value: 'C' });
+        for (let n = 1; n <= 20; n++) deck.push(createCard('number', { value: n }));
+        for (let e = 0; e < 3; e++) deck.push(createCard('effect_draw', { value: '+1E' }));
+        deck.push(createCard('joker', { value: 'C' }));
       }
       return shuffle(deck);
+    }
+
+    function createEffectDeck() {
+      return shuffle([
+        createCard('effect_card', { effect: 'reroll' }),
+        createCard('effect_card', { effect: 'reroll' }),
+        createCard('effect_card', { effect: 'lose_turn' }),
+        createCard('effect_card', { effect: 'lose_turn' }),
+        createCard('effect_card', { effect: 'block_opponent' }),
+        createCard('effect_card', { effect: 'block_opponent' }),
+        createCard('effect_card', { effect: 'draw_number' }),
+        createCard('effect_card', { effect: 'draw_number' }),
+      ]);
     }
 
     function drawCard() {
       return state.deck.length ? state.deck.pop() : null;
     }
 
+    function drawEffectCard() {
+      return state.effectDeck.length ? state.effectDeck.pop() : null;
+    }
+
     function cardLabel(card) {
-      return card.type === 'joker' ? 'C' : String(card.value);
+      if (!card) return '';
+      if (card.type === 'joker') return 'C';
+      if (card.type === 'number') return String(card.value);
+      if (card.type === 'effect_draw') return '+1E';
+      if (card.type === 'effect_card') {
+        if (card.effect === 'reroll') return 'RR';
+        if (card.effect === 'lose_turn') return 'PV';
+        if (card.effect === 'block_opponent') return 'BL';
+        if (card.effect === 'draw_number') return '+1';
+      }
+      return '';
+    }
+
+    function effectName(cardOrEffect) {
+      const effect = typeof cardOrEffect === 'string' ? cardOrEffect : cardOrEffect?.effect;
+      if (effect === 'reroll') return 'Jogue os dados novamente';
+      if (effect === 'lose_turn') return 'Perda a sua vez';
+      if (effect === 'block_opponent') return 'Bloqueie a vez do oponente';
+      if (effect === 'draw_number') return 'Compre uma carta numérica';
+      return '';
+    }
+
+    function isEffectCard(card) {
+      return card && (card.type === 'effect_draw' || card.type === 'effect_card');
+    }
+
+    function canFinishWithCurrentHandAfterRemoving(hand, indicesToRemove) {
+      const remaining = hand.filter((_, index) => !indicesToRemove.includes(index));
+      if (remaining.length !== 0) return true;
+      const removedCards = indicesToRemove.map(index => hand[index]).filter(Boolean);
+      return removedCards.some(card => card.type === 'number' || card.type === 'joker');
+    }
+
+    function countPlayableCardsForSum(hand, sum) {
+      const numbers = hand.filter(card => card.type === 'number' && card.value === sum).length;
+      const jokers = hand.filter(card => card.type === 'joker').length;
+      return numbers + jokers;
+    }
+
+
+    function buildRecentTurnsReplay() {
+      const turnCards = [...document.querySelectorAll('.turn-log')].slice(0, 3);
+      if (!turnCards.length) return '<li>Nenhum turno registrado.</li>';
+      return turnCards.map(turnCard => {
+        const title = turnCard.querySelector('.turn-log-title')?.textContent || 'Turno';
+        const main = turnCard.querySelector('.log-main')?.textContent || 'Sem ações registradas.';
+        return `<li><b>${title}:</b> ${main}</li>`;
+      }).join('');
+    }
+
+    function buildPhaseLabel() {
+      if (state.gameMode === 'exploracao') return 'exploração';
+      if (state.turn === 'bot') return 'turno do Igor';
+      if (state.phase === 'pre_roll_discard') return 'descarte livre';
+      if (state.phase === 'rolling') return 'rolagem';
+      if (state.phase === 'post_roll_discard') return 'descarte pela soma';
+      if (state.phase === 'turn_transition') return 'transição';
+      return state.phase;
+    }
+
+    function buildStatsCard(name, turns, discarded, effectsUsed, extraStats = {}) {
+      const efficiencyLabel = getEfficiencyLabel(discarded, turns);
+      return `<div class="stats-card"><h3>${name}</h3><ul><li>Turnos: ${turns}</li><li>Cartas descartadas: ${discarded}</li><li>Efeitos usados: ${effectsUsed}</li><li>Bloqueios aplicados: ${extraStats.blocksApplied || 0}</li><li>Rerolls usados: ${extraStats.rerollsUsed || 0}</li><li>Cartas compradas: ${extraStats.cardsBought || 0}</li><li>Efeitos imediatos resolvidos: ${extraStats.immediateEffectsResolved || 0}</li><li>Eficiência: ${efficiencyLabel}</li></ul></div>`;
+    }
+
+    function buildEndMessage(resultText) {
+      return `${resultText}<div class="stats-grid">${buildStatsCard(state.playerName, state.playerTurns, state.playerDiscardedCards, state.playerEffectsUsed, state.stats.player)}${buildStatsCard('Igor', state.botTurns, state.botDiscardedCards, state.botEffectsUsed, state.stats.bot)}</div><div class="stats-card" style="margin-top:12px;"><h3>Últimos 3 turnos</h3><ul>${buildRecentTurnsReplay()}</ul></div><div class="stats-card" style="margin-top:12px;"><h3>Checklist manual sugerido</h3><ul>${state.manualTestCases.map(item => `<li>${item}</li>`).join('')}</ul></div>`;
     }
 
     function startTurnLog(owner, summary = '') {
@@ -2431,11 +2905,64 @@ function setStatus(message, variant = 'normal') {
       if (variant === 'danger') els.statusBox.classList.add('danger');
     }
 
+    function showEffectNotice(message, variant = 'normal', duration = 1450) {
+      if (!els.effectNotice) return;
+      if (state.effectNoticeTimeoutId) {
+        clearTimeout(state.effectNoticeTimeoutId);
+        state.effectNoticeTimeoutId = null;
+      }
+      els.effectNotice.textContent = message;
+      els.effectNotice.className = 'effect-notice';
+      if (variant && variant !== 'normal') els.effectNotice.classList.add(variant);
+      void els.effectNotice.offsetWidth;
+      els.effectNotice.classList.add('show');
+      state.effectNoticeTimeoutId = setTimeout(() => {
+        if (!els.effectNotice) return;
+        els.effectNotice.classList.remove('show');
+        state.effectNoticeTimeoutId = null;
+      }, duration);
+    }
+
     function triggerDeckDrawEffect() {
       if (!els.deckStack) return;
       els.deckStack.classList.remove('draw-burst');
       void els.deckStack.offsetWidth;
       els.deckStack.classList.add('draw-burst');
+    }
+
+    function triggerEffectDeckDrawEffect() {
+      if (!els.effectDeckStack) return;
+      els.effectDeckStack.classList.remove('draw-burst');
+      void els.effectDeckStack.offsetWidth;
+      els.effectDeckStack.classList.add('draw-burst');
+    }
+
+    function removeCardFromHandByReference(hand, cardRef) {
+      const index = hand.indexOf(cardRef);
+      if (index !== -1) hand.splice(index, 1);
+    }
+
+    function revealImmediateEffectAndResolve(owner, hand, effectCard, options) {
+      const {
+        noticeText,
+        statusText,
+        noticeVariant = 'normal',
+        onResolve
+      } = options || {};
+
+      hand.push(effectCard);
+      renderHands();
+      updateActionButtons();
+      showEffectNotice(noticeText, noticeVariant, 1500);
+
+      scheduleAction(() => {
+        removeCardFromHandByReference(hand, effectCard);
+        renderHands();
+        if (typeof onResolve === 'function') onResolve();
+        if (statusText) setStatus(statusText, noticeVariant === 'danger' ? 'danger' : (noticeVariant === 'warn' ? 'warn' : 'normal'));
+        if (owner === 'player') ensurePlayerCanAdvanceFromPreRollDiscard();
+        updateActionButtons();
+      }, 1050);
     }
 
     function triggerBoardCenterHighlight() {
@@ -2530,8 +3057,21 @@ function setStatus(message, variant = 'normal') {
         const isEmpty = state.deck.length === 0;
         els.deckArea.classList.toggle('empty', isEmpty);
         if (els.deckCardFace) {
-          els.deckCardFace.textContent = isEmpty ? 'Baralho' : 'Baralho';
+          els.deckCardFace.textContent = 'Baralho numérico';
         }
+      }
+
+      if (els.effectDeckCount) {
+        els.effectDeckCount.textContent = `${state.effectDeck.length} carta${state.effectDeck.length !== 1 ? 's' : ''} de efeito`;
+      }
+
+      if (els.effectDeckStack) {
+        const effectArea = els.effectDeckStack.closest('.deck-area');
+        if (effectArea) effectArea.classList.toggle('empty', state.effectDeck.length === 0);
+      }
+
+      if (els.effectDeckCardFace) {
+        els.effectDeckCardFace.textContent = 'Efeito';
       }
     }
 
@@ -2579,7 +3119,7 @@ function setStatus(message, variant = 'normal') {
       if (state.turn === 'player' && !state.gameOver) {
         addLog(`${state.playerName} ficou sem tempo e o turno foi passado automaticamente.`);
         setStatus(`${state.playerName} ficou sem tempo. O turno foi passado para Igor.`, 'danger');
-        startBotTurn();
+        transitionTurnTo('bot', 180, 'tempo_esgotado_jogador');
         return;
       }
 
@@ -2587,7 +3127,7 @@ function setStatus(message, variant = 'normal') {
         addLog('Igor ficou sem tempo e o turno foi passado automaticamente.');
         setStatus('Igor ficou sem tempo. O turno voltou para você.', 'warn');
         updateRollBoxes();
-        startPlayerTurn();
+        transitionTurnTo('player', 180, 'tempo_esgotado_bot');
       }
     }
 
@@ -2632,7 +3172,8 @@ function setStatus(message, variant = 'normal') {
         els.turnStatusBadge.classList.add('turn-player');
         els.turnStatusDot.className = 'turn-dot dot-player';
         els.turnIndicator.textContent = 'Modo exploração';
-        els.phaseIndicator.textContent = 'Fase: escolha 2 dados, veja as probabilidades e simule quantas vezes quiser.';
+        els.phaseIndicator.innerHTML = '<b>Fase atual:</b> escolha 2 dados, veja as probabilidades e simule quantas vezes quiser.';
+        els.phaseIndicator.style.color = 'var(--primary-light)';
         els.playerBox.classList.remove('turn-player-active', 'active');
         els.botBox.classList.remove('turn-bot-active', 'active');
         els.turnIndicator.parentElement.classList.remove('player-turn', 'bot-turn', 'turn-animate');
@@ -2654,18 +3195,21 @@ function setStatus(message, variant = 'normal') {
 
       let phaseText = '';
       if (state.turn === 'bot') {
-        phaseText = 'Fase: Igor está jogando.';
+        phaseText = 'Igor está jogando.';
       } else if (state.phase === 'pre_roll_discard') {
-        phaseText = 'Fase: descarte 1 carta livremente ou siga para a rolagem.';
+        phaseText = 'descarte 1 carta livremente ou siga para a rolagem.';
       } else if (state.phase === 'rolling') {
-        phaseText = 'Fase: escolha 2 dados e clique em rolar.';
+        phaseText = 'escolha 2 dados e clique em rolar.';
       } else if (state.phase === 'post_roll_discard') {
-        phaseText = 'Fase: descarte carta(s) com o valor da soma ou passe o turno.';
+        phaseText = 'descarte carta(s) com o valor da soma ou passe o turno.';
+      } else if (state.phase === 'turn_transition') {
+        phaseText = 'transição de turno.';
       }
-      els.phaseIndicator.textContent = phaseText;
+      els.phaseIndicator.innerHTML = `<b>Fase atual:</b> ${phaseText}<br><span style="opacity:.88">Motivo do turno: ${state.currentTurnReason.replaceAll('_', ' ')}</span>${state.lastEffectApplied ? `<br><span style="opacity:.88">Último efeito: ${state.lastEffectApplied}</span>` : ''}`;
+      els.phaseIndicator.style.color = 'var(--text)';
       const phaseInline = document.getElementById('phaseInline');
       if(phaseInline){
-        phaseInline.textContent = phaseText.replace(/^Fase:\s*/,'');
+        phaseInline.textContent = `${buildPhaseLabel()} • ${state.currentTurnReason.replaceAll('_', ' ')}`;
       }
       updateTimerUI();
     }
@@ -2789,6 +3333,7 @@ function setStatus(message, variant = 'normal') {
       els.boardTop.classList.toggle('hidden', inExploration);
       els.freeDiscardBtn.classList.toggle('hidden', inExploration);
       els.discardBtn.classList.toggle('hidden', inExploration);
+      els.useEffectBtn.classList.toggle('hidden', inExploration);
       els.passBtn.classList.toggle('hidden', inExploration);
       els.returnMenuBtn.classList.remove('hidden');
 
@@ -2809,11 +3354,17 @@ function setStatus(message, variant = 'normal') {
       state.started = true;
       state.gameOver = false;
       state.turn = 'player';
-      state.phase = 'rolling';
+      setPhase('rolling');
       state.selectedDice = [];
       state.currentRoll = null;
-      state.selectedCardIndices = [];
+      clearSelectionState();
       state.explorationSimulationCount = 0;
+      state.lastProgressSnapshot = null;
+      state.stalledTurnsWithoutProgress = 0;
+      state.currentTurnReason = 'exploracao';
+      state.lastEffectApplied = null;
+      state.stats.player = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
+      state.stats.bot = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
       stopTurnTimer();
       els.log.innerHTML = '';
       hideEndOverlay();
@@ -2852,10 +3403,7 @@ function setStatus(message, variant = 'normal') {
     }
 
     function buildVictoryMessage() {
-      const turns = state.playerTurns;
-      const discardedCards = state.playerDiscardedCards;
-      const efficiencyLabel = getEfficiencyLabel(discardedCards, turns);
-      return `Você venceu em ${turns} turno${turns === 1 ? '' : 's'}.<br>Descartou ${discardedCards} carta${discardedCards === 1 ? '' : 's'}.<br>Eficiência: ${efficiencyLabel}.`;
+      return buildEndMessage('<p>Você ficou sem cartas primeiro.</p>');
     }
 
     function renderDiceButtons() {
@@ -2893,17 +3441,25 @@ function setStatus(message, variant = 'normal') {
     }
 
     function renderHands() {
+      validateTurnState('renderHands');
       els.playerHand.innerHTML = '';
-      state.playerHand.forEach((card, index) => {
+      state.playerHand.forEach((card) => {
         const div = document.createElement('div');
+        const isEffectTrigger = card.type === 'effect_draw';
+        const isStoredEffect = card.type === 'effect_card';
         div.className = 'card';
-        if (state.selectedCardIndices.includes(index)) div.classList.add('selected');
+        div.dataset.cardId = card.id;
+        if (isEffectTrigger) div.classList.add('effect-trigger', 'has-tooltip');
+        if (isStoredEffect) div.classList.add('effect-card', 'has-tooltip');
+        if (state.selectedCardIds.includes(card.id)) div.classList.add('selected');
+        const tooltipText = isStoredEffect ? effectName(card) : (isEffectTrigger ? 'Compre uma carta de efeito' : '');
         div.innerHTML = `
           <span class="corner tl">${cardLabel(card)}</span>
           ${cardLabel(card)}
           <span class="corner br">${cardLabel(card)}</span>
+          ${tooltipText ? `<span class="tooltip-bubble">${tooltipText}</span>` : ''}
         `;
-        div.addEventListener('click', () => selectPlayerCard(index));
+        div.addEventListener('click', () => selectPlayerCard(card.id));
         els.playerHand.appendChild(div);
       });
 
@@ -2922,25 +3478,22 @@ function setStatus(message, variant = 'normal') {
       updateDeckCount();
     }
 
-    function selectPlayerCard(index) {
+    function selectPlayerCard(cardId) {
       if (state.turn !== 'player' || state.gameOver) return;
-      if (state.phase !== 'pre_roll_discard' && state.phase !== 'post_roll_discard') return;
+      if (!['pre_roll_discard', 'rolling', 'post_roll_discard'].includes(state.phase)) return;
 
-      if (state.selectedCardIndices.includes(index)) {
-        state.selectedCardIndices = state.selectedCardIndices.filter(i => i !== index);
+      if (state.selectedCardIds.includes(cardId)) {
+        state.selectedCardIds = state.selectedCardIds.filter(id => id !== cardId);
       } else {
-        state.selectedCardIndices.push(index);
+        state.selectedCardIds.push(cardId);
       }
 
-      state.selectedCardIndices.sort((a, b) => a - b);
-      renderHands();
-      updateActionButtons();
+      commitState('select_player_card', { checkWinner: false });
     }
 
     function clearSelection() {
-      state.selectedCardIndices = [];
-      renderHands();
-      updateActionButtons();
+      clearSelectionState();
+      commitState('clear_selection', { checkWinner: false });
     }
 
     function updateRollBoxes(d1 = '-', d2 = '-', sum = '-') {
@@ -2971,60 +3524,88 @@ function setStatus(message, variant = 'normal') {
     }
 
     function selectedCards() {
-      return state.selectedCardIndices.map(index => state.playerHand[index]);
+      return getSelectedCardsFromHand(state.playerHand);
     }
 
     function canFreeDiscard() {
-      return state.turn === 'player' && state.phase === 'pre_roll_discard' && state.selectedCardIndices.length === 1 && !state.gameOver;
+      const selectedIndices = getSelectedIndicesFromHand(state.playerHand);
+      if (!(state.turn === 'player' && state.phase === 'pre_roll_discard' && selectedIndices.length === 1 && !state.gameOver)) return false;
+      return canFinishWithCurrentHandAfterRemoving(state.playerHand, selectedIndices);
+    }
+
+    function hasAnyLegalFreeDiscard(hand) {
+      if (!hand || !hand.length) return false;
+      return hand.some((_, index) => canFinishWithCurrentHandAfterRemoving(hand, [index]));
+    }
+
+    function ensurePlayerCanAdvanceFromPreRollDiscard() {
+      return autoResolvePlayerState('pre_roll_discard_check');
     }
 
     function canPostRollDiscard() {
-      if (!(state.turn === 'player' && state.phase === 'post_roll_discard' && state.currentRoll && state.selectedCardIndices.length >= 1 && !state.gameOver)) {
+      const selectedIndices = getSelectedIndicesFromHand(state.playerHand);
+      if (!(state.turn === 'player' && state.phase === 'post_roll_discard' && state.currentRoll && selectedIndices.length >= 1 && !state.gameOver)) {
         return false;
       }
 
-      const cards = selectedCards();
+      const cards = getSelectedCardsFromHand(state.playerHand);
       const sum = state.currentRoll.sum;
 
       const jokers = cards.filter(card => card.type === 'joker');
       const numbers = cards.filter(card => card.type === 'number');
 
-      // Só coringa(s): permitido, pois todos podem assumir o valor da soma
+      if (!canFinishWithCurrentHandAfterRemoving(state.playerHand, selectedIndices)) return false;
+
       if (numbers.length === 0) {
         return jokers.length >= 1;
       }
 
-      // Todas as cartas numéricas precisam ter o mesmo valor
       const firstValue = numbers[0].value;
       const sameValue = numbers.every(card => card.value === firstValue);
       if (!sameValue) return false;
-
-      // Esse valor precisa ser exatamente a soma obtida
       if (firstValue !== sum) return false;
 
-      // Coringas podem complementar o grupo
       return true;
     }
 
+    function canUseSelectedEffectCard() {
+      const selectedIndices = getSelectedIndicesFromHand(state.playerHand);
+      if (!(state.turn === 'player' && selectedIndices.length === 1 && !state.gameOver)) return false;
+      const index = selectedIndices[0];
+      const card = state.playerHand[index];
+      if (!isEffectCard(card)) return false;
+      if (!canFinishWithCurrentHandAfterRemoving(state.playerHand, [index])) return false;
+
+      if (card.type === 'effect_draw') return ['pre_roll_discard', 'rolling', 'post_roll_discard'].includes(state.phase) && state.effectDeck.length > 0;
+      if (card.type === 'effect_card') {
+        if (card.effect === 'reroll') return state.phase === 'post_roll_discard' && !!state.currentRoll;
+        if (card.effect === 'block_opponent') return ['pre_roll_discard', 'rolling', 'post_roll_discard'].includes(state.phase);
+      }
+      return false;
+    }
+
     function updateActionButtons() {
+      validateTurnState('update_buttons_pre');
       const gameEnabled = state.started && !state.gameOver;
       const hasTwoDice = state.selectedDice.length === 2;
 
       const canRollNow = gameEnabled && state.turn === 'player' && state.phase === 'rolling' && hasTwoDice && !state.currentRoll;
-      const canPass = gameEnabled && state.turn === 'player' && state.phase === 'post_roll_discard' && !!state.currentRoll;
-      const canClear = gameEnabled && state.turn === 'player' && state.selectedCardIndices.length > 0;
+      const canPass = gameEnabled && state.turn === 'player' && (
+        (state.phase === 'post_roll_discard' && !!state.currentRoll) ||
+        (state.phase === 'turn_transition' && !hasLiveScheduledAction())
+      );
 
       const noPossibleDiscard = state.phase === 'post_roll_discard' && !canPostRollDiscard();
 
       els.freeDiscardBtn.disabled = !(gameEnabled && canFreeDiscard());
       els.rollBtn.disabled = !canRollNow;
       els.discardBtn.disabled = !(gameEnabled && canPostRollDiscard());
+      els.useEffectBtn.disabled = !(gameEnabled && canUseSelectedEffectCard());
       els.passBtn.disabled = !canPass;
       els.returnMenuBtn.disabled = !state.started;
       els.newGameBtn.disabled = !state.started;
       els.inGameHowToPlayBtn.disabled = !state.started;
 
-      // destaque automático do botão "Passar turno"
       if (noPossibleDiscard && canPass) {
         els.passBtn.classList.remove('ghost');
       } else if (els.passBtn.disabled) {
@@ -3035,87 +3616,378 @@ function setStatus(message, variant = 'normal') {
       updateTurnInfo();
     }
 
-    function startPlayerTurn() {
-      if (!state.started) return;
-      updateBotMood('Aguardando a sua jogada.');
-      state.playerTurns += 1;
-      state.turn = 'player';
+    function useEffectCardFromHand(owner, hand, index, onComplete) {
+      const card = hand[index];
+      if (!card) return;
+      const actorPronoun = owner === 'player' ? 'Você' : 'Igor';
+      const actorStats = getActorStats(owner);
+
+      const finalize = (context = 'effect_finalize') => {
+        if (owner === 'player') {
+          ensurePlayerCanAdvanceFromPreRollDiscard();
+        }
+        commitState(context, { checkProgress: false });
+        if (typeof onComplete === 'function') onComplete();
+      };
+
+      if (card.type === 'effect_draw') {
+        hand.splice(index, 1);
+        clearSelectionState();
+        if (owner === 'player') state.playerEffectsUsed += 1; else state.botEffectsUsed += 1;
+        actorStats.immediateEffectsResolved += 1;
+        rememberEffect(card, owner, `${actorPronoun}: +1E`);
+        addLog(`${actorPronoun} usou a carta +1E.`, 'important');
+
+        const effectCard = drawEffectCard();
+        triggerEffectDeckDrawEffect();
+        updateDeckCount();
+
+        if (!effectCard) {
+          addLog('tentou comprar uma carta de efeito, mas o baralho de efeitos estava vazio.', 'warn');
+          setStatus('O baralho de efeito está vazio.', 'warn');
+          finalize('effect_draw_empty');
+          return;
+        }
+
+        addLog(`${actorPronoun} comprou a carta de efeito: ${effectName(effectCard)}.`, 'important');
+
+        hand.push(effectCard);
+        commitState('effect_draw_revealed', { checkWinner: false, checkProgress: false });
+        showEffectNotice(`${actorPronoun} comprou: ${effectName(effectCard)}`, owner === 'player' ? 'normal' : 'warn', 1400);
+
+        if (effectCard.effect === 'lose_turn') {
+          rememberEffect(effectCard, owner, `${actorPronoun}: ${effectName(effectCard)}`);
+          state.currentRoll = null;
+          state.selectedDice = [];
+          clearSelectionState();
+          actorStats.immediateEffectsResolved += 1;
+          setStatus(`${actorPronoun} comprou "${effectName(effectCard)}" e perdeu a vez imediatamente.`, owner === 'player' ? 'danger' : 'warn');
+          scheduleAction(() => {
+            removeCardFromHandByReference(hand, effectCard);
+            addLog(`${actorPronoun} perdeu a vez imediatamente.`, 'warn');
+            commitState('effect_lose_turn_resolved', { checkProgress: false });
+            if (typeof onComplete === 'function') onComplete();
+            transitionTurnTo(owner === 'player' ? 'bot' : 'player', 260, 'efeito_perdeu_vez');
+          }, 850);
+          return;
+        }
+
+        if (effectCard.effect === 'draw_number') {
+          rememberEffect(effectCard, owner, `${actorPronoun}: ${effectName(effectCard)}`);
+          const numeric = drawCard();
+          triggerDeckDrawEffect();
+          actorStats.immediateEffectsResolved += 1;
+          if (numeric) {
+            hand.push(numeric);
+            actorStats.cardsBought += 1;
+            addLog(`${actorPronoun} comprou 1 carta numérica imediatamente.`, 'success', `Carta recebida: ${cardLabel(numeric)}.`);
+          } else {
+            addLog(`${actorPronoun} tentou comprar uma carta numérica, mas o baralho estava vazio.`, 'warn');
+            setStatus('O baralho numérico está vazio.', 'warn');
+          }
+          scheduleAction(() => {
+            removeCardFromHandByReference(hand, effectCard);
+            commitState('effect_draw_number_resolved', { checkProgress: false });
+            if (typeof onComplete === 'function') onComplete();
+          }, 850);
+          return;
+        }
+
+        rememberEffect(effectCard, owner, `${actorPronoun}: ${effectName(effectCard)}`);
+        setStatus(`${actorPronoun} comprou e guardou a carta de efeito "${effectName(effectCard)}".`, owner === 'player' ? 'normal' : 'warn');
+        finalize('effect_draw_kept');
+        return;
+      }
+
+      if (card.type === 'effect_card' && card.effect === 'block_opponent') {
+        hand.splice(index, 1);
+        if (owner === 'player') {
+          state.playerEffectsUsed += 1;
+          state.skipBotTurn += 1;
+        } else {
+          state.botEffectsUsed += 1;
+          state.skipPlayerTurn += 1;
+        }
+        actorStats.blocksApplied += 1;
+        rememberEffect(card, owner, `${actorPronoun}: ${effectName(card)}`);
+        addLog(`${actorPronoun} usou "${effectName(card)}".`, 'important');
+        showEffectNotice(`${actorPronoun} bloqueou a vez do oponente`, owner === 'player' ? 'normal' : 'warn', 1500);
+        setStatus(`${actorPronoun} bloqueou o próximo turno do oponente.`, owner === 'player' ? 'normal' : 'warn');
+        finalize('effect_block_opponent');
+        return;
+      }
+
+      if (card.type === 'effect_card' && card.effect === 'reroll') {
+        if (!state.currentRoll) return;
+        hand.splice(index, 1);
+        if (owner === 'player') state.playerEffectsUsed += 1; else state.botEffectsUsed += 1;
+        actorStats.rerollsUsed += 1;
+        rememberEffect(card, owner, `${actorPronoun}: ${effectName(card)}`);
+        const [a, b] = state.currentRoll.dice;
+        const r1 = Math.floor(Math.random() * a) + 1;
+        const r2 = Math.floor(Math.random() * b) + 1;
+        const sum = r1 + r2;
+        state.currentRoll = { dice: [a, b], results: [r1, r2], sum };
+        clearSelectionState();
+        playRollSound();
+        updateRollBoxes(r1, r2, sum);
+        addLog(`${actorPronoun} usou "${effectName(card)}" e obteve ${r1} + ${r2} = ${sum}.`, 'important');
+        if (owner === 'player') {
+          const playable = state.playerHand.some(handCard => handCard.type === 'joker' || (handCard.type === 'number' && handCard.value === sum));
+          setStatus(playable
+            ? `Nova soma ${sum}. Selecione cartas compatíveis ou passe o turno.`
+            : `Nova soma ${sum}. Você ainda não tem carta compatível. Pode passar o turno.`, playable ? 'normal' : 'warn');
+        } else {
+          setStatus(`Igor rolou novamente e obteve soma ${sum}.`, 'warn');
+        }
+        finalize('effect_reroll');
+      }
+    }
+
+    function useSelectedEffectCard() {
+      if (!canUseSelectedEffectCard()) return;
+      const index = getSelectedIndicesFromHand(state.playerHand)[0];
+      useEffectCardFromHand('player', state.playerHand, index, () => {
+        clearSelectionState();
+        commitState('use_selected_effect', { checkWinner: false });
+      });
+    }
+
+    function clearPendingTurnStartTimeout() {
+      if (state.pendingTurnStartTimeoutId) {
+        clearTimeout(state.pendingTurnStartTimeoutId);
+        state.pendingTurnStartTimeoutId = null;
+      }
+    }
+
+    function clearScheduledActions() {
+      if (!state.pendingActionTimeoutIds) {
+        state.pendingTurnStartTimeoutId = null;
+        return;
+      }
+      state.pendingActionTimeoutIds.forEach(id => clearTimeout(id));
+      state.pendingActionTimeoutIds.clear();
+      state.pendingTurnStartTimeoutId = null;
+    }
+
+    function scheduleAction(callback, delay = 0) {
+      const id = setTimeout(() => {
+        if (state.pendingActionTimeoutIds) state.pendingActionTimeoutIds.delete(id);
+        callback();
+      }, delay);
+      state.pendingActionTimeoutIds.add(id);
+      return id;
+    }
+
+    function isValidPhase(phase) {
+      return ['pre_roll_discard', 'rolling', 'post_roll_discard', 'turn_transition'].includes(phase);
+    }
+
+    function setPhase(phase) {
+      if (!isValidPhase(phase)) return;
+      state.phase = phase;
+      if (phase === 'turn_transition') {
+        clearSelectionState();
+        state.selectedDice = [];
+        state.currentRoll = null;
+        updateRollBoxes();
+      }
+      validateTurnState(`set_phase:${phase}`);
+      renderHands();
+      updateActionButtons();
+      updateTurnInfo();
+    }
+
+    function resetSharedTurnState(nextTurnOwner) {
+      clearPendingTurnStartTimeout();
+      clearScheduledActions();
+      state.turn = nextTurnOwner;
       state.selectedDice = [];
       state.currentRoll = null;
-      state.selectedCardIndices = [];
-      state.phase = 'pre_roll_discard';
-      renderHands();
+      clearSelectionState();
       updateRollBoxes();
-      startTurnTimer('player');
-      updateActionButtons();
-      startTurnLog('player');
-      setStatus(`${state.playerName}, seu turno começou com 7 cartas. Aguarde a compra automática de 1 carta.`, 'warn');
+      validateTurnState(`reset_shared_turn_state:${nextTurnOwner}`);
+    }
 
-      setTimeout(() => {
+    function transitionTurnTo(nextOwner, delay = 250, reason = 'troca_de_turno') {
+      if (state.gameOver || !state.started) return;
+      stopTurnTimer();
+      clearPendingTurnStartTimeout();
+      clearScheduledActions();
+      setTurnReason(reason);
+      scheduleAction(() => {
+        if (state.gameOver || !state.started) return;
+        if (nextOwner === 'player') startPlayerTurn(reason);
+        else startBotTurn(reason);
+      }, delay);
+      setPhase('turn_transition');
+    }
+
+    function hasLiveScheduledAction() {
+      return !!(state.pendingTurnStartTimeoutId || (state.pendingActionTimeoutIds && state.pendingActionTimeoutIds.size));
+    }
+
+    function autoResolvePlayerState(context = '') {
+      if (!state.started || state.gameOver || state.turn !== 'player') return false;
+
+      if (state.phase === 'turn_transition') {
+        if (!hasLiveScheduledAction()) transitionTurnTo('bot', 120, 'auto_destravamento');
+        return true;
+      }
+
+      if (state.phase === 'pre_roll_discard' && !hasAnyLegalFreeDiscard(state.playerHand)) {
+        clearSelectionState();
+        setPhase('rolling');
+        setStatus('Você não tem descarte livre válido neste momento. Pode seguir direto para a rolagem.', 'warn');
+        return true;
+      }
+
+      if (state.phase === 'rolling' && state.currentRoll) {
+        setPhase('post_roll_discard');
+        return true;
+      }
+
+      if (state.phase === 'post_roll_discard' && !state.currentRoll) {
+        setPhase('rolling');
+        return true;
+      }
+
+      validateTurnState(`auto_player:${context}`);
+      return false;
+    }
+
+    function autoResolveBotState() {
+      if (!state.started || state.gameOver || state.turn !== 'bot') return false;
+
+      if (state.phase === 'turn_transition') {
+        if (!hasLiveScheduledAction()) transitionTurnTo('player', 120, 'auto_destravamento');
+        return true;
+      }
+
+      if (state.phase === 'pre_roll_discard' && !hasAnyLegalFreeDiscard(state.botHand)) {
+        setPhase('rolling');
+        return true;
+      }
+
+      if (state.phase === 'rolling' && state.currentRoll) {
+        setPhase('post_roll_discard');
+        return true;
+      }
+
+      if (state.phase === 'post_roll_discard' && !state.currentRoll) {
+        setPhase('rolling');
+        return true;
+      }
+
+      validateTurnState('auto_bot');
+      return false;
+    }
+
+    function autoResolveTurnState(context = '') {
+      validateTurnState(`auto_turn:${context}`);
+      if (state.turn === 'player') return autoResolvePlayerState(context);
+      if (state.turn === 'bot') return autoResolveBotState();
+      return false;
+    }
+
+    function scheduleTurnStartDraw(callback, delay = state.startTurnDrawDelay) {
+      clearPendingTurnStartTimeout();
+      state.pendingTurnStartTimeoutId = scheduleAction(() => {
+        state.pendingTurnStartTimeoutId = null;
+        callback();
+      }, delay);
+    }
+
+    function startPlayerTurn(reason = 'inicio_turno_jogador') {
+      if (!state.started) return;
+      resetSharedTurnState('player');
+      setTurnReason(reason);
+      updateBotMood('Aguardando a sua jogada.');
+      if (state.skipPlayerTurn > 0) {
+        state.skipPlayerTurn -= 1;
+        startTurnLog('player');
+        addLog('teve o turno bloqueado e não jogou.', 'warn');
+        setStatus(`${state.playerName} teve o turno bloqueado. Igor joga novamente.`, 'danger');
+        commitState('start_player_turn_blocked', { checkProgress: true });
+        transitionTurnTo('bot', 250, 'turno_bloqueado_jogador');
+        return;
+      }
+      state.playerTurns += 1;
+      setPhase('pre_roll_discard');
+      startTurnTimer('player');
+      startTurnLog('player');
+      setStatus(`${state.playerName}, seu turno começou. Aguarde a compra automática de 1 carta.`, 'warn');
+
+      scheduleTurnStartDraw(() => {
         if (!state.started || state.gameOver || state.turn !== 'player' || state.phase !== 'pre_roll_discard') return;
-        const drewCard = drawAtTurnStart(state.playerHand, state.playerName);
-        renderHands();
+        const drewCard = drawAtTurnStart(state.playerHand, state.playerName, 'player');
 
         if (drewCard) {
-          updateActionButtons();
-          setStatus(`${state.playerName}, você comprou 1 carta. Agora descarte 1 carta antes de poder rolar os dados.`);
+          if (!ensurePlayerCanAdvanceFromPreRollDiscard()) {
+            setStatus(`${state.playerName}, descarte 1 carta livremente ou siga para a rolagem.`, 'normal');
+          }
         } else {
-          state.phase = 'rolling';
-          updateActionButtons();
-          setStatus(`${state.playerName}, o baralho acabou. Agora não há descarte antes da rolagem: escolha 2 dados e clique em "Rolar dados".`, 'warn');
+          setPhase('rolling');
+          setStatus('O baralho acabou. Você vai jogar sem descarte antes da rolagem.', 'warn');
         }
-      }, state.startTurnDrawDelay);
+        commitState('start_player_turn_draw', { checkProgress: true });
+        autoResolvePlayerState('start_player_turn_draw');
+      });
     }
 
     function movePlayerToRollingPhase() {
       if (state.turn !== 'player' || state.gameOver) return;
-      state.phase = 'rolling';
-      state.selectedCardIndices = [];
-      renderHands();
-      updateActionButtons();
+      clearSelectionState();
+      setPhase('rolling');
       setStatus('Agora escolha exatamente 2 dados e clique em "Rolar dados".');
     }
 
-    function startBotTurn() {
+    function startBotTurn(reason = 'inicio_turno_bot') {
       if (!state.started) return;
-      state.turn = 'bot';
-      state.selectedDice = [];
-      state.currentRoll = null;
-      state.selectedCardIndices = [];
-      state.phase = 'pre_roll_discard';
-      renderHands();
-      updateRollBoxes();
+      resetSharedTurnState('bot');
+      setTurnReason(reason);
+      if (state.skipBotTurn > 0) {
+        state.skipBotTurn -= 1;
+        startTurnLog('bot');
+        addLog('teve o turno bloqueado e não jogou.', 'warn');
+        setStatus('Igor teve o turno bloqueado. Você joga novamente.', 'warn');
+        commitState('start_bot_turn_blocked', { checkProgress: true });
+        transitionTurnTo('player', 250, 'turno_bloqueado_bot');
+        return;
+      }
+      state.botTurns += 1;
+      setPhase('pre_roll_discard');
       startTurnTimer('bot');
-      updateActionButtons();
       startTurnLog('bot');
       updateBotMood(getBotFlavor('start'));
       setStatus('Vez do oponente. Igor vai comprar 1 carta e jogar...', 'warn');
 
-      setTimeout(() => {
+      scheduleTurnStartDraw(() => {
         if (!state.started || state.gameOver || state.turn !== 'bot' || state.phase !== 'pre_roll_discard') return;
         updateBotMood(getBotFlavor('draw'));
-        const drewCard = drawAtTurnStart(state.botHand, 'Igor');
-        renderHands();
+        const drewCard = drawAtTurnStart(state.botHand, 'Igor', 'bot');
 
         if (!drewCard) {
-          state.phase = 'rolling';
+          setPhase('rolling');
         }
 
-        updateActionButtons();
+        commitState('start_bot_turn_draw', { checkProgress: true });
+        autoResolveBotState();
         updateBotMood(drewCard ? getBotFlavor('thinking') : getBotFlavor('choosing'));
         setStatus(drewCard ? 'Vez do oponente. Aguarde a jogada de Igor...' : 'O baralho acabou. Igor vai jogar sem descarte antes da rolagem.', 'warn');
-        setTimeout(() => {
+        scheduleAction(() => {
           if (state.turn === 'bot' && !state.gameOver) botTurn();
-        }, 1100);
-      }, state.startTurnDrawDelay);
+        }, 700);
+      });
     }
 
-    function drawAtTurnStart(hand, ownerName) {
+    function drawAtTurnStart(hand, ownerName, owner = 'player') {
       const card = drawCard();
       if (card) {
         triggerDeckDrawEffect();
         hand.push(card);
-        addLog('comprou 1 carta no início do turno.', 'default', `Baralho: ${state.deck.length} carta(s) restante(s).`);
+        getActorStats(owner).cardsBought += 1;
+        addLog('comprou 1 carta no início do turno.', 'default', `Baralho numérico: ${state.deck.length} carta(s) restante(s).`);
         updateDeckCount();
         return true;
       } else {
@@ -3144,15 +4016,28 @@ function setStatus(message, variant = 'normal') {
       }
 
       let finished = 0;
+      let resolved = false;
       const total = targets.length;
+      const finalize = () => {
+        if (resolved) return;
+        resolved = true;
+        targets.forEach(card => {
+          card.classList.remove('discarding');
+          card.style.animationDelay = '';
+        });
+        if (typeof onComplete === 'function') onComplete();
+      };
+
+      const fallbackId = window.setTimeout(finalize, 900);
 
       targets.forEach((card, order) => {
         card.style.animationDelay = `${order * 60}ms`;
         card.classList.add('discarding');
         card.addEventListener('animationend', () => {
           finished += 1;
-          if (finished === total && typeof onComplete === 'function') {
-            onComplete();
+          if (finished >= total) {
+            clearTimeout(fallbackId);
+            finalize();
           }
         }, { once: true });
       });
@@ -3160,18 +4045,40 @@ function setStatus(message, variant = 'normal') {
 
     function freeDiscardBeforeRoll() {
       if (!canFreeDiscard()) return;
-      const discardIndex = state.selectedCardIndices[0];
+      const selectedCardId = cloneSelectionIds()[0];
+      const discardIndex = getCardIndexById(state.playerHand, selectedCardId);
+      if (discardIndex === -1) {
+        clearSelectionState();
+        commitState('free_discard_before_roll_invalid_selection', { checkWinner: false });
+        return;
+      }
 
       animateDiscardCards(els.playerHand, [discardIndex], () => {
+        if (state.gameOver || !state.started || state.turn !== 'player' || state.phase !== 'pre_roll_discard') return;
+
+        const liveIndex = getCardIndexById(state.playerHand, selectedCardId);
+        if (liveIndex === -1) {
+          clearSelectionState();
+          movePlayerToRollingPhase();
+          commitState('free_discard_before_roll_missing_card', { checkWinner: false, checkProgress: false });
+          return;
+        }
+
         playDiscardSound();
-        const removed = state.playerHand.splice(discardIndex, 1)[0];
+        const removed = state.playerHand.splice(liveIndex, 1)[0];
         state.playerDiscardedCards += 1;
         addLog(`descartou a carta ${cardLabel(removed)} antes da rolagem.`, 'success');
         triggerBoardCenterHighlight();
-        state.selectedCardIndices = [];
-        renderHands();
-        if (checkWinner()) return;
+        clearSelectionState();
+        setTurnReason('descarte_livre_realizado', `Descarte livre: ${cardLabel(removed)}`);
         movePlayerToRollingPhase();
+        setStatus('Carta descartada. Agora escolha exatamente 2 dados e clique em "Rolar dados".', 'normal');
+
+        if (!state.activeTimerId && state.turn === 'player' && !state.gameOver) {
+          startTurnTimer('player');
+        }
+
+        commitState('free_discard_before_roll', { checkProgress: false });
       });
     }
 
@@ -3189,8 +4096,8 @@ function setStatus(message, variant = 'normal') {
       const r2 = Math.floor(Math.random() * b) + 1;
       const sum = r1 + r2;
       state.currentRoll = { dice: [a, b], results: [r1, r2], sum };
-      state.selectedCardIndices = [];
-      state.phase = 'post_roll_discard';
+      clearSelectionState();
+      setPhase('post_roll_discard');
       updateRollBoxes(r1, r2, sum);
 
       const playable = state.playerHand.some(card => card.type === 'joker' || (card.type === 'number' && card.value === sum));
@@ -3202,8 +4109,7 @@ function setStatus(message, variant = 'normal') {
 
       addLog(`escolheu d${a} e d${b}.`);
       addLog(`tirou ${r1} + ${r2} = ${sum}.`);
-      renderHands();
-      updateActionButtons();
+      commitState('player_roll', { checkWinner: false });
     }
 
     function discardAfterRoll() {
@@ -3212,94 +4118,112 @@ function setStatus(message, variant = 'normal') {
         return;
       }
 
-      const selectedIndicesAsc = [...state.selectedCardIndices].sort((a, b) => a - b);
+      const selectedCardIds = cloneSelectionIds();
+      const selectedIndicesAsc = selectedCardIds
+        .map(cardId => getCardIndexById(state.playerHand, cardId))
+        .filter(index => index !== -1)
+        .sort((a, b) => a - b);
 
       animateDiscardCards(els.playerHand, selectedIndicesAsc, () => {
-        playDiscardSound();
-        const cardsToRemove = [...state.selectedCardIndices].sort((a, b) => b - a).map(index => state.playerHand[index]);
-        const labels = cardsToRemove.map(cardLabel).reverse().join(', ');
+        if (state.gameOver || !state.started || state.turn !== 'player' || state.phase !== 'post_roll_discard') return;
 
-        [...state.selectedCardIndices].sort((a, b) => b - a).forEach(index => {
-          state.playerHand.splice(index, 1);
-        });
+        const cardsToRemove = selectedCardIds
+          .map(cardId => state.playerHand.find(card => card.id === cardId))
+          .filter(Boolean);
+
+        if (!cardsToRemove.length) {
+          clearSelectionState();
+          commitState('discard_after_roll_missing_cards', { checkWinner: false, checkProgress: false });
+          return;
+        }
+
+        playDiscardSound();
+        const labels = cardsToRemove.map(cardLabel).join(', ');
+        cardsToRemove.forEach(card => removeCardFromHandByReference(state.playerHand, card));
         state.playerDiscardedCards += cardsToRemove.length;
 
         addLog(`descartou ${cardsToRemove.length} carta(s): ${labels}.`, 'success');
         triggerBoardCenterHighlight();
-        state.selectedCardIndices = [];
-        renderHands();
+        clearSelectionState();
+        setStatus('Cartas descartadas. Passando o turno para o oponente...', 'warn');
 
-        stopTurnTimer();
-        if (checkWinner()) return;
-        startBotTurn();
+        if (commitState('discard_after_roll', { checkProgress: true })) return;
+        transitionTurnTo('bot', 250, 'fim_turno_jogador');
       });
     }
 
     function passTurn() {
-      if (!(state.turn === 'player' && state.phase === 'post_roll_discard' && state.currentRoll && !state.gameOver)) return;
+      const canEmergencyAdvance = state.turn === 'player' && !state.gameOver && state.phase === 'turn_transition';
+      const canRegularPass = state.turn === 'player' && state.phase === 'post_roll_discard' && state.currentRoll && !state.gameOver;
+      if (!(canRegularPass || canEmergencyAdvance)) return;
+
+      clearPendingTurnStartTimeout();
+      clearScheduledActions();
       playPassTurnSound();
-      addLog('passou o turno sem descartar.', 'warn');
-      stopTurnTimer();
-      startBotTurn();
+      if (canRegularPass) {
+        addLog('passou o turno sem descartar.', 'warn');
+      } else {
+        addLog('o turno foi destravado manualmente e passou para o oponente.', 'warn');
+      }
+
+      state.currentRoll = null;
+      clearSelectionState();
+      state.selectedDice = [];
+      updateRollBoxes();
+      commitState('pass_turn', { checkWinner: false });
+
+      transitionTurnTo('bot', 180, 'passou_turno');
     }
 
     function chooseBotFreeDiscard() {
       if (!state.botHand.length) return false;
 
-      let discardIndex = 0;
+      const candidates = state.botHand
+        .map((card, index) => ({ card, index }))
+        .filter(({ index }) => canFinishWithCurrentHandAfterRemoving(state.botHand, [index]));
+
+      if (!candidates.length) return false;
+
+      let discardIndex = candidates[0].index;
 
       if (state.difficulty === 'facil') {
-        discardIndex = Math.floor(Math.random() * state.botHand.length);
+        discardIndex = candidates[Math.floor(Math.random() * candidates.length)].index;
       } else if (state.difficulty === 'medio') {
-        // descarta a carta com menor potencial futuro: primeiro coringa, depois extremos menos prováveis
-        const jokerIndex = state.botHand.findIndex(card => card.type === 'joker');
-        if (jokerIndex !== -1) {
-          discardIndex = jokerIndex;
+        const nonValuable = candidates.find(({ card }) => card.type === 'effect_draw' || card.type === 'effect_card');
+        if (nonValuable) {
+          discardIndex = nonValuable.index;
         } else {
-          let worstScore = Infinity;
-          state.botHand.forEach((card, index) => {
+          let worstScore = -Infinity;
+          candidates.forEach(({ card, index }) => {
             const distanceToCenter = Math.abs(11 - card.value);
-            if (distanceToCenter < worstScore) return;
-            worstScore = distanceToCenter;
-            discardIndex = index;
+            if (distanceToCenter > worstScore) {
+              worstScore = distanceToCenter;
+              discardIndex = index;
+            }
           });
-          // fallback mais estável
-          if (discardIndex === 0) {
-            const highestIndex = state.botHand.reduce((best, card, index, arr) => {
-              if (card.type !== 'number') return best;
-              if (arr[best]?.type !== 'number') return index;
-              return card.value > arr[best].value ? index : best;
-            }, 0);
-            discardIndex = highestIndex;
-          }
         }
       } else {
-        // difícil: preserva cartas com maior chance de combinação futura e descarta a de menor utilidade
-        let worstScore = Infinity;
-        state.botHand.forEach((card, index) => {
+        let bestCandidate = candidates[0];
+        let bestScore = Infinity;
+        candidates.forEach(candidate => {
+          const card = candidate.card;
           let score = 0;
-          if (card.type === 'joker') {
-            score = 100; // coringa é muito valioso
-          } else {
-            for (const a of diceOptions) {
-              for (const b of diceOptions) {
-                if (a === b) continue;
-                const minSum = 2;
-                const maxSum = a + b;
-                if (card.value >= minSum && card.value <= maxSum) score += 1;
-              }
-            }
-            score -= Math.abs(11 - card.value) * 0.2;
-          }
-          if (score < worstScore) {
-            worstScore = score;
-            discardIndex = index;
+          if (card.type === 'joker') score = 100;
+          else if (card.type === 'effect_card' && card.effect === 'block_opponent') score = 80;
+          else if (card.type === 'effect_card' && card.effect === 'reroll') score = 70;
+          else if (card.type === 'effect_draw') score = 55;
+          else score = 20 - Math.abs(11 - card.value) * 1.2;
+          if (score < bestScore) {
+            bestScore = score;
+            bestCandidate = candidate;
           }
         });
+        discardIndex = bestCandidate.index;
       }
 
       const removed = state.botHand.splice(discardIndex, 1)[0];
       playDiscardSound();
+      state.botDiscardedCards += 1;
       addLog(`descartou a carta ${cardLabel(removed)} antes da rolagem.`, 'success', `Estratégia: ${state.difficulty}.`);
       triggerBoardCenterHighlight();
       return true;
@@ -3337,7 +4261,10 @@ function setStatus(message, variant = 'normal') {
           // maximiza quantidade esperada de descarte
           state.botHand.forEach(card => {
             if (card.type === 'joker') return;
-            score += (sumFrequency.get(card.value) || 0);
+            if (card.type === 'number') score += (sumFrequency.get(card.value) || 0);
+            if (card.type === 'effect_card' && card.effect === 'reroll') score += 0.8;
+            if (card.type === 'effect_card' && card.effect === 'block_opponent') score += 0.9;
+            if (card.type === 'effect_draw') score += 0.5;
           });
           const jokerCount = state.botHand.filter(card => card.type === 'joker').length;
           if (jokerCount > 0) score += jokerCount * 1.5;
@@ -3376,31 +4303,44 @@ function setStatus(message, variant = 'normal') {
       updateBotMood(getBotFlavor(shouldFreeDiscard ? 'thinking' : 'choosing'));
       setStatus(shouldFreeDiscard ? 'Igor pensando no descarte inicial...' : 'Igor escolhendo os dados...', 'warn');
 
-      setTimeout(() => {
+      scheduleAction(() => {
         if (shouldFreeDiscard) {
+          const blockIndex = state.botHand.findIndex(card => card.type === 'effect_card' && card.effect === 'block_opponent' && canFinishWithCurrentHandAfterRemoving(state.botHand, [state.botHand.indexOf(card)]));
+          if (blockIndex !== -1 && state.difficulty !== 'facil') {
+            useEffectCardFromHand('bot', state.botHand, blockIndex);
+          }
+
+          const plusEffectIndex = state.botHand.findIndex(card => card.type === 'effect_draw' && state.effectDeck.length > 0 && canFinishWithCurrentHandAfterRemoving(state.botHand, [state.botHand.indexOf(card)]));
+          if (plusEffectIndex !== -1 && (state.difficulty === 'dificil' || (state.difficulty === 'medio' && Math.random() < 0.65) || (state.difficulty === 'facil' && Math.random() < 0.3))) {
+            useEffectCardFromHand('bot', state.botHand, plusEffectIndex);
+            if (state.turn !== 'bot' || state.gameOver) return;
+          }
+
           chooseBotFreeDiscard();
           renderHands();
           if (checkWinner()) return;
         }
 
-        state.phase = 'rolling';
+        if (state.turn !== 'bot' || state.gameOver) return;
+        setPhase('rolling');
         updateActionButtons();
         updateBotMood(getBotFlavor('choosing'));
         setStatus('Igor escolhendo os dados...', 'warn');
         const [a, b] = chooseBotDice();
 
-        setTimeout(() => {
+        scheduleAction(() => {
           updateBotMood(getBotFlavor('rolling'));
           setStatus(`Igor rolando d${a} e d${b}...`, 'warn');
           playRollSound();
           const r1 = Math.floor(Math.random() * a) + 1;
           const r2 = Math.floor(Math.random() * b) + 1;
           const sum = r1 + r2;
+          state.currentRoll = { dice: [a, b], results: [r1, r2], sum };
           updateRollBoxes(r1, r2, sum);
           addLog(`escolheu d${a} e d${b}.`, 'important');
           addLog(`tirou ${r1} + ${r2} = ${sum}.`);
 
-          setTimeout(() => {
+          const resolveBotDiscard = () => {
             const matchingIndices = [];
             state.botHand.forEach((card, index) => {
               if (card.type === 'number' && card.value === sum) matchingIndices.push(index);
@@ -3408,43 +4348,34 @@ function setStatus(message, variant = 'normal') {
 
             let removedLabels = [];
             let usedJoker = false;
+            let removedCount = 0;
 
             if (state.difficulty === 'facil') {
               if (matchingIndices.length > 0) {
                 const randomIndex = matchingIndices[Math.floor(Math.random() * matchingIndices.length)];
                 removedLabels = [cardLabel(state.botHand[randomIndex])];
                 state.botHand.splice(randomIndex, 1);
+                removedCount = 1;
               } else {
-                const jokerIndex = state.botHand.findIndex(card => card.type === 'joker');
+                const jokerIndex = state.botHand.findIndex(card => card.type === 'joker' && canFinishWithCurrentHandAfterRemoving(state.botHand, [state.botHand.indexOf(card)]));
                 if (jokerIndex !== -1) {
                   removedLabels = [cardLabel(state.botHand[jokerIndex])];
                   state.botHand.splice(jokerIndex, 1);
-                  usedJoker = true;
-                }
-              }
-            } else if (state.difficulty === 'medio') {
-              if (matchingIndices.length > 0) {
-                // tenta maximizar descarte
-                removedLabels = matchingIndices.map(index => cardLabel(state.botHand[index]));
-                matchingIndices.sort((a, b) => b - a).forEach(index => state.botHand.splice(index, 1));
-              } else {
-                const jokerIndex = state.botHand.findIndex(card => card.type === 'joker');
-                if (jokerIndex !== -1) {
-                  removedLabels = [cardLabel(state.botHand[jokerIndex])];
-                  state.botHand.splice(jokerIndex, 1);
+                  removedCount = 1;
                   usedJoker = true;
                 }
               }
             } else {
-              if (matchingIndices.length > 0) {
-                // difícil: sempre maximiza descarte e preserva coringa se já tem cartas numéricas
+              if (matchingIndices.length > 0 && canFinishWithCurrentHandAfterRemoving(state.botHand, matchingIndices)) {
                 removedLabels = matchingIndices.map(index => cardLabel(state.botHand[index]));
                 matchingIndices.sort((a, b) => b - a).forEach(index => state.botHand.splice(index, 1));
+                removedCount = removedLabels.length;
               } else {
-                const jokerIndex = state.botHand.findIndex(card => card.type === 'joker');
+                const jokerIndex = state.botHand.findIndex(card => card.type === 'joker' && canFinishWithCurrentHandAfterRemoving(state.botHand, [state.botHand.indexOf(card)]));
                 if (jokerIndex !== -1) {
                   removedLabels = [cardLabel(state.botHand[jokerIndex])];
                   state.botHand.splice(jokerIndex, 1);
+                  removedCount = 1;
                   usedJoker = true;
                 }
               }
@@ -3456,6 +4387,7 @@ function setStatus(message, variant = 'normal') {
 
               animateDiscardCards(els.botHand, botIndicesToAnimate, () => {
                 playDiscardSound();
+                state.botDiscardedCards += removedCount;
                 const detail = usedJoker
                   ? `Coringa usado para representar a soma ${sum}.`
                   : `Descarte feito após a soma ${sum}.`;
@@ -3464,30 +4396,61 @@ function setStatus(message, variant = 'normal') {
                 updateBotMood(getBotFlavor('good'));
                 setStatus('Igor descartou carta(s).', 'warn');
 
-                renderHands();
-                if (checkWinner()) return;
+                if (commitState('bot_discard_after_roll')) return;
 
-                setTimeout(() => {
-                  updateRollBoxes();
-                  startPlayerTurn();
-                }, 900);
+                transitionTurnTo('player', 250, 'fim_turno_bot');
               });
             } else {
+              const rerollIndex = state.botHand.findIndex(card => card.type === 'effect_card' && card.effect === 'reroll' && canFinishWithCurrentHandAfterRemoving(state.botHand, [state.botHand.indexOf(card)]));
+              if (rerollIndex !== -1) {
+                useEffectCardFromHand('bot', state.botHand, rerollIndex, () => {
+                  const newSum = state.currentRoll?.sum;
+                  if (!newSum) return;
+                  scheduleAction(resolveBotDiscard, 320);
+                });
+                return;
+              }
+
               addLog('não tinha carta compatível e passou o turno.', 'warn', `Estratégia: ${state.difficulty}.`);
               updateBotMood(getBotFlavor('pass'));
               setStatus('Igor passou o turno.', 'warn');
 
-              renderHands();
-              if (checkWinner()) return;
+              if (commitState('bot_pass_turn')) return;
 
-              setTimeout(() => {
-                updateRollBoxes();
-                startPlayerTurn();
-              }, 900);
+              transitionTurnTo('player', 250, 'bot_passou_turno');
             }
-          }, 1100);
+          };
+
+          scheduleAction(resolveBotDiscard, 480);
         }, 1000);
       }, 900);
+    }
+
+    function isPureEffectHand(hand) {
+      return hand.length > 0 && hand.every(card => isEffectCard(card));
+    }
+
+    function checkForSoftLock() {
+      if (state.gameOver || !state.started) return false;
+      const numericDeckEmpty = state.deck.length === 0;
+      const effectDeckEmpty = state.effectDeck.length === 0;
+      if (!numericDeckEmpty) return false;
+
+      const playerOnlyEffects = isPureEffectHand(state.playerHand);
+      const botOnlyEffects = isPureEffectHand(state.botHand);
+
+      if (playerOnlyEffects && botOnlyEffects && effectDeckEmpty) {
+        state.gameOver = true;
+        stopTurnTimer();
+        clearPendingTurnStartTimeout();
+        clearScheduledActions();
+        setStatus('Empate técnico: os dois jogadores ficaram apenas com cartas de efeito e não há mais compras possíveis.', 'warn');
+        addLog('Fim de jogo: empate técnico por esgotamento de jogadas.', 'warn');
+        showEndOverlay('Empate técnico', buildEndMessage('<p>Os dois jogadores ficaram apenas com cartas de efeito e os baralhos acabaram.</p>'));
+        return true;
+      }
+
+      return false;
     }
 
     function checkWinner() {
@@ -3500,7 +4463,7 @@ function setStatus(message, variant = 'normal') {
         updateActionButtons();
         renderDiceButtons();
         updateTurnInfo();
-        showEndOverlay('Você venceu!', buildVictoryMessage());
+        showEndOverlay('Você venceu!', buildEndMessage(`<p>Você ficou sem cartas primeiro.</p>`));
         return true;
       }
 
@@ -3513,30 +4476,46 @@ function setStatus(message, variant = 'normal') {
         updateActionButtons();
         renderDiceButtons();
         updateTurnInfo();
-        showEndOverlay('Você perdeu!', 'Clique no botão abaixo para tentar novamente.');
+        showEndOverlay('Você perdeu!', buildEndMessage(`<p>Igor ficou sem cartas primeiro.</p>`));
         return true;
       }
 
+      if (checkForSoftLock()) return true;
       return false;
     }
 
     function newGame() {
+      clearPendingTurnStartTimeout();
+      clearScheduledActions();
       updateBotMood('Pronto para jogar.');
       if (state.gameMode === 'exploracao') {
         state.deck = [];
+        state.effectDeck = [];
         state.playerHand = [];
         state.botHand = [];
         state.selectedDice = [];
         state.currentRoll = null;
         state.turn = 'player';
-        state.selectedCardIndices = [];
+        clearSelectionState();
         state.gameOver = false;
-        state.phase = 'rolling';
+        setPhase('rolling');
         state.turnNumber = 0;
         state.playerTurns = 0;
+        state.botTurns = 0;
         state.playerDiscardedCards = 0;
+        state.botDiscardedCards = 0;
+        state.playerEffectsUsed = 0;
+        state.botEffectsUsed = 0;
+        state.skipPlayerTurn = 0;
+        state.skipBotTurn = 0;
         state.explorationSimulationCount = 0;
         state.currentTurnLogBody = null;
+        state.lastProgressSnapshot = null;
+        state.stalledTurnsWithoutProgress = 0;
+        state.currentTurnReason = 'exploracao';
+        state.lastEffectApplied = null;
+        state.stats.player = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
+        state.stats.bot = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
         stopTurnTimer();
         els.log.innerHTML = '';
         hideEndOverlay();
@@ -3550,18 +4529,31 @@ function setStatus(message, variant = 'normal') {
       }
 
       state.deck = createDeck();
+      state.effectDeck = createEffectDeck();
       state.playerHand = [];
       state.botHand = [];
       state.selectedDice = [];
       state.currentRoll = null;
       state.turn = 'player';
-      state.selectedCardIndices = [];
+      clearSelectionState();
       state.gameOver = false;
-      state.phase = 'pre_roll_discard';
+      setPhase('pre_roll_discard');
       state.turnNumber = 0;
       state.playerTurns = 0;
+      state.botTurns = 0;
       state.playerDiscardedCards = 0;
+      state.botDiscardedCards = 0;
+      state.playerEffectsUsed = 0;
+      state.botEffectsUsed = 0;
+      state.skipPlayerTurn = 0;
+      state.skipBotTurn = 0;
       state.currentTurnLogBody = null;
+      state.lastProgressSnapshot = null;
+      state.stalledTurnsWithoutProgress = 0;
+      state.currentTurnReason = 'nova_partida';
+      state.lastEffectApplied = null;
+      state.stats.player = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
+      state.stats.bot = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
       state.playerTimeLeft = state.turnTimeLimit;
       state.botTimeLeft = state.turnTimeLimit;
       stopTurnTimer();
@@ -3583,19 +4575,32 @@ function setStatus(message, variant = 'normal') {
     function resetBoardBeforeStart() {
       state.started = false;
       state.deck = [];
+      state.effectDeck = [];
       state.playerHand = [];
       state.botHand = [];
       state.selectedDice = [];
       state.currentRoll = null;
       state.turn = 'player';
-      state.selectedCardIndices = [];
+      clearSelectionState();
       state.gameOver = false;
-      state.phase = 'pre_roll_discard';
+      setPhase('pre_roll_discard');
       state.turnNumber = 0;
       state.playerTurns = 0;
+      state.botTurns = 0;
       state.playerDiscardedCards = 0;
+      state.botDiscardedCards = 0;
+      state.playerEffectsUsed = 0;
+      state.botEffectsUsed = 0;
+      state.skipPlayerTurn = 0;
+      state.skipBotTurn = 0;
       state.explorationSimulationCount = 0;
       state.currentTurnLogBody = null;
+      state.lastProgressSnapshot = null;
+      state.stalledTurnsWithoutProgress = 0;
+      state.currentTurnReason = 'menu_principal';
+      state.lastEffectApplied = null;
+      state.stats.player = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
+      state.stats.bot = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
       state.difficulty = 'medio';
       state.gameMode = 'duelo';
       state.playerName = 'Você';
@@ -3626,7 +4631,7 @@ function setStatus(message, variant = 'normal') {
         els.howToPlayContent.innerHTML = '1. Escolha <b>2 dados</b> para montar a combinação que deseja analisar.<br><br>2. Veja as probabilidades de cada soma possível para essa combinação.<br><br>3. Clique em <b>"Simular rolagem"</b> para testar um resultado aleatório com os dados escolhidos.<br><br>4. Repita quantas vezes quiser para comparar resultados e perceber quais somas aparecem com mais frequência.<br><br>5. Use o modo exploração para estudar o comportamento dos dados, sem bot e sem cartas.';
       } else {
         els.howToPlayTitle.textContent = 'Como jogar';
-        els.howToPlayContent.innerHTML = '1. No início do seu turno, você compra uma carta automaticamente.<br><br>2. Antes de rolar os dados, você pode descartar <b>1 carta qualquer</b>.<br><br>3. Clique em "Rolar dados" para avançar e escolha dois dados.<br><br>4. Após rolar, você pode descartar cartas se:<br>- tiverem o mesmo valor da soma dos dados<br>- e forem iguais entre si (pode descartar várias)<br><br>5. Se não puder jogar, clique em "Passar turno".<br><br>6. Vence quem ficar sem cartas primeiro.';
+        els.howToPlayContent.innerHTML = '1. No início do seu turno, você compra uma carta numérica automaticamente.<br><br>2. Antes de rolar os dados, você pode descartar <b>1 carta qualquer</b> ou usar uma carta de efeito.<br><br>3. A carta <b>+1E</b> compra uma carta do baralho de efeitos.<br><br>4. Algumas cartas de efeito agem na hora; outras ficam guardadas para uso futuro no seu turno.<br><br>5. Após rolar, você pode descartar cartas se:<br>- tiverem o mesmo valor da soma dos dados<br>- e forem iguais entre si (pode descartar várias)<br><br>6. A carta <b>RR</b> permite rolar novamente após a rolagem e <b>BL</b> bloqueia o próximo turno do oponente.<br><br>7. A última carta do jogo não pode ser uma carta de efeito.';
       }
       els.howToPlayOverlay.classList.remove('hidden');
     }
@@ -3694,6 +4699,7 @@ function setStatus(message, variant = 'normal') {
     els.freeDiscardBtn.addEventListener('click', freeDiscardBeforeRoll);
     els.rollBtn.addEventListener('click', playerRoll);
     els.discardBtn.addEventListener('click', discardAfterRoll);
+    els.useEffectBtn.addEventListener('click', useSelectedEffectCard);
     els.passBtn.addEventListener('click', passTurn);
     els.returnMenuBtn.addEventListener('click', confirmBackToMenu);
     els.newGameBtn.addEventListener('click', newGame);
