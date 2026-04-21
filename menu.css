@@ -262,10 +262,66 @@ body{
   gap: 12px;
 }
 
+/* ===== COMPACTO LATERAL (DIREITA) ===== */
+
+.site-header.compact {
+  left: auto;
+  right: 14px;
+  width: auto;
+}
+
+.site-header.compact .site-header-inner {
+  justify-content: flex-end;
+  width: auto;
+  padding: 8px 12px;
+  gap: 10px;
+}
+
+/* esconde elementos suavemente */
 .site-header.compact .brand-link,
 .site-header.compact .desktop-nav,
-.site-header.compact .nav-toggle{
-  display: none !important;
+.site-header.compact .nav-toggle {
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+  position: absolute;
+}
+
+/* mostra compacto */
+.site-header.compact .compact-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(13,7,25,0.85);
+  border: 1px solid rgba(179,135,255,0.25);
+  border-radius: 999px;
+  padding: 6px 12px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.3);
+}
+
+/* animação suave */
+.site-header-inner,
+.brand-link,
+.desktop-nav,
+.nav-toggle,
+.compact-header {
+  transition: all .3s ease;
+}
+
+/* nome da página */
+#currentPageName {
+  font-size: 0.9rem;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* botão */
+#menuToggle {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  font-size: 18px;
 }
 
 .site-header.compact .compact-header{
