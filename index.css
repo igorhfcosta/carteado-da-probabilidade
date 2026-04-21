@@ -305,7 +305,38 @@
       letter-spacing:.08em;
       font-weight:700;
     }
+/* ===== COMEÇO BOTÃO TOPO ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #6f42e8;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all .3s ease;
+  z-index: 999;
+}
 
+.back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: #5a32c7;
+  transform: translateY(-2px);
+}
+/* ===== FIM BOTÃO TOPO ===== */
     .showcase-card h3{
       font-size:1.28rem;
       margin-bottom:8px;
