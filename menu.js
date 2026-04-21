@@ -50,11 +50,19 @@ fetch("menu.html")
     }
 
     if (header) {
+  let compactActive = false;
+
   window.addEventListener("scroll", () => {
-    if (window.innerWidth > 900 && window.scrollY > 120) {
+    const shouldCompact = window.innerWidth > 900 && window.scrollY > 160;
+
+    if (shouldCompact && !compactActive) {
+      closeMenu();
+      closeDropdown();
       header.classList.add("compact");
-    } else {
+      compactActive = true;
+    } else if (!shouldCompact && compactActive) {
       header.classList.remove("compact");
+      compactActive = false;
     }
   });
 }
