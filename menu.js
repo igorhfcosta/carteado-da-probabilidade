@@ -11,6 +11,14 @@ fetch("menu.html")
     const dropdownToggle = document.querySelector('.dropdown-toggle');
     const current = window.location.pathname.split('/').pop() || 'index.html';
 
+    const compactToggle = document.getElementById("menuToggle");
+
+if (compactToggle && toggle) {
+  compactToggle.addEventListener("click", function () {
+    toggle.click();
+  });
+}
+    
     function closeMenu() {
       if (!panel || !toggle) return;
       panel.hidden = true;
@@ -56,6 +64,18 @@ window.addEventListener("scroll", () => {
   }
 });
 
+const pageName = document.getElementById("currentPageName");
+
+const path = window.location.pathname;
+
+if (path.includes("index")) pageName.textContent = "Início";
+else if (path.includes("como-jogar")) pageName.textContent = "Como jogar";
+else if (path.includes("baixar")) pageName.textContent = "Baixar";
+else if (path.includes("proposta")) pageName.textContent = "Professor";
+else if (path.includes("embasamento")) pageName.textContent = "Embasamento";
+else if (path.includes("sobre")) pageName.textContent = "Sobre";
+else if (path.includes("contato")) pageName.textContent = "Contato";
+    
     
     document.addEventListener('click', function (event) {
       if (panel && toggle && !panel.hidden && !panel.contains(event.target) && !toggle.contains(event.target)) {
