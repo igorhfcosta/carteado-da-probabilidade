@@ -1927,6 +1927,67 @@
       font-size: .88rem;
       line-height: 1.45;
     }
+.prob-chart-wrap {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(184,145,255,.14);
+    }
+
+    .prob-chart {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 190px;
+    }
+
+    .prob-bar-col {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .prob-bar-value {
+      font-size: .76rem;
+      color: var(--muted);
+      min-height: 18px;
+    }
+
+    .prob-bar-track {
+      width: 100%;
+      max-width: 34px;
+      height: 130px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border: 1px solid rgba(184,145,255,.14);
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      padding: 4px;
+    }
+
+    .prob-bar-fill {
+      width: 100%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #c58bff 0%, #9c56ff 55%, #7a37e9 100%);
+      box-shadow: 0 0 18px rgba(156,86,255,.18);
+      min-height: 6px;
+      transition: height .28s ease;
+    }
+
+    .prob-bar-label {
+      font-size: .8rem;
+      color: var(--text);
+      font-weight: bold;
+    }
+
+    .exploration-hide {
+      display: none !important;
+    }
 
     @keyframes overlayFadeIn {
       0% { opacity: 0; }
@@ -2441,18 +2502,21 @@ body{
 <h3>Probabilidades da combinação escolhida</h3>
 <div class="prob-summary" id="probabilitySummary">Escolha 2 dados para ver a distribuição das somas.</div>
 <div class="prob-grid" id="probabilityGrid"></div>
+<div class="prob-chart-wrap">
+<div class="prob-chart" id="probabilityChart"></div>
+</div>
 <div class="mode-note" id="simulationCountText">Simulações realizadas: 0</div>
 </div>
 </div>
 </section>
-<aside class="panel">
+<aside class="panel" id="sidePanel">
 <span class="section-label">Painel</span>
 <div class="panel-header-row">
-<h3>Registro da partida</h3>
+<h3 id="sidePanelTitle">Registro da partida</h3>
 <button aria-pressed="true" class="btn ghost sound-toggle" id="soundToggleBtn" type="button">🔊 Som: ligado</button>
 </div>
 <div class="log" id="log"></div>
-<div class="footer-note">
+<div class="footer-note" id="sidePanelNote">
           Regras desta versão: compra obrigatória no início do turno; descarte livre de 1 carta antes da rolagem; após rolar, descarte apenas cartas com valor igual à soma. Se descartar mais de uma, todas devem ter o mesmo valor e ser iguais entre si.
         </div>
 </aside>
@@ -2577,6 +2641,9 @@ body{
       statusBox: document.getElementById('statusBox'),
       effectNotice: document.getElementById('effectNotice'),
       log: document.getElementById('log'),
+      sidePanel: document.getElementById('sidePanel'),
+      sidePanelTitle: document.getElementById('sidePanelTitle'),
+      sidePanelNote: document.getElementById('sidePanelNote'),
       playerBox: document.getElementById('playerBox'),
       botBox: document.getElementById('botBox'),
       botMood: document.getElementById('botMood'),
@@ -2589,6 +2656,7 @@ body{
       explorationPanel: document.getElementById('explorationPanel'),
       probabilitySummary: document.getElementById('probabilitySummary'),
       probabilityGrid: document.getElementById('probabilityGrid'),
+      probabilityChart: document.getElementById('probabilityChart'),
       simulationCountText: document.getElementById('simulationCountText'),
       difficultyButtons: document.querySelectorAll('.difficulty-btn'),
     };
@@ -3206,7 +3274,7 @@ function setStatus(message, variant = 'normal') {
 
     function updateTurnInfo() {
       if (state.gameMode === 'exploracao') {
-        els.turnStatusText.textContent = 'Modo exploração';
+        els.turnStatusText.textContent = 'Instruções para o modo exploração';
         els.turnStatusBadge.classList.remove('turn-player', 'turn-opponent');
         els.turnStatusBadge.classList.add('turn-player');
         els.turnStatusDot.className = 'turn-dot dot-player';
@@ -3332,6 +3400,42 @@ function setStatus(message, variant = 'normal') {
         }));
     }
 
+    function renderProbabilityChart(data) {
+      if (!els.probabilityChart) return;
+
+      els.probabilityChart.innerHTML = '';
+
+      if (!data || !data.length) return;
+
+      const maxCount = Math.max(...data.map(item => item.count), 1);
+
+      data.forEach(item => {
+        const col = document.createElement('div');
+        col.className = 'prob-bar-col';
+
+        const value = document.createElement('div');
+        value.className = 'prob-bar-value';
+        value.textContent = `${item.probability.toFixed(1)}%`;
+
+        const track = document.createElement('div');
+        track.className = 'prob-bar-track';
+
+        const fill = document.createElement('div');
+        fill.className = 'prob-bar-fill';
+        fill.style.height = `${Math.max((item.count / maxCount) * 100, 6)}%`;
+
+        const label = document.createElement('div');
+        label.className = 'prob-bar-label';
+        label.textContent = item.sum;
+
+        track.appendChild(fill);
+        col.appendChild(value);
+        col.appendChild(track);
+        col.appendChild(label);
+        els.probabilityChart.appendChild(col);
+      });
+    }
+
     function renderProbabilityPanel() {
       if (!els.explorationPanel) return;
 
@@ -3346,6 +3450,9 @@ function setStatus(message, variant = 'normal') {
       if (!dieA || !dieB) {
         els.probabilitySummary.textContent = 'Escolha 2 dados para ver a distribuição das somas.';
         els.probabilityGrid.innerHTML = '';
+        if (els.probabilityChart) {
+          els.probabilityChart.innerHTML = '';
+        }
         els.simulationCountText.textContent = `Simulações realizadas: ${state.explorationSimulationCount}`;
         return;
       }
@@ -3360,6 +3467,8 @@ function setStatus(message, variant = 'normal') {
       els.probabilitySummary.innerHTML = `Dados escolhidos: <b>d${dieA}</b> e <b>d${dieB}</b>.<br>Mais prováveis: ${formatSumsList(mostLikely)} (${mostLikely[0].fraction} = ${mostLikely[0].probability.toFixed(2)}%). Menos prováveis: ${formatSumsList(leastLikely)} (${leastLikely[0].fraction} = ${leastLikely[0].probability.toFixed(2)}%).`;
       els.probabilityGrid.innerHTML = data.map(item => `<div class="prob-item"><strong>${item.sum}</strong>${formatFractionVertical(item.count, totalOutcomes)}<span class="prob-percent">(${item.probability.toFixed(2)}%)</span></div>`).join('');
       els.simulationCountText.textContent = `Simulações realizadas: ${state.explorationSimulationCount}`;
+
+      renderProbabilityChart(data);
     }
 
     function updateModeUI() {
@@ -3381,7 +3490,43 @@ function setStatus(message, variant = 'normal') {
 
       if (inExploration) {
         els.startOverlayText.textContent = 'Escolha o modo desejado. No modo exploração você só escolhe os dados, vê as probabilidades e simula as rolagens.';
-        setStatus('Modo exploração: escolha 2 dados para ver as probabilidades e clique em “Simular rolagem”.');
+        setStatus('Modo exploração: escolha 2 dados, observe as probabilidades da combinação e use “Simular rolagem” para testar resultados.');
+
+        if (els.sidePanelTitle) {
+          els.sidePanelTitle.textContent = 'Modo exploração';
+        }
+
+        if (els.sidePanelNote) {
+          els.sidePanelNote.textContent = 'Neste modo você analisa combinações de dados, observa a distribuição das somas e compara os resultados com as simulações.';
+        }
+
+        if (els.log) {
+          els.log.classList.add('exploration-hide');
+        }
+
+        if (els.activeTimerBox) {
+          els.activeTimerBox.classList.add('exploration-hide');
+        }
+
+        if (els.turnStatusText) {
+          els.turnStatusText.textContent = 'Instruções para o modo exploração';
+        }
+      } else {
+        if (els.sidePanelTitle) {
+          els.sidePanelTitle.textContent = 'Registro da partida';
+        }
+
+        if (els.sidePanelNote) {
+          els.sidePanelNote.textContent = 'Regras desta versão: compra obrigatória no início do turno; descarte livre de 1 carta antes da rolagem; após rolar, descarte apenas cartas com valor igual à soma. Se descartar mais de uma, todas devem ter o mesmo valor e ser iguais entre si.';
+        }
+
+        if (els.log) {
+          els.log.classList.remove('exploration-hide');
+        }
+
+        if (els.activeTimerBox) {
+          els.activeTimerBox.classList.remove('exploration-hide');
+        }
       }
 
       renderProbabilityPanel();
@@ -3412,7 +3557,7 @@ function setStatus(message, variant = 'normal') {
       updateRollBoxes();
       renderDiceButtons();
       updateActionButtons();
-      addLog('Modo exploração iniciado. Escolha 2 dados para analisar as probabilidades.', 'important');
+      renderProbabilityPanel();
     }
 
     function simulateExplorationRoll() {
@@ -3428,7 +3573,6 @@ function setStatus(message, variant = 'normal') {
       playRollSound();
       updateRollBoxes(r1, r2, sum);
       renderProbabilityPanel();
-      addLog(`Simulação ${state.explorationSimulationCount}: d${a} = ${r1} e d${b} = ${r2}. Soma ${sum}.`, 'important', 'Use as probabilidades para comparar combinações de dados.');
       setStatus(`Resultado da simulação: d${a} = ${r1}, d${b} = ${r2}, soma = ${sum}.`);
       updateActionButtons();
     }
