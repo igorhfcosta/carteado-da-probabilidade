@@ -277,6 +277,288 @@
         0 8px 18px rgba(0,0,0,.10);
     }
 
+    .settings-btn {
+      white-space: nowrap;
+      min-width: 155px;
+    }
+
+    .settings-btn::after {
+      content: "⚙";
+      margin-left: 8px;
+      font-size: 1rem;
+    }
+
+    .settings-overlay-card {
+      width: min(560px, 100%);
+      text-align: left;
+    }
+
+    .settings-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .settings-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(184,145,255,.18);
+      background: rgba(255,255,255,.04);
+    }
+
+    .settings-item label,
+    .settings-item h3 {
+      display: block;
+      margin: 0 0 10px;
+      color: var(--primary-light);
+      font-size: 1rem;
+    }
+
+    .settings-item h3 {
+      font-weight: bold;
+    }
+
+    .settings-select {
+      width: 100%;
+      border-radius: 12px;
+      padding: 12px 42px 12px 14px;
+      border: 1px solid rgba(184,145,255,.22);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)),
+        rgba(255,255,255,.06);
+      color: var(--text);
+      font-size: .98rem;
+      font-weight: 700;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      cursor: pointer;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 10px 20px rgba(0,0,0,.14);
+      background-image:
+        linear-gradient(45deg, transparent 50%, rgba(243,236,255,.9) 50%),
+        linear-gradient(135deg, rgba(243,236,255,.9) 50%, transparent 50%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      background-position:
+        calc(100% - 18px) calc(50% - 3px),
+        calc(100% - 12px) calc(50% - 3px),
+        0 0;
+      background-size: 6px 6px, 6px 6px, 100% 100%;
+      background-repeat: no-repeat;
+      transition: border-color .22s ease, box-shadow .22s ease, background .22s ease, color .22s ease;
+    }
+
+    .settings-select:hover {
+      border-color: rgba(184,145,255,.34);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 12px 24px rgba(0,0,0,.18);
+    }
+
+    .settings-select:focus {
+      border-color: rgba(184,145,255,.48);
+      box-shadow:
+        0 0 0 3px rgba(156,86,255,.16),
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 12px 24px rgba(0,0,0,.18);
+    }
+
+    .settings-select option {
+      background: #1d0d31;
+      color: #f3ecff;
+    }
+
+    .settings-range-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .settings-range {
+      flex: 1;
+      accent-color: #9c56ff;
+      cursor: pointer;
+    }
+
+    .settings-range-value {
+      min-width: 52px;
+      text-align: right;
+      color: var(--muted);
+      font-weight: bold;
+    }
+
+    .settings-actions {
+      margin-top: 18px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    body.light-theme {
+      --bg: #f4efff;
+      --panel: #ffffff;
+      --panel-2: #f6f0ff;
+      --border: #b58cff;
+      --primary: #7a37e9;
+      --primary-dark: #6428cd;
+      --primary-light: #7a37e9;
+      --text: #2f174f;
+      --muted: #6d5b89;
+      --danger: #d13b73;
+      --success: #2fa86a;
+      --warning: #c99a16;
+    }
+
+    body.light-theme {
+      background:
+        radial-gradient(circle at 50% 16%, rgba(167, 111, 255, .12) 0%, rgba(167, 111, 255, 0) 24%),
+        radial-gradient(circle at 50% 42%, rgba(120, 62, 214, .10) 0%, rgba(120, 62, 214, 0) 32%),
+        linear-gradient(180deg, #fbf8ff 0%, #f2ebff 55%, #ece4ff 100%);
+    }
+
+    body.light-theme::before {
+      opacity: .18;
+      mix-blend-mode: normal;
+    }
+
+    body.light-theme::after {
+      background: radial-gradient(circle, rgba(141,77,255,.08) 0%, rgba(141,77,255,.03) 24%, rgba(141,77,255,0) 68%);
+    }
+
+    body.light-theme .header,
+    body.light-theme .panel,
+    body.light-theme .overlay-card,
+    body.light-theme .mini-box,
+    body.light-theme .player-box,
+    body.light-theme .turn-banner,
+    body.light-theme .turn-status-badge,
+    body.light-theme .timer-box,
+    body.light-theme .exploration-panel,
+    body.light-theme .turn-log,
+    body.light-theme .contact-card,
+    body.light-theme .stats-card {
+      color: var(--text);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(246,240,255,.96)) !important;
+      border-color: rgba(122,55,233,.18) !important;
+      box-shadow:
+        0 12px 28px rgba(72,30,130,.08),
+        inset 0 1px 0 rgba(255,255,255,.7) !important;
+    }
+
+    body.light-theme .status,
+    body.light-theme .footer-note,
+    body.light-theme .prob-summary,
+    body.light-theme .mode-note,
+    body.light-theme .timer-label,
+    body.light-theme .log-item,
+    body.light-theme .bot-mood,
+    body.light-theme .prob-item span,
+    body.light-theme .prob-percent,
+    body.light-theme .deck-count {
+      color: var(--muted) !important;
+    }
+
+    body.light-theme .deck-card,
+    body.light-theme .effectDeckCardFace,
+    body.light-theme .deck-layer {
+      filter: brightness(1.03);
+    }
+
+    body.light-theme .card {
+      box-shadow:
+        0 8px 16px rgba(72,30,130,.12),
+        0 12px 22px rgba(72,30,130,.08);
+    }
+
+    body.light-theme .prob-bar-track {
+      background: linear-gradient(180deg, rgba(122,55,233,.06), rgba(122,55,233,.02));
+      border-color: rgba(122,55,233,.16);
+    }
+
+    body.light-theme .settings-select {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(242,235,255,.96)),
+        rgba(122,55,233,.04);
+      color: var(--text);
+      border-color: rgba(122,55,233,.22);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.75),
+        0 10px 22px rgba(72,30,130,.08);
+      background-image:
+        linear-gradient(45deg, transparent 50%, rgba(47,23,79,.9) 50%),
+        linear-gradient(135deg, rgba(47,23,79,.9) 50%, transparent 50%),
+        linear-gradient(180deg, rgba(255,255,255,.96), rgba(242,235,255,.96));
+      background-position:
+        calc(100% - 18px) calc(50% - 3px),
+        calc(100% - 12px) calc(50% - 3px),
+        0 0;
+      background-size: 6px 6px, 6px 6px, 100% 100%;
+      background-repeat: no-repeat;
+    }
+
+    body.light-theme .settings-select option {
+      background: #ffffff;
+      color: #2f174f;
+    }
+
+    body.light-theme #currentModeLabel,
+    body.light-theme .settings-item label,
+    body.light-theme .settings-item h3,
+    body.light-theme .settings-range-value,
+    body.light-theme .timer-value,
+    body.light-theme .mini-box strong,
+    body.light-theme .mini-box.has-value strong,
+    body.light-theme .die-btn,
+    body.light-theme #currentPageName {
+      color: var(--text) !important;
+    }
+
+    body.light-theme .die-btn {
+      background: linear-gradient(180deg, #efe7ff 0%, #dccdff 58%, #c6b1ff 100%);
+      border-color: rgba(122,55,233,.22);
+      box-shadow:
+        0 10px 22px rgba(72,30,130,.10),
+        inset 0 1px 0 rgba(255,255,255,.7);
+    }
+
+    body.light-theme .die-btn.selected {
+      background: linear-gradient(180deg, #e8fff0 0%, #c8f7d7 58%, #a8ebc0 100%);
+      border-color: rgba(47,168,106,.36);
+      box-shadow:
+        0 0 0 3px rgba(47,168,106,.18),
+        0 12px 24px rgba(72,30,130,.10),
+        inset 0 1px 0 rgba(255,255,255,.75);
+    }
+
+
+    body.light-theme .overlay-btn.secondary-btn {
+      color: var(--text) !important;
+      border: 1px solid rgba(122,55,233,.22);
+      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(242,235,255,.96));
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.75),
+        0 10px 24px rgba(72,30,130,.08);
+    }
+
+    body.light-theme .overlay-btn.secondary-btn:hover {
+      color: var(--text) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.78),
+        0 14px 30px rgba(72,30,130,.12);
+    }
+
+    body.light-theme .btn.ghost,
+    body.light-theme .settings-btn {
+      color: var(--text);
+      border-color: rgba(122,55,233,.22);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(242,235,255,.96));
+      box-shadow:
+        0 10px 20px rgba(72,30,130,.08),
+        inset 0 1px 0 rgba(255,255,255,.75);
+    }
+
 
     .panel-header-row {
       display: flex;
@@ -2384,7 +2666,7 @@ body{
 <div id="menu-container"></div>
 <div class="overlay" id="startOverlay">
 <div class="overlay-card">
-<h2>Carteado da Probabilidade</h2>
+<h2 id="startOverlayTitle">Carteado da Probabilidade</h2>
 <p id="startOverlayText">Clique no botão para iniciar a partida. Antes disso, nenhuma ação do jogo fica disponível.</p>
 <div id="startMenu">
 <button class="overlay-btn" id="startGameBtn">Iniciar jogo</button>
@@ -2447,6 +2729,41 @@ body{
 </div>
 </div>
 </div>
+
+<div class="overlay hidden" id="settingsOverlay">
+<div class="overlay-card settings-overlay-card">
+<h2 id="settingsTitle">Configurações</h2>
+<p id="settingsSubtitle">Ajuste som, idioma e aparência do jogo.</p>
+<div class="settings-grid">
+  <div class="settings-item">
+    <label for="volumeSlider" id="volumeLabel">Som</label>
+    <div class="settings-range-row">
+      <input class="settings-range" id="volumeSlider" max="100" min="0" step="1" type="range" value="100"/>
+      <span class="settings-range-value" id="volumeValue">100%</span>
+    </div>
+  </div>
+  <div class="settings-item">
+    <label for="languageSelect" id="languageLabel">Idioma</label>
+    <select class="settings-select" id="languageSelect">
+      <option value="pt-BR">Português (Brasil)</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
+  </div>
+  <div class="settings-item">
+    <label for="themeSelect" id="themeLabel">Tema</label>
+    <select class="settings-select" id="themeSelect">
+      <option value="dark">Escuro</option>
+      <option value="light">Claro</option>
+    </select>
+  </div>
+</div>
+<div class="settings-actions">
+  <button class="overlay-btn" id="closeSettingsBtn">Fechar</button>
+</div>
+</div>
+</div>
+
 <div class="container">
 
 <div class="layout">
@@ -2510,11 +2827,11 @@ body{
 </div>
 <div class="controls">
 <div>
-<span class="section-label">1. Escolha exatamente 2 dados</span>
+<span class="section-label" id="chooseDiceLabel">1. Escolha exatamente 2 dados</span>
 <div class="dice-grid" id="diceButtons"></div>
 </div>
 <div>
-<span class="section-label">2. Role os dados</span>
+<span class="section-label" id="rollStepLabel">2. Role os dados</span>
 <div class="roll-result">
 <div class="mini-box">Dado 1<strong id="die1">-</strong></div>
 <div class="mini-box">Dado 2<strong id="die2">-</strong></div>
@@ -2547,10 +2864,10 @@ body{
 </div>
 </section>
 <aside class="panel" id="sidePanel">
-<span class="section-label">Painel</span>
+<span class="section-label" id="sidePanelSectionLabel">Painel</span>
 <div class="panel-header-row">
 <h3 id="sidePanelTitle">Registro da partida</h3>
-<button aria-pressed="true" class="btn ghost sound-toggle" id="soundToggleBtn" type="button">🔊 Som: ligado</button>
+<button class="btn ghost settings-btn" id="settingsBtn" type="button">Configurações</button>
 </div>
 <div class="log" id="log"></div>
 <div class="footer-note" id="sidePanelNote">
@@ -2583,6 +2900,9 @@ body{
       gameOver: false,
       phase: 'pre_roll_discard',
       soundEnabled: true,
+      soundVolume: 1,
+      language: 'pt-BR',
+      theme: 'dark',
       audioCtx: null,
       turnNumber: 0,
       playerTurns: 0,
@@ -2619,6 +2939,7 @@ body{
     };
 
     const els = {
+      startOverlayTitle: document.getElementById('startOverlayTitle'),
       startOverlayText: document.getElementById('startOverlayText'),
       startMenu: document.getElementById('startMenu'),
       nameMenu: document.getElementById('nameMenu'),
@@ -2688,7 +3009,22 @@ body{
       deckStack: document.querySelector('.deck-area .deck-stack'),
       effectDeckStack: document.getElementById('effectDeckStack'),
       deckCardFace: document.getElementById('deckCardFace'),
-      soundToggleBtn: document.getElementById('soundToggleBtn'),
+      settingsBtn: document.getElementById('settingsBtn'),
+      settingsOverlay: document.getElementById('settingsOverlay'),
+      settingsTitle: document.getElementById('settingsTitle'),
+      settingsSubtitle: document.getElementById('settingsSubtitle'),
+      volumeLabel: document.getElementById('volumeLabel'),
+      volumeSlider: document.getElementById('volumeSlider'),
+      volumeValue: document.getElementById('volumeValue'),
+      languageLabel: document.getElementById('languageLabel'),
+      languageSelect: document.getElementById('languageSelect'),
+      themeLabel: document.getElementById('themeLabel'),
+      themeSelect: document.getElementById('themeSelect'),
+      closeSettingsBtn: document.getElementById('closeSettingsBtn'),
+      gameTableLabel: document.getElementById('gameTableLabel'),
+      sidePanelSectionLabel: document.getElementById('sidePanelSectionLabel'),
+      chooseDiceLabel: document.getElementById('chooseDiceLabel'),
+      rollStepLabel: document.getElementById('rollStepLabel'),
       effectDeckCardFace: document.getElementById('effectDeckCardFace'),
       explorationPanel: document.getElementById('explorationPanel'),
       probabilitySummary: document.getElementById('probabilitySummary'),
@@ -2697,6 +3033,339 @@ body{
       simulationCountText: document.getElementById('simulationCountText'),
       difficultyButtons: document.querySelectorAll('.difficulty-btn'),
     };
+
+
+    const translations = {
+      'pt-BR': {
+        title: 'Carteado da Probabilidade',
+        startIntro: 'Clique no botão para iniciar a partida. Antes disso, nenhuma ação do jogo fica disponível.',
+        chooseDifficulty: 'Escolha a dificuldade. Isso altera apenas a inteligência do Igor, sem mudar a mecânica do jogo.',
+        chooseName: 'Agora digite seu nome para aparecer na partida.',
+        chooseMode: 'Escolha o modo desejado. No modo exploração você só escolhe os dados, vê as probabilidades e simula as rolagens.',
+        startGame: 'Iniciar jogo',
+        explorationMode: 'Modo exploração',
+        howToPlay: 'Como jogar',
+        easy: 'Fácil',
+        medium: 'Médio',
+        hard: 'Difícil',
+        back: 'Voltar',
+        startMatch: 'Começar partida',
+        playerNamePlaceholder: 'Digite seu nome',
+        howToPlayExplorationTitle: 'Como usar o modo exploração',
+        howToPlayTitle: 'Como jogar',
+        restart: 'Jogar novamente',
+        leaveMenuTitle: 'Sair para o menu?',
+        leaveMenuMessage: 'Seu progresso atual será perdido.',
+        stayHere: 'Ficar aqui',
+        goToMenu: 'Ir para o menu',
+        gameTable: 'Mesa de jogo',
+        panel: 'Painel',
+        yourTurn: 'Sua vez',
+        explorationInstructions: 'Instruções para o modo exploração',
+        playerTime: 'Tempo de Você',
+        botReady: 'Pronto para jogar.',
+        numericDeck: 'Baralho numérico',
+        effectDeck: 'Baralho de efeito',
+        chooseTwoDice: '1. Escolha exatamente 2 dados',
+        rollDiceStep: '2. Role os dados',
+        discardBeforeRoll: 'Descartar antes de rolar',
+        rollDice: 'Rolar dados',
+        discardCards: 'Descartar carta(s)',
+        useEffectCard: 'Usar carta de efeito',
+        passTurn: 'Passar turno',
+        returnMenu: 'Voltar ao menu',
+        newGame: 'Novo jogo',
+        statusStart: 'Clique em “Iniciar jogo” para começar a partida.',
+        statusExploration: 'Modo exploração: escolha 2 dados, observe as probabilidades da combinação e use “Simular rolagem” para testar resultados.',
+        settings: 'Configurações',
+        settingsSubtitle: 'Ajuste som, idioma e aparência do jogo.',
+        sound: 'Som',
+        language: 'Idioma',
+        theme: 'Tema',
+        close: 'Fechar',
+        dark: 'Escuro',
+        light: 'Claro',
+        sidePanelLog: 'Registro da partida',
+        sidePanelExploration: 'Modo exploração',
+        sidePanelRule: 'Regras desta versão: compra obrigatória no início do turno; descarte livre de 1 carta antes da rolagem; após rolar, descarte apenas cartas com valor igual à soma. Se descartar mais de uma, todas devem ter o mesmo valor e ser iguais entre si.',
+        sidePanelExplorationNote: 'Neste modo você analisa combinações de dados, observa a distribuição das somas e compara os resultados com as simulações.',
+        probsTitle: 'Probabilidades da combinação escolhida',
+        probsPrompt: 'Escolha 2 dados para ver a distribuição das somas.',
+        simulations: 'Simulações realizadas',
+        turnToPlay: name => `Vez de jogar: ${name}`,
+        phaseDefault: 'Fase: compre 1 carta, descarte 1 carta livremente e depois role os dados.',
+        soundsOn: 'Som: ligado',
+        soundsOff: 'Som: desligado',
+        howToPlayExplorationContent: '1. Escolha <b>2 dados</b> para montar a combinação que deseja analisar.<br><br>2. Veja as probabilidades de cada soma possível para essa combinação.<br><br>3. Clique em <b>"Simular rolagem"</b> para testar um resultado aleatório com os dados escolhidos.<br><br>4. Repita quantas vezes quiser para comparar resultados e perceber quais somas aparecem com mais frequência.<br><br>5. Use o modo exploração para estudar o comportamento dos dados, sem bot e sem cartas.',
+        howToPlayGameContent: '1. No início do seu turno, você compra uma carta numérica automaticamente.<br><br>2. Antes de rolar os dados, você pode descartar <b>1 carta qualquer</b> ou usar uma carta de efeito.<br><br>3. A carta <b>+1E</b> compra uma carta do baralho de efeitos.<br><br>4. Algumas cartas de efeito agem na hora; outras ficam guardadas para uso futuro no seu turno.<br><br>5. Após rolar, você pode descartar cartas se:<br>- tiverem o mesmo valor da soma dos dados<br>- e forem iguais entre si (pode descartar várias)<br><br>6. A carta <b>RR</b> permite rolar novamente após a rolagem, <b>BL</b> bloqueia o próximo turno do oponente, <b>Compre uma carta numérica</b> compra 1 carta do baralho numérico e <b>Perda de turno</b> faz o jogador perder a vez.<br><br>7. A última carta do jogo não pode ser uma carta de efeito.'
+      },
+      en: {
+        title: 'Probability Card Game',
+        startIntro: 'Click the button to start the match. Before that, no game action is available.',
+        chooseDifficulty: 'Choose the difficulty. It only changes Igor’s intelligence, without changing the game mechanics.',
+        chooseName: 'Now type your name so it appears in the match.',
+        chooseMode: 'Choose the desired mode. In exploration mode you only choose the dice, view the probabilities and simulate rolls.',
+        startGame: 'Start game',
+        explorationMode: 'Exploration mode',
+        howToPlay: 'How to play',
+        easy: 'Easy',
+        medium: 'Medium',
+        hard: 'Hard',
+        back: 'Back',
+        startMatch: 'Start match',
+        playerNamePlaceholder: 'Enter your name',
+        howToPlayExplorationTitle: 'How to use exploration mode',
+        howToPlayTitle: 'How to play',
+        restart: 'Play again',
+        leaveMenuTitle: 'Leave to menu?',
+        leaveMenuMessage: 'Your current progress will be lost.',
+        stayHere: 'Stay here',
+        goToMenu: 'Go to menu',
+        gameTable: 'Game table',
+        panel: 'Panel',
+        yourTurn: 'Your turn',
+        explorationInstructions: 'Exploration mode instructions',
+        playerTime: 'Your time',
+        botReady: 'Ready to play.',
+        numericDeck: 'Number deck',
+        effectDeck: 'Effect deck',
+        chooseTwoDice: '1. Choose exactly 2 dice',
+        rollDiceStep: '2. Roll the dice',
+        discardBeforeRoll: 'Discard before rolling',
+        rollDice: 'Roll dice',
+        discardCards: 'Discard card(s)',
+        useEffectCard: 'Use effect card',
+        passTurn: 'Pass turn',
+        returnMenu: 'Back to menu',
+        newGame: 'New game',
+        statusStart: 'Click “Start game” to begin the match.',
+        statusExploration: 'Exploration mode: choose 2 dice, observe the combination probabilities and use “Simulate roll” to test results.',
+        settings: 'Settings',
+        settingsSubtitle: 'Adjust sound, language and game appearance.',
+        sound: 'Sound',
+        language: 'Language',
+        theme: 'Theme',
+        close: 'Close',
+        dark: 'Dark',
+        light: 'Light',
+        sidePanelLog: 'Match log',
+        sidePanelExploration: 'Exploration mode',
+        sidePanelRule: 'Rules in this version: mandatory draw at the start of the turn; one free discard before rolling; after rolling, discard only cards whose value matches the sum. If discarding more than one, they must all be the same value.',
+        sidePanelExplorationNote: 'In this mode you analyze dice combinations, observe the sum distribution and compare the results with simulations.',
+        probsTitle: 'Probabilities for the chosen combination',
+        probsPrompt: 'Choose 2 dice to see the sum distribution.',
+        simulations: 'Simulations performed',
+        turnToPlay: name => `Turn to play: ${name}`,
+        phaseDefault: 'Phase: draw 1 card, discard 1 card freely and then roll the dice.',
+        soundsOn: 'Sound: on',
+        soundsOff: 'Sound: off',
+        howToPlayExplorationContent: '1. Choose <b>2 dice</b> to build the combination you want to analyze.<br><br>2. See the probabilities of each possible sum for that combination.<br><br>3. Click <b>"Simulate roll"</b> to test a random result with the chosen dice.<br><br>4. Repeat as many times as you want to compare results and notice which sums appear more often.<br><br>5. Use exploration mode to study the dice behavior without bot or cards.',
+        howToPlayGameContent: '1. At the start of your turn, you automatically draw one number card.<br><br>2. Before rolling the dice, you may discard <b>1 card</b> or use an effect card.<br><br>3. The <b>+1E</b> card draws one card from the effect deck.<br><br>4. Some effect cards act immediately; others stay in your hand for later use on your turn.<br><br>5. After rolling, you may discard cards if:<br>- they match the sum of the dice<br>- and they are equal to each other (you may discard several)<br><br>6. <b>RR</b> lets you reroll after rolling, <b>BL</b> blocks the opponent’s next turn, <b>Draw a number card</b> draws 1 card from the number deck and <b>Lose turn</b> makes the player lose the turn.<br><br>7. The last card in the game cannot be an effect card.'
+      },
+      es: {
+        title: 'Carteado de la Probabilidad',
+        startIntro: 'Haz clic en el botón para iniciar la partida. Antes de eso, ninguna acción del juego estará disponible.',
+        chooseDifficulty: 'Elige la dificultad. Solo cambia la inteligencia de Igor, sin cambiar la mecánica del juego.',
+        chooseName: 'Ahora escribe tu nombre para que aparezca en la partida.',
+        chooseMode: 'Elige el modo deseado. En el modo exploración solo eliges los dados, ves las probabilidades y simulas tiradas.',
+        startGame: 'Iniciar juego',
+        explorationMode: 'Modo exploración',
+        howToPlay: 'Cómo jugar',
+        easy: 'Fácil',
+        medium: 'Medio',
+        hard: 'Difícil',
+        back: 'Volver',
+        startMatch: 'Comenzar partida',
+        playerNamePlaceholder: 'Escribe tu nombre',
+        howToPlayExplorationTitle: 'Cómo usar el modo exploración',
+        howToPlayTitle: 'Cómo jugar',
+        restart: 'Jugar de nuevo',
+        leaveMenuTitle: '¿Salir al menú?',
+        leaveMenuMessage: 'Tu progreso actual se perderá.',
+        stayHere: 'Quedarme aquí',
+        goToMenu: 'Ir al menú',
+        gameTable: 'Mesa de juego',
+        panel: 'Panel',
+        yourTurn: 'Tu turno',
+        explorationInstructions: 'Instrucciones del modo exploración',
+        playerTime: 'Tu tiempo',
+        botReady: 'Listo para jugar.',
+        numericDeck: 'Mazo numérico',
+        effectDeck: 'Mazo de efectos',
+        chooseTwoDice: '1. Elige exactamente 2 dados',
+        rollDiceStep: '2. Lanza los dados',
+        discardBeforeRoll: 'Descartar antes de lanzar',
+        rollDice: 'Lanzar dados',
+        discardCards: 'Descartar carta(s)',
+        useEffectCard: 'Usar carta de efecto',
+        passTurn: 'Pasar turno',
+        returnMenu: 'Volver al menú',
+        newGame: 'Nuevo juego',
+        statusStart: 'Haz clic en “Iniciar juego” para comenzar la partida.',
+        statusExploration: 'Modo exploración: elige 2 dados, observa las probabilidades de la combinación y usa “Simular tirada” para probar resultados.',
+        settings: 'Configuración',
+        settingsSubtitle: 'Ajusta sonido, idioma y apariencia del juego.',
+        sound: 'Sonido',
+        language: 'Idioma',
+        theme: 'Tema',
+        close: 'Cerrar',
+        dark: 'Oscuro',
+        light: 'Claro',
+        sidePanelLog: 'Registro de la partida',
+        sidePanelExploration: 'Modo exploración',
+        sidePanelRule: 'Reglas de esta versión: robo obligatorio al inicio del turno; un descarte libre antes de lanzar; después de lanzar, solo se descartan cartas cuyo valor coincida con la suma. Si descartas más de una, todas deben tener el mismo valor.',
+        sidePanelExplorationNote: 'En este modo analizas combinaciones de dados, observas la distribución de las sumas y comparas los resultados con simulaciones.',
+        probsTitle: 'Probabilidades de la combinación elegida',
+        probsPrompt: 'Elige 2 dados para ver la distribución de sumas.',
+        simulations: 'Simulaciones realizadas',
+        turnToPlay: name => `Turno de juego: ${name}`,
+        phaseDefault: 'Fase: roba 1 carta, descarta 1 carta libremente y después lanza los dados.',
+        soundsOn: 'Sonido: encendido',
+        soundsOff: 'Sonido: apagado',
+        howToPlayExplorationContent: '1. Elige <b>2 dados</b> para formar la combinación que deseas analizar.<br><br>2. Observa las probabilidades de cada suma posible para esa combinación.<br><br>3. Haz clic en <b>"Simular tirada"</b> para probar un resultado aleatorio con los dados elegidos.<br><br>4. Repite cuantas veces quieras para comparar resultados y notar qué sumas aparecen con más frecuencia.<br><br>5. Usa el modo exploración para estudiar el comportamiento de los dados, sin bot ni cartas.',
+        howToPlayGameContent: '1. Al inicio de tu turno, robas automáticamente una carta numérica.<br><br>2. Antes de lanzar los dados, puedes descartar <b>1 carta</b> o usar una carta de efecto.<br><br>3. La carta <b>+1E</b> roba una carta del mazo de efectos.<br><br>4. Algunas cartas de efecto actúan inmediatamente; otras quedan guardadas para usarse después en tu turno.<br><br>5. Después de lanzar, puedes descartar cartas si:<br>- tienen el mismo valor que la suma de los dados<br>- y son iguales entre sí (puedes descartar varias)<br><br>6. <b>RR</b> permite volver a lanzar, <b>BL</b> bloquea el próximo turno del oponente, <b>Roba una carta numérica</b> roba 1 carta del mazo numérico y <b>Pierde turno</b> hace que el jugador pierda el turno.<br><br>7. La última carta del juego no puede ser una carta de efecto.'
+      }
+    };
+
+    function t(key, ...args) {
+      const lang = translations[state.language] || translations['pt-BR'];
+      const value = lang[key];
+      return typeof value === 'function' ? value(...args) : (value ?? key);
+    }
+
+    function saveSettings() {
+      try {
+        localStorage.setItem('carteadoSettings', JSON.stringify({
+          soundVolume: state.soundVolume,
+          soundEnabled: state.soundEnabled,
+          language: state.language,
+          theme: state.theme
+        }));
+      } catch (e) {}
+    }
+
+    function loadSettings() {
+      try {
+        const raw = localStorage.getItem('carteadoSettings');
+        state.theme = 'dark';
+        if (!raw) return;
+        const settings = JSON.parse(raw);
+        if (typeof settings.soundVolume === 'number') state.soundVolume = settings.soundVolume;
+        if (typeof settings.soundEnabled === 'boolean') state.soundEnabled = settings.soundEnabled;
+        if (typeof settings.language === 'string') state.language = settings.language;
+      } catch (e) {
+        state.theme = 'dark';
+      }
+    }
+
+    function applyTheme() {
+      document.body.classList.toggle('light-theme', state.theme === 'light');
+      if (els.themeSelect) els.themeSelect.value = state.theme;
+      saveSettings();
+    }
+
+    function updateSettingsButtonUI() {
+      if (!els.settingsBtn) return;
+      els.settingsBtn.textContent = t('settings');
+    }
+
+    function updateSoundButtonUI() {
+      if (els.volumeSlider) {
+        els.volumeSlider.value = String(Math.round((state.soundVolume ?? 1) * 100));
+      }
+      if (els.volumeValue) {
+        const pct = Math.round((state.soundVolume ?? 1) * 100);
+        els.volumeValue.textContent = `${pct}%${state.soundEnabled ? '' : ' (mudo)'}`;
+      }
+      updateSettingsButtonUI();
+    }
+
+    function setSoundVolume(value) {
+      const normalized = Math.max(0, Math.min(1, Number.isFinite(value) ? value : 1));
+      state.soundVolume = normalized;
+      state.soundEnabled = normalized > 0;
+      updateSoundButtonUI();
+      saveSettings();
+    }
+
+    function openSettings() {
+      if (!els.settingsOverlay) return;
+      if (els.languageSelect) els.languageSelect.value = state.language;
+      if (els.themeSelect) els.themeSelect.value = state.theme;
+      updateSoundButtonUI();
+      els.settingsOverlay.classList.remove('hidden');
+    }
+
+    function closeSettings() {
+      if (!els.settingsOverlay) return;
+      els.settingsOverlay.classList.add('hidden');
+    }
+
+    function applyLanguage() {
+      const language = translations[state.language] ? state.language : 'pt-BR';
+      state.language = language;
+
+      if (els.languageSelect) els.languageSelect.value = language;
+      if (els.startOverlayTitle) els.startOverlayTitle.textContent = t('title');
+      if (els.startGameBtn) els.startGameBtn.textContent = t('startGame');
+      if (els.explorationModeBtn) els.explorationModeBtn.textContent = t('explorationMode');
+      if (els.howToPlayBtn) els.howToPlayBtn.textContent = t('howToPlay');
+      if (els.backToStartBtn) els.backToStartBtn.textContent = t('back');
+      if (els.confirmNameBtn) els.confirmNameBtn.textContent = t('startMatch');
+      if (els.backToDifficultyBtn) els.backToDifficultyBtn.textContent = t('back');
+      if (els.playerNameInput) els.playerNameInput.placeholder = t('playerNamePlaceholder');
+      if (els.closeHowToPlayBtn) els.closeHowToPlayBtn.textContent = t('back');
+      if (els.restartGameBtn) els.restartGameBtn.textContent = t('restart');
+      if (els.stayHereBtn) els.stayHereBtn.textContent = t('stayHere');
+      if (els.confirmLeaveBtn) els.confirmLeaveBtn.textContent = t('goToMenu');
+      if (els.gameTableLabel) els.gameTableLabel.textContent = t('gameTable');
+      if (els.sidePanelSectionLabel) els.sidePanelSectionLabel.textContent = t('panel');
+      if (els.chooseDiceLabel) els.chooseDiceLabel.textContent = t('chooseTwoDice');
+      if (els.rollStepLabel) els.rollStepLabel.textContent = t('rollDiceStep');
+      if (els.freeDiscardBtn) els.freeDiscardBtn.textContent = t('discardBeforeRoll');
+      if (els.rollBtn) els.rollBtn.textContent = state.gameMode === 'exploracao' ? (language === 'en' ? 'Simulate roll' : language === 'es' ? 'Simular tirada' : 'Simular rolagem') : t('rollDice');
+      if (els.discardBtn) els.discardBtn.textContent = t('discardCards');
+      if (els.useEffectBtn) els.useEffectBtn.textContent = t('useEffectCard');
+      if (els.passBtn) els.passBtn.textContent = t('passTurn');
+      if (els.returnMenuBtn) els.returnMenuBtn.textContent = t('returnMenu');
+      if (els.newGameBtn) els.newGameBtn.textContent = state.gameMode === 'exploracao' ? (language === 'en' ? 'Restart exploration' : language === 'es' ? 'Reiniciar exploración' : 'Reiniciar exploração') : t('newGame');
+      if (els.inGameHowToPlayBtn) els.inGameHowToPlayBtn.textContent = t('howToPlay');
+      if (els.settingsTitle) els.settingsTitle.textContent = t('settings');
+      if (els.settingsSubtitle) els.settingsSubtitle.textContent = t('settingsSubtitle');
+      if (els.volumeLabel) els.volumeLabel.textContent = t('sound');
+      if (els.languageLabel) els.languageLabel.textContent = t('language');
+      if (els.themeLabel) els.themeLabel.textContent = t('theme');
+      if (els.closeSettingsBtn) els.closeSettingsBtn.textContent = t('close');
+      if (els.themeSelect) {
+        const opts = els.themeSelect.querySelectorAll('option');
+        if (opts[0]) opts[0].textContent = t('dark');
+        if (opts[1]) opts[1].textContent = t('light');
+      }
+      if (els.howToPlayTitle) {
+        els.howToPlayTitle.textContent = state.gameMode === 'exploracao' ? t('howToPlayExplorationTitle') : t('howToPlayTitle');
+      }
+      if (els.howToPlayContent) {
+        els.howToPlayContent.innerHTML = state.gameMode === 'exploracao' ? t('howToPlayExplorationContent') : t('howToPlayGameContent');
+      }
+      if (els.statusBox && !state.started) {
+        els.statusBox.textContent = t('statusStart');
+      }
+      if (els.sidePanelTitle && state.gameMode !== 'exploracao') {
+        els.sidePanelTitle.textContent = t('sidePanelLog');
+      }
+      if (els.sidePanelNote && state.gameMode !== 'exploracao') {
+        els.sidePanelNote.textContent = t('sidePanelRule');
+      }
+      if (els.probabilitySummary && state.gameMode === 'exploracao' && state.selectedDice.length !== 2) {
+        els.probabilitySummary.textContent = t('probsPrompt');
+      }
+      if (els.simulationCountText && state.gameMode === 'exploracao') {
+        els.simulationCountText.textContent = `${t('simulations')}: ${state.explorationSimulationCount}`;
+      }
+      updateSettingsButtonUI();
+      updateSoundButtonUI();
+      saveSettings();
+    }
 
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -3119,8 +3788,10 @@ function setStatus(message, variant = 'normal') {
       setTimeout(() => board.classList.remove('center-highlight'), 760);
     }
 
+    
+
     function getAudioContext() {
-      if (!state.soundEnabled) return null;
+      if (!state.soundEnabled || (state.soundVolume ?? 1) <= 0) return null;
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (!AudioCtx) return null;
       if (!state.audioCtx) state.audioCtx = new AudioCtx();
@@ -3133,20 +3804,16 @@ function setStatus(message, variant = 'normal') {
       if (!ctx) return;
       const start = ctx.currentTime + when;
       const end = start + duration;
-
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-
+      const finalVolume = Math.max(0.0001, volume * (state.soundVolume ?? 1));
       osc.type = type;
       osc.frequency.setValueAtTime(frequency, start);
-
       gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(volume, start + 0.01);
+      gain.gain.exponentialRampToValueAtTime(finalVolume, start + 0.01);
       gain.gain.exponentialRampToValueAtTime(0.0001, end);
-
       osc.connect(gain);
       gain.connect(ctx.destination);
-
       osc.start(start);
       osc.stop(end + 0.02);
     }
@@ -3177,22 +3844,6 @@ function setStatus(message, variant = 'normal') {
       playTone({ frequency: 392.00, type: 'sine', duration: 0.10, volume: 0.018, when: 0 });
       playTone({ frequency: 329.63, type: 'sine', duration: 0.12, volume: 0.016, when: 0.10 });
       playTone({ frequency: 261.63, type: 'sine', duration: 0.18, volume: 0.015, when: 0.22 });
-    }
-
-    function updateSoundButtonUI() {
-      if (!els.soundToggleBtn) return;
-      els.soundToggleBtn.textContent = state.soundEnabled ? '🔊 Som: ligado' : '🔇 Som: desligado';
-      els.soundToggleBtn.setAttribute('aria-pressed', String(state.soundEnabled));
-      els.soundToggleBtn.classList.toggle('sound-off', !state.soundEnabled);
-    }
-
-    function toggleSound() {
-      state.soundEnabled = !state.soundEnabled;
-      updateSoundButtonUI();
-      if (state.soundEnabled) {
-        const ctx = getAudioContext();
-        if (ctx) playTone({ frequency: 540, type: 'triangle', duration: 0.06, volume: 0.012 });
-      }
     }
 
     function updateDeckCount() {
@@ -3311,7 +3962,7 @@ function setStatus(message, variant = 'normal') {
 
     function updateTurnInfo() {
       if (state.gameMode === 'exploracao') {
-        els.turnStatusText.textContent = 'Instruções para o modo exploração';
+        els.turnStatusText.textContent = t('explorationInstructions');
         els.turnStatusBadge.classList.remove('turn-player', 'turn-opponent');
         els.turnStatusBadge.classList.add('turn-player');
         els.turnStatusDot.className = 'turn-dot dot-player';
@@ -3364,14 +4015,14 @@ function setStatus(message, variant = 'normal') {
 
     function showDifficultyMenu() {
       state.gameMode = 'duelo';
-      els.startOverlayText.textContent = 'Escolha a dificuldade. Isso altera apenas a inteligência do Igor, sem mudar a mecânica do jogo.';
+      els.startOverlayText.textContent = t('chooseDifficulty');
       els.startMenu.classList.add('hidden');
       els.nameMenu.classList.add('hidden');
       els.difficultyMenu.classList.remove('hidden');
     }
 
     function showNameMenu() {
-      els.startOverlayText.textContent = 'Agora digite seu nome para aparecer na partida.';
+      els.startOverlayText.textContent = t('chooseName');
       els.startMenu.classList.add('hidden');
       els.difficultyMenu.classList.add('hidden');
       els.nameMenu.classList.remove('hidden');
@@ -3380,7 +4031,7 @@ function setStatus(message, variant = 'normal') {
     }
 
     function showStartMenu() {
-      els.startOverlayText.textContent = 'Escolha o modo desejado. No modo exploração você só escolhe os dados, vê as probabilidades e simula as rolagens.';
+      els.startOverlayText.textContent = t('chooseMode');
       els.difficultyMenu.classList.add('hidden');
       els.nameMenu.classList.add('hidden');
       els.startMenu.classList.remove('hidden');
@@ -3485,12 +4136,12 @@ function setStatus(message, variant = 'normal') {
       const [dieA, dieB] = state.selectedDice;
 
       if (!dieA || !dieB) {
-        els.probabilitySummary.textContent = 'Escolha 2 dados para ver a distribuição das somas.';
+        els.probabilitySummary.textContent = t('probsPrompt');
         els.probabilityGrid.innerHTML = '';
         if (els.probabilityChart) {
           els.probabilityChart.innerHTML = '';
         }
-        els.simulationCountText.textContent = `Simulações realizadas: ${state.explorationSimulationCount}`;
+        els.simulationCountText.textContent = `${t('simulations')}: ${state.explorationSimulationCount}`;
         return;
       }
 
@@ -3503,7 +4154,7 @@ function setStatus(message, variant = 'normal') {
 
       els.probabilitySummary.innerHTML = `Dados escolhidos: <b>d${dieA}</b> e <b>d${dieB}</b>.<br>Mais prováveis: ${formatSumsList(mostLikely)} (${mostLikely[0].fraction} = ${mostLikely[0].probability.toFixed(2)}%). Menos prováveis: ${formatSumsList(leastLikely)} (${leastLikely[0].fraction} = ${leastLikely[0].probability.toFixed(2)}%).`;
       els.probabilityGrid.innerHTML = data.map(item => `<div class="prob-item"><strong>${item.sum}</strong>${formatFractionVertical(item.count, totalOutcomes)}<span class="prob-percent">(${item.probability.toFixed(2)}%)</span></div>`).join('');
-      els.simulationCountText.textContent = `Simulações realizadas: ${state.explorationSimulationCount}`;
+      els.simulationCountText.textContent = `${t('simulations')}: ${state.explorationSimulationCount}`;
 
       renderProbabilityChart(data);
     }
@@ -3526,15 +4177,15 @@ function setStatus(message, variant = 'normal') {
       els.newGameBtn.textContent = inExploration ? 'Reiniciar exploração' : 'Novo jogo';
 
       if (inExploration) {
-        els.startOverlayText.textContent = 'Escolha o modo desejado. No modo exploração você só escolhe os dados, vê as probabilidades e simula as rolagens.';
+        els.startOverlayText.textContent = t('chooseMode');
         setStatus('Modo exploração: escolha 2 dados, observe as probabilidades da combinação e use “Simular rolagem” para testar resultados.');
 
         if (els.sidePanelTitle) {
-          els.sidePanelTitle.textContent = 'Modo exploração';
+          els.sidePanelTitle.textContent = t('sidePanelExploration');
         }
 
         if (els.sidePanelNote) {
-          els.sidePanelNote.textContent = 'Neste modo você analisa combinações de dados, observa a distribuição das somas e compara os resultados com as simulações.';
+          els.sidePanelNote.textContent = t('sidePanelExplorationNote');
         }
 
         if (els.log) {
@@ -3550,11 +4201,11 @@ function setStatus(message, variant = 'normal') {
         }
       } else {
         if (els.sidePanelTitle) {
-          els.sidePanelTitle.textContent = 'Registro da partida';
+          els.sidePanelTitle.textContent = t('sidePanelLog');
         }
 
         if (els.sidePanelNote) {
-          els.sidePanelNote.textContent = 'Regras desta versão: compra obrigatória no início do turno; descarte livre de 1 carta antes da rolagem; após rolar, descarte apenas cartas com valor igual à soma. Se descartar mais de uma, todas devem ter o mesmo valor e ser iguais entre si.';
+          els.sidePanelNote.textContent = t('sidePanelRule');
         }
 
         if (els.log) {
@@ -4824,7 +5475,7 @@ function setStatus(message, variant = 'normal') {
       state.stats.bot = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
       state.difficulty = 'medio';
       state.gameMode = 'duelo';
-      state.playerName = 'Você';
+      state.playerName = state.language === 'en' ? 'You' : state.language === 'es' ? 'Tú' : 'Você';
       state.playerTimeLeft = state.turnTimeLimit;
       state.botTimeLeft = state.turnTimeLimit;
       stopTurnTimer();
@@ -4838,7 +5489,7 @@ function setStatus(message, variant = 'normal') {
       updateRollBoxes();
       updateTimerUI();
       renderProbabilityPanel();
-      setStatus('Clique em “Iniciar jogo” para começar a partida.');
+      setStatus(t('statusStart'));
       updateModeUI();
       updateActionButtons();
       updateOverlays();
@@ -4848,11 +5499,11 @@ function setStatus(message, variant = 'normal') {
 
     function openHowToPlay() {
       if (state.gameMode === 'exploracao') {
-        els.howToPlayTitle.textContent = 'Como usar o modo exploração';
-        els.howToPlayContent.innerHTML = '1. Escolha <b>2 dados</b> para montar a combinação que deseja analisar.<br><br>2. Veja as probabilidades de cada soma possível para essa combinação.<br><br>3. Clique em <b>"Simular rolagem"</b> para testar um resultado aleatório com os dados escolhidos.<br><br>4. Repita quantas vezes quiser para comparar resultados e perceber quais somas aparecem com mais frequência.<br><br>5. Use o modo exploração para estudar o comportamento dos dados, sem bot e sem cartas.';
+        els.howToPlayTitle.textContent = t('howToPlayExplorationTitle');
+        els.howToPlayContent.innerHTML = t('howToPlayExplorationContent');
       } else {
-        els.howToPlayTitle.textContent = 'Como jogar';
-        els.howToPlayContent.innerHTML = '1. No início do seu turno, você compra uma carta numérica automaticamente.<br><br>2. Antes de rolar os dados, você pode descartar <b>1 carta qualquer</b> ou usar uma carta de efeito.<br><br>3. A carta <b>+1E</b> compra uma carta do baralho de efeitos.<br><br>4. Algumas cartas de efeito agem na hora; outras ficam guardadas para uso futuro no seu turno.<br><br>5. Após rolar, você pode descartar cartas se:<br>- tiverem o mesmo valor da soma dos dados<br>- e forem iguais entre si (pode descartar várias)<br><br>6. A carta <b>RR</b> permite rolar novamente após a rolagem e <b>BL</b> bloqueia o próximo turno do oponente.<br><br>7. A última carta do jogo não pode ser uma carta de efeito.';
+        els.howToPlayTitle.textContent = t('howToPlayTitle');
+        els.howToPlayContent.innerHTML = t('howToPlayGameContent');
       }
       els.howToPlayOverlay.classList.remove('hidden');
     }
@@ -4868,10 +5519,10 @@ function setStatus(message, variant = 'normal') {
     function confirmBackToMenu() {
       const isExploration = state.gameMode === 'exploracao';
 
-      els.leaveConfirmTitle.textContent = isExploration ? 'Sair do modo exploração?' : 'Sair para o menu principal?';
+      els.leaveConfirmTitle.textContent = isExploration ? (state.language === 'en' ? 'Leave exploration mode?' : state.language === 'es' ? '¿Salir del modo exploración?' : 'Sair do modo exploração?') : (state.language === 'en' ? 'Leave to main menu?' : state.language === 'es' ? '¿Salir al menú principal?' : 'Sair para o menu principal?');
       els.leaveConfirmMessage.textContent = isExploration
-        ? 'Você vai sair do modo exploração e voltar ao menu principal.'
-        : 'Você vai sair da partida atual e perder o progresso desta rodada.';
+        ? (state.language === 'en' ? 'You will leave exploration mode and return to the main menu.' : state.language === 'es' ? 'Vas a salir del modo exploración y volver al menú principal.' : 'Você vai sair do modo exploração e voltar ao menu principal.')
+        : (state.language === 'en' ? 'You will leave the current match and lose this round progress.' : state.language === 'es' ? 'Vas a salir de la partida actual y perder el progreso de esta ronda.' : 'Você vai sair da partida atual e perder o progresso desta rodada.');
       els.leaveConfirmOverlay.classList.remove('hidden');
     }
 
@@ -4893,7 +5544,7 @@ function setStatus(message, variant = 'normal') {
 
     function confirmPlayerNameAndStart() {
       const typedName = els.playerNameInput.value.trim();
-      state.playerName = typedName || 'Você';
+      state.playerName = typedName || (state.language === 'en' ? 'You' : state.language === 'es' ? 'Tú' : 'Você');
       startGame(state.difficulty);
     }
 
@@ -4924,9 +5575,32 @@ function setStatus(message, variant = 'normal') {
     els.passBtn.addEventListener('click', passTurn);
     els.returnMenuBtn.addEventListener('click', confirmBackToMenu);
     els.newGameBtn.addEventListener('click', newGame);
-    els.soundToggleBtn.addEventListener('click', toggleSound);
+    els.settingsBtn.addEventListener('click', openSettings);
+    els.closeSettingsBtn.addEventListener('click', closeSettings);
+    els.volumeSlider.addEventListener('input', (event) => {
+      setSoundVolume(Number(event.target.value) / 100);
+    });
+    els.languageSelect.addEventListener('change', (event) => {
+      state.language = event.target.value;
+      applyLanguage();
+      updateModeUI();
+      saveSettings();
+    });
+    els.themeSelect.addEventListener('change', (event) => {
+      state.theme = event.target.value;
+      applyTheme();
+    });
 
+    document.addEventListener('click', (event) => {
+      if (!els.settingsOverlay.classList.contains('hidden') && event.target === els.settingsOverlay) {
+        closeSettings();
+      }
+    });
+
+    loadSettings();
+    applyTheme();
     updateSoundButtonUI();
+    applyLanguage();
     updateModeUI();
     newGame();
   </script>
