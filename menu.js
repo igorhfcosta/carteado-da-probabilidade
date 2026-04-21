@@ -50,14 +50,14 @@ fetch("menu.html")
     }
 
     if (header) {
-      window.addEventListener("scroll", () => {
-        if (window.innerWidth > 900 && window.scrollY > 120) {
-          header.classList.add("compact");
-        } else {
-          header.classList.remove("compact");
-        }
-      });
+  window.addEventListener("scroll", () => {
+    if (window.innerWidth > 900 && window.scrollY > 120) {
+      header.classList.add("compact");
+    } else {
+      header.classList.remove("compact");
     }
+  });
+}
 
     if (pageName) {
       if (current === "index.html" || current === "") pageName.textContent = "Início";
