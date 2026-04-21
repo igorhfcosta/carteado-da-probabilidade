@@ -215,6 +215,47 @@ body{
   color: #fff;
 }
 
+/* ===== ESTADO COMPACTO ===== */
+
+.compact-header {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  font-weight: 700;
+  color: #c084fc;
+}
+
+#menuToggle {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+/* estado quando rola */
+.site-header.compact .site-header-inner nav {
+  display: none;
+}
+
+.site-header.compact .compact-header {
+  display: flex;
+}
+
+/* animação suave */
+.site-header-inner nav {
+  transition: opacity .25s ease, transform .25s ease;
+}
+
+/* opcional: deixar mais fino */
+.site-header.compact .site-header-inner {
+  padding: 6px 12px;
+}
+
+
+
+
 /* ===== RESPONSIVO ===== */
 
 @media (max-width: 900px){
