@@ -1525,7 +1525,6 @@
     }
 
     #rollBtn:not(:disabled),
-    #startGameBtn,
     #confirmNameBtn,
     #restartGameBtn {
       background: linear-gradient(180deg, #c58bff 0%, #9c56ff 50%, #7a37e9 100%);
@@ -1537,13 +1536,30 @@
     }
 
     #rollBtn:not(:disabled):hover,
-    #startGameBtn:hover,
     #confirmNameBtn:hover,
     #restartGameBtn:hover {
       box-shadow:
         0 18px 38px rgba(156,86,255,.42),
         inset 0 1px 0 rgba(255,255,255,.18),
         0 0 32px rgba(156,86,255,.20);
+    }
+
+    #startGameBtn {
+      background: linear-gradient(180deg, #d7a4ff 0%, #b86cff 46%, #8f45f3 100%);
+      border-color: rgba(255,255,255,.22);
+      box-shadow:
+        0 18px 40px rgba(184,108,255,.40),
+        inset 0 1px 0 rgba(255,255,255,.18),
+        0 0 34px rgba(184,108,255,.24);
+      transform: scale(1.08);
+      animation: startPulse 1.8s ease-in-out infinite;
+    }
+
+    #startGameBtn:hover {
+      box-shadow:
+        0 20px 44px rgba(184,108,255,.48),
+        inset 0 1px 0 rgba(255,255,255,.20),
+        0 0 40px rgba(184,108,255,.30);
     }
 
     .actions {
@@ -1695,6 +1711,24 @@
       100% {
         opacity: 0;
         transform: scale(1.18);
+      }
+    }
+
+
+    @keyframes startPulse {
+      0%, 100% {
+        transform: scale(1.08);
+        box-shadow:
+          0 18px 40px rgba(184,108,255,.40),
+          inset 0 1px 0 rgba(255,255,255,.18),
+          0 0 34px rgba(184,108,255,.24);
+      }
+      50% {
+        transform: scale(1.12);
+        box-shadow:
+          0 22px 48px rgba(184,108,255,.52),
+          inset 0 1px 0 rgba(255,255,255,.20),
+          0 0 52px rgba(184,108,255,.34);
       }
     }
 
@@ -2387,8 +2421,11 @@ body{
       4. Após rolar, você pode descartar cartas se:<br/>
       - tiverem o mesmo valor da soma dos dados<br/>
       - e forem iguais entre si (pode descartar várias)<br/><br/>
-      5. Se não puder jogar, clique em "Passar turno".<br/><br/>
-      6. Vence quem ficar sem cartas primeiro.
+      5. Cartas de efeito imediato:<br/>
+      - <b>Compre uma carta numérica</b>: o jogador compra imediatamente uma nova carta do baralho numérico<br/>
+      - <b>Perda sua vez</b>: o jogador perde a vez automaticamente<br/><br/>
+      6. Se não puder jogar, clique em "Passar turno".<br/><br/>
+      7. Vence quem ficar sem cartas primeiro.
       </p>
 <button class="overlay-btn" id="closeHowToPlayBtn">Voltar</button>
 </div>
