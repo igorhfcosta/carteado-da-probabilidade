@@ -30,6 +30,70 @@ html.js-enabled {
   box-shadow: 0 20px 56px rgba(0,0,0,.34);
 }
 
+/* ===== INíCIO BOTÃO TOPO ===== */
+
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: all .3s ease;
+  z-index: 999;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.back-to-top svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}
+
+.progress-bg {
+  fill: none;
+  stroke: rgba(111, 66, 232, 0.2);
+  stroke-width: 4;
+}
+
+.progress-bar {
+  fill: none;
+  stroke: #6f42e8;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 113; /* 2πr ≈ 113 */
+  stroke-dashoffset: 113;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: #6f42e8;
+  font-weight: bold;
+}
+
+.back-to-top:hover .arrow {
+  transform: translate(-50%, -60%);
+}
+
+/* ===== FIM BOTÃO TOPO ===== */
+
+
 /* ===== CONTINUIDADE VISUAL DO HERO ===== */
 
 .hero {
