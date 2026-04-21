@@ -3233,6 +3233,117 @@ body{
       return typeof value === 'function' ? value(...args) : (value ?? key);
     }
 
+    function tr(options) {
+      return options[state.language] ?? options['pt-BR'];
+    }
+
+    function getSimulateRollLabel() {
+      return tr({ 'pt-BR': 'Simular rolagem', 'en': 'Simulate roll', 'es': 'Simular tirada' });
+    }
+
+    function getRestartExplorationLabel() {
+      return tr({ 'pt-BR': 'Reiniciar exploração', 'en': 'Restart exploration', 'es': 'Reiniciar exploración' });
+    }
+
+    function getDefaultPlayerName() {
+      return tr({ 'pt-BR': 'Você', 'en': 'You', 'es': 'Tú' });
+    }
+
+    function getEffectName(effect) {
+      const map = {
+        reroll: { 'pt-BR': 'Jogue os dados novamente', 'en': 'Roll the dice again', 'es': 'Lanza los dados nuevamente' },
+        lose_turn: { 'pt-BR': 'Perca a sua vez', 'en': 'Lose your turn', 'es': 'Pierde tu turno' },
+        block_opponent: { 'pt-BR': 'Bloqueie a vez do oponente', 'en': 'Block the opponent’s turn', 'es': 'Bloquea el turno del oponente' },
+        draw_number: { 'pt-BR': 'Compre uma carta numérica', 'en': 'Draw a number card', 'es': 'Roba una carta numérica' }
+      };
+      return map[effect] ? tr(map[effect]) : '';
+    }
+
+    function getModeLabel() {
+      return state.gameMode === 'exploracao'
+        ? tr({ 'pt-BR': 'exploração', 'en': 'exploration', 'es': 'exploración' })
+        : tr({ 'pt-BR': 'duelo', 'en': 'duel', 'es': 'duelo' });
+    }
+
+    function buildPhaseLabel() {
+      if (state.gameMode === 'exploracao') return tr({ 'pt-BR': 'exploração', 'en': 'exploration', 'es': 'exploración' });
+      if (state.turn === 'bot') return tr({ 'pt-BR': 'turno do Igor', 'en': 'Igor turn', 'es': 'turno de Igor' });
+      if (state.phase === 'pre_roll_discard') return tr({ 'pt-BR': 'descarte livre', 'en': 'free discard', 'es': 'descarte libre' });
+      if (state.phase === 'rolling') return tr({ 'pt-BR': 'rolagem', 'en': 'roll', 'es': 'tirada' });
+      if (state.phase === 'post_roll_discard') return tr({ 'pt-BR': 'descarte pela soma', 'en': 'discard by sum', 'es': 'descarte por suma' });
+      if (state.phase === 'turn_transition') return tr({ 'pt-BR': 'transição', 'en': 'transition', 'es': 'transición' });
+      return state.phase;
+    }
+
+    function formatSumsList(items) {
+      if (!items.length) return '';
+      const sums = items.map(item => `<b>${item.sum}</b>`).join(', ');
+      return items.length > 1
+        ? tr({ 'pt-BR': `somas ${sums}`, 'en': `sums ${sums}`, 'es': `sumas ${sums}` })
+        : tr({ 'pt-BR': `soma ${sums}`, 'en': `sum ${sums}`, 'es': `suma ${sums}` });
+    }
+
+    function getProbabilitySummaryText(dieA, dieB, mostLikely, leastLikely) {
+      return tr({
+        'pt-BR': `Dados escolhidos: <b>d${dieA}</b> e <b>d${dieB}</b>.<br>Mais prováveis: ${formatSumsList(mostLikely)} (${mostLikely[0].fraction} = ${mostLikely[0].probability.toFixed(2)}%). Menos prováveis: ${formatSumsList(leastLikely)} (${leastLikely[0].fraction} = ${leastLikely[0].probability.toFixed(2)}%).`,
+        'en': `Chosen dice: <b>d${dieA}</b> and <b>d${dieB}</b>.<br>Most likely: ${formatSumsList(mostLikely)} (${mostLikely[0].fraction} = ${mostLikely[0].probability.toFixed(2)}%). Least likely: ${formatSumsList(leastLikely)} (${leastLikely[0].fraction} = ${leastLikely[0].probability.toFixed(2)}%).`,
+        'es': `Dados elegidos: <b>d${dieA}</b> y <b>d${dieB}</b>.<br>Más probables: ${formatSumsList(mostLikely)} (${mostLikely[0].fraction} = ${mostLikely[0].probability.toFixed(2)}%). Menos probables: ${formatSumsList(leastLikely)} (${leastLikely[0].fraction} = ${leastLikely[0].probability.toFixed(2)}%).`
+      });
+    }
+
+    function getPhaseTextContent() {
+      if (state.gameMode === 'exploracao') {
+        return {
+          turnIndicator: t('explorationMode'),
+          phaseHtml: tr({
+            'pt-BR': '<b>Fase atual:</b> escolha 2 dados, veja as probabilidades e simule quantas vezes quiser.',
+            'en': '<b>Current phase:</b> choose 2 dice, view the probabilities and simulate as many times as you want.',
+            'es': '<b>Fase actual:</b> elige 2 dados, observa las probabilidades y simula cuantas veces quieras.'
+          })
+        };
+      }
+
+      let phaseText = '';
+      if (state.turn === 'bot') {
+        phaseText = tr({ 'pt-BR': 'Igor está jogando.', 'en': 'Igor is playing.', 'es': 'Igor está jugando.' });
+      } else if (state.phase === 'pre_roll_discard') {
+        phaseText = tr({ 'pt-BR': 'descarte 1 carta livremente ou siga para a rolagem.', 'en': 'discard 1 card freely or proceed to the roll.', 'es': 'descarta 1 carta libremente o continúa con la tirada.' });
+      } else if (state.phase === 'rolling') {
+        phaseText = tr({ 'pt-BR': 'escolha 2 dados e clique em rolar.', 'en': 'choose 2 dice and click roll.', 'es': 'elige 2 dados y haz clic en lanzar.' });
+      } else if (state.phase === 'post_roll_discard') {
+        phaseText = tr({ 'pt-BR': 'descarte carta(s) com o valor da soma ou passe o turno.', 'en': 'discard card(s) matching the sum value or pass the turn.', 'es': 'descarta carta(s) con el valor de la suma o pasa el turno.' });
+      } else if (state.phase === 'turn_transition') {
+        phaseText = tr({ 'pt-BR': 'transição de turno.', 'en': 'turn transition.', 'es': 'transición de turno.' });
+      }
+      const reasonLabel = tr({ 'pt-BR': 'Motivo do turno', 'en': 'Turn reason', 'es': 'Motivo del turno' });
+      const effectLabel = tr({ 'pt-BR': 'Último efeito', 'en': 'Last effect', 'es': 'Último efecto' });
+      return {
+        turnIndicator: t('turnToPlay', state.turn === 'player' ? state.playerName : 'Igor'),
+        phaseHtml: `<b>${tr({ 'pt-BR': 'Fase atual', 'en': 'Current phase', 'es': 'Fase actual' })}:</b> ${phaseText}<br><span style="opacity:.88">${reasonLabel}: ${state.currentTurnReason.replaceAll('_', ' ')}</span>${state.lastEffectApplied ? `<br><span style="opacity:.88">${effectLabel}: ${state.lastEffectApplied}</span>` : ''}`
+      };
+    }
+
+    function getStatusMessage(key, vars = {}) {
+      const m = {
+        technicalTie: {
+          'pt-BR': 'Empate técnico: a partida ficou sem progresso por vários turnos seguidos.',
+          'en': 'Technical tie: the match made no progress for several consecutive turns.',
+          'es': 'Empate técnico: la partida quedó sin progreso durante varios turnos seguidos.'
+        },
+        playerTimeout: {
+          'pt-BR': `${vars.name} ficou sem tempo. O turno foi passado para Igor.`,
+          'en': `${vars.name} ran out of time. The turn was passed to Igor.`,
+          'es': `${vars.name} se quedó sin tiempo. El turno pasó a Igor.`
+        },
+        botTimeout: {
+          'pt-BR': 'Igor ficou sem tempo. O turno voltou para você.',
+          'en': 'Igor ran out of time. The turn returned to you.',
+          'es': 'Igor se quedó sin tiempo. El turno volvió a ti.'
+        }
+      };
+      return m[key] ? tr(m[key]) : '';
+    }
+
     function saveSettings() {
       try {
         localStorage.setItem('carteadoSettings', JSON.stringify({
@@ -3323,12 +3434,12 @@ body{
       if (els.chooseDiceLabel) els.chooseDiceLabel.textContent = t('chooseTwoDice');
       if (els.rollStepLabel) els.rollStepLabel.textContent = t('rollDiceStep');
       if (els.freeDiscardBtn) els.freeDiscardBtn.textContent = t('discardBeforeRoll');
-      if (els.rollBtn) els.rollBtn.textContent = state.gameMode === 'exploracao' ? (language === 'en' ? 'Simulate roll' : language === 'es' ? 'Simular tirada' : 'Simular rolagem') : t('rollDice');
+      if (els.rollBtn) els.rollBtn.textContent = state.gameMode === 'exploracao' ? getSimulateRollLabel() : t('rollDice');
       if (els.discardBtn) els.discardBtn.textContent = t('discardCards');
       if (els.useEffectBtn) els.useEffectBtn.textContent = t('useEffectCard');
       if (els.passBtn) els.passBtn.textContent = t('passTurn');
       if (els.returnMenuBtn) els.returnMenuBtn.textContent = t('returnMenu');
-      if (els.newGameBtn) els.newGameBtn.textContent = state.gameMode === 'exploracao' ? (language === 'en' ? 'Restart exploration' : language === 'es' ? 'Reiniciar exploración' : 'Reiniciar exploração') : t('newGame');
+      if (els.newGameBtn) els.newGameBtn.textContent = state.gameMode === 'exploracao' ? getRestartExplorationLabel() : t('newGame');
       if (els.inGameHowToPlayBtn) els.inGameHowToPlayBtn.textContent = t('howToPlay');
       if (els.settingsTitle) els.settingsTitle.textContent = t('settings');
       if (els.settingsSubtitle) els.settingsSubtitle.textContent = t('settingsSubtitle');
@@ -3364,6 +3475,7 @@ body{
       }
       updateSettingsButtonUI();
       updateSoundButtonUI();
+      updateTurnInfo();
       saveSettings();
     }
 
@@ -3461,7 +3573,7 @@ body{
       stopTurnTimer();
       clearPendingTurnStartTimeout();
       clearScheduledActions();
-      setStatus('Empate técnico: a partida ficou sem progresso por vários turnos seguidos.', 'warn');
+      setStatus(getStatusMessage('technicalTie'), 'warn');
       addLog('Fim de jogo: empate técnico por ausência de progresso.', 'warn', 'O estado da partida se repetiu por muitos turnos consecutivos.');
       showEndOverlay('Empate técnico', buildEndMessage('<p>A partida entrou em repetição sem progresso e foi encerrada automaticamente.</p>'));
       return true;
@@ -3552,13 +3664,10 @@ body{
       return '';
     }
 
+
     function effectName(cardOrEffect) {
       const effect = typeof cardOrEffect === 'string' ? cardOrEffect : cardOrEffect?.effect;
-      if (effect === 'reroll') return 'Jogue os dados novamente';
-      if (effect === 'lose_turn') return 'Perda a sua vez';
-      if (effect === 'block_opponent') return 'Bloqueie a vez do oponente';
-      if (effect === 'draw_number') return 'Compre uma carta numérica';
-      return '';
+      return getEffectName(effect);
     }
 
     function isEffectCard(card) {
@@ -3589,23 +3698,14 @@ body{
       }).join('');
     }
 
-    function buildPhaseLabel() {
-      if (state.gameMode === 'exploracao') return 'exploração';
-      if (state.turn === 'bot') return 'turno do Igor';
-      if (state.phase === 'pre_roll_discard') return 'descarte livre';
-      if (state.phase === 'rolling') return 'rolagem';
-      if (state.phase === 'post_roll_discard') return 'descarte pela soma';
-      if (state.phase === 'turn_transition') return 'transição';
-      return state.phase;
-    }
 
     function buildStatsCard(name, turns, discarded, effectsUsed, extraStats = {}) {
       const efficiencyLabel = getEfficiencyLabel(discarded, turns);
-      return `<div class="stats-card"><h3>${name}</h3><ul><li>Turnos: ${turns}</li><li>Cartas descartadas: ${discarded}</li><li>Efeitos usados: ${effectsUsed}</li><li>Bloqueios aplicados: ${extraStats.blocksApplied || 0}</li><li>Rerolls usados: ${extraStats.rerollsUsed || 0}</li><li>Cartas compradas: ${extraStats.cardsBought || 0}</li><li>Efeitos imediatos resolvidos: ${extraStats.immediateEffectsResolved || 0}</li><li>Eficiência: ${efficiencyLabel}</li></ul></div>`;
+      return `<div class="stats-card"><h3>${name}</h3><ul><li>${tr({'pt-BR':'Turnos','en':'Turns','es':'Turnos'})}: ${turns}</li><li>${tr({'pt-BR':'Cartas descartadas','en':'Discarded cards','es':'Cartas descartadas'})}: ${discarded}</li><li>${tr({'pt-BR':'Efeitos usados','en':'Effects used','es':'Efectos usados'})}: ${effectsUsed}</li><li>${tr({'pt-BR':'Bloqueios aplicados','en':'Blocks applied','es':'Bloqueos aplicados'})}: ${extraStats.blocksApplied || 0}</li><li>${tr({'pt-BR':'Rerolls usados','en':'Rerolls used','es':'Rerolls usados'})}: ${extraStats.rerollsUsed || 0}</li><li>${tr({'pt-BR':'Cartas compradas','en':'Cards drawn','es':'Cartas robadas'})}: ${extraStats.cardsBought || 0}</li><li>${tr({'pt-BR':'Efeitos imediatos resolvidos','en':'Immediate effects resolved','es':'Efectos inmediatos resueltos'})}: ${extraStats.immediateEffectsResolved || 0}</li><li>${tr({'pt-BR':'Eficiência','en':'Efficiency','es':'Eficiencia'})}: ${efficiencyLabel}</li></ul></div>`;
     }
 
     function buildEndMessage(resultText) {
-      return `${resultText}<div class="stats-grid">${buildStatsCard(state.playerName, state.playerTurns, state.playerDiscardedCards, state.playerEffectsUsed, state.stats.player)}${buildStatsCard('Igor', state.botTurns, state.botDiscardedCards, state.botEffectsUsed, state.stats.bot)}</div><div class="stats-card" style="margin-top:12px;"><h3>Últimos 3 turnos</h3><ul>${buildRecentTurnsReplay()}</ul></div><div class="stats-card" style="margin-top:12px;"><h3>Checklist manual sugerido</h3><ul>${state.manualTestCases.map(item => `<li>${item}</li>`).join('')}</ul></div>`;
+      return `${resultText}<div class="stats-grid">${buildStatsCard(state.playerName, state.playerTurns, state.playerDiscardedCards, state.playerEffectsUsed, state.stats.player)}${buildStatsCard('Igor', state.botTurns, state.botDiscardedCards, state.botEffectsUsed, state.stats.bot)}</div><div class="stats-card" style="margin-top:12px;"><h3>${tr({'pt-BR':'Últimos 3 turnos','en':'Last 3 turns','es':'Últimos 3 turnos'})}</h3><ul>${buildRecentTurnsReplay()}</ul></div><div class="stats-card" style="margin-top:12px;"><h3>${tr({'pt-BR':'Checklist manual sugerido','en':'Suggested manual checklist','es':'Checklist manual sugerido'})}</h3><ul>${state.manualTestCases.map(item => `<li>${item}</li>`).join('')}</ul></div>`;
     }
 
     function startTurnLog(owner, summary = '') {
@@ -3625,7 +3725,7 @@ body{
 
       const badge = document.createElement('div');
       badge.className = `turn-log-badge ${owner === 'player' ? 'player' : 'bot'}`;
-      badge.textContent = owner === 'player' ? 'Jogador' : 'BOT';
+      badge.textContent = owner === 'player' ? tr({'pt-BR':'Jogador','en':'Player','es':'Jugador'}) : 'BOT';
 
       header.appendChild(title);
       header.appendChild(badge);
@@ -3913,14 +4013,14 @@ function setStatus(message, variant = 'normal') {
 
       if (state.turn === 'player' && !state.gameOver) {
         addLog(`${state.playerName} ficou sem tempo e o turno foi passado automaticamente.`);
-        setStatus(`${state.playerName} ficou sem tempo. O turno foi passado para Igor.`, 'danger');
+        setStatus(getStatusMessage('playerTimeout', { name: state.playerName }), 'danger');
         transitionTurnTo('bot', 180, 'tempo_esgotado_jogador');
         return;
       }
 
       if (state.turn === 'bot' && !state.gameOver) {
         addLog('Igor ficou sem tempo e o turno foi passado automaticamente.');
-        setStatus('Igor ficou sem tempo. O turno voltou para você.', 'warn');
+        setStatus(getStatusMessage('botTimeout'), 'warn');
         updateRollBoxes();
         transitionTurnTo('player', 180, 'tempo_esgotado_bot');
       }
@@ -3966,8 +4066,8 @@ function setStatus(message, variant = 'normal') {
         els.turnStatusBadge.classList.remove('turn-player', 'turn-opponent');
         els.turnStatusBadge.classList.add('turn-player');
         els.turnStatusDot.className = 'turn-dot dot-player';
-        els.turnIndicator.textContent = 'Modo exploração';
-        els.phaseIndicator.innerHTML = '<b>Fase atual:</b> escolha 2 dados, veja as probabilidades e simule quantas vezes quiser.';
+        els.turnIndicator.textContent = getPhaseTextContent().turnIndicator;
+        els.phaseIndicator.innerHTML = getPhaseTextContent().phaseHtml;
         els.phaseIndicator.style.color = 'var(--primary-light)';
         els.playerBox.classList.remove('turn-player-active', 'active');
         els.botBox.classList.remove('turn-bot-active', 'active');
@@ -3976,7 +4076,7 @@ function setStatus(message, variant = 'normal') {
         return;
       }
 
-      els.turnIndicator.textContent = `Vez de jogar: ${state.turn === 'player' ? state.playerName : 'Igor'}`;
+      els.turnIndicator.textContent = getPhaseTextContent().turnIndicator;
       const isBot = state.turn === 'bot' && !state.gameOver;
       const isPlayer = state.turn === 'player' && !state.gameOver;
 
@@ -4000,7 +4100,7 @@ function setStatus(message, variant = 'normal') {
       } else if (state.phase === 'turn_transition') {
         phaseText = 'transição de turno.';
       }
-      els.phaseIndicator.innerHTML = `<b>Fase atual:</b> ${phaseText}<br><span style="opacity:.88">Motivo do turno: ${state.currentTurnReason.replaceAll('_', ' ')}</span>${state.lastEffectApplied ? `<br><span style="opacity:.88">Último efeito: ${state.lastEffectApplied}</span>` : ''}`;
+      els.phaseIndicator.innerHTML = getPhaseTextContent().phaseHtml;
       els.phaseIndicator.style.color = 'var(--text)';
       const phaseInline = document.getElementById('phaseInline');
       if(phaseInline){
@@ -4026,7 +4126,7 @@ function setStatus(message, variant = 'normal') {
       els.startMenu.classList.add('hidden');
       els.difficultyMenu.classList.add('hidden');
       els.nameMenu.classList.remove('hidden');
-      els.playerNameInput.value = state.playerName === 'Você' ? '' : state.playerName;
+      els.playerNameInput.value = ['Você', 'You', 'Tú'].includes(state.playerName) ? '' : state.playerName;
       setTimeout(() => els.playerNameInput.focus(), 50);
     }
 
@@ -4051,18 +4151,10 @@ function setStatus(message, variant = 'normal') {
       els.endOverlay.classList.add('hidden');
     }
 
-    function getModeLabel() {
-      return state.gameMode === 'exploracao' ? 'exploração' : 'duelo';
-    }
     function formatFractionVertical(numerator, denominator) {
       return `<span class="fraction"><span class="top">${numerator}</span><span class="bar"></span><span class="bottom">${denominator}</span></span>`;
     }
 
-    function formatSumsList(items) {
-      if (!items.length) return '';
-      const sums = items.map(item => `<b>${item.sum}</b>`).join(', ');
-      return items.length > 1 ? `somas ${sums}` : `soma ${sums}`;
-    }
 
 
     function getProbabilityData(dieA, dieB) {
@@ -4152,7 +4244,7 @@ function setStatus(message, variant = 'normal') {
       const leastLikely = data.filter(item => item.probability === minProbability);
       const totalOutcomes = dieA * dieB;
 
-      els.probabilitySummary.innerHTML = `Dados escolhidos: <b>d${dieA}</b> e <b>d${dieB}</b>.<br>Mais prováveis: ${formatSumsList(mostLikely)} (${mostLikely[0].fraction} = ${mostLikely[0].probability.toFixed(2)}%). Menos prováveis: ${formatSumsList(leastLikely)} (${leastLikely[0].fraction} = ${leastLikely[0].probability.toFixed(2)}%).`;
+      els.probabilitySummary.innerHTML = getProbabilitySummaryText(dieA, dieB, mostLikely, leastLikely);
       els.probabilityGrid.innerHTML = data.map(item => `<div class="prob-item"><strong>${item.sum}</strong>${formatFractionVertical(item.count, totalOutcomes)}<span class="prob-percent">(${item.probability.toFixed(2)}%)</span></div>`).join('');
       els.simulationCountText.textContent = `${t('simulations')}: ${state.explorationSimulationCount}`;
 
@@ -4173,12 +4265,12 @@ function setStatus(message, variant = 'normal') {
       els.passBtn.classList.toggle('hidden', inExploration);
       els.returnMenuBtn.classList.remove('hidden');
 
-      els.rollBtn.textContent = inExploration ? 'Simular rolagem' : 'Rolar dados';
-      els.newGameBtn.textContent = inExploration ? 'Reiniciar exploração' : 'Novo jogo';
+      els.rollBtn.textContent = inExploration ? getSimulateRollLabel() : t('rollDice');
+      els.newGameBtn.textContent = inExploration ? getRestartExplorationLabel() : t('newGame');
 
       if (inExploration) {
         els.startOverlayText.textContent = t('chooseMode');
-        setStatus('Modo exploração: escolha 2 dados, observe as probabilidades da combinação e use “Simular rolagem” para testar resultados.');
+        setStatus(t('statusExploration'));
 
         if (els.sidePanelTitle) {
           els.sidePanelTitle.textContent = t('sidePanelExploration');
@@ -4197,7 +4289,7 @@ function setStatus(message, variant = 'normal') {
         }
 
         if (els.turnStatusText) {
-          els.turnStatusText.textContent = 'Instruções para o modo exploração';
+          els.turnStatusText.textContent = t('explorationInstructions');
         }
       } else {
         if (els.sidePanelTitle) {
@@ -4261,7 +4353,7 @@ function setStatus(message, variant = 'normal') {
       playRollSound();
       updateRollBoxes(r1, r2, sum);
       renderProbabilityPanel();
-      setStatus(`Resultado da simulação: d${a} = ${r1}, d${b} = ${r2}, soma = ${sum}.`);
+      setStatus(tr({'pt-BR':`Resultado da simulação: d${a} = ${r1}, d${b} = ${r2}, soma = ${sum}.`,'en':`Simulation result: d${a} = ${r1}, d${b} = ${r2}, sum = ${sum}.`,'es':`Resultado de la simulación: d${a} = ${r1}, d${b} = ${r2}, suma = ${sum}.`}));
       updateActionButtons();
     }
 
@@ -4274,7 +4366,7 @@ function setStatus(message, variant = 'normal') {
     }
 
     function buildVictoryMessage() {
-      return buildEndMessage('<p>Você ficou sem cartas primeiro.</p>');
+      return buildEndMessage(`<p>${tr({'pt-BR':'Você ficou sem cartas primeiro.','en':'You ran out of cards first.','es':'Te quedaste sin cartas primero.'})}</p>`);
     }
 
     function renderDiceButtons() {
@@ -4299,7 +4391,7 @@ function setStatus(message, variant = 'normal') {
         state.selectedDice = state.selectedDice.filter(d => d !== sides);
       } else {
         if (state.selectedDice.length >= 2) {
-          setStatus('Você só pode escolher 2 dados por turno.', 'warn');
+          setStatus(tr({'pt-BR':'Você só pode escolher 2 dados por turno.','en':'You can only choose 2 dice per turn.','es':'Solo puedes elegir 2 dados por turno.'}), 'warn');
           return;
         }
         state.selectedDice.push(sides);
@@ -4515,7 +4607,7 @@ function setStatus(message, variant = 'normal') {
 
         if (!effectCard) {
           addLog('tentou comprar uma carta de efeito, mas o baralho de efeitos estava vazio.', 'warn');
-          setStatus('O baralho de efeito está vazio.', 'warn');
+          setStatus(tr({'pt-BR':'O baralho de efeito está vazio.','en':'The effect deck is empty.','es':'El mazo de efectos está vacío.'}), 'warn');
           finalize('effect_draw_empty');
           return;
         }
@@ -4532,7 +4624,7 @@ function setStatus(message, variant = 'normal') {
           state.selectedDice = [];
           clearSelectionState();
           actorStats.immediateEffectsResolved += 1;
-          setStatus(`${actorPronoun} comprou "${effectName(effectCard)}" e perdeu a vez imediatamente.`, owner === 'player' ? 'danger' : 'warn');
+          setStatus(tr({'pt-BR':`${actorPronoun} comprou "${effectName(effectCard)}" e perdeu a vez imediatamente.`,'en':`${actorPronoun} drew "${effectName(effectCard)}" and immediately lost the turn.`,'es':`${actorPronoun} robó "${effectName(effectCard)}" y perdió el turno inmediatamente.`}), owner === 'player' ? 'danger' : 'warn');
           scheduleAction(() => {
             removeCardFromHandByReference(hand, effectCard);
             addLog(`${actorPronoun} perdeu a vez imediatamente.`, 'warn');
@@ -4565,7 +4657,7 @@ function setStatus(message, variant = 'normal') {
         }
 
         rememberEffect(effectCard, owner, `${actorPronoun}: ${effectName(effectCard)}`);
-        setStatus(`${actorPronoun} comprou e guardou a carta de efeito "${effectName(effectCard)}".`, owner === 'player' ? 'normal' : 'warn');
+        setStatus(tr({'pt-BR':`${actorPronoun} comprou e guardou a carta de efeito "${effectName(effectCard)}".`,'en':`${actorPronoun} drew and kept the effect card "${effectName(effectCard)}".`,'es':`${actorPronoun} robó y guardó la carta de efecto "${effectName(effectCard)}".`}), owner === 'player' ? 'normal' : 'warn');
         finalize('effect_draw_kept');
         return;
       }
@@ -4583,7 +4675,7 @@ function setStatus(message, variant = 'normal') {
         rememberEffect(card, owner, `${actorPronoun}: ${effectName(card)}`);
         addLog(`${actorPronoun} usou "${effectName(card)}".`, 'important');
         showEffectNotice(`${actorPronoun} bloqueou a vez do oponente`, owner === 'player' ? 'normal' : 'warn', 1500);
-        setStatus(`${actorPronoun} bloqueou o próximo turno do oponente.`, owner === 'player' ? 'normal' : 'warn');
+        setStatus(tr({'pt-BR':`${actorPronoun} bloqueou o próximo turno do oponente.`,'en':`${actorPronoun} blocked the opponent's next turn.`,'es':`${actorPronoun} bloqueó el próximo turno del oponente.`}), owner === 'player' ? 'normal' : 'warn');
         finalize('effect_block_opponent');
         return;
       }
@@ -4609,7 +4701,7 @@ function setStatus(message, variant = 'normal') {
             ? `Nova soma ${sum}. Selecione cartas compatíveis ou passe o turno.`
             : `Nova soma ${sum}. Você ainda não tem carta compatível. Pode passar o turno.`, playable ? 'normal' : 'warn');
         } else {
-          setStatus(`Igor rolou novamente e obteve soma ${sum}.`, 'warn');
+          setStatus(tr({'pt-BR':`Igor rolou novamente e obteve soma ${sum}.`,'en':`Igor rolled again and got sum ${sum}.`,'es':`Igor lanzó nuevamente y obtuvo suma ${sum}.`}), 'warn');
         }
         finalize('effect_reroll');
       }
@@ -4709,7 +4801,7 @@ function setStatus(message, variant = 'normal') {
       if (state.phase === 'pre_roll_discard' && !hasAnyLegalFreeDiscard(state.playerHand)) {
         clearSelectionState();
         setPhase('rolling');
-        setStatus('Você não tem descarte livre válido neste momento. Pode seguir direto para a rolagem.', 'warn');
+        setStatus(tr({'pt-BR':'Você não tem descarte livre válido neste momento. Pode seguir direto para a rolagem.','en':'You do not have a valid free discard right now. You may proceed directly to the roll.','es':'No tienes un descarte libre válido en este momento. Puedes pasar directamente a la tirada.'}), 'warn');
         return true;
       }
 
@@ -4778,7 +4870,7 @@ function setStatus(message, variant = 'normal') {
         state.skipPlayerTurn -= 1;
         startTurnLog('player');
         addLog('teve o turno bloqueado e não jogou.', 'warn');
-        setStatus(`${state.playerName} teve o turno bloqueado. Igor joga novamente.`, 'danger');
+        setStatus(tr({'pt-BR':`${state.playerName} teve o turno bloqueado. Igor joga novamente.`,'en':`${state.playerName} had the turn blocked. Igor plays again.`,'es':`El turno de ${state.playerName} fue bloqueado. Igor juega nuevamente.`}), 'danger');
         commitState('start_player_turn_blocked', { checkProgress: true });
         transitionTurnTo('bot', 250, 'turno_bloqueado_jogador');
         return;
@@ -4787,7 +4879,7 @@ function setStatus(message, variant = 'normal') {
       setPhase('pre_roll_discard');
       startTurnTimer('player');
       startTurnLog('player');
-      setStatus(`${state.playerName}, seu turno começou. Aguarde a compra automática de 1 carta.`, 'warn');
+      setStatus(tr({'pt-BR':`${state.playerName}, seu turno começou. Aguarde a compra automática de 1 carta.`,'en':`${state.playerName}, your turn has started. Wait for the automatic draw of 1 card.`,'es':`${state.playerName}, tu turno comenzó. Espera el robo automático de 1 carta.`}), 'warn');
 
       scheduleTurnStartDraw(() => {
         if (!state.started || state.gameOver || state.turn !== 'player' || state.phase !== 'pre_roll_discard') return;
@@ -4795,11 +4887,11 @@ function setStatus(message, variant = 'normal') {
 
         if (drewCard) {
           if (!ensurePlayerCanAdvanceFromPreRollDiscard()) {
-            setStatus(`${state.playerName}, descarte 1 carta livremente ou siga para a rolagem.`, 'normal');
+            setStatus(tr({'pt-BR':`${state.playerName}, descarte 1 carta livremente ou siga para a rolagem.`,'en':`${state.playerName}, discard 1 card freely or proceed to the roll.`,'es':`${state.playerName}, descarta 1 carta libremente o continúa con la tirada.`}), 'normal');
           }
         } else {
           setPhase('rolling');
-          setStatus('O baralho acabou. Você vai jogar sem descarte antes da rolagem.', 'warn');
+          setStatus(tr({'pt-BR':'O baralho acabou. Você vai jogar sem descarte antes da rolagem.','en':'The deck is empty. You will play without a discard before rolling.','es':'El mazo se acabó. Jugarás sin descarte antes de la tirada.'}), 'warn');
         }
         commitState('start_player_turn_draw', { checkProgress: true });
         autoResolvePlayerState('start_player_turn_draw');
@@ -4810,7 +4902,7 @@ function setStatus(message, variant = 'normal') {
       if (state.turn !== 'player' || state.gameOver) return;
       clearSelectionState();
       setPhase('rolling');
-      setStatus('Agora escolha exatamente 2 dados e clique em "Rolar dados".');
+      setStatus(tr({'pt-BR':'Agora escolha exatamente 2 dados e clique em "Rolar dados".','en':'Now choose exactly 2 dice and click "Roll dice".','es':'Ahora elige exactamente 2 dados y haz clic en "Lanzar dados".'}));
     }
 
     function startBotTurn(reason = 'inicio_turno_bot') {
@@ -4821,7 +4913,7 @@ function setStatus(message, variant = 'normal') {
         state.skipBotTurn -= 1;
         startTurnLog('bot');
         addLog('teve o turno bloqueado e não jogou.', 'warn');
-        setStatus('Igor teve o turno bloqueado. Você joga novamente.', 'warn');
+        setStatus(tr({'pt-BR':'Igor teve o turno bloqueado. Você joga novamente.','en':'Igor had his turn blocked. You play again.','es':'El turno de Igor fue bloqueado. Juegas otra vez.'}), 'warn');
         commitState('start_bot_turn_blocked', { checkProgress: true });
         transitionTurnTo('player', 250, 'turno_bloqueado_bot');
         return;
@@ -4831,7 +4923,7 @@ function setStatus(message, variant = 'normal') {
       startTurnTimer('bot');
       startTurnLog('bot');
       updateBotMood(getBotFlavor('start'));
-      setStatus('Vez do oponente. Igor vai comprar 1 carta e jogar...', 'warn');
+      setStatus(tr({'pt-BR':'Vez do oponente. Igor vai comprar 1 carta e jogar...','en':'Opponent turn. Igor will draw 1 card and play...','es':'Turno del oponente. Igor va a robar 1 carta y jugar...'}), 'warn');
 
       scheduleTurnStartDraw(() => {
         if (!state.started || state.gameOver || state.turn !== 'bot' || state.phase !== 'pre_roll_discard') return;
@@ -4845,7 +4937,7 @@ function setStatus(message, variant = 'normal') {
         commitState('start_bot_turn_draw', { checkProgress: true });
         autoResolveBotState();
         updateBotMood(drewCard ? getBotFlavor('thinking') : getBotFlavor('choosing'));
-        setStatus(drewCard ? 'Vez do oponente. Aguarde a jogada de Igor...' : 'O baralho acabou. Igor vai jogar sem descarte antes da rolagem.', 'warn');
+        setStatus(drewCard ? tr({'pt-BR':'Vez do oponente. Aguarde a jogada de Igor...','en':'Opponent turn. Wait for Igor’s move...','es':'Turno del oponente. Espera la jugada de Igor...'}) : tr({'pt-BR':'O baralho acabou. Igor vai jogar sem descarte antes da rolagem.','en':'The deck is empty. Igor will play without a discard before rolling.','es':'El mazo se acabó. Igor jugará sin descarte antes de la tirada.'}), 'warn');
         scheduleAction(() => {
           if (state.turn === 'bot' && !state.gameOver) botTurn();
         }, 700);
@@ -4943,7 +5035,7 @@ function setStatus(message, variant = 'normal') {
         clearSelectionState();
         setTurnReason('descarte_livre_realizado', `Descarte livre: ${cardLabel(removed)}`);
         movePlayerToRollingPhase();
-        setStatus('Carta descartada. Agora escolha exatamente 2 dados e clique em "Rolar dados".', 'normal');
+        setStatus(tr({'pt-BR':'Carta descartada. Agora escolha exatamente 2 dados e clique em "Rolar dados".','en':'Card discarded. Now choose exactly 2 dice and click "Roll dice".','es':'Carta descartada. Ahora elige exactamente 2 dados y haz clic en "Lanzar dados".'}), 'normal');
 
         if (!state.activeTimerId && state.turn === 'player' && !state.gameOver) {
           startTurnTimer('player');
@@ -4973,9 +5065,9 @@ function setStatus(message, variant = 'normal') {
 
       const playable = state.playerHand.some(card => card.type === 'joker' || (card.type === 'number' && card.value === sum));
       if (playable) {
-        setStatus(`Você tirou ${r1} e ${r2}. Soma ${sum}. Agora selecione uma ou mais cartas ${sum} iguais entre si e clique em "Descartar carta(s)".`, 'normal');
+        setStatus(tr({'pt-BR':`Você tirou ${r1} e ${r2}. Soma ${sum}. Agora selecione uma ou mais cartas ${sum} iguais entre si e clique em "Descartar carta(s)".`,'en':`You rolled ${r1} and ${r2}. Sum ${sum}. Now select one or more ${sum} cards equal to each other and click "Discard card(s)".`,'es':`Sacaste ${r1} y ${r2}. Suma ${sum}. Ahora selecciona una o más cartas ${sum} iguales entre sí y haz clic en "Descartar carta(s)".`}), 'normal');
       } else {
-        setStatus(`Você tirou ${r1} e ${r2}. Soma ${sum}. Você não tem carta compatível. Clique em "Passar turno".`, 'warn');
+        setStatus(tr({'pt-BR':`Você tirou ${r1} e ${r2}. Soma ${sum}. Você não tem carta compatível. Clique em "Passar turno".`,'en':`You rolled ${r1} and ${r2}. Sum ${sum}. You have no matching card. Click "Pass turn".`,'es':`Sacaste ${r1} y ${r2}. Suma ${sum}. No tienes carta compatible. Haz clic en "Pasar turno".`}), 'warn');
       }
 
       addLog(`escolheu d${a} e d${b}.`);
@@ -4985,7 +5077,7 @@ function setStatus(message, variant = 'normal') {
 
     function discardAfterRoll() {
       if (!canPostRollDiscard()) {
-        setStatus('Não é possível descartar essa seleção. Após a rolagem, as cartas precisam ter o mesmo valor da soma e, se forem várias, devem ser iguais entre si.', 'danger');
+        setStatus(tr({'pt-BR':'Não é possível descartar essa seleção. Após a rolagem, as cartas precisam ter o mesmo valor da soma e, se forem várias, devem ser iguais entre si.','en':'It is not possible to discard this selection. After rolling, the cards must match the sum value and, if there are several, they must be equal to each other.','es':'No es posible descartar esta selección. Después de la tirada, las cartas deben tener el mismo valor que la suma y, si son varias, deben ser iguales entre sí.'}), 'danger');
         return;
       }
 
@@ -5016,7 +5108,7 @@ function setStatus(message, variant = 'normal') {
         addLog(`descartou ${cardsToRemove.length} carta(s): ${labels}.`, 'success');
         triggerBoardCenterHighlight();
         clearSelectionState();
-        setStatus('Cartas descartadas. Passando o turno para o oponente...', 'warn');
+        setStatus(tr({'pt-BR':'Cartas descartadas. Passando o turno para o oponente...','en':'Cards discarded. Passing the turn to the opponent...','es':'Cartas descartadas. Pasando el turno al oponente...'}), 'warn');
 
         if (commitState('discard_after_roll', { checkProgress: true })) return;
         transitionTurnTo('bot', 250, 'fim_turno_jogador');
@@ -5172,7 +5264,7 @@ function setStatus(message, variant = 'normal') {
 
       const shouldFreeDiscard = state.phase === 'pre_roll_discard';
       updateBotMood(getBotFlavor(shouldFreeDiscard ? 'thinking' : 'choosing'));
-      setStatus(shouldFreeDiscard ? 'Igor pensando no descarte inicial...' : 'Igor escolhendo os dados...', 'warn');
+      setStatus(shouldFreeDiscard ? tr({'pt-BR':'Igor pensando no descarte inicial...','en':'Igor is thinking about the initial discard...','es':'Igor está pensando en el descarte inicial...'}) : tr({'pt-BR':'Igor escolhendo os dados...','en':'Igor is choosing the dice...','es':'Igor está eligiendo los dados...'}), 'warn');
 
       scheduleAction(() => {
         if (shouldFreeDiscard) {
@@ -5196,12 +5288,12 @@ function setStatus(message, variant = 'normal') {
         setPhase('rolling');
         updateActionButtons();
         updateBotMood(getBotFlavor('choosing'));
-        setStatus('Igor escolhendo os dados...', 'warn');
+        setStatus(tr({'pt-BR':'Igor escolhendo os dados...','en':'Igor is choosing the dice...','es':'Igor está eligiendo los dados...'}), 'warn');
         const [a, b] = chooseBotDice();
 
         scheduleAction(() => {
           updateBotMood(getBotFlavor('rolling'));
-          setStatus(`Igor rolando d${a} e d${b}...`, 'warn');
+          setStatus(tr({'pt-BR':`Igor rolando d${a} e d${b}...`,'en':`Igor is rolling d${a} and d${b}...`,'es':`Igor está lanzando d${a} y d${b}...`}), 'warn');
           playRollSound();
           const r1 = Math.floor(Math.random() * a) + 1;
           const r2 = Math.floor(Math.random() * b) + 1;
@@ -5266,7 +5358,7 @@ function setStatus(message, variant = 'normal') {
                 addLog(`descartou ${removedLabels.length} carta(s): ${removedLabels.join(', ')}.`, 'success', `${detail} Estratégia: ${state.difficulty}.`);
                 triggerBoardCenterHighlight();
                 updateBotMood(getBotFlavor('good'));
-                setStatus('Igor descartou carta(s).', 'warn');
+                setStatus(tr({'pt-BR':'Igor descartou carta(s).','en':'Igor discarded card(s).','es':'Igor descartó carta(s).'}), 'warn');
 
                 if (commitState('bot_discard_after_roll')) return;
 
@@ -5285,7 +5377,7 @@ function setStatus(message, variant = 'normal') {
 
               addLog('não tinha carta compatível e passou o turno.', 'warn', `Estratégia: ${state.difficulty}.`);
               updateBotMood(getBotFlavor('pass'));
-              setStatus('Igor passou o turno.', 'warn');
+              setStatus(tr({'pt-BR':'Igor passou o turno.','en':'Igor passed the turn.','es':'Igor pasó el turno.'}), 'warn');
 
               if (commitState('bot_pass_turn')) return;
 
@@ -5316,7 +5408,7 @@ function setStatus(message, variant = 'normal') {
         stopTurnTimer();
         clearPendingTurnStartTimeout();
         clearScheduledActions();
-        setStatus('Empate técnico: os dois jogadores ficaram apenas com cartas de efeito e não há mais compras possíveis.', 'warn');
+        setStatus(tr({'pt-BR':'Empate técnico: os dois jogadores ficaram apenas com cartas de efeito e não há mais compras possíveis.','en':'Technical tie: both players only have effect cards left and no more draws are possible.','es':'Empate técnico: ambos jugadores se quedaron solo con cartas de efecto y ya no es posible robar más.'}), 'warn');
         addLog('Fim de jogo: empate técnico por esgotamento de jogadas.', 'warn');
         showEndOverlay('Empate técnico', buildEndMessage('<p>Os dois jogadores ficaram apenas com cartas de efeito e os baralhos acabaram.</p>'));
         return true;
@@ -5330,12 +5422,12 @@ function setStatus(message, variant = 'normal') {
         state.gameOver = true;
         stopTurnTimer();
         playVictorySound();
-        setStatus(`${state.playerName} venceu! Ficou sem cartas primeiro.`);
+        setStatus(tr({'pt-BR':`${state.playerName} venceu! Ficou sem cartas primeiro.`,'en':`${state.playerName} won! Ran out of cards first.`,'es':`¡${state.playerName} ganó! Se quedó sin cartas primero.`}));
         addLog(`Fim de jogo: ${state.playerName} venceu.`, 'important');
         updateActionButtons();
         renderDiceButtons();
         updateTurnInfo();
-        showEndOverlay('Você venceu!', buildEndMessage(`<p>Você ficou sem cartas primeiro.</p>`));
+        showEndOverlay(tr({'pt-BR':'Você venceu!','en':'You won!','es':'¡Ganaste!'}), buildEndMessage(`<p>${tr({'pt-BR':'Você ficou sem cartas primeiro.','en':'You ran out of cards first.','es':'Te quedaste sin cartas primero.'})}</p>`));
         return true;
       }
 
@@ -5343,12 +5435,12 @@ function setStatus(message, variant = 'normal') {
         state.gameOver = true;
         stopTurnTimer();
         playDefeatSound();
-        setStatus('Você perdeu. Igor venceu.', 'danger');
+        setStatus(tr({'pt-BR':'Você perdeu. Igor venceu.','en':'You lost. Igor won.','es':'Perdiste. Igor ganó.'}), 'danger');
         addLog('Fim de jogo: Igor venceu.', 'important');
         updateActionButtons();
         renderDiceButtons();
         updateTurnInfo();
-        showEndOverlay('Você perdeu!', buildEndMessage(`<p>Igor ficou sem cartas primeiro.</p>`));
+        showEndOverlay(tr({'pt-BR':'Você perdeu!','en':'You lost!','es':'¡Perdiste!'}), buildEndMessage(`<p>${tr({'pt-BR':'Igor ficou sem cartas primeiro.','en':'Igor ran out of cards first.','es':'Igor se quedó sin cartas primero.'})}</p>`));
         return true;
       }
 
@@ -5396,7 +5488,7 @@ function setStatus(message, variant = 'normal') {
         updateRollBoxes();
         updateTurnInfo();
         updateActionButtons();
-        addLog('Exploração reiniciada. Escolha 2 dados para analisar as probabilidades.', 'important');
+        addLog(tr({'pt-BR':'Exploração reiniciada. Escolha 2 dados para analisar as probabilidades.','en':'Exploration restarted. Choose 2 dice to analyze the probabilities.','es':'Exploración reiniciada. Elige 2 dados para analizar las probabilidades.'}), 'important');
         return;
       }
 
@@ -5475,7 +5567,7 @@ function setStatus(message, variant = 'normal') {
       state.stats.bot = { cardsBought: 0, rerollsUsed: 0, blocksApplied: 0, immediateEffectsResolved: 0 };
       state.difficulty = 'medio';
       state.gameMode = 'duelo';
-      state.playerName = state.language === 'en' ? 'You' : state.language === 'es' ? 'Tú' : 'Você';
+      state.playerName = getDefaultPlayerName();
       state.playerTimeLeft = state.turnTimeLimit;
       state.botTimeLeft = state.turnTimeLimit;
       stopTurnTimer();
@@ -5544,7 +5636,7 @@ function setStatus(message, variant = 'normal') {
 
     function confirmPlayerNameAndStart() {
       const typedName = els.playerNameInput.value.trim();
-      state.playerName = typedName || (state.language === 'en' ? 'You' : state.language === 'es' ? 'Tú' : 'Você');
+      state.playerName = typedName || getDefaultPlayerName();
       startGame(state.difficulty);
     }
 
