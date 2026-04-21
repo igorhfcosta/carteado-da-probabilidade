@@ -53,6 +53,8 @@ fetch("menu.html")
   let compactActive = false;
 
   window.addEventListener("scroll", () => {
+    if (isSimulador) return; // 🔥 trava o modo no simulador
+
     const shouldCompact = window.innerWidth > 900 && window.scrollY > 160;
 
     if (shouldCompact && !compactActive) {
