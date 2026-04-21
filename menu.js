@@ -45,6 +45,18 @@ fetch("menu.html")
       });
     }
 
+
+const header = document.querySelector(".site-header");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 120) {
+    header.classList.add("compact");
+  } else {
+    header.classList.remove("compact");
+  }
+});
+
+    
     document.addEventListener('click', function (event) {
       if (panel && toggle && !panel.hidden && !panel.contains(event.target) && !toggle.contains(event.target)) {
         closeMenu();
