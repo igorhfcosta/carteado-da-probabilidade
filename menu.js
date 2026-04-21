@@ -14,6 +14,7 @@ fetch("menu.html")
     const compactToggle = document.getElementById("menuToggle");
     const current = window.location.pathname.split("/").pop() || "index.html";
     const path = window.location.pathname;
+    const isSimulador = window.location.pathname.includes("simulador");
 
     function closeMenu() {
       if (!panel || !toggle) return;
@@ -29,6 +30,7 @@ fetch("menu.html")
 
     if (toggle && panel) {
       toggle.setAttribute("aria-expanded", "false");
+
       toggle.addEventListener("click", function () {
         const willOpen = panel.hidden;
         panel.hidden = !panel.hidden;
@@ -50,24 +52,32 @@ fetch("menu.html")
     }
 
     if (header) {
-  let compactActive = false;
+      let compactActive = false;
 
-  window.addEventListener("scroll", () => {
-    if (isSimulador) return; // 🔥 trava o modo no simulador
+      // força menu compacto no simulador
+      if (isSimulador) {
+        closeMenu();
+        closeDropdown();
+        header.classList.add("compact");
+        compactActive = true;
+      }
 
-    const shouldCompact = window.innerWidth > 900 && window.scrollY > 160;
+      window.addEventListener("scroll", () => {
+        if (isSimulador) return;
 
-    if (shouldCompact && !compactActive) {
-      closeMenu();
-      closeDropdown();
-      header.classList.add("compact");
-      compactActive = true;
-    } else if (!shouldCompact && compactActive) {
-      header.classList.remove("compact");
-      compactActive = false;
+        const shouldCompact = window.innerWidth > 900 && window.scrollY > 160;
+
+        if (shouldCompact && !compactActive) {
+          closeMenu();
+          closeDropdown();
+          header.classList.add("compact");
+          compactActive = true;
+        } else if (!shouldCompact && compactActive) {
+          header.classList.remove("compact");
+          compactActive = false;
+        }
+      });
     }
-  });
-}
 
     if (pageName) {
       if (current === "index.html" || current === "") pageName.textContent = "Início";
@@ -88,11 +98,23 @@ fetch("menu.html")
     }
 
     document.addEventListener("click", function (event) {
-      if (panel && toggle && !panel.hidden && !panel.contains(event.target) && !toggle.contains(event.target) && !compactToggle?.contains(event.target)) {
+      if (
+        panel &&
+        toggle &&
+        !panel.hidden &&
+        !panel.contains(event.target) &&
+        !toggle.contains(event.target) &&
+        !compactToggle?.contains(event.target)
+      ) {
         closeMenu();
       }
 
-      if (dropdown && dropdownToggle && dropdown.classList.contains("open") && !dropdown.contains(event.target)) {
+      if (
+        dropdown &&
+        dropdownToggle &&
+        dropdown.classList.contains("open") &&
+        !dropdown.contains(event.target)
+      ) {
         closeDropdown();
       }
     });
@@ -103,6 +125,10 @@ fetch("menu.html")
       }
       if (window.innerWidth <= 900) {
         closeDropdown();
+      }
+
+      if (header && isSimulador && window.innerWidth > 900) {
+        header.classList.add("compact");
       }
     });
 
