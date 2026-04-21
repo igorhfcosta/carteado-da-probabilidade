@@ -38,22 +38,34 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 
-const backToTopBtn = document.getElementById("backToTop");
+
+const btn = document.getElementById("backToTop");
+const progress = document.querySelector(".progress-bar");
+
+const circumference = 2 * Math.PI * 18; // r = 18
 
 window.addEventListener("scroll", () => {
-  if (window.scrollY > 300) {
-    backToTopBtn.classList.add("show");
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = scrollTop / docHeight;
+
+  const offset = circumference - scrollPercent * circumference;
+  progress.style.strokeDashoffset = offset;
+
+  if (scrollTop > 200) {
+    btn.classList.add("show");
   } else {
-    backToTopBtn.classList.remove("show");
+    btn.classList.remove("show");
   }
 });
 
-backToTopBtn.addEventListener("click", () => {
+btn.addEventListener("click", () => {
   window.scrollTo({
     top: 0,
     behavior: "smooth"
   });
 });
+  
 
   
   
