@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="menu.css">
   <link rel="stylesheet" href="site.css">
   <link rel="stylesheet" href="index.css">
-  <link rel="preload" as="image" href="imagem/imghome.png">
+  <link rel="preload" as="image" href="Images/imghome.png">
   <link rel="icon" type="image/ico" href="favicon.ico">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +18,16 @@
 
   <div class="container">
 
-    <section class="hero hero-home" aria-label="Apresentação do Carteado da Probabilidade">
+    <section class="hero hero-home">
+      <img
+        class="home-hero-bg"
+        src="Images/imghome.png"
+        alt=""
+        aria-hidden="true"
+        data-fallback="0"
+        onerror="const opcoes=['images/imghome.png','imagem/imghome.png','imagens/imghome.png','Images/imghome.jpg','Images/imghome.webp','imghome.png']; const n=Number(this.dataset.fallback||0); if(n<opcoes.length){this.dataset.fallback=n+1; this.src=opcoes[n];}else{this.classList.add('is-missing');}"
+      >
+
       <div class="hero-grid">
         <div>
           <div class="eyebrow">Jogo educativo de probabilidade</div>
