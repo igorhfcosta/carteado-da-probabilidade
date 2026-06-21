@@ -159,6 +159,279 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(footerCompactStyle);
   }
 
+  const componentsSection = document.querySelector('.components-section');
+
+  if (componentsSection) {
+    const componentStyle = document.createElement('style');
+    componentStyle.textContent = `
+      .component-card{
+        grid-template-columns:minmax(0, 1fr) 280px !important;
+        overflow:hidden !important;
+      }
+
+      .component-visual{
+        min-height:255px !important;
+      }
+
+      .card-fan{
+        width:278px !important;
+        height:250px !important;
+      }
+
+      .card-fan .fan-card{
+        width:124px !important;
+        max-height:210px !important;
+      }
+
+      .card-fan .fan-card-left{
+        transform:translateX(-45px) rotate(-14deg) !important;
+      }
+
+      .card-fan .fan-card-center{
+        transform:translateY(-8px) rotate(0deg) !important;
+      }
+
+      .card-fan .fan-card-right{
+        transform:translateX(45px) rotate(14deg) !important;
+      }
+
+      .effect-fan .fan-card-center{
+        transform:translateY(-8px) rotate(3deg) !important;
+      }
+
+      .component-card:hover .fan-card-left{
+        transform:translateX(-58px) translateY(2px) rotate(-17deg) !important;
+      }
+
+      .component-card:hover .fan-card-center{
+        transform:translateY(-16px) rotate(0deg) !important;
+      }
+
+      .component-card:hover .fan-card-right{
+        transform:translateX(58px) translateY(2px) rotate(17deg) !important;
+      }
+
+      .effect-card:hover .fan-card-center{
+        transform:translateY(-16px) rotate(3deg) !important;
+      }
+
+      .effect-list{
+        display:grid;
+        gap:10px;
+        margin-top:16px;
+        padding:0;
+        list-style:none;
+      }
+
+      .effect-list li{
+        display:grid;
+        gap:3px;
+        padding:10px 12px;
+        border:1px solid rgba(139,61,241,.16);
+        border-radius:14px;
+        background:rgba(255,255,255,.72);
+        box-shadow:0 8px 18px rgba(95,34,200,.06);
+      }
+
+      .effect-list strong{
+        color:var(--rules-purple-dark);
+        font-size:.92rem;
+        font-weight:900;
+      }
+
+      .effect-list span{
+        color:#4b3f64;
+        font-size:.88rem;
+        line-height:1.35;
+      }
+
+      .dice-item{
+        transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+        will-change:transform;
+      }
+
+      .dice-photo,
+      .dice-photo img{
+        transition:transform .22s ease, filter .22s ease, background .22s ease;
+      }
+
+      .dice-item:hover{
+        transform:translateY(-8px);
+        border-color:rgba(139,61,241,.34);
+        background:linear-gradient(180deg, #fff 0%, #f5edff 100%);
+        box-shadow:0 18px 30px rgba(95,34,200,.14);
+      }
+
+      .dice-item:hover .dice-photo{
+        transform:rotate(-4deg) scale(1.05);
+        background:rgba(168,85,247,.16);
+      }
+
+      .dice-item:hover .dice-photo img{
+        transform:translateY(-4px) rotate(7deg) scale(1.06);
+        filter:drop-shadow(0 18px 18px rgba(95,34,200,.28));
+      }
+
+      @media (max-width: 1120px){
+        .component-card{
+          grid-template-columns:minmax(0, 1fr) 260px !important;
+        }
+      }
+
+      @media (max-width: 760px){
+        .component-card{
+          grid-template-columns:1fr !important;
+        }
+
+        .component-visual{
+          min-height:232px !important;
+        }
+
+        .card-fan{
+          width:236px !important;
+          height:224px !important;
+        }
+
+        .card-fan .fan-card{
+          width:108px !important;
+          max-height:186px !important;
+        }
+
+        .card-fan .fan-card-left{
+          transform:translateX(-38px) rotate(-14deg) !important;
+        }
+
+        .card-fan .fan-card-right{
+          transform:translateX(38px) rotate(14deg) !important;
+        }
+      }
+    `;
+    document.head.appendChild(componentStyle);
+
+    const effectFan = componentsSection.querySelector('.effect-fan');
+    const effectCopy = componentsSection.querySelector('.effect-card .component-copy');
+
+    if (effectFan && effectCopy) {
+      const effects = [
+        {
+          src: 'cards/fronts/joker.png',
+          alt: 'Carta Coringa do Carteado da Probabilidade',
+          title: 'Coringa',
+          description: 'Substitui uma carta numérica e ajuda a resolver jogadas mais difíceis.'
+        },
+        {
+          src: 'cards/fronts/reroll.png',
+          alt: 'Carta de efeito Rejogar Dados',
+          title: 'Rejogar dados',
+          description: 'Permite tentar uma nova rolagem e repensar a estratégia da rodada.'
+        },
+        {
+          src: 'cards/fronts/skip.png',
+          alt: 'Carta de efeito Pular vez',
+          title: 'Pular vez',
+          description: 'Interfere na sequência da partida e muda o ritmo entre os jogadores.'
+        },
+        {
+          src: 'cards/fronts/reverse.png',
+          alt: 'Carta de efeito Inverter sentido',
+          title: 'Inverter sentido',
+          description: 'Altera a ordem da rodada e pode mudar completamente a próxima jogada.'
+        },
+        {
+          src: 'cards/fronts/swap.png',
+          alt: 'Carta de efeito Troca',
+          title: 'Troca',
+          description: 'Cria uma troca estratégica e força o jogador a revisar suas possibilidades.'
+        },
+        {
+          src: 'cards/fronts/block.png',
+          alt: 'Carta de efeito Bloqueio',
+          title: 'Bloqueio',
+          description: 'Reduz uma vantagem do adversário e protege a estratégia do jogador.'
+        },
+        {
+          src: 'cards/fronts/draw2.png',
+          alt: 'Carta de efeito Comprar cartas',
+          title: 'Comprar cartas',
+          description: 'Aumenta a pressão da rodada ao alterar a quantidade de cartas em jogo.'
+        },
+        {
+          src: 'cards/fronts/steal.png',
+          alt: 'Carta de efeito Roubar carta',
+          title: 'Roubar carta',
+          description: 'Permite interferir na mão do adversário e cria novas decisões.'
+        },
+        {
+          src: 'cards/fronts/shield.png',
+          alt: 'Carta de efeito Proteção',
+          title: 'Proteção',
+          description: 'Protege o jogador contra uma ação e mantém sua estratégia ativa.'
+        },
+        {
+          src: 'cards/fronts/pular.png',
+          alt: 'Carta de efeito Pular vez',
+          title: 'Pular vez',
+          description: 'Interfere na sequência da partida e muda o ritmo entre os jogadores.'
+        },
+        {
+          src: 'cards/fronts/inverter.png',
+          alt: 'Carta de efeito Inverter sentido',
+          title: 'Inverter sentido',
+          description: 'Altera a ordem da rodada e pode mudar completamente a próxima jogada.'
+        },
+        {
+          src: 'cards/fronts/trocar.png',
+          alt: 'Carta de efeito Troca',
+          title: 'Troca',
+          description: 'Cria uma troca estratégica e força o jogador a revisar suas possibilidades.'
+        },
+        {
+          src: 'cards/fronts/bloqueio.png',
+          alt: 'Carta de efeito Bloqueio',
+          title: 'Bloqueio',
+          description: 'Reduz uma vantagem do adversário e protege a estratégia do jogador.'
+        }
+      ];
+
+      const loadImage = (effect) => new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(effect);
+        img.onerror = () => resolve(null);
+        img.src = effect.src;
+      });
+
+      Promise.all(effects.map(loadImage)).then((results) => {
+        const availableEffects = results.filter(Boolean);
+        const selectedEffects = availableEffects.slice(0, 3);
+
+        if (selectedEffects.length >= 2) {
+          effectFan.innerHTML = '';
+
+          selectedEffects.forEach((effect, index) => {
+            const img = document.createElement('img');
+            img.className = `fan-card ${index === 0 ? 'fan-card-left' : index === 1 ? 'fan-card-center' : 'fan-card-right'}`;
+            img.src = effect.src;
+            img.alt = effect.alt;
+            effectFan.appendChild(img);
+          });
+
+          const oldList = effectCopy.querySelector('.effect-list');
+          if (oldList) oldList.remove();
+
+          const list = document.createElement('ul');
+          list.className = 'effect-list';
+          selectedEffects.forEach((effect) => {
+            const item = document.createElement('li');
+            item.innerHTML = `<strong>${effect.title}</strong><span>${effect.description}</span>`;
+            list.appendChild(item);
+          });
+
+          effectCopy.appendChild(list);
+        }
+      });
+    }
+  }
+
   const animateItems = document.querySelectorAll('.js-animate-on-scroll');
 
   if (!animateItems.length) return;
