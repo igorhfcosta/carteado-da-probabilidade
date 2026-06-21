@@ -73,15 +73,17 @@
             </div>
           </div>
 
-          <form class="contact-form" action="mailto:igorhrx@ufu.br" method="post" enctype="multipart/form-data">
+          <form class="contact-form" id="contactForm" action="https://formspree.io/f/xgojwblb" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="_subject" value="Nova mensagem pelo site Carteado da Probabilidade">
+
             <div class="field-group">
               <label for="nome">Nome completo <strong>*</strong></label>
-              <input id="nome" name="nome" type="text" placeholder="Seu nome" required>
+              <input id="nome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required>
             </div>
 
             <div class="field-group">
               <label for="email">E-mail <strong>*</strong></label>
-              <input id="email" name="email" type="email" placeholder="seu@email.com" required>
+              <input id="email" name="email" type="email" placeholder="seu@email.com" autocomplete="email" required>
             </div>
 
             <div class="field-group">
@@ -107,7 +109,7 @@
                 <input id="anexo" name="anexo" type="file" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
                 <span class="file-icon">☁</span>
                 <span>
-                  <strong>Arraste e solte seu arquivo aqui</strong>
+                  <strong id="fileDropText">Arraste e solte seu arquivo aqui</strong>
                   ou clique para selecionar
                   <small>PDF, imagens, DOCX ou outros arquivos até 10MB.</small>
                 </span>
@@ -116,7 +118,8 @@
 
             <button class="send-button" type="submit">➤ Enviar mensagem</button>
 
-            <p class="privacy-note">🔒 Seus dados serão utilizados apenas para contato relacionado ao projeto.</p>
+            <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
+            <p class="privacy-note">🔒 Seus dados serão enviados pelo Formspree e utilizados apenas para contato relacionado ao projeto.</p>
           </form>
         </article>
 
@@ -231,5 +234,57 @@
 
 <script src="menu.js"></script>
 <script src="site-animations.js"></script>
+<script>
+  const contactForm = document.getElementById('contactForm');
+  const formFeedback = document.getElementById('formFeedback');
+  const fileInput = document.getElementById('anexo');
+  const fileDropText = document.getElementById('fileDropText');
+
+  if (fileInput && fileDropText) {
+    fileInput.addEventListener('change', () => {
+      fileDropText.textContent = fileInput.files.length
+        ? fileInput.files[0].name
+        : 'Arraste e solte seu arquivo aqui';
+    });
+  }
+
+  if (contactForm && formFeedback) {
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const submitButton = contactForm.querySelector('.send-button');
+      const originalButtonText = submitButton.textContent;
+      const formData = new FormData(contactForm);
+
+      formFeedback.className = 'form-feedback is-visible';
+      formFeedback.textContent = 'Enviando sua mensagem...';
+      submitButton.disabled = true;
+      submitButton.textContent = 'Enviando...';
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          contactForm.reset();
+          fileDropText.textContent = 'Arraste e solte seu arquivo aqui';
+          formFeedback.className = 'form-feedback success is-visible';
+          formFeedback.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
+        } else {
+          throw new Error('Erro no envio');
+        }
+      } catch (error) {
+        formFeedback.className = 'form-feedback error is-visible';
+        formFeedback.textContent = 'Não foi possível enviar agora. Tente novamente ou envie um e-mail para igorhrx@ufu.br.';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    });
+  }
+</script>
 </body>
 </html>
