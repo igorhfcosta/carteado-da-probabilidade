@@ -97,22 +97,22 @@
       </div>
 
       <div class="components-layout">
-        <article class="component-card component-card-featured">
+        <article class="component-card component-card-featured numeric-card">
           <div class="component-copy">
             <span class="component-tag">Cartas</span>
             <h3>Cartas numéricas</h3>
             <p>
-              Representam os valores que podem ser descartados ao longo da partida. O jogador observa as cartas da mão,
+              As cartas numéricas variam de <strong>1 a 20</strong> e há <strong>duas cartas de cada valor</strong> no baralho.
+              Elas representam os valores que podem ser descartados ao longo da partida. O jogador observa as cartas da mão,
               escolhe os dados e tenta obter uma soma compatível com algum valor disponível.
             </p>
           </div>
           <div class="component-visual card-visual" aria-label="Exemplos de cartas numéricas">
             <div class="card-fan numeric-fan">
               <img class="fan-card fan-card-left" src="cards/fronts/number3.png" alt="Carta numérica 3 do Carteado da Probabilidade" onerror="this.hidden=true;">
-              <img class="fan-card fan-card-center" src="cards/fronts/number7.png" alt="Carta numérica 7 do Carteado da Probabilidade" onerror="this.hidden=true;">
-              <img class="fan-card fan-card-right" src="cards/fronts/number12.png" alt="Carta numérica 12 do Carteado da Probabilidade" onerror="this.hidden=true; this.closest('.component-visual').classList.add('image-fallback');">
+              <img class="fan-card fan-card-center" src="cards/fronts/number7.png" alt="Carta numérica 7 do Carteado da Probabilidade" onerror="this.hidden=true; this.closest('.component-visual').classList.add('image-fallback');">
             </div>
-            <span class="fallback-card">12</span>
+            <span class="fallback-card">7</span>
           </div>
         </article>
 
@@ -121,42 +121,41 @@
             <span class="component-tag">Efeitos</span>
             <h3>Cartas de efeito</h3>
             <p>
-              As cartas de efeito interferem no ritmo da partida e aumentam a estratégia. Elas podem ajudar o jogador,
-              atrapalhar o oponente ou mudar a decisão tomada na rodada.
+              As cartas de efeito também têm <strong>duas cópias de cada tipo</strong> no baralho. Elas interferem no ritmo da partida,
+              ajudam o jogador, atrapalham o oponente ou mudam a decisão tomada na rodada.
             </p>
 
             <div class="effect-list" aria-label="Função das cartas de efeito">
-              <article>
-                <strong>Jogar os dados novamente</strong>
-                <span>Permite realizar uma nova rolagem dos dados.</span>
+              <article class="effect-option is-active" tabindex="0" data-card="cards/fronts/reroll.png" data-alt="Carta Rolar dados novamente do Carteado da Probabilidade">
+                <strong>Rolar dados novamente</strong>
+                <span>Permite jogar os dados novamente e tentar uma nova soma.</span>
               </article>
-              <article>
+              <article class="effect-option" tabindex="0" data-card="cards/fronts/draw-number.png" data-alt="Carta Compre uma carta numérica do Carteado da Probabilidade">
                 <strong>Compre uma carta numérica</strong>
-                <span>Obriga o jogador a comprar uma carta numérica.</span>
+                <span>O jogador compra uma carta do monte de cartas numéricas.</span>
               </article>
-              <article>
+              <article class="effect-option" tabindex="0" data-card="cards/fronts/effect-trigger.png" data-alt="Carta Compre uma carta de efeito do Carteado da Probabilidade">
                 <strong>Compre uma carta de efeito</strong>
-                <span>Obriga o jogador a comprar uma carta de efeito.</span>
+                <span>O jogador compra uma carta do monte de cartas de efeito.</span>
               </article>
-              <article>
-                <strong>Bloquear oponente</strong>
-                <span>Bloqueia o próximo oponente na rodada.</span>
+              <article class="effect-option" tabindex="0" data-card="cards/fronts/block-opponent.png" data-alt="Carta Bloqueie o oponente do Carteado da Probabilidade">
+                <strong>Bloqueie o oponente</strong>
+                <span>Bloqueia o próximo oponente, impedindo sua próxima ação.</span>
               </article>
-              <article>
+              <article class="effect-option" tabindex="0" data-card="cards/fronts/lose-turn.png" data-alt="Carta Perca a vez do Carteado da Probabilidade">
                 <strong>Perca a vez</strong>
-                <span>Faz o jogador perder sua vez.</span>
+                <span>Faz o jogador perder sua vez na rodada.</span>
               </article>
-              <article>
+              <article class="effect-option" tabindex="0" data-card="cards/fronts/joker.png" data-alt="Carta Coringa do Carteado da Probabilidade">
                 <strong>Coringa</strong>
-                <span>Pode substituir uma carta numérica.</span>
+                <span>Substitui uma carta numérica e ajuda a resolver jogadas difíceis.</span>
               </article>
             </div>
           </div>
 
-          <div class="component-visual card-visual effect-visual" aria-label="Exemplos de cartas de efeito">
-            <div class="card-fan effect-fan">
-              <img class="fan-card fan-card-left" src="cards/fronts/joker.png" alt="Carta coringa do Carteado da Probabilidade" onerror="this.hidden=true;">
-              <img class="fan-card fan-card-center" src="cards/fronts/reroll.png" alt="Carta Jogar os dados novamente do Carteado da Probabilidade" onerror="this.hidden=true; this.closest('.component-visual').classList.add('image-fallback');">
+          <div class="component-visual card-visual effect-visual" aria-label="Carta de efeito selecionada">
+            <div class="single-effect-card">
+              <img id="selectedEffectCard" src="cards/fronts/reroll.png" alt="Carta Rolar dados novamente do Carteado da Probabilidade" onerror="this.hidden=true; this.closest('.component-visual').classList.add('image-fallback');">
             </div>
             <span class="fallback-card">★</span>
           </div>
@@ -434,5 +433,32 @@
 
 <script src="menu.js"></script>
 <script src="site-animations.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const effectOptions = document.querySelectorAll('.effect-option');
+    const selectedCard = document.getElementById('selectedEffectCard');
+
+    if (!effectOptions.length || !selectedCard) return;
+
+    const setActiveEffect = (option) => {
+      const cardSrc = option.dataset.card;
+      const cardAlt = option.dataset.alt || option.textContent.trim();
+
+      effectOptions.forEach((item) => item.classList.remove('is-active'));
+      option.classList.add('is-active');
+
+      selectedCard.classList.remove('is-changing');
+      void selectedCard.offsetWidth;
+      selectedCard.classList.add('is-changing');
+      selectedCard.src = cardSrc;
+      selectedCard.alt = cardAlt;
+    };
+
+    effectOptions.forEach((option) => {
+      option.addEventListener('mouseenter', () => setActiveEffect(option));
+      option.addEventListener('focus', () => setActiveEffect(option));
+    });
+  });
+</script>
 </body>
 </html>
