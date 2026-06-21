@@ -109,7 +109,9 @@
               <p class="privacy-note">Preferencialmente, envie um link do Google Drive com permissão de visualização ativada.</p>
             </div>
 
-            <button class="send-button" type="submit">➤ Enviar mensagem</button>
+            <button class="send-button" id="contactSubmit" type="submit">➤ Enviar mensagem</button>
+
+            <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
 
             <p class="privacy-note">🔒 Seus dados serão enviados pelo Formspree e utilizados apenas para contato relacionado ao projeto.</p>
           </form>
@@ -226,5 +228,45 @@
 
 <script src="menu.js"></script>
 <script src="site-animations.js"></script>
+<script>
+  const contactForm = document.getElementById('contactForm');
+  const contactSubmit = document.getElementById('contactSubmit');
+  const formFeedback = document.getElementById('formFeedback');
+
+  if (contactForm && contactSubmit && formFeedback) {
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      formFeedback.className = 'form-feedback is-visible';
+      formFeedback.textContent = 'Enviando sua mensagem...';
+      contactSubmit.disabled = true;
+      contactSubmit.textContent = 'Enviando...';
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: 'POST',
+          body: new FormData(contactForm),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Erro no envio');
+        }
+
+        contactForm.reset();
+        formFeedback.className = 'form-feedback success is-visible';
+        formFeedback.textContent = 'Mensagem enviada com sucesso! Obrigado por contribuir com o Carteado da Probabilidade.';
+      } catch (error) {
+        formFeedback.className = 'form-feedback error is-visible';
+        formFeedback.textContent = 'Não foi possível enviar agora. Confira os dados e tente novamente.';
+      } finally {
+        contactSubmit.disabled = false;
+        contactSubmit.textContent = '➤ Enviar mensagem';
+      }
+    });
+  }
+</script>
 </body>
 </html>
