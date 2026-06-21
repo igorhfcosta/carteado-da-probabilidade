@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const circumference = 2 * Math.PI * 18; // r = 18
 
   if (btn && progress) {
-    window.addEventListener("scroll", () => {
+    const updateBackToTopState = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
@@ -35,7 +35,26 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         btn.classList.remove("show");
       }
-    });
+
+      const footer = document.querySelector('.home-footer.realizacao-footer, .site-footer');
+      if (footer) {
+        const buttonRect = btn.getBoundingClientRect();
+        const footerRect = footer.getBoundingClientRect();
+        const isOverFooter =
+          buttonRect.bottom >= footerRect.top &&
+          buttonRect.top <= footerRect.bottom &&
+          buttonRect.right >= footerRect.left &&
+          buttonRect.left <= footerRect.right;
+
+        btn.classList.toggle("on-footer", isOverFooter);
+      } else {
+        btn.classList.remove("on-footer");
+      }
+    };
+
+    updateBackToTopState();
+    window.addEventListener("scroll", updateBackToTopState, { passive: true });
+    window.addEventListener("resize", updateBackToTopState);
 
     btn.addEventListener("click", () => {
       window.scrollTo({
