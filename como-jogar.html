@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="menu.css">
   <link rel="stylesheet" href="site.css">
   <link rel="stylesheet" href="como-jogar.css">
+  <link rel="stylesheet" href="como-jogar-componentes.css">
   <link rel="icon" type="image/ico" href="favicon.ico">
   <title>Como jogar - Carteado da Probabilidade</title>
 </head>
@@ -84,6 +85,90 @@
           </article>
         </div>
       </section>
+    </div>
+  </section>
+
+  <section class="components-section light-section" aria-labelledby="components-title">
+    <div class="page-shell">
+      <div class="section-heading components-heading">
+        <span class="section-kicker">Antes de começar</span>
+        <h2 id="components-title">Conheça as cartas e os dados</h2>
+        <p>O jogo combina cartas, efeitos e diferentes dados. Entender cada componente ajuda o jogador a escolher melhor suas jogadas e discutir possibilidades.</p>
+      </div>
+
+      <div class="components-layout">
+        <article class="component-card component-card-featured">
+          <div class="component-copy">
+            <span class="component-tag">Cartas</span>
+            <h3>Cartas numéricas</h3>
+            <p>
+              Representam os valores que podem ser descartados ao longo da partida. O jogador observa as cartas da mão,
+              escolhe os dados e tenta obter uma soma compatível com algum valor disponível.
+            </p>
+          </div>
+          <div class="component-visual card-visual" aria-label="Exemplo de carta numérica">
+            <img src="cards/carta-numerica.png" alt="Exemplo de carta numérica do Carteado da Probabilidade" onerror="this.hidden=true; this.parentElement.classList.add('image-fallback');">
+            <span class="fallback-card">12</span>
+          </div>
+        </article>
+
+        <article class="component-card component-card-featured effect-card">
+          <div class="component-copy">
+            <span class="component-tag">Efeitos</span>
+            <h3>Cartas de efeito</h3>
+            <p>
+              Alteram o andamento da partida e tornam o jogo mais estratégico. Elas movimentam a rodada, criam novas decisões
+              e fazem os jogadores pensarem além do simples cálculo da soma.
+            </p>
+          </div>
+          <div class="component-visual card-visual effect-visual" aria-label="Exemplo de carta de efeito">
+            <img src="cards/carta-efeito.png" alt="Exemplo de carta de efeito do Carteado da Probabilidade" onerror="this.hidden=true; this.parentElement.classList.add('image-fallback');">
+            <span class="fallback-card">★</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="dice-panel">
+        <div class="dice-intro">
+          <span class="component-tag">Dados</span>
+          <h3>Tipos de dados utilizados</h3>
+          <p>
+            Os dados possuem quantidades diferentes de faces. Isso muda as somas possíveis e permite comparar resultados mais prováveis,
+            menos prováveis, possíveis e impossíveis durante a partida.
+          </p>
+        </div>
+
+        <div class="dice-grid" aria-label="Tipos de dados do jogo">
+          <article class="dice-item">
+            <span class="dice-photo">
+              <img src="cards/dado-4.png" alt="Dado de 4 faces" onerror="this.hidden=true; this.parentElement.classList.add('dice-fallback');">
+            </span>
+            <strong>D4</strong>
+            <p>4 faces</p>
+          </article>
+          <article class="dice-item">
+            <span class="dice-photo">
+              <img src="cards/dado-6.png" alt="Dado de 6 faces" onerror="this.hidden=true; this.parentElement.classList.add('dice-fallback');">
+            </span>
+            <strong>D6</strong>
+            <p>6 faces</p>
+          </article>
+          <article class="dice-item">
+            <span class="dice-photo">
+              <img src="cards/dado-8.png" alt="Dado de 8 faces" onerror="this.hidden=true; this.parentElement.classList.add('dice-fallback');">
+            </span>
+            <strong>D8</strong>
+            <p>8 faces</p>
+          </article>
+          <article class="dice-item">
+            <span class="dice-photo">
+              <img src="cards/dado-10.png" alt="Dado de 10 faces" onerror="this.hidden=true; this.parentElement.classList.add('dice-fallback');">
+            </span>
+            <strong>D10</strong>
+            <p>10 faces</p>
+          </article>
+        </div>
+      </div>
     </div>
   </section>
 
