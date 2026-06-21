@@ -164,6 +164,70 @@
   transform:rotate(5deg);
 }
 
+.card-fan{
+  position:relative;
+  z-index:2;
+  width:230px;
+  height:238px;
+  display:grid;
+  place-items:center;
+}
+
+.card-fan .fan-card{
+  position:absolute;
+  width:132px;
+  max-height:214px;
+  border-radius:14px;
+  object-fit:contain;
+  filter:drop-shadow(0 18px 24px rgba(95,34,200,.26));
+  transform-origin:50% 92%;
+  transition:transform .22s ease, filter .22s ease;
+}
+
+.card-fan .fan-card-left{
+  transform:translateX(-42px) rotate(-15deg);
+  z-index:1;
+}
+
+.card-fan .fan-card-center{
+  transform:translateY(-10px) rotate(0deg);
+  z-index:3;
+}
+
+.card-fan .fan-card-right{
+  transform:translateX(42px) rotate(15deg);
+  z-index:2;
+}
+
+.effect-fan .fan-card-left{
+  transform:translateX(-42px) rotate(-13deg);
+}
+
+.effect-fan .fan-card-center{
+  transform:translateY(-10px) rotate(3deg);
+}
+
+.effect-fan .fan-card-right{
+  transform:translateX(42px) rotate(16deg);
+}
+
+.component-card:hover .fan-card-left{
+  transform:translateX(-54px) translateY(2px) rotate(-18deg);
+}
+
+.component-card:hover .fan-card-center{
+  transform:translateY(-16px) rotate(0deg);
+  filter:drop-shadow(0 22px 28px rgba(95,34,200,.32));
+}
+
+.component-card:hover .fan-card-right{
+  transform:translateX(54px) translateY(2px) rotate(18deg);
+}
+
+.effect-card:hover .fan-card-center{
+  transform:translateY(-16px) rotate(3deg);
+}
+
 .fallback-card{
   position:relative;
   z-index:2;
@@ -284,7 +348,25 @@
   }
 
   .component-visual{
-    min-height:190px;
+    min-height:210px;
+  }
+
+  .card-fan{
+    width:210px;
+    height:218px;
+  }
+
+  .card-fan .fan-card{
+    width:116px;
+    max-height:190px;
+  }
+
+  .card-fan .fan-card-left{
+    transform:translateX(-36px) rotate(-14deg);
+  }
+
+  .card-fan .fan-card-right{
+    transform:translateX(36px) rotate(14deg);
   }
 
   .dice-panel{
