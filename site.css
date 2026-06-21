@@ -36,8 +36,8 @@ html.js-enabled {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -51,7 +51,7 @@ html.js-enabled {
 .back-to-top::before {
   content: "";
   position: absolute;
-  inset: -7px;
+  inset: -6px;
   border-radius: 999px;
   background: rgba(255, 255, 255, .96);
   box-shadow:
@@ -75,21 +75,22 @@ html.js-enabled {
 
 .back-to-top svg {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 2px;
+  left: 2px;
   transform: rotate(-90deg);
   z-index: 1;
+  filter: drop-shadow(0 10px 18px rgba(111, 66, 232, .22));
 }
 
 .progress-bg {
-  fill: none;
-  stroke: rgba(111, 66, 232, 0.2);
+  fill: rgba(255, 255, 255, .08);
+  stroke: rgba(111, 66, 232, 0.24);
   stroke-width: 4;
 }
 
 .progress-bar {
   fill: none;
-  stroke: #6f42e8;
+  stroke: #8b3df1;
   stroke-width: 4;
   stroke-linecap: round;
   stroke-dasharray: 113; /* 2πr ≈ 113 */
@@ -101,15 +102,57 @@ html.js-enabled {
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 22px;
+  height: 22px;
   transform: translate(-50%, -50%);
-  font-size: 16px;
+  font-size: 0;
+  line-height: 1;
   color: #6f42e8;
-  font-weight: bold;
   z-index: 2;
+  transition: transform .22s ease, filter .22s ease;
+  filter: drop-shadow(0 4px 8px rgba(111, 66, 232, .24));
+}
+
+.arrow::before,
+.arrow::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  background: currentColor;
+}
+
+.arrow::before {
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-top: 4px solid currentColor;
+  border-left: 4px solid currentColor;
+  border-radius: 3px 0 0 0;
+  background: transparent;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.arrow::after {
+  top: 9px;
+  width: 4px;
+  height: 14px;
+  border-radius: 999px;
+  transform: translateX(-50%);
+}
+
+.back-to-top:hover {
+  transform: translateY(-2px);
 }
 
 .back-to-top:hover .arrow {
-  transform: translate(-50%, -60%);
+  transform: translate(-50%, -62%);
+  filter: drop-shadow(0 8px 12px rgba(111, 66, 232, .34));
+}
+
+.back-to-top:focus-visible {
+  outline: 3px solid rgba(168, 85, 247, .45);
+  outline-offset: 6px;
+  border-radius: 999px;
 }
 
 /* ===== FIM BOTÃO TOPO ===== */
