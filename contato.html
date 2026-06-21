@@ -33,96 +33,171 @@
     <div class="page-shell topic-hero-inner">
       <div class="topic-hero-copy">
         <h1>Contato</h1>
-        <p class="hero-lead">Dúvidas, sugestões e relatos de aplicação.</p>
+        <p class="hero-lead">Comunidade Carteado da Probabilidade.</p>
         <p class="hero-text">
-          Use esta página para conversar sobre o Carteado da Probabilidade, compartilhar experiências
-          de uso ou conhecer melhor os responsáveis pelo projeto.
+          Entre em contato, compartilhe experiências, envie sugestões ou tire dúvidas.
+          Sua participação fortalece o projeto.
         </p>
         <div class="page-actions hero-buttons">
-          <a class="page-btn primary" href="#canais-contato">Ver contatos</a>
+          <a class="page-btn primary" href="#formulario-contato">Enviar mensagem</a>
           <a class="page-btn secondary" href="sobre.html">Sobre o projeto</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="light-section contact-section" id="canais-contato">
+  <section class="light-section contact-form-section" id="formulario-contato">
     <div class="page-shell">
-      <div class="section-heading">
-        <h2>Canais de contato</h2>
-        <p>Entre em contato para dúvidas, sugestões, parcerias acadêmicas ou relatos de uso do material.</p>
+      <div class="contact-tabs" aria-label="Tipos de contato">
+        <a class="contact-tab active" href="#formulario-contato">
+          <span>💬</span>
+          Enviar mensagem
+        </a>
+        <a class="contact-tab" href="#colabore">
+          <span>👥</span>
+          Compartilhar aplicação
+        </a>
+        <a class="contact-tab" href="#colabore">
+          <span>💡</span>
+          Sugestões de melhoria
+        </a>
       </div>
 
-      <div class="contact-cards">
-        <article>
-          <img class="contact-person-image" src="Imagens/autor.jpeg" alt="Autor do projeto">
-          <span class="contact-role">Autor</span>
-          <h3>Igor Henrique</h3>
-          <p>Contato para dúvidas, sugestões e relatos relacionados ao Carteado da Probabilidade.</p>
-          <div class="contact-actions">
-            <a class="page-btn primary" href="mailto:igorhrx@ufu.br">Enviar e-mail</a>
-            <a class="page-btn light" target="_blank" rel="noopener noreferrer" href="http://lattes.cnpq.br/6779041899436711">Ver Lattes</a>
+      <div class="contact-grid">
+        <article class="contact-panel form-panel">
+          <div class="panel-title">
+            <span class="panel-icon">✉</span>
+            <div>
+              <h2>Envie sua mensagem</h2>
+              <p>Preencha o formulário abaixo para falar conosco. Responderemos o mais breve possível.</p>
+            </div>
           </div>
+
+          <form class="contact-form" action="mailto:igorhrx@ufu.br" method="post" enctype="multipart/form-data">
+            <div class="field-group">
+              <label for="nome">Nome completo <strong>*</strong></label>
+              <input id="nome" name="nome" type="text" placeholder="Seu nome" required>
+            </div>
+
+            <div class="field-group">
+              <label for="email">E-mail <strong>*</strong></label>
+              <input id="email" name="email" type="email" placeholder="seu@email.com" required>
+            </div>
+
+            <div class="field-group">
+              <label for="assunto">Assunto <strong>*</strong></label>
+              <select id="assunto" name="assunto" required>
+                <option value="" selected disabled>Selecione um assunto</option>
+                <option>Dúvida sobre o jogo</option>
+                <option>Relato de aplicação</option>
+                <option>Sugestão de melhoria</option>
+                <option>Parceria acadêmica</option>
+                <option>Outro assunto</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="mensagem">Mensagem <strong>*</strong></label>
+              <textarea id="mensagem" name="mensagem" rows="6" placeholder="Escreva sua mensagem aqui..." required></textarea>
+            </div>
+
+            <div class="field-group">
+              <label for="anexo">Anexar arquivo <span>(opcional)</span></label>
+              <label class="file-drop" for="anexo">
+                <input id="anexo" name="anexo" type="file" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
+                <span class="file-icon">☁</span>
+                <span>
+                  <strong>Arraste e solte seu arquivo aqui</strong>
+                  ou clique para selecionar
+                  <small>PDF, imagens, DOCX ou outros arquivos até 10MB.</small>
+                </span>
+              </label>
+            </div>
+
+            <button class="send-button" type="submit">➤ Enviar mensagem</button>
+
+            <p class="privacy-note">🔒 Seus dados serão utilizados apenas para contato relacionado ao projeto.</p>
+          </form>
         </article>
 
-        <article>
-          <img class="contact-person-image" src="Imagens/orientador.jpeg" alt="Orientador do projeto">
-          <span class="contact-role">Orientação</span>
-          <h3>Rogério Pires</h3>
-          <p>Contato acadêmico vinculado ao desenvolvimento e acompanhamento do projeto.</p>
-          <div class="contact-actions">
-            <a class="page-btn primary" href="mailto:rfpires@ufu.br">Enviar e-mail</a>
-            <a class="page-btn light" target="_blank" rel="noopener noreferrer" href="http://lattes.cnpq.br/2795801064535157">Ver Lattes</a>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
+        <aside class="contact-side">
+          <article class="contact-panel collaborate-card" id="colabore">
+            <div class="panel-title">
+              <span class="panel-icon">👥</span>
+              <div>
+                <h2>Colabore com o projeto</h2>
+                <p>O Carteado da Probabilidade é um projeto vivo. Sua contribuição ajuda a melhorar o material.</p>
+              </div>
+            </div>
 
-  <section class="dark-section">
-    <div class="page-shell">
-      <div class="section-heading dark">
-        <h2>Quando entrar em contato?</h2>
-        <p>O diálogo ajuda o projeto a circular, melhorar e alcançar novos contextos de ensino.</p>
-      </div>
+            <div class="collaborate-list">
+              <div>
+                <span>🎲</span>
+                <div>
+                  <h3>Relate aplicações</h3>
+                  <p>Conte como o jogo foi utilizado na sua sala de aula.</p>
+                </div>
+              </div>
+              <div>
+                <span>💡</span>
+                <div>
+                  <h3>Sugira melhorias</h3>
+                  <p>Envie ideias para cartas, regras, materiais ou recursos do site.</p>
+                </div>
+              </div>
+              <div>
+                <span>🧩</span>
+                <div>
+                  <h3>Envie adaptações</h3>
+                  <p>Compartilhe versões, variações ou propostas que você criou.</p>
+                </div>
+              </div>
+              <div>
+                <span>📖</span>
+                <div>
+                  <h3>Compartilhe atividades</h3>
+                  <p>Envie planos de aula ou atividades complementares.</p>
+                </div>
+              </div>
+            </div>
+          </article>
 
-      <div class="contact-reasons">
-        <article>
-          <span>1</span>
-          <h3>Dúvidas sobre o jogo</h3>
-          <p>Peça esclarecimentos sobre regras, materiais, organização da partida ou uso do jogo digital.</p>
-        </article>
-        <article>
-          <span>2</span>
-          <h3>Relatos de aplicação</h3>
-          <p>Compartilhe como o Carteado foi usado em aulas, oficinas, projetos ou formação docente.</p>
-        </article>
-        <article>
-          <span>3</span>
-          <h3>Sugestões de melhoria</h3>
-          <p>Envie observações sobre materiais, site, dinâmica do jogo ou possibilidades pedagógicas.</p>
-        </article>
-      </div>
-    </div>
-  </section>
+          <article class="contact-panel direct-card" id="canais-contato">
+            <h2>Outras formas de contato</h2>
+            <p>Prefere falar diretamente? Utilize os canais abaixo.</p>
 
-  <section class="light-section">
-    <div class="page-shell split-section">
-      <div>
-        <div class="section-heading">
-          <h2>Contato aberto para diálogo</h2>
-        </div>
-        <p>
-          O Carteado da Probabilidade cresce a partir das trocas com professores, estudantes e pesquisadores.
-          Se você aplicou o jogo, tem uma pergunta ou deseja discutir possibilidades de uso, seu retorno é bem-vindo.
-        </p>
-      </div>
-
-      <div class="check-list">
-        <span>Compartilhe experiências de sala de aula.</span>
-        <span>Envie dúvidas sobre regras e materiais.</span>
-        <span>Converse sobre oficinas e projetos.</span>
-        <span>Conheça melhor a trajetória acadêmica do jogo.</span>
+            <div class="direct-list">
+              <a href="mailto:igorhrx@ufu.br">
+                <span>✉</span>
+                <div>
+                  <strong>E-mail</strong>
+                  <small>igorhrx@ufu.br</small>
+                </div>
+              </a>
+              <a href="https://github.com/igorhfcosta" target="_blank" rel="noopener noreferrer">
+                <span>⌘</span>
+                <div>
+                  <strong>GitHub</strong>
+                  <small>github.com/igorhfcosta</small>
+                </div>
+              </a>
+              <a href="http://lattes.cnpq.br/6779041899436711" target="_blank" rel="noopener noreferrer">
+                <span>🎓</span>
+                <div>
+                  <strong>Lattes</strong>
+                  <small>Currículo acadêmico</small>
+                </div>
+              </a>
+              <div>
+                <span>🏛</span>
+                <div>
+                  <strong>Instituição</strong>
+                  <small>Universidade Federal de Uberlândia (UFU)</small>
+                </div>
+              </div>
+            </div>
+          </article>
+        </aside>
       </div>
     </div>
   </section>
