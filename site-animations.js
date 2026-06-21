@@ -16,6 +16,36 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateHeaderState, { passive: true });
   }
 
+const btn = document.getElementById("backToTop");
+const progress = document.querySelector(".progress-bar");
+
+const circumference = 2 * Math.PI * 18; // r = 18
+
+if (btn && progress) {
+  window.addEventListener("scroll", () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
+
+    const offset = circumference - scrollPercent * circumference;
+    progress.style.strokeDashoffset = offset;
+
+    if (scrollTop > 200) {
+      btn.classList.add("show");
+    } else {
+      btn.classList.remove("show");
+    }
+  });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+}
+  
+
   const animateItems = document.querySelectorAll('.js-animate-on-scroll');
 
   if (!animateItems.length) return;
@@ -36,36 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     threshold: 0.12,
     rootMargin: '0px 0px -40px 0px'
   });
-
-
-
-const btn = document.getElementById("backToTop");
-const progress = document.querySelector(".progress-bar");
-
-const circumference = 2 * Math.PI * 18; // r = 18
-
-window.addEventListener("scroll", () => {
-  const scrollTop = window.scrollY;
-  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-  const scrollPercent = scrollTop / docHeight;
-
-  const offset = circumference - scrollPercent * circumference;
-  progress.style.strokeDashoffset = offset;
-
-  if (scrollTop > 200) {
-    btn.classList.add("show");
-  } else {
-    btn.classList.remove("show");
-  }
-});
-
-btn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
-});
-  
 
   
   
