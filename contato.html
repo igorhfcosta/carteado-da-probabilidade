@@ -73,7 +73,7 @@
             </div>
           </div>
 
-          <form class="contact-form" id="contactForm" action="https://formspree.io/f/xgojwblb" method="POST">
+          <form class="contact-form" id="contactForm" action="https://formspree.io/f/xgojwblb" method="POST" accept-charset="UTF-8">
             <input type="hidden" name="_subject" value="Nova mensagem pelo site Carteado da Probabilidade">
 
             <div class="field-group">
@@ -111,7 +111,6 @@
 
             <button class="send-button" type="submit">➤ Enviar mensagem</button>
 
-            <p class="form-feedback" id="formFeedback" role="status" aria-live="polite"></p>
             <p class="privacy-note">🔒 Seus dados serão enviados pelo Formspree e utilizados apenas para contato relacionado ao projeto.</p>
           </form>
         </article>
@@ -227,46 +226,5 @@
 
 <script src="menu.js"></script>
 <script src="site-animations.js"></script>
-<script>
-  const contactForm = document.getElementById('contactForm');
-  const formFeedback = document.getElementById('formFeedback');
-
-  if (contactForm && formFeedback) {
-    contactForm.addEventListener('submit', async (event) => {
-      event.preventDefault();
-
-      const submitButton = contactForm.querySelector('.send-button');
-      const originalButtonText = submitButton.textContent;
-      const formData = new FormData(contactForm);
-
-      formFeedback.className = 'form-feedback is-visible';
-      formFeedback.textContent = 'Enviando sua mensagem...';
-      submitButton.disabled = true;
-      submitButton.textContent = 'Enviando...';
-
-      try {
-        const response = await fetch(contactForm.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          contactForm.reset();
-          formFeedback.className = 'form-feedback success is-visible';
-          formFeedback.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
-        } else {
-          throw new Error('Erro no envio');
-        }
-      } catch (error) {
-        formFeedback.className = 'form-feedback error is-visible';
-        formFeedback.textContent = 'Não foi possível enviar agora. Tente novamente ou envie um e-mail para igorhrx@ufu.br.';
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = originalButtonText;
-      }
-    });
-  }
-</script>
 </body>
 </html>
