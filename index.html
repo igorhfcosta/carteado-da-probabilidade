@@ -1,184 +1,364 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <link rel="stylesheet" href="menu.css">
   <link rel="stylesheet" href="site.css">
   <link rel="stylesheet" href="index.css">
-  <link rel="preload" as="image" href="Imagens/imghome.png">
+  <link rel="preload" as="image" href="cards/fronts/number3.png">
+  <link rel="preload" as="image" href="cards/fronts/number7.png">
+  <link rel="preload" as="image" href="cards/fronts/number12.png">
   <link rel="icon" type="image/ico" href="favicon.ico">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Carteado da Probabilidade: jogo educativo com cartas e dados para aprender probabilidade de forma estratégica, interativa e significativa." />
+  <meta name="description" content="Carteado da Probabilidade: jogo educativo com cartas e dados para aprender probabilidade por meio de estratégia, análise de possibilidades e tomada de decisão." />
   <title>Carteado da Probabilidade - Início</title>
-
-  </head>
+</head>
 <body>
+  <main class="home-page">
+    <section class="hero">
+      <header class="home-header">
+        <a class="brand" href="index.html" aria-label="Carteado da Probabilidade - Início">
+          <img src="Imagens/logo.png" alt="Carteado da Probabilidade">
+          <span>Carteado<br><small>da Probabilidade</small></span>
+        </a>
 
-  <div id="menu-container"></div>
+        <nav class="home-nav" aria-label="Navegação principal">
+          <a class="active" href="index.html" aria-current="page">Home</a>
+          <a href="como-jogar.html">Como jogar</a>
+          <a href="baixar.html">Download</a>
+          <div class="home-dropdown">
+            <button type="button">Professor <span>▾</span></button>
+            <div class="home-dropdown-menu">
+              <a href="proposta-didatica.html">Proposta Didática</a>
+              <a href="embasamento-teorico.html">Embasamento Teórico</a>
+            </div>
+          </div>
+          <a href="sobre.html">Sobre</a>
+          <a href="contato.html">Contato</a>
+        </nav>
 
-  <div class="container">
+        <div class="header-actions">
+          <a class="play-pill" href="simulador.html">Jogar agora</a>
+        </div>
 
-    <section class="hero hero-home">
-      <div class="hero-grid">
-        <div>
-          <div class="eyebrow">Jogo educativo de probabilidade</div>
-          <h1>Aprenda <span class="highlight-word">probabilidade</span> jogando.</h1>
+        <button class="home-nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="home-mobile-menu">
+          <span></span><span></span><span></span>
+        </button>
+      </header>
+
+      <div class="home-mobile-panel" id="home-mobile-menu" hidden>
+        <nav class="home-mobile-nav" aria-label="Navegação mobile">
+          <a class="active" href="index.html" aria-current="page">Home</a>
+          <a href="como-jogar.html">Como jogar</a>
+          <a href="baixar.html">Download</a>
+          <a href="proposta-didatica.html">Proposta didática</a>
+          <a href="embasamento-teorico.html">Embasamento teórico</a>
+          <a href="sobre.html">Sobre</a>
+          <a href="contato.html">Contato</a>
+          <a class="mobile-play" href="simulador.html">Jogar agora</a>
+        </nav>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-copy">
+          <h1> Probabilidade se aprende <span>jogando</span></h1>
           <p>
-            Um jogo com cartas e dados que transforma chance, escolha e estratégia em experiência real de aprendizagem.
-            Explore o simulador, baixe os materiais e descubra como aplicar a proposta em contextos educativos.
+            O Carteado da Probabilidade é um jogo educativo que combina cartas e dados para explorar
+            conceitos de probabilidade de forma prática, desafiadora e significativa.
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="simulador.html">Jogar agora</a>
-            <a class="btn btn-secondary" href="baixar.html">Baixar o jogo</a>
-            <a class="btn btn-secondary" href="como-jogar.html">Ver regras</a>
+            <a class="btn primary" href="simulador.html">Jogar agora</a>
+            <a class="btn secondary" href="baixar.html">Baixar materiais</a>
+            <a class="btn secondary" href="como-jogar.html">Conhecer regras</a>
           </div>
 
         </div>
 
-        <div class="hero-side" aria-hidden="true"></div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="card-fan">
+            <img class="hero-card card-a" src="cards/fronts/number3.png" alt="">
+            <img class="hero-card card-b" src="cards/fronts/number7.png" alt="">
+            <img class="hero-card card-c" src="cards/fronts/number12.png" alt="">
+          </div>
+          <img class="hero-die die-purple" src="dice/d10.png" alt="">
+          <img class="hero-die die-white" src="dice/d6.png" alt="">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+        </div>
+      </div>
+
+      <button class="hero-scroll-cue" type="button" aria-label="Descer para o próximo bloco">
+        <span aria-hidden="true"></span>
+      </button>
+    </section>
+
+    <section class="how-section" id="conteudo">
+      <div class="how-intro">
+        <span class="section-label">O que é?</span>
+        <h2>Um jogo de cartas e dados para explorar possibilidades.</h2>
+        <p>
+          O Carteado da Probabilidade propõe partidas em que os jogadores escolhem cartas, lançam dados
+          e analisam resultados para tomar decisões. A cada rodada, conceitos como evento, soma,
+          chance e estratégia aparecem de forma concreta.
+        </p>
+        <a class="outline-link" href="sobre.html">Saiba mais sobre o jogo →</a>
+      </div>
+
+      <div class="step-grid">
+        <article>
+          <span>1</span>
+          <h3>Escolha os dados</h3>
+          <p>Defina quais dados entram na rodada e some os resultados para buscar combinações possíveis.</p>
+        </article>
+        <article>
+          <span>2</span>
+          <h3>Descarte cartas</h3>
+          <p>Use as somas para descartar cartas numeradas e acione cartas de efeito para mudar a estratégia.</p>
+        </article>
+        <article>
+          <span>3</span>
+          <h3>Fique sem cartas</h3>
+          <p>Vence quem administra melhor as possibilidades e consegue terminar a partida sem cartas na mão.</p>
+        </article>
       </div>
     </section>
 
-    <section class="section js-animate-on-scroll">
-      <div class="section-head">
-        <h2>Escolha seu próximo passo</h2>
-        <p>
-          Os caminhos principais do projeto estão organizados aqui para deixar a navegação mais clara e mais útil.
-        </p>
+    <section class="benefits-section">
+      <div class="section-title center">
+        <span class="section-label">Por que usar este jogo?</span>
+      </div>
+
+      <div class="benefit-grid">
+        <article>
+          <span class="benefit-icon">1</span>
+          <h3>Aprendizagem ativa</h3>
+          <p>O aluno participa, testa hipóteses, observa resultados e aprende fazendo.</p>
+        </article>
+        <article>
+          <span class="benefit-icon">2</span>
+          <h3>Probabilidade na prática</h3>
+          <p>Conceitos como espaço amostral, eventos, chances e combinações fazem sentido no jogo.</p>
+        </article>
+        <article>
+          <span class="benefit-icon">3</span>
+          <h3>Estratégia e decisão</h3>
+          <p>Cada jogada envolve análise, risco, escolha e previsão de resultados.</p>
+        </article>
+        <article>
+          <span class="benefit-icon">4</span>
+          <h3>Material para professores</h3>
+          <p>Recurso pronto para aulas, oficinas, projetos, EJA, ensino médio e formação docente.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="paths-section">
+      <div class="section-title center">
+        <h2>Explore o Carteado</h2>
       </div>
 
       <div class="path-grid">
-        <a class="path-card" href="simulador.html">
-          <span class="path-tag">Experimente</span>
-          <div class="path-icon">🕹️</div>
-          <h3>Simulador</h3>
-          <p>Teste a proposta em uma versão digital e entenda a dinâmica da partida na prática.</p>
-          <span class="path-link">Abrir simulador →</span>
+        <a href="simulador.html" data-card="jogo">
+          <span class="path-icon icone-container-jogo" aria-hidden="true">
+            <video class="icone-video-jogo" muted loop playsinline preload="metadata">
+              <source src="Imagens/icones/icone1.mp4" type="video/mp4">
+            </video>
+          </span>
+          <h3>Jogo</h3>
+          <p>Jogue online e experimente.</p>
         </a>
-
-        <a class="path-card" href="como-jogar.html">
-          <span class="path-tag">Entenda</span>
-          <div class="path-icon">🎮</div>
-          <h3>Como jogar</h3>
-          <p>Veja as regras, a lógica das rodadas e os passos básicos para começar a jogar.</p>
-          <span class="path-link">Ver regras →</span>
+        <a href="como-jogar.html" data-card="regras">
+          <span class="path-icon icone-container-animado" aria-hidden="true">
+            <video class="icone-video-regras" muted loop playsinline preload="metadata">
+              <source src="Imagens/icones/icone2.mp4" type="video/mp4">
+            </video>
+          </span>
+          <h3>Regras</h3>
+          <p>Aprenda a jogar passo a passo.</p>
         </a>
-
-        <a class="path-card" href="baixar.html">
-          <span class="path-tag">Monte</span>
-          <div class="path-icon">⬇️</div>
-          <h3>Baixar arquivos</h3>
-          <p>Acesse cartas, manual, caixa e outros materiais para montar o jogo.</p>
-          <span class="path-link">Baixar materiais →</span>
+        <a href="baixar.html" data-card="downloads">
+          <span class="path-icon icone-container-animado" aria-hidden="true">
+            <video class="icone-video-downloads" muted loop playsinline preload="metadata">
+              <source src="Imagens/icones/icone3.mp4" type="video/mp4">
+            </video>
+          </span>
+          <h3>Downloads</h3>
+          <p>Baixe o jogo, fichas e materiais.</p>
         </a>
-
-        <a class="path-card" href="proposta-didatica.html">
-          <span class="path-tag">Professor</span>
-          <div class="path-icon">📚</div>
-          <h3>Proposta didática</h3>
-          <p>Explore possibilidades de aplicação pedagógica e caminhos de uso em contextos de ensino.</p>
-          <span class="path-link">Explorar proposta →</span>
+        <a href="proposta-didatica.html" data-card="proposta">
+          <span class="path-icon icone-container-animado" aria-hidden="true">
+            <video class="icone-video-proposta" muted loop playsinline preload="metadata">
+              <source src="Imagens/icones/icone4.mp4" type="video/mp4">
+            </video>
+          </span>
+          <h3>Proposta Didática</h3>
+          <p>Sugestões de atividades e planos.</p>
         </a>
-
-        <a class="path-card" href="embasamento-teorico.html">
-          <span class="path-tag">Professor</span>
-          <div class="path-icon">🧠</div>
-          <h3>Embasamento teórico</h3>
-          <p>Conheça os fundamentos que sustentam o projeto e fortalecem sua proposta educativa.</p>
-          <span class="path-link">Ler fundamentos →</span>
+        <a href="embasamento-teorico.html" data-card="embasamento">
+          <span class="path-icon icone-container-animado" aria-hidden="true">
+            <video class="icone-video-embasamento" muted loop playsinline preload="metadata">
+              <source src="Imagens/icones/icone5.mp4" type="video/mp4">
+            </video>
+          </span>
+          <h3>Embasamento Teórico</h3>
+          <p>Fundamentação matemática e pedagógica.</p>
         </a>
-
-        <a class="path-card" href="sobre.html">
-          <span class="path-tag">Projeto</span>
-          <div class="path-icon">✨</div>
-          <h3>Sobre o projeto</h3>
-          <p>Descubra a origem do jogo, seu desenvolvimento e seu vínculo acadêmico.</p>
-          <span class="path-link">Conhecer trajetória →</span>
+        <a href="sobre.html" data-card="sobre">
+          <span class="path-icon icone-container-animado" aria-hidden="true">
+            <video class="icone-video-sobre" muted loop playsinline preload="metadata">
+              <source src="Imagens/icones/icone6.mp4" type="video/mp4">
+            </video>
+          </span>
+          <h3>Sobre o Projeto</h3>
+          <p>Conheça a história e os objetivos do Carteado.</p>
         </a>
       </div>
     </section>
 
-    <section class="section js-animate-on-scroll">
-      <div class="section-head">
-        <h2>Mais do que um jogo</h2>
+    <section class="teacher-section">
+      <div class="teacher-copy">
+        <span class="section-label">Para professores</span>
+        <h2>Mais que um jogo, um aliado pedagógico.</h2>
         <p>
-          O projeto articula experiência lúdica, intenção pedagógica e aprofundamento teórico em uma mesma proposta.
+          O Carteado da Probabilidade apoia o professor no planejamento de aulas significativas,
+          promovendo raciocínio, argumentação e compreensão conceitual.
         </p>
+        <a class="outline-link" href="proposta-didatica.html">Saiba mais sobre a proposta didática →</a>
       </div>
 
-      <div class="split-section">
-        <div class="split-main">
-          <h3>Uma proposta para aproximar matemática, jogo e formação</h3>
-          <p>
-            O Carteado da Probabilidade foi desenvolvido para tornar o estudo da probabilidade mais concreto, envolvente e significativo. A ideia é colocar o jogador diante de situações em que pensar matematicamente faz diferença na própria experiência de jogar.
-          </p>
-          <p>
-            Ao mesmo tempo, o projeto se amplia para além da partida. Ele também serve como material de apoio para professores, abre espaço para discussões didáticas e se articula com uma proposta acadêmica mais ampla de ensino de matemática.
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="proposta-didatica.html">Ver páginas do professor</a>
-            <a class="btn btn-secondary" href="sobre.html">Conhecer o projeto</a>
-          </div>
+      <div class="teacher-visual" aria-hidden="true">
+        <div class="desk-scene">
+          <img src="cards/fronts/number3.png" alt="">
+          <img src="cards/fronts/number7.png" alt="">
+          <img src="cards/fronts/number12.png" alt="">
+          <img src="dice/d6.png" alt="">
         </div>
+      </div>
 
-        <aside class="split-side">
-          <div class="info-card js-animate-on-scroll">
-            <h4>Aprender jogando</h4>
-            <p>O jogo transforma o conteúdo em experiência e favorece uma relação mais ativa com a matemática.</p>
-          </div>
-
-          <div class="info-card js-animate-on-scroll">
-            <h4>Escolhas com sentido</h4>
-            <p>Os jogadores observam possibilidades, analisam resultados e tomam decisões com base em chances.</p>
-          </div>
-
-          <div class="info-card js-animate-on-scroll">
-            <h4>Aplicação em contextos educativos</h4>
-            <p>O site concentra materiais e páginas que ajudam a levar a proposta para discussões pedagógicas reais.</p>
-          </div>
-        </aside>
+      <div class="teacher-list">
+        <span>Alinhado à BNCC</span>
+        <span>Flexível e adaptável a diferentes turmas</span>
+        <span>Ideal para aulas, oficinas e projetos</span>
+        <span>Estimula discussões e argumentação</span>
       </div>
     </section>
 
-    <section class="cta-band js-animate-on-scroll">
-      <h3>Comece pelo que faz mais sentido para você</h3>
-      <p>
-        Quer experimentar a dinâmica? Vá para o simulador. Quer montar o jogo? Baixe os arquivos. Quer levar a proposta para a sala de aula? Explore as páginas voltadas ao professor.
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="simulador.html">Jogar agora</a>
-        <a class="btn btn-secondary" href="baixar.html">Baixar o jogo</a>
-        <a class="btn btn-secondary" href="contato.html">Entrar em contato</a>
-      </div>
-
-      <div class="footer-note">
-        © 2026 – Carteado da Probabilidade | Igor Henrique Ferreira da Costa. Projeto desenvolvido no Programa de Pós-Graduação em Ensino de Ciências e Matemática – UFU.
+    <section class="final-cta">
+      <div>
+        <h2>Pronto para jogar e aprender?</h2>
+        <p>Explore a versão digital ou baixe os materiais e leve o jogo para sua sala de aula.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="simulador.html">Jogar agora</a>
+          <a class="btn secondary" href="baixar.html">Baixar materiais</a>
+          <a class="btn secondary" href="como-jogar.html">Ver regras</a>
+        </div>
       </div>
     </section>
 
-  </div>
+    <footer class="home-footer">
+      <img src="Imagens/logo.png" alt="Carteado da Probabilidade">
+      <span>© 2026 Carteado da Probabilidade. Todos os direitos reservados.</span>
+      <span>Desenvolvido para educar, jogar e transformar.</span>
+    </footer>
+  </main>
 
-  <script src="menu.js"></script>
-  <button id="backToTop" class="back-to-top">
-  <svg width="44" height="44" viewBox="0 0 44 44">
-    <circle
-      class="progress-bg"
-      cx="22"
-      cy="22"
-      r="18"
-    />
-    <circle
-      class="progress-bar"
-      cx="22"
-      cy="22"
-      r="18"
-    />
-  </svg>
-  <span class="arrow">↑</span>
-</button>
+  <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo">
+    <svg width="44" height="44" viewBox="0 0 44 44">
+      <circle class="progress-bg" cx="22" cy="22" r="18" />
+      <circle class="progress-bar" cx="22" cy="22" r="18" />
+    </svg>
+    <span class="arrow">↑</span>
+  </button>
 <script src="site-animations.js"></script>
+<script>
+  const hero = document.querySelector('.hero');
+  const nextSection = document.querySelector('#conteudo');
+  const heroScrollCue = document.querySelector('.hero-scroll-cue');
+  let heroSnapRunning = false;
+  let heroTouchStartY = 0;
+  const usesDesktopSnap = () => window.matchMedia('(min-width: 769px)').matches;
+
+  const scrollToNextSection = () => {
+    if (!nextSection || heroSnapRunning) return;
+    heroSnapRunning = true;
+    nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.setTimeout(() => {
+      heroSnapRunning = false;
+    }, 900);
+  };
+
+  heroScrollCue?.addEventListener('click', scrollToNextSection);
+
+  window.addEventListener('wheel', (event) => {
+    if (!usesDesktopSnap()) return;
+    if (!hero || !nextSection || event.deltaY <= 0 || window.scrollY > 40) return;
+    event.preventDefault();
+    scrollToNextSection();
+  }, { passive: false });
+
+  window.addEventListener('touchstart', (event) => {
+    if (!usesDesktopSnap()) return;
+    heroTouchStartY = event.touches[0]?.clientY || 0;
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (event) => {
+    if (!usesDesktopSnap()) return;
+    const currentY = event.touches[0]?.clientY || 0;
+    const isSwipingDownPage = heroTouchStartY - currentY > 28;
+
+    if (!hero || !nextSection || !isSwipingDownPage || window.scrollY > 40) return;
+    event.preventDefault();
+    scrollToNextSection();
+  }, { passive: false });
+
+  document.querySelectorAll('[data-card] video').forEach((video) => {
+    const card = video.closest('[data-card]');
+
+    card.addEventListener('mouseenter', () => {
+      video.play();
+    });
+
+    card.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  });
+
+  const homeMenuToggle = document.querySelector('.home-nav-toggle');
+  const homeMobileMenu = document.querySelector('#home-mobile-menu');
+
+  homeMenuToggle?.addEventListener('click', () => {
+    const willOpen = homeMobileMenu.hidden;
+    homeMobileMenu.hidden = !willOpen;
+    homeMenuToggle.setAttribute('aria-expanded', String(willOpen));
+  });
+
+  homeMobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      homeMobileMenu.hidden = true;
+      homeMenuToggle?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (
+      homeMobileMenu &&
+      homeMenuToggle &&
+      !homeMobileMenu.hidden &&
+      !homeMobileMenu.contains(event.target) &&
+      !homeMenuToggle.contains(event.target)
+    ) {
+      homeMobileMenu.hidden = true;
+      homeMenuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 680 && homeMobileMenu && homeMenuToggle) {
+      homeMobileMenu.hidden = true;
+      homeMenuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
 </body>
 </html>
