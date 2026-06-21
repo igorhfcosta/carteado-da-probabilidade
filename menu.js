@@ -9,12 +9,10 @@ fetch("menu.html")
     const panel = document.getElementById("mobile-menu");
     const dropdown = document.querySelector(".dropdown");
     const dropdownToggle = document.querySelector(".dropdown-toggle");
-    const header = document.querySelector(".site-header");
     const pageName = document.getElementById("currentPageName");
     const compactToggle = document.getElementById("menuToggle");
     const current = window.location.pathname.split("/").pop() || "index.html";
     const path = window.location.pathname;
-    const isSimulador = window.location.pathname.includes("simulador");
 
     function closeMenu() {
       if (!panel || !toggle) return;
@@ -51,39 +49,11 @@ fetch("menu.html")
       });
     }
 
-    if (header) {
-      let compactActive = false;
-
-      // força menu compacto no simulador
-      if (isSimulador) {
-        closeMenu();
-        closeDropdown();
-        header.classList.add("compact");
-        compactActive = true;
-      }
-
-      window.addEventListener("scroll", () => {
-        if (isSimulador) return;
-
-        const shouldCompact = window.innerWidth > 900 && window.scrollY > 160;
-
-        if (shouldCompact && !compactActive) {
-          closeMenu();
-          closeDropdown();
-          header.classList.add("compact");
-          compactActive = true;
-        } else if (!shouldCompact && compactActive) {
-          header.classList.remove("compact");
-          compactActive = false;
-        }
-      });
-    }
-
     if (pageName) {
       if (current === "index.html" || current === "") pageName.textContent = "Início";
       else if (path.includes("como-jogar")) pageName.textContent = "Como jogar";
-      else if (path.includes("baixar")) pageName.textContent = "Baixar";
-      else if (path.includes("simulador")) pageName.textContent = "Simulador";
+      else if (path.includes("baixar")) pageName.textContent = "Download";
+      else if (path.includes("simulador")) pageName.textContent = "Jogo";
       else if (path.includes("proposta")) pageName.textContent = "Proposta didática";
       else if (path.includes("embasamento")) pageName.textContent = "Embasamento teórico";
       else if (path.includes("sobre")) pageName.textContent = "Sobre";
@@ -127,14 +97,12 @@ fetch("menu.html")
         closeDropdown();
       }
 
-      if (header && isSimulador && window.innerWidth > 900) {
-        header.classList.add("compact");
-      }
     });
 
-    document.querySelectorAll(".nav-link, .dropdown-item").forEach(link => {
+    document.querySelectorAll(".nav-link, .dropdown-item, .nav-play").forEach(link => {
       if (link.getAttribute("href") === current) {
         link.classList.add("active");
+        link.setAttribute("aria-current", "page");
         const parentDropdown = link.closest(".dropdown");
         if (parentDropdown) {
           const parentToggle = parentDropdown.querySelector(".dropdown-toggle");
