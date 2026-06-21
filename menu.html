@@ -1,53 +1,277 @@
-<header class="site-header"> 
-  <div class="site-header-inner">
-    <a class="brand-link" href="index.html" aria-label="Carteado da Probabilidade - Página inicial">
-      <span class="brand-mark">
-        <img src="Imagens/logo.png" alt="Carteado da Probabilidade">
-      </span>
-      <span class="brand-text">Carteado da Probabilidade</span>
-    </a>
+:root{
+  --nav-height:84px;
+}
 
-    <nav class="site-nav desktop-nav" aria-label="Navegação principal">
-      <a class="nav-link" href="index.html">Início</a>
-      <a class="nav-link" href="como-jogar.html">Como jogar</a>
-      <a class="nav-link" href="baixar.html">Baixar</a>
-      <a class="nav-link" href="simulador.html">Simulador</a>
+.site-header{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  z-index:10000;
+  padding:26px clamp(22px, 6vw, 96px) 0;
+  pointer-events:none;
+}
 
-      <div class="dropdown">
-        <button class="nav-link dropdown-toggle" type="button" aria-expanded="false">
-          Professor <span class="dropdown-arrow">▾</span>
-        </button>
+.site-header-inner{
+  width:min(1180px, 100%);
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:28px;
+  pointer-events:auto;
+}
 
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="proposta-didatica.html">Proposta didática</a>
-          <a class="dropdown-item" href="embasamento-teorico.html">Embasamento teórico</a>
-        </div>
-      </div>
+.brand-link{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex:0 0 auto;
+  color:#fff;
+  text-decoration:none;
+  font-weight:900;
+  line-height:.9;
+  text-transform:uppercase;
+  letter-spacing:.03em;
+}
 
-      <a class="nav-link" href="sobre.html">Sobre</a>
-      <a class="nav-link" href="contato.html">Contato</a>
-    </nav>
+.brand-mark{
+  width:58px;
+  height:58px;
+  display:grid;
+  place-items:center;
+}
 
-    <button class="nav-toggle" type="button" aria-label="Abrir menu">
-      <span></span><span></span><span></span>
-    </button>
+.brand-mark img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
 
-    <div class="compact-header">
-      <span id="currentPageName">Página</span>
-      <button id="menuToggle" type="button" aria-label="Abrir menu compacto">☰</button>
-    </div>
-  </div>
+.brand-text{
+  color:#fff;
+  font-size:1rem;
+}
 
-  <div class="mobile-panel" id="mobile-menu" hidden>
-    <nav class="mobile-nav" aria-label="Navegação mobile">
-      <a class="nav-link" href="index.html">Início</a>
-      <a class="nav-link" href="sobre.html">Sobre</a>
-      <a class="nav-link" href="como-jogar.html">Como jogar</a>
-      <a class="nav-link" href="baixar.html">Baixar</a>
-      <a class="nav-link" href="simulador.html">Simulador</a>
-      <a class="nav-link" href="proposta-didatica.html">Proposta didática</a>
-      <a class="nav-link" href="embasamento-teorico.html">Embasamento teórico</a>
-      <a class="nav-link" href="contato.html">Contato</a>
-    </nav>
-  </div>
-</header>
+.brand-text small{
+  font-size:.58rem;
+}
+
+.site-nav{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:clamp(18px, 2.15vw, 30px);
+  margin-left:auto;
+  color:#fff;
+  font-size:.94rem;
+  font-weight:700;
+  letter-spacing:-.01em;
+}
+
+.nav-link,
+.dropdown-toggle{
+  position:relative;
+  appearance:none;
+  border:0;
+  background:transparent;
+  padding:10px 14px;
+  border-radius:999px;
+  color:#fff;
+  text-decoration:none;
+  font:inherit;
+  font-weight:700;
+  letter-spacing:-.01em;
+  cursor:pointer;
+  opacity:.94;
+  transition:opacity .18s ease, color .18s ease, transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.nav-link:hover,
+.dropdown:hover .dropdown-toggle,
+.dropdown:focus-within .dropdown-toggle{
+  opacity:1;
+  color:#fff;
+  transform:translateY(-1px);
+}
+
+.nav-link.active,
+.dropdown-toggle.active{
+  opacity:1;
+  color:#fff;
+  background:rgba(168,85,247,.20);
+  box-shadow:inset 0 0 0 1px rgba(216,180,254,.24), 0 10px 26px rgba(76,29,149,.22);
+}
+
+.nav-link.active::after,
+.dropdown-toggle.active::after{
+  display:none;
+}
+
+.dropdown{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+.dropdown-arrow{
+  margin-left:5px;
+  font-size:.78em;
+}
+
+.dropdown-menu{
+  position:absolute;
+  top:100%;
+  left:0;
+  min-width:220px;
+  display:none;
+  flex-direction:column;
+  gap:4px;
+  padding:8px;
+  margin-top:12px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:14px;
+  background:rgba(18,0,47,.94);
+  box-shadow:0 18px 36px rgba(0,0,0,.28);
+  backdrop-filter:blur(14px);
+  z-index:20;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown.open .dropdown-menu,
+.dropdown:focus-within .dropdown-menu{
+  display:flex;
+}
+
+.dropdown-item{
+  padding:10px 12px;
+  border-radius:10px;
+  color:#fff;
+  text-decoration:none;
+  font-size:.94rem;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.dropdown-item:hover,
+.dropdown-item.active{
+  background:rgba(168,85,247,.18);
+}
+
+.nav-play{
+  min-height:46px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  padding:0 22px;
+  border-radius:999px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:800;
+  font-size:.9rem;
+  background:linear-gradient(135deg, #a855f7, #8b3df1);
+  box-shadow:0 12px 28px rgba(168,85,247,.34);
+}
+
+.nav-play.active{
+  box-shadow:0 16px 38px rgba(168,85,247,.46), inset 0 0 0 1px rgba(255,255,255,.22);
+}
+
+.nav-toggle,
+.compact-header{
+  display:none;
+}
+
+.nav-toggle{
+  width:46px;
+  height:46px;
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:12px;
+  background:rgba(255,255,255,.06);
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav-toggle span{
+  width:18px;
+  height:2px;
+  display:block;
+  border-radius:999px;
+  background:#fff;
+}
+
+.mobile-panel{
+  display:none;
+  margin-top:12px;
+  padding:12px;
+  border:1px solid rgba(216,180,254,.22);
+  border-radius:18px;
+  background:rgba(10,2,28,.94);
+  box-shadow:0 20px 44px rgba(0,0,0,.32);
+  pointer-events:auto;
+}
+
+.mobile-panel:not([hidden]){
+  display:block;
+}
+
+.mobile-nav{
+  display:grid;
+  gap:6px;
+}
+
+.mobile-nav .nav-link{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+}
+
+.mobile-nav .nav-link.active,
+.mobile-nav .nav-link:hover{
+  background:rgba(168,85,247,.18);
+}
+
+.mobile-nav .nav-link.active::after{
+  display:none;
+}
+
+.mobile-play{
+  text-align:center;
+  background:linear-gradient(135deg, #a855f7, #8b3df1) !important;
+}
+
+@media (max-width: 1020px){
+  .desktop-nav,
+  .nav-play{
+    display:none;
+  }
+
+  .nav-toggle{
+    display:inline-flex;
+    margin-left:auto;
+  }
+
+  .site-header{
+    padding:20px 16px 0;
+  }
+}
+
+@media (max-width: 560px){
+  .brand-mark{
+    width:46px;
+    height:46px;
+  }
+
+  .brand-text{
+    display:inline;
+    font-size:.9rem;
+  }
+
+  .site-header-inner{
+    gap:12px;
+  }
+}
