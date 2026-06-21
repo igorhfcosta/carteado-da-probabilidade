@@ -57,15 +57,16 @@
   display:grid;
   grid-template-columns:repeat(2, minmax(0, 1fr));
   gap:18px;
+  align-items:stretch;
 }
 
 .component-card{
   position:relative;
-  min-height:310px;
+  min-height:330px;
   display:grid;
-  grid-template-columns:1fr 210px;
+  grid-template-columns:minmax(0, 1fr) 220px;
   align-items:center;
-  gap:20px;
+  gap:22px;
   padding:30px;
   border:1px solid rgba(168,85,247,.20);
   border-radius:18px;
@@ -88,14 +89,17 @@
 }
 
 .effect-card{
+  grid-template-columns:minmax(0, 1fr) 190px;
+  align-items:start;
   background:
-    radial-gradient(circle at 100% 0%, rgba(168,85,247,.20), transparent 34%),
-    linear-gradient(135deg, #fff 0%, #f7efff 100%);
+    radial-gradient(circle at 100% 0%, rgba(168,85,247,.18), transparent 34%),
+    linear-gradient(135deg, #fff 0%, #f8f0ff 100%);
 }
 
 .component-copy{
   position:relative;
-  z-index:1;
+  z-index:2;
+  min-width:0;
 }
 
 .component-tag{
@@ -137,13 +141,14 @@
   min-height:230px;
   display:grid;
   place-items:center;
+  overflow:visible;
 }
 
 .component-visual::before{
   content:"";
   position:absolute;
-  width:165px;
-  height:165px;
+  width:170px;
+  height:170px;
   border-radius:50%;
   background:radial-gradient(circle, rgba(168,85,247,.18), transparent 70%);
   filter:blur(1px);
@@ -160,72 +165,119 @@
   transform:rotate(-5deg);
 }
 
-.effect-visual img{
-  transform:rotate(5deg);
-}
-
 .card-fan{
   position:relative;
   z-index:2;
-  width:230px;
-  height:238px;
+  width:246px;
+  height:246px;
   display:grid;
   place-items:center;
+  overflow:visible;
 }
 
 .card-fan .fan-card{
   position:absolute;
-  width:132px;
-  max-height:214px;
+  width:128px;
+  max-height:208px;
   border-radius:14px;
   object-fit:contain;
   filter:drop-shadow(0 18px 24px rgba(95,34,200,.26));
   transform-origin:50% 92%;
   transition:transform .22s ease, filter .22s ease;
+  will-change:transform;
 }
 
 .card-fan .fan-card-left{
-  transform:translateX(-42px) rotate(-15deg);
+  transform:translateX(-44px) translateY(4px) rotate(-13deg);
   z-index:1;
 }
 
 .card-fan .fan-card-center{
-  transform:translateY(-10px) rotate(0deg);
+  transform:translateY(-8px) rotate(0deg);
   z-index:3;
 }
 
 .card-fan .fan-card-right{
-  transform:translateX(42px) rotate(15deg);
+  transform:translateX(44px) translateY(4px) rotate(13deg);
   z-index:2;
 }
 
-.effect-fan .fan-card-left{
-  transform:translateX(-42px) rotate(-13deg);
-}
-
-.effect-fan .fan-card-center{
-  transform:translateY(-10px) rotate(3deg);
-}
-
-.effect-fan .fan-card-right{
-  transform:translateX(42px) rotate(16deg);
-}
-
 .component-card:hover .fan-card-left{
-  transform:translateX(-54px) translateY(2px) rotate(-18deg);
+  transform:translateX(-56px) translateY(1px) rotate(-16deg);
 }
 
 .component-card:hover .fan-card-center{
-  transform:translateY(-16px) rotate(0deg);
+  transform:translateY(-15px) rotate(0deg);
   filter:drop-shadow(0 22px 28px rgba(95,34,200,.32));
 }
 
 .component-card:hover .fan-card-right{
-  transform:translateX(54px) translateY(2px) rotate(18deg);
+  transform:translateX(56px) translateY(1px) rotate(16deg);
 }
 
-.effect-card:hover .fan-card-center{
-  transform:translateY(-16px) rotate(3deg);
+.effect-visual{
+  min-height:210px;
+  align-self:center;
+}
+
+.effect-fan{
+  width:190px;
+  height:220px;
+}
+
+.effect-fan .fan-card{
+  width:120px;
+  max-height:196px;
+}
+
+.effect-fan .fan-card-left{
+  transform:translateX(-24px) translateY(6px) rotate(-10deg);
+  z-index:1;
+}
+
+.effect-fan .fan-card-center{
+  transform:translateX(26px) translateY(-4px) rotate(8deg);
+  z-index:2;
+}
+
+.effect-card:hover .effect-fan .fan-card-left{
+  transform:translateX(-34px) translateY(2px) rotate(-13deg);
+}
+
+.effect-card:hover .effect-fan .fan-card-center{
+  transform:translateX(36px) translateY(-12px) rotate(10deg);
+  filter:drop-shadow(0 22px 28px rgba(95,34,200,.32));
+}
+
+.effect-list{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:8px;
+  margin-top:16px;
+}
+
+.effect-list article{
+  padding:10px 12px;
+  border:1px solid rgba(139,61,241,.16);
+  border-radius:12px;
+  background:rgba(255,255,255,.72);
+  box-shadow:0 10px 22px rgba(18,9,47,.04);
+}
+
+.effect-list strong{
+  display:block;
+  margin-bottom:3px;
+  color:var(--rules-purple-dark);
+  font-size:.86rem;
+  font-weight:900;
+  line-height:1.2;
+}
+
+.effect-list span{
+  display:block;
+  color:#4b3f64;
+  font-size:.82rem;
+  line-height:1.3;
 }
 
 .fallback-card{
@@ -284,6 +336,13 @@
   border-radius:14px;
   text-align:center;
   background:linear-gradient(180deg, #fbf8ff 0%, #fff 100%);
+  transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+
+.dice-item:hover{
+  transform:translateY(-6px);
+  border-color:rgba(139,61,241,.36);
+  box-shadow:0 18px 30px rgba(95,34,200,.13);
 }
 
 .dice-photo{
@@ -294,6 +353,7 @@
   margin-bottom:12px;
   border-radius:22px;
   background:rgba(168,85,247,.10);
+  transition:transform .22s ease, background .22s ease;
 }
 
 .dice-photo img{
@@ -302,6 +362,17 @@
   display:block;
   object-fit:contain;
   filter:drop-shadow(0 12px 16px rgba(95,34,200,.20));
+  transition:transform .22s ease, filter .22s ease;
+}
+
+.dice-item:hover .dice-photo{
+  transform:rotate(-4deg) scale(1.04);
+  background:rgba(168,85,247,.14);
+}
+
+.dice-item:hover .dice-photo img{
+  transform:translateY(-4px) rotate(7deg);
+  filter:drop-shadow(0 16px 18px rgba(95,34,200,.28));
 }
 
 .dice-photo.dice-fallback::before{
@@ -331,8 +402,27 @@
     grid-template-columns:1fr;
   }
 
+  .effect-card{
+    grid-template-columns:minmax(0, 1fr) 210px;
+  }
+
   .dice-grid{
     grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px){
+  .effect-card{
+    grid-template-columns:1fr;
+  }
+
+  .effect-visual{
+    order:-1;
+    min-height:190px;
+  }
+
+  .effect-list{
+    grid-template-columns:1fr;
   }
 }
 
@@ -352,8 +442,8 @@
   }
 
   .card-fan{
-    width:210px;
-    height:218px;
+    width:214px;
+    height:222px;
   }
 
   .card-fan .fan-card{
@@ -362,11 +452,20 @@
   }
 
   .card-fan .fan-card-left{
-    transform:translateX(-36px) rotate(-14deg);
+    transform:translateX(-36px) rotate(-12deg);
   }
 
   .card-fan .fan-card-right{
-    transform:translateX(36px) rotate(14deg);
+    transform:translateX(36px) rotate(12deg);
+  }
+
+  .effect-fan{
+    width:190px;
+    height:208px;
+  }
+
+  .effect-fan .fan-card{
+    width:112px;
   }
 
   .dice-panel{
