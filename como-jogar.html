@@ -1,178 +1,302 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <link rel="stylesheet" href="menu.css">
-  <link rel="stylesheet" href="site.css">
-  <link rel="stylesheet" href="content-pages.css">
-  <link rel="icon" type="image/ico" href="favicon.ico">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Como Jogar - Carteado da Probabilidade</title>
+  <meta name="description" content="Aprenda como jogar o Carteado da Probabilidade: regras rápidas, passo a passo da jogada e estratégias para usar cartas e dados." />
+  <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="como-jogar.css">
+  <link rel="icon" type="image/ico" href="favicon.ico">
+  <title>Como jogar - Carteado da Probabilidade</title>
 </head>
 
-<body class="content-page">
-
+<body class="rules-page">
 <div id="menu-container"></div>
 
-<div class="container">
-
-  <section class="hero">
-    <div class="eyebrow">Como jogar</div>
-    <h1>Aprenda as regras e entre na partida</h1>
-    <p>
-      No Carteado da Probabilidade, cada jogada envolve escolha, sorte e estratégia.
-      O objetivo é usar bem sua mão, escolher os dados com intenção e descartar todas as cartas antes dos demais jogadores.
-    </p>
-
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="simulador.html">Ir para o simulador</a>
-    </div>
-  </section>
-
-  <section class="section js-animate-on-scroll">
-    <div class="section-head">
-      <h2>Visão geral da partida</h2>
-      <p>Antes de começar, confira os elementos centrais do jogo.</p>
+<main>
+  <section class="rules-hero">
+    <div class="rules-hero-bg" aria-hidden="true">
+      <span class="formula f1">P(A) = n(A) / n(S)</span>
+      <span class="formula f2">P(A U B) = P(A) + P(B) - P(A n B)</span>
+      <span class="formula f3">P(A | B) = P(A n B) / P(B)</span>
+      <span class="formula f4">C(n,k) = n! / k!(n-k)!</span>
+      <span class="math-shape bars"></span>
+      <span class="math-shape venn"></span>
+      <span class="math-shape distribution"></span>
+      <span class="math-shape probability-tree"></span>
+      <span class="math-shape sample-space"></span>
+      <span class="math-shape percent">%</span>
     </div>
 
-    <div class="stats-grid">
-      <div class="stat-card js-animate-on-scroll">
-        <div class="stat-icon">👥</div>
-        <h3>Jogadores</h3>
-        <p>De 2 a 4 participantes.</p>
-      </div>
-
-      <div class="stat-card js-animate-on-scroll">
-        <div class="stat-icon">🃏</div>
-        <h3>Baralho</h3>
-        <p>1 baralho com 42 cartas numéricas e coringas.</p>
-      </div>
-
-      <div class="stat-card js-animate-on-scroll">
-        <div class="stat-icon">🎲</div>
-        <h3>Dados</h3>
-        <p>Use os dados d4, d6, d8 e d10 para formar somas.</p>
-      </div>
-
-      <div class="stat-card js-animate-on-scroll">
-        <div class="stat-icon">🏆</div>
-        <h3>Objetivo</h3>
-        <p>Vence quem descartar todas as cartas primeiro.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section js-animate-on-scroll" id="regras">
-    <div class="section-head">
-      <h2>Regras rápidas</h2>
-      <p>Aqui está o essencial para organizar a partida sem enrolação.</p>
-    </div>
-
-    <div class="rules-grid">
-      <article class="rule-card js-animate-on-scroll">
-        <div class="rule-label">Preparação</div>
-        <h3>Distribuição inicial</h3>
-        <p>Cada jogador recebe 7 cartas. As restantes ficam em um monte de compra, viradas para baixo.</p>
-      </article>
-
-      <article class="rule-card js-animate-on-scroll">
-        <div class="rule-label">Turno</div>
-        <h3>Início da rodada</h3>
-        <p>No começo da vez, o jogador compra 1 carta e depois precisa descartar 1 carta da mão.</p>
-      </article>
-
-      <article class="rule-card js-animate-on-scroll">
-        <div class="rule-label">Dados</div>
-        <h3>Jogada principal</h3>
-        <p>Depois do descarte, o jogador escolhe 2 dados, lança ambos e soma os resultados.</p>
-      </article>
-
-      <article class="rule-card js-animate-on-scroll">
-        <div class="rule-label">Descarte</div>
-        <h3>Carta da soma</h3>
-        <p>Se tiver na mão a carta correspondente à soma obtida, pode descartá-la.</p>
-      </article>
-
-      <article class="rule-card js-animate-on-scroll">
-        <div class="rule-label">Coringa</div>
-        <h3>Substituição</h3>
-        <p>O coringa substitui qualquer número e pode ser usado no lugar da carta correspondente.</p>
-      </article>
-
-      <article class="rule-card js-animate-on-scroll">
-        <div class="rule-label">Encerramento</div>
-        <h3>Fim da vez</h3>
-        <p>Se não houver carta correspondente à soma e nenhum coringa disponível, o turno termina.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section js-animate-on-scroll">
-    <div class="section-head">
-      <h2>Passo a passo da jogada</h2>
-      <p>Esta é a sequência de ações em cada turno.</p>
-    </div>
-
-    <div class="play-layout">
-      <div class="steps js-animate-on-scroll">
-        <div class="step"><div class="step-number">1</div><div><h4>Compre uma carta</h4><p>Comece sua vez comprando 1 carta do monte.</p></div></div>
-        <div class="step"><div class="step-number">2</div><div><h4>Descarte uma carta</h4><p>Escolha 1 carta para sair da sua mão.</p></div></div>
-        <div class="step"><div class="step-number">3</div><div><h4>Escolha dois dados</h4><p>Selecione dois entre os dados disponíveis.</p></div></div>
-        <div class="step"><div class="step-number">4</div><div><h4>Role os dados</h4><p>Lance os dois dados escolhidos.</p></div></div>
-        <div class="step"><div class="step-number">5</div><div><h4>Some os resultados</h4><p>Faça a soma dos números sorteados.</p></div></div>
-        <div class="step"><div class="step-number">6</div><div><h4>Verifique sua mão</h4><p>Se tiver a carta correspondente, descarte.</p></div></div>
-        <div class="step"><div class="step-number">7</div><div><h4>Passe a vez</h4><p>Se não puder jogar, finalize o turno.</p></div></div>
-      </div>
-
-      <aside class="side-panel">
-        <div class="info-card js-animate-on-scroll">
-          <h4>Leitura rápida da lógica</h4>
-          <p>O jogo mistura compra, descarte e escolha de dados.</p>
+    <div class="rules-hero-inner">
+      <div class="rules-hero-copy">
+        <h1>Como jogar</h1>
+        <p class="hero-lead">Aprenda as regras e entre na partida.</p>
+        <p class="hero-text">
+          Carteado da Probabilidade combina escolha, sorte, estratégia e análise de possibilidades
+          em um jogo dinâmico, envolvente e educativo.
+        </p>
+        <div class="rules-actions">
+          <a class="rules-btn primary" href="simulador.html">Ir para o jogo</a>
+          <a class="rules-btn secondary" href="baixar.html">Baixar arquivos do jogo</a>
         </div>
+      </div>
 
-        <div class="info-card js-animate-on-scroll">
-          <h4>Dica importante</h4>
-          <p>A escolha dos dados faz diferença nas probabilidades.</p>
+      <section class="overview-panel" aria-labelledby="overview-title">
+        <h2 id="overview-title">Visão geral da partida</h2>
+        <div class="overview-grid">
+          <article>
+            <span class="overview-icon">
+              <img src="Imagens/imagem1.png" alt="" aria-hidden="true">
+            </span>
+            <div>
+              <h3>Jogadores</h3>
+              <p>2 a 4 participantes</p>
+            </div>
+          </article>
+          <article>
+            <span class="overview-icon">
+              <img src="Imagens/imagem2.png" alt="" aria-hidden="true">
+            </span>
+            <div>
+              <h3>Baralho</h3>
+              <p>42 cartas numéricas e coringas</p>
+            </div>
+          </article>
+          <article>
+            <span class="overview-icon">
+              <img src="Imagens/imagem3.png" alt="" aria-hidden="true">
+            </span>
+            <div>
+              <h3>Dados</h3>
+              <p>d4, d6, d8 e d10</p>
+            </div>
+          </article>
+          <article>
+            <span class="overview-icon">
+              <img src="Imagens/imagem4.png" alt="" aria-hidden="true">
+            </span>
+            <div>
+              <h3>Objetivo</h3>
+              <p>Descartar todas as cartas primeiro</p>
+            </div>
+          </article>
         </div>
-
-        <div class="info-card js-animate-on-scroll">
-          <h4>Pensamento probabilístico</h4>
-          <p>Decisões são baseadas em chances reais.</p>
-        </div>
-      </aside>
+      </section>
     </div>
   </section>
 
-  <section class="footer-cta js-animate-on-scroll">
-    <h3>Pronto para jogar?</h3>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="simulador.html">Ir para o simulador</a>
-      <a class="btn btn-secondary" href="baixar.html">Baixar arquivos do jogo</a>
+  <section class="quick-rules light-section">
+    <div class="page-shell">
+      <div class="section-heading">
+        <h2>Regras rápidas</h2>
+      </div>
+
+      <div class="quick-grid">
+        <article>
+          <span class="rule-icon">
+            <img src="Imagens/imagem5.png" alt="" aria-hidden="true">
+          </span>
+          <span class="rule-number">1</span>
+          <h3>Preparação</h3>
+          <p>Separe as cartas, os dados e embaralhe as cartas.</p>
+        </article>
+        <article>
+          <span class="rule-icon">
+            <img src="Imagens/imagem6.png" alt="" aria-hidden="true">
+          </span>
+          <span class="rule-number">2</span>
+          <h3>Distribuição inicial</h3>
+          <p>Cada jogador recebe 7 cartas.</p>
+        </article>
+        <article>
+          <span class="rule-icon">
+            <img src="Imagens/imagem7.png" alt="" aria-hidden="true">
+          </span>
+          <span class="rule-number">3</span>
+          <h3>Início da rodada</h3>
+          <p>O jogador da vez compra 1 carta do monte de compra.</p>
+        </article>
+        <article>
+          <span class="rule-icon">
+            <img src="Imagens/imagem8.png" alt="" aria-hidden="true">
+          </span>
+          <span class="rule-number">4</span>
+          <h3>Jogada principal</h3>
+          <p>Descarta 1 carta da mão para formar combinações.</p>
+        </article>
+        <article>
+          <span class="rule-icon">
+            <img src="Imagens/imagem9.png" alt="" aria-hidden="true">
+          </span>
+          <span class="rule-number">5</span>
+          <h3>Carta da soma</h3>
+          <p>Use os dados para alcançar o valor da carta da soma.</p>
+        </article>
+        <article>
+          <span class="rule-icon">
+            <img src="Imagens/imagem10.png" alt="" aria-hidden="true">
+          </span>
+          <span class="rule-number">6</span>
+          <h3>Coringa</h3>
+          <p>Pode substituir qualquer número quando necessário.</p>
+        </article>
+        <article>
+          <span class="rule-icon">
+            <img src="Imagens/imagem11.png" alt="" aria-hidden="true">
+          </span>
+          <span class="rule-number">7</span>
+          <h3>Fim da vez</h3>
+          <p>Com a jogada inválida, o próximo jogador começa.</p>
+        </article>
+      </div>
     </div>
   </section>
 
-</div>
+  <section class="turn-section">
+    <div class="page-shell">
+      <div class="section-heading dark">
+        <h2>Passo a passo da jogada</h2>
+      </div>
 
-<button id="backToTop" class="back-to-top">
+      <div class="turn-grid">
+        <article>
+          <span class="turn-number">1</span>
+          <span class="turn-icon">
+            <img src="Imagens/imagem12.png" alt="" aria-hidden="true">
+          </span>
+          <h3>Compre uma carta</h3>
+          <p>Compre 1 carta do monte de compra para sua mão.</p>
+        </article>
+        <article>
+          <span class="turn-number">2</span>
+          <span class="turn-icon">
+            <img src="Imagens/imagem13.png" alt="" aria-hidden="true">
+          </span>
+          <h3>Descarte uma carta</h3>
+          <p>Escolha 1 carta da mão e descarte na área central.</p>
+        </article>
+        <article>
+          <span class="turn-number">3</span>
+          <span class="turn-icon">
+            <img src="Imagens/imagem14.png" alt="" aria-hidden="true">
+          </span>
+          <h3>Escolha os dados</h3>
+          <p>Escolha 2, 3 ou 4 dados disponíveis para a rodada.</p>
+        </article>
+        <article>
+          <span class="turn-number">4</span>
+          <span class="turn-icon">
+            <img src="Imagens/imagem15.png" alt="" aria-hidden="true">
+          </span>
+          <h3>Role os dados</h3>
+          <p>Role os dados escolhidos.</p>
+        </article>
+        <article>
+          <span class="turn-number">5</span>
+          <span class="turn-icon">
+            <img src="Imagens/imagem16.png" alt="" aria-hidden="true">
+          </span>
+          <h3>Some os resultados</h3>
+          <p>Some os valores obtidos nos dados rolados.</p>
+        </article>
+        <article>
+          <span class="turn-number">6</span>
+          <span class="turn-icon">
+            <img src="Imagens/imagem17.png" alt="" aria-hidden="true">
+          </span>
+          <h3>Verifique sua mão</h3>
+          <p>Se o total corresponder à carta da soma, continue.</p>
+        </article>
+        <article>
+          <span class="turn-number">7</span>
+          <span class="turn-icon">
+            <img src="Imagens/imagem18.png" alt="" aria-hidden="true">
+          </span>
+          <h3>Passe a vez</h3>
+          <p>Encerrada a jogada, a vez passa para o próximo jogador.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="strategy-section light-section">
+    <div class="page-shell">
+      <div class="section-heading">
+        <h2>Estratégia no jogo</h2>
+      </div>
+
+      <div class="strategy-grid">
+        <article>
+          <span class="strategy-icon">
+            <img src="Imagens/imagem19.png" alt="" aria-hidden="true">
+          </span>
+          <div>
+            <h3>Escolha os dados com intenção</h3>
+            <p>Avalie os números que precisa e selecione os dados que oferecem mais combinações possíveis.</p>
+          </div>
+        </article>
+        <article>
+          <span class="strategy-icon">
+            <img src="Imagens/imagem20.png" alt="" aria-hidden="true">
+          </span>
+          <div>
+            <h3>Use o coringa no momento certo</h3>
+            <p>Guarde o coringa para cartas difíceis ou para completar combinações estratégicas.</p>
+          </div>
+        </article>
+        <article>
+          <span class="strategy-icon">
+            <img src="Imagens/imagem21.png" alt="" aria-hidden="true">
+          </span>
+          <div>
+            <h3>Observe padrões</h3>
+            <p>Acompanhe as cartas descartadas e antecipe as escolhas dos adversários.</p>
+          </div>
+        </article>
+        <article>
+          <span class="strategy-icon">
+            <img src="Imagens/imagem22.png" alt="" aria-hidden="true">
+          </span>
+          <div>
+            <h3>Pensamento probabilístico</h3>
+            <p>Considere as chances e tome decisões com base em probabilidade e análise de risco.</p>
+          </div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div>
+      <h2>Pronto para jogar e aprender?</h2>
+      <p>Explore a versão digital ou baixe os materiais e leve o jogo para sua sala de aula.</p>
+      <div class="rules-actions">
+        <a class="rules-btn primary" href="simulador.html">Jogar agora</a>
+        <a class="rules-btn secondary" href="baixar.html">Baixar materiais</a>
+        <a class="rules-btn secondary" href="proposta-didatica.html">Proposta didática</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="home-footer">
+    <img src="Imagens/logo.png" alt="Carteado da Probabilidade">
+    <span>© 2026 Carteado da Probabilidade. Todos os direitos reservados.</span>
+    <span>Desenvolvido para educar, jogar e transformar.</span>
+  </footer>
+</main>
+
+<button id="backToTop" class="back-to-top" aria-label="Voltar ao topo">
   <svg width="44" height="44" viewBox="0 0 44 44">
-    <circle
-      class="progress-bg"
-      cx="22"
-      cy="22"
-      r="18"
-    />
-    <circle
-      class="progress-bar"
-      cx="22"
-      cy="22"
-      r="18"
-    />
+    <circle class="progress-bg" cx="22" cy="22" r="18" />
+    <circle class="progress-bar" cx="22" cy="22" r="18" />
   </svg>
   <span class="arrow">↑</span>
 </button>
-  
+
 <script src="menu.js"></script>
 <script src="site-animations.js"></script>
-
 </body>
 </html>
