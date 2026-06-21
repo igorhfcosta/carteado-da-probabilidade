@@ -73,7 +73,7 @@
             </div>
           </div>
 
-          <form class="contact-form" id="contactForm" action="https://formspree.io/f/xgojwblb" method="POST" enctype="multipart/form-data">
+          <form class="contact-form" id="contactForm" action="https://formspree.io/f/xgojwblb" method="POST">
             <input type="hidden" name="_subject" value="Nova mensagem pelo site Carteado da Probabilidade">
 
             <div class="field-group">
@@ -104,16 +104,9 @@
             </div>
 
             <div class="field-group">
-              <label for="anexo">Anexar arquivo <span>(opcional)</span></label>
-              <label class="file-drop" for="anexo">
-                <input id="anexo" name="anexo" type="file" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx">
-                <span class="file-icon">☁</span>
-                <span>
-                  <strong id="fileDropText">Arraste e solte seu arquivo aqui</strong>
-                  ou clique para selecionar
-                  <small>PDF, imagens, DOCX ou outros arquivos até 10MB.</small>
-                </span>
-              </label>
+              <label for="link-anexos">Link dos anexos <span>(opcional)</span></label>
+              <input id="link-anexos" name="link_anexos" type="url" placeholder="Cole aqui um link do Google Drive, OneDrive ou Dropbox">
+              <p class="privacy-note">Preferencialmente, envie um link do Google Drive com permissão de visualização ativada.</p>
             </div>
 
             <button class="send-button" type="submit">➤ Enviar mensagem</button>
@@ -237,16 +230,6 @@
 <script>
   const contactForm = document.getElementById('contactForm');
   const formFeedback = document.getElementById('formFeedback');
-  const fileInput = document.getElementById('anexo');
-  const fileDropText = document.getElementById('fileDropText');
-
-  if (fileInput && fileDropText) {
-    fileInput.addEventListener('change', () => {
-      fileDropText.textContent = fileInput.files.length
-        ? fileInput.files[0].name
-        : 'Arraste e solte seu arquivo aqui';
-    });
-  }
 
   if (contactForm && formFeedback) {
     contactForm.addEventListener('submit', async (event) => {
@@ -270,7 +253,6 @@
 
         if (response.ok) {
           contactForm.reset();
-          fileDropText.textContent = 'Arraste e solte seu arquivo aqui';
           formFeedback.className = 'form-feedback success is-visible';
           formFeedback.textContent = 'Mensagem enviada com sucesso! Em breve entraremos em contato.';
         } else {
