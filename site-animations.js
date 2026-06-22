@@ -89,6 +89,250 @@ document.addEventListener('DOMContentLoaded', () => {
     homeRealizacaoFooter.querySelectorAll('.footer-dice, .footer-card').forEach((item) => item.remove());
   }
 
+  const homePage = document.querySelector('.home-page');
+
+  if (homePage && homeRealizacaoFooter && !document.querySelector('.home-faq-section')) {
+    const faqStyle = document.createElement('style');
+    faqStyle.textContent = `
+      .home-faq-section{
+        position:relative;
+        width:100%;
+        max-width:none;
+        padding:72px max(22px, calc((100vw - 1180px) / 2)) 76px;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(168,85,247,.14), transparent 26%),
+          radial-gradient(circle at 88% 76%, rgba(139,61,241,.16), transparent 28%),
+          linear-gradient(180deg, #fff 0%, #fbf8ff 100%);
+        overflow:hidden;
+      }
+
+      .home-faq-section::before,
+      .home-faq-section::after{
+        content:"";
+        position:absolute;
+        width:280px;
+        height:96px;
+        border:2px dashed rgba(168,85,247,.18);
+        border-radius:50%;
+        pointer-events:none;
+      }
+
+      .home-faq-section::before{ left:-96px; top:72px; transform:rotate(18deg); }
+      .home-faq-section::after{ right:-82px; bottom:62px; transform:rotate(-14deg); }
+
+      .home-faq-inner{
+        position:relative;
+        z-index:1;
+        width:min(1180px, 100%);
+        margin:0 auto;
+        display:grid;
+        grid-template-columns:minmax(260px, .82fr) minmax(0, 1.18fr);
+        gap:42px;
+        align-items:start;
+      }
+
+      .home-faq-copy .section-label{
+        color:var(--purple-700);
+      }
+
+      .home-faq-copy h2{
+        color:var(--ink);
+        font-size:clamp(2rem, 3.4vw, 3.25rem);
+        line-height:1.06;
+        letter-spacing:-.045em;
+      }
+
+      .home-faq-copy h2 span{
+        color:var(--purple-600);
+      }
+
+      .home-faq-copy p{
+        max-width:420px;
+        margin-top:16px;
+        color:var(--muted);
+        font-size:1rem;
+      }
+
+      .home-faq-badge{
+        width:78px;
+        height:78px;
+        margin-top:26px;
+        display:grid;
+        place-items:center;
+        border-radius:24px;
+        color:#fff;
+        font-size:2rem;
+        font-weight:950;
+        background:linear-gradient(135deg, #a855f7, #5f22c8);
+        box-shadow:0 18px 34px rgba(95,34,200,.22);
+        transform:rotate(-5deg);
+      }
+
+      .home-faq-list{
+        display:grid;
+        gap:14px;
+      }
+
+      .home-faq-item{
+        position:relative;
+        border:1px solid rgba(168,85,247,.22);
+        border-radius:18px;
+        background:rgba(255,255,255,.86);
+        box-shadow:0 14px 30px rgba(35,11,80,.08);
+        overflow:hidden;
+        transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+      }
+
+      .home-faq-item:hover{
+        transform:translateY(-3px);
+        border-color:rgba(139,61,241,.42);
+        box-shadow:0 20px 38px rgba(95,34,200,.13);
+      }
+
+      .home-faq-item[open]{
+        border-color:rgba(139,61,241,.52);
+        background:linear-gradient(180deg, #fff 0%, #f6efff 100%);
+      }
+
+      .home-faq-item summary{
+        list-style:none;
+        min-height:68px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:18px;
+        padding:18px 22px;
+        color:var(--ink);
+        font-size:1rem;
+        font-weight:900;
+        cursor:pointer;
+      }
+
+      .home-faq-item summary::-webkit-details-marker{ display:none; }
+
+      .home-faq-item summary::after{
+        content:"+";
+        width:34px;
+        height:34px;
+        flex:0 0 34px;
+        display:grid;
+        place-items:center;
+        border-radius:50%;
+        color:#fff;
+        font-size:1.35rem;
+        line-height:1;
+        background:linear-gradient(135deg, #a855f7, #5f22c8);
+        box-shadow:0 10px 18px rgba(95,34,200,.18);
+        transition:transform .2s ease;
+      }
+
+      .home-faq-item[open] summary::after{
+        content:"−";
+        transform:rotate(180deg);
+      }
+
+      .home-faq-answer{
+        padding:0 22px 22px;
+        color:var(--muted);
+        font-size:.96rem;
+        line-height:1.65;
+      }
+
+      .home-faq-answer strong{
+        color:var(--purple-700);
+      }
+
+      @media (max-width: 980px){
+        .home-faq-inner{
+          grid-template-columns:1fr;
+          gap:28px;
+        }
+
+        .home-faq-copy p{
+          max-width:680px;
+        }
+      }
+
+      @media (max-width: 680px){
+        .home-faq-section{
+          padding:52px 18px 56px;
+        }
+
+        .home-faq-badge{
+          width:62px;
+          height:62px;
+          border-radius:18px;
+          font-size:1.55rem;
+        }
+
+        .home-faq-item summary{
+          align-items:flex-start;
+          min-height:auto;
+          padding:16px 16px;
+          font-size:.95rem;
+        }
+
+        .home-faq-answer{
+          padding:0 16px 18px;
+          font-size:.9rem;
+        }
+      }
+    `;
+    document.head.appendChild(faqStyle);
+
+    const faqSection = document.createElement('section');
+    faqSection.className = 'home-faq-section';
+    faqSection.setAttribute('aria-labelledby', 'home-faq-title');
+    faqSection.innerHTML = `
+      <div class="home-faq-inner">
+        <div class="home-faq-copy">
+          <span class="section-label">Perguntas frequentes</span>
+          <h2 id="home-faq-title">Dúvidas rápidas sobre o <span>Carteado</span>.</h2>
+          <p>Respostas diretas para quem quer conhecer, baixar, imprimir ou aplicar o jogo em sala de aula.</p>
+          <div class="home-faq-badge" aria-hidden="true">?</div>
+        </div>
+
+        <div class="home-faq-list">
+          <details class="home-faq-item" open>
+            <summary>O jogo é gratuito?</summary>
+            <div class="home-faq-answer">Sim. O material foi pensado como um <strong>recurso educacional</strong> para apoiar aulas, oficinas e projetos envolvendo probabilidade.</div>
+          </details>
+          <details class="home-faq-item">
+            <summary>Para qual público o jogo é indicado?</summary>
+            <div class="home-faq-answer">Ele pode ser usado principalmente com estudantes dos anos finais do Ensino Fundamental, Ensino Médio, EJA e também em contextos de formação de professores.</div>
+          </details>
+          <details class="home-faq-item">
+            <summary>Preciso imprimir todos os materiais?</summary>
+            <div class="home-faq-answer">Para jogar a versão física, o ideal é imprimir as cartas, os dados planificados e o manual. A página de downloads reúne os arquivos necessários.</div>
+          </details>
+          <details class="home-faq-item">
+            <summary>Posso adaptar as regras para minha turma?</summary>
+            <div class="home-faq-answer">Pode. O jogo foi pensado para permitir mediação docente. O professor pode ajustar o tempo, a quantidade de rodadas e o foco da discussão matemática.</div>
+          </details>
+          <details class="home-faq-item">
+            <summary>Existe uma versão digital?</summary>
+            <div class="home-faq-answer">Sim. O site possui uma área para jogar/simular, pensada para experimentar possibilidades e apoiar o uso do jogo também no ambiente digital.</div>
+          </details>
+          <details class="home-faq-item">
+            <summary>Como posso enviar sugestões ou relatos de uso?</summary>
+            <div class="home-faq-answer">Use a página de contato para enviar mensagens, sugestões, links de materiais ou relatos de aplicação. Isso ajuda a aprimorar o projeto.</div>
+          </details>
+        </div>
+      </div>
+    `;
+
+    faqSection.querySelectorAll('.home-faq-item').forEach((item) => {
+      item.addEventListener('toggle', () => {
+        if (!item.open) return;
+        faqSection.querySelectorAll('.home-faq-item').forEach((otherItem) => {
+          if (otherItem !== item) otherItem.open = false;
+        });
+      });
+    });
+
+    homeRealizacaoFooter.insertAdjacentElement('beforebegin', faqSection);
+  }
+
   const componentsSection = document.querySelector('.components-section');
 
   if (componentsSection) {
