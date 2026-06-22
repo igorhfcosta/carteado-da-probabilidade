@@ -4,14 +4,28 @@
   if (!document.querySelector('link[href^="i18n.css"]')) {
     const i18nCss = document.createElement('link');
     i18nCss.rel = 'stylesheet';
-    i18nCss.href = 'i18n.css?v=20260622-idiomas2';
+    i18nCss.href = 'i18n.css?v=20260622-idiomas3';
     document.head.appendChild(i18nCss);
   }
-  if (!document.querySelector('script[src^="i18n.js"]')) {
-    const i18nScript = document.createElement('script');
-    i18nScript.src = 'i18n.js?v=20260622-idiomas2';
-    i18nScript.defer = true;
-    document.head.appendChild(i18nScript);
+
+  const loadI18n = () => {
+    if (!document.querySelector('script[src^="i18n.js"]')) {
+      const i18nScript = document.createElement('script');
+      i18nScript.src = 'i18n.js?v=20260622-idiomas3';
+      i18nScript.async = false;
+      document.head.appendChild(i18nScript);
+    }
+  };
+
+  if (!document.querySelector('script[src^="i18n-whitespace-patch.js"]')) {
+    const patchScript = document.createElement('script');
+    patchScript.src = 'i18n-whitespace-patch.js?v=20260622-idiomas3';
+    patchScript.async = false;
+    patchScript.onload = loadI18n;
+    patchScript.onerror = loadI18n;
+    document.head.appendChild(patchScript);
+  } else {
+    loadI18n();
   }
 })();
 
