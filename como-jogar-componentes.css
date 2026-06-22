@@ -88,6 +88,20 @@
   border:1px dashed rgba(139,61,241,.28);
 }
 
+.numeric-card{
+  min-height:248px;
+  grid-template-columns:minmax(0, 1fr) 280px;
+  padding:24px 32px 26px;
+}
+
+.numeric-card .component-visual{
+  min-height:205px;
+}
+
+.numeric-card .card-fan{
+  height:205px;
+}
+
 .effect-card{
   grid-template-columns:minmax(0, 1fr) 280px;
   align-items:center;
