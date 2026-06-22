@@ -112,3 +112,60 @@ fetch("menu.html")
     });
   })
   .catch(err => console.error("Erro ao carregar menu:", err));
+
+document.addEventListener("DOMContentLoaded", function () {
+  const turnGrid = document.querySelector(".turn-section .turn-grid");
+
+  if (!turnGrid || document.getElementById("turn-hover-style")) return;
+
+  const turnHoverStyle = document.createElement("style");
+  turnHoverStyle.id = "turn-hover-style";
+  turnHoverStyle.textContent = `
+    .turn-section .turn-grid article{
+      overflow:hidden;
+      transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease, background .22s ease;
+      will-change:transform;
+    }
+
+    .turn-section .turn-grid article::after{
+      content:"";
+      position:absolute;
+      inset:auto -42px -52px auto;
+      width:126px;
+      height:126px;
+      border:1px dashed rgba(168,85,247,.24);
+      border-radius:50%;
+      opacity:0;
+      transform:scale(.8);
+      transition:opacity .22s ease, transform .22s ease;
+      pointer-events:none;
+    }
+
+    .turn-section .turn-grid article:hover{
+      transform:translateY(-8px);
+      border-color:rgba(168,85,247,.42);
+      background:linear-gradient(180deg, rgba(255,255,255,.095) 0%, rgba(168,85,247,.10) 100%);
+      box-shadow:0 20px 36px rgba(0,0,0,.24), 0 0 0 1px rgba(168,85,247,.12);
+    }
+
+    .turn-section .turn-grid article:hover::after{
+      opacity:1;
+      transform:scale(1);
+    }
+
+    .turn-section .turn-grid article:hover .turn-number{
+      box-shadow:0 12px 24px rgba(168,85,247,.30);
+    }
+
+    .turn-section .turn-grid article:hover .turn-icon img{
+      transform:translateY(-3px) scale(1.06);
+      filter:drop-shadow(0 16px 18px rgba(168,85,247,.28));
+    }
+
+    .turn-section .turn-icon img{
+      transition:transform .22s ease, filter .22s ease;
+    }
+  `;
+
+  document.head.appendChild(turnHoverStyle);
+});
