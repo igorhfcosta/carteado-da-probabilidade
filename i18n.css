@@ -163,6 +163,58 @@
   transform:none;
 }
 
+/* Home: o menu é próprio, então o seletor é posicionado visualmente ao lado do botão Jogar agora. */
+body:has(.home-page) .language-widget:not(.language-widget--nav){
+  top:30px;
+  right:max(18px, calc((100vw - 1180px) / 2));
+  transform:none;
+}
+
+body:has(.home-page) .language-widget:not(.language-widget--nav) .language-toggle{
+  width:38px;
+  min-height:38px;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  border:1px solid rgba(255,255,255,.34);
+  border-radius:12px;
+  color:#fff;
+  background:linear-gradient(135deg, rgba(168,85,247,.98), rgba(95,34,200,.96));
+  box-shadow:0 10px 22px rgba(35,11,80,.22), inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+body:has(.home-page) .language-widget:not(.language-widget--nav) .language-toggle:hover,
+body:has(.home-page) .language-widget:not(.language-widget--nav) .language-toggle:focus-visible{
+  transform:translateY(-2px);
+  box-shadow:0 14px 26px rgba(95,34,200,.34), inset 0 1px 0 rgba(255,255,255,.22);
+  outline:2px solid rgba(255,255,255,.42);
+  outline-offset:3px;
+}
+
+body:has(.home-page) .language-widget:not(.language-widget--nav) .language-globe{
+  font-size:.92rem;
+  line-height:1;
+}
+
+body:has(.home-page) .language-widget:not(.language-widget--nav) .language-current{
+  margin-top:1px;
+  font-size:.58rem;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:.03em;
+}
+
+body:has(.home-page) .language-widget:not(.language-widget--nav) .language-panel{
+  position:absolute;
+  top:calc(100% + 12px);
+  right:0;
+  width:min(282px, calc(100vw - 28px));
+  transform:none;
+}
+
 html.a11y-contrast .language-toggle{
   color:#000 !important;
   background:#ffd400 !important;
@@ -192,6 +244,51 @@ html.a11y-contrast .language-option{
 html.a11y-contrast .language-option[aria-pressed="true"]{
   color:#000 !important;
   background:#ffd400 !important;
+}
+
+/* Padronização forte do botão lateral de acessibilidade, inclusive na home. */
+html body .accessibility-widget{
+  right:0 !important;
+  top:50% !important;
+  transform:translateY(-50%) !important;
+  z-index:9998 !important;
+}
+
+html body .accessibility-widget .accessibility-toggle{
+  width:38px !important;
+  min-height:48px !important;
+  height:48px !important;
+  border:2px solid rgba(255,255,255,.82) !important;
+  border-right:0 !important;
+  border-radius:16px 0 0 16px !important;
+  color:#fff !important;
+  background:linear-gradient(135deg, #9b4dff, #5f22c8) !important;
+  box-shadow:0 16px 28px rgba(35,11,80,.24), 0 0 0 3px rgba(255,255,255,.88) !important;
+}
+
+html body .accessibility-widget .accessibility-toggle:hover,
+html body .accessibility-widget .accessibility-toggle:focus-visible{
+  transform:translateX(-5px) !important;
+  outline:3px solid rgba(168,85,247,.28) !important;
+  outline-offset:3px !important;
+}
+
+html body .accessibility-widget .accessibility-toggle .a11y-icon{
+  width:20px !important;
+  height:20px !important;
+  stroke:currentColor !important;
+}
+
+html body .accessibility-widget .accessibility-panel{
+  right:52px !important;
+  width:min(348px, calc(100vw - 76px)) !important;
+  border-radius:24px !important;
+}
+
+html.a11y-contrast body .accessibility-widget .accessibility-toggle{
+  color:#05000d !important;
+  background:#ffd400 !important;
+  border-color:#fff !important;
 }
 
 @media (max-width:980px){
@@ -239,5 +336,32 @@ html.a11y-contrast .language-option[aria-pressed="true"]{
     right:-52px;
     bottom:auto;
     transform:none;
+  }
+
+  body:has(.home-page) .language-widget:not(.language-widget--nav){
+    top:25px;
+    right:72px;
+    bottom:auto;
+    transform:none;
+  }
+
+  body:has(.home-page) .language-widget:not(.language-widget--nav) .language-toggle{
+    width:36px;
+    min-height:36px;
+    border-radius:11px;
+  }
+
+  body:has(.home-page) .language-widget:not(.language-widget--nav) .language-panel{
+    top:calc(100% + 12px);
+    right:0;
+    bottom:auto;
+    transform:none;
+  }
+
+  html body .accessibility-widget{
+    top:50% !important;
+    right:0 !important;
+    bottom:auto !important;
+    transform:translateY(-50%) !important;
   }
 }
