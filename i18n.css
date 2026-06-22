@@ -107,7 +107,8 @@
 
 .language-option small{ color:inherit; opacity:.72; font-weight:900; }
 
-.site-header .language-widget.language-widget--nav{
+.site-header .language-widget.language-widget--nav,
+.home-header .language-widget.language-widget--nav{
   position:relative;
   right:auto;
   top:auto;
@@ -118,7 +119,8 @@
   align-items:center;
 }
 
-.site-header .language-widget.language-widget--nav .language-toggle{
+.site-header .language-widget.language-widget--nav .language-toggle,
+.home-header .language-widget.language-widget--nav .language-toggle{
   width:38px;
   min-height:38px;
   padding:0;
@@ -135,19 +137,23 @@
 }
 
 .site-header .language-widget.language-widget--nav .language-toggle:hover,
-.site-header .language-widget.language-widget--nav .language-toggle:focus-visible{
+.site-header .language-widget.language-widget--nav .language-toggle:focus-visible,
+.home-header .language-widget.language-widget--nav .language-toggle:hover,
+.home-header .language-widget.language-widget--nav .language-toggle:focus-visible{
   transform:translateY(-2px);
   box-shadow:0 14px 26px rgba(95,34,200,.34), inset 0 1px 0 rgba(255,255,255,.22);
   outline:2px solid rgba(255,255,255,.42);
   outline-offset:3px;
 }
 
-.site-header .language-widget.language-widget--nav .language-globe{
+.site-header .language-widget.language-widget--nav .language-globe,
+.home-header .language-widget.language-widget--nav .language-globe{
   font-size:.92rem;
   line-height:1;
 }
 
-.site-header .language-widget.language-widget--nav .language-current{
+.site-header .language-widget.language-widget--nav .language-current,
+.home-header .language-widget.language-widget--nav .language-current{
   margin-top:1px;
   font-size:.58rem;
   line-height:1;
@@ -155,7 +161,8 @@
   letter-spacing:.03em;
 }
 
-.site-header .language-widget.language-widget--nav .language-panel{
+.site-header .language-widget.language-widget--nav .language-panel,
+.home-header .language-widget.language-widget--nav .language-panel{
   position:absolute;
   top:calc(100% + 12px);
   right:0;
@@ -163,8 +170,9 @@
   transform:none;
 }
 
-/* Home: o menu é próprio, então o seletor é posicionado visualmente ao lado do botão Jogar agora. */
+/* Home: quando o widget não for movido para o cabeçalho, ele fica no topo do documento, sem posição fixa. */
 body:has(.home-page) .language-widget:not(.language-widget--nav){
+  position:absolute;
   top:30px;
   right:max(18px, calc((100vw - 1180px) / 2));
   transform:none;
@@ -292,7 +300,8 @@ html.a11y-contrast body .accessibility-widget .accessibility-toggle{
 }
 
 @media (max-width:980px){
-  .site-header .language-widget.language-widget--nav{
+  .site-header .language-widget.language-widget--nav,
+  .home-header .language-widget.language-widget--nav{
     margin-left:auto;
     margin-right:8px;
   }
@@ -317,7 +326,8 @@ html.a11y-contrast body .accessibility-widget .accessibility-toggle{
     transform:none;
   }
 
-  .site-header .language-widget.language-widget--nav{
+  .site-header .language-widget.language-widget--nav,
+  .home-header .language-widget.language-widget--nav{
     top:auto;
     right:auto;
     bottom:auto;
@@ -325,13 +335,15 @@ html.a11y-contrast body .accessibility-widget .accessibility-toggle{
     margin-right:8px;
   }
 
-  .site-header .language-widget.language-widget--nav .language-toggle{
+  .site-header .language-widget.language-widget--nav .language-toggle,
+  .home-header .language-widget.language-widget--nav .language-toggle{
     width:36px;
     min-height:36px;
     border-radius:11px;
   }
 
-  .site-header .language-widget.language-widget--nav .language-panel{
+  .site-header .language-widget.language-widget--nav .language-panel,
+  .home-header .language-widget.language-widget--nav .language-panel{
     top:calc(100% + 12px);
     right:-52px;
     bottom:auto;
@@ -339,6 +351,7 @@ html.a11y-contrast body .accessibility-widget .accessibility-toggle{
   }
 
   body:has(.home-page) .language-widget:not(.language-widget--nav){
+    position:absolute;
     top:25px;
     right:72px;
     bottom:auto;
