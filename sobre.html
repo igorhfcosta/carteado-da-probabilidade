@@ -10,6 +10,179 @@
   <link rel="stylesheet" href="sobre.css">
   <link rel="icon" type="image/ico" href="favicon.ico">
   <title>Sobre - Carteado da Probabilidade</title>
+  <style>
+    .about-inline-link{
+      color:#fff;
+      font-weight:900;
+      text-decoration:none;
+      border-bottom:2px solid rgba(168,85,247,.72);
+      transition:color .2s ease, border-color .2s ease;
+    }
+
+    .about-inline-link:hover{
+      color:#eadfff;
+      border-color:#fff;
+    }
+
+    .about-ufu-section{
+      padding:56px 0 64px;
+      background:
+        radial-gradient(circle at 14% 18%, rgba(168,85,247,.10), transparent 34%),
+        linear-gradient(180deg, #fff 0%, #f7f0ff 100%);
+    }
+
+    .about-ufu-card{
+      display:grid;
+      grid-template-columns:minmax(0, .92fr) minmax(360px, 1.08fr);
+      gap:26px;
+      align-items:stretch;
+      padding:22px;
+      border:1px solid rgba(168,85,247,.20);
+      border-radius:24px;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(168,85,247,.10), transparent 34%),
+        #fff;
+      box-shadow:0 22px 46px rgba(18,9,47,.08);
+      overflow:hidden;
+    }
+
+    .about-ufu-copy{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:30px;
+      border-radius:20px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 96% 12%, rgba(168,85,247,.36), transparent 32%),
+        linear-gradient(135deg, #160337 0%, #2b0b63 58%, #5f22c8 100%);
+      overflow:hidden;
+    }
+
+    .about-ufu-copy::after{
+      content:"";
+      position:absolute;
+      right:-70px;
+      bottom:-76px;
+      width:190px;
+      height:190px;
+      border:1px dashed rgba(255,255,255,.20);
+      border-radius:50%;
+    }
+
+    .about-ufu-badge{
+      width:max-content;
+      margin-bottom:14px;
+      padding:8px 13px;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:999px;
+      color:#eadfff;
+      background:rgba(255,255,255,.09);
+      font-size:.78rem;
+      font-weight:950;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    .about-ufu-copy h2{
+      margin:0 0 14px;
+      color:#fff;
+      font-size:clamp(1.55rem, 3vw, 2.35rem);
+      line-height:1.08;
+      letter-spacing:-.05em;
+    }
+
+    .about-ufu-copy p{
+      max-width:620px;
+      margin:0;
+      color:#eadfff;
+      font-size:1rem;
+      line-height:1.68;
+    }
+
+    .about-ufu-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:24px;
+    }
+
+    .about-ufu-actions a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      color:#fff;
+      font-size:.9rem;
+      font-weight:900;
+      text-decoration:none;
+      transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    .about-ufu-actions a:first-child{
+      border:1px solid rgba(255,255,255,.22);
+      background:linear-gradient(135deg, #a855f7, #6f42e8);
+      box-shadow:0 14px 26px rgba(10,3,24,.24);
+    }
+
+    .about-ufu-actions a:last-child{
+      border:1px solid rgba(255,255,255,.28);
+      background:rgba(255,255,255,.10);
+    }
+
+    .about-ufu-actions a:hover{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,.48);
+      box-shadow:0 18px 30px rgba(10,3,24,.26);
+    }
+
+    .about-map-card{
+      min-height:360px;
+      padding:12px;
+      border:1px solid rgba(168,85,247,.22);
+      border-radius:20px;
+      background:linear-gradient(180deg, #fff 0%, #fbf8ff 100%);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.85);
+    }
+
+    .about-map-card iframe{
+      width:100%;
+      height:100%;
+      min-height:336px;
+      display:block;
+      border:0;
+      border-radius:15px;
+      filter:saturate(.92) contrast(1.02);
+    }
+
+    @media (max-width: 940px){
+      .about-ufu-card{
+        grid-template-columns:1fr;
+      }
+
+      .about-map-card{
+        min-height:320px;
+      }
+    }
+
+    @media (max-width: 560px){
+      .about-ufu-card{
+        padding:14px;
+        border-radius:18px;
+      }
+
+      .about-ufu-copy{
+        padding:24px 20px;
+      }
+
+      .about-ufu-actions a{
+        width:100%;
+      }
+    }
+  </style>
 </head>
 
 <body class="professor-page about-page">
@@ -101,12 +274,12 @@
           <div class="timeline-card">
             <div class="timeline-copy">
               <span class="timeline-label">Nova etapa</span>
-              <h3>Reformulação no PPGECM/UFU</h3>
+              <h3>Reformulação no <a class="about-inline-link" href="https://ppgecm.ufu.br/" target="_blank" rel="noopener noreferrer">PPGECM/UFU</a></h3>
               <p>
-                Entre 2026 e 2027, o projeto passa por uma nova fase de desenvolvimento no Programa
-                de Pós-Graduação em Ensino de Ciências e Matemática da UFU. Essa etapa envolve o
-                aperfeiçoamento das regras, da identidade visual, dos materiais para impressão, da versão
-                digital e da proposta didática, com foco no ensino de probabilidade e no letramento probabilístico.
+                Entre 2026 e 2027, o projeto passa por uma nova fase de desenvolvimento no
+                <a class="about-inline-link" href="https://ppgecm.ufu.br/" target="_blank" rel="noopener noreferrer">Programa de Pós-Graduação em Ensino de Ciências e Matemática da UFU</a>.
+                Essa etapa envolve o aperfeiçoamento das regras, da identidade visual, dos materiais para impressão,
+                da versão digital e da proposta didática, com foco no ensino de probabilidade e no letramento probabilístico.
               </p>
             </div>
             <figure class="timeline-photo-card">
@@ -149,7 +322,7 @@
                 <span>Orientação</span>
                 <h4>Rogério Fernando Pires</h4>
                 <p>
-                  Orientador acadêmico do projeto no PPGECM/UFU, contribuindo para o aprofundamento
+                  Orientador acadêmico do projeto no <a class="about-inline-link" href="https://ppgecm.ufu.br/" target="_blank" rel="noopener noreferrer">PPGECM/UFU</a>, contribuindo para o aprofundamento
                   teórico, metodológico e pedagógico da proposta.
                 </p>
                 <div class="author-actions">
@@ -187,6 +360,35 @@
           <h3>Mediação pedagógica</h3>
           <p>O professor pode transformar cada rodada em pergunta, registro e sistematização.</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-ufu-section">
+    <div class="page-shell">
+      <div class="about-ufu-card">
+        <div class="about-ufu-copy">
+          <span class="about-ufu-badge">Vínculo institucional</span>
+          <h2>UFU Campus Pontal</h2>
+          <p>
+            O Carteado da Probabilidade se vincula à Universidade Federal de Uberlândia por meio da formação docente,
+            da pesquisa em Educação Matemática e da produção de materiais educacionais. O Campus Pontal, em Ituiutaba,
+            compõe esse percurso como espaço de estudo, orientação e desenvolvimento acadêmico.
+          </p>
+          <div class="about-ufu-actions">
+            <a href="https://ufu.br/" target="_blank" rel="noopener noreferrer">Conhecer a UFU</a>
+            <a href="https://ppgecm.ufu.br/" target="_blank" rel="noopener noreferrer">Visitar o PPGECM</a>
+          </div>
+        </div>
+
+        <div class="about-map-card" aria-label="Mapa do Campus Pontal da UFU em Ituiutaba">
+          <iframe
+            title="Mapa do Campus Pontal da UFU"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=UFU%20Campus%20Pontal%20Ituiutaba%20MG&output=embed">
+          </iframe>
+        </div>
       </div>
     </div>
   </section>
