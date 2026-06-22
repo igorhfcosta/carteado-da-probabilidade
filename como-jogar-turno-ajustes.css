@@ -7,15 +7,15 @@
 }
 
 .turn-grid{
-  padding-top:34px;
+  padding-top:10px;
   overflow:visible;
 }
 
 .turn-grid article{
   position:relative;
   min-height:176px;
-  overflow:visible !important;
-  padding:38px 14px 18px;
+  overflow:hidden !important;
+  padding:46px 14px 18px;
   border-color:rgba(216,180,254,.22);
   border-radius:12px;
   background:
@@ -37,25 +37,25 @@
 .turn-number{
   position:absolute;
   left:50%;
-  top:-22px;
-  z-index:20;
-  width:44px;
-  height:44px;
+  top:14px;
+  z-index:2;
+  width:38px;
+  height:38px;
   display:grid;
   place-items:center;
   border-radius:50%;
   background:linear-gradient(135deg, var(--rules-purple-2), var(--rules-purple-dark));
   transform:translateX(-50%);
   color:#fff;
-  font-size:1.1rem;
+  font-size:1rem;
   font-weight:900;
-  box-shadow:0 10px 24px rgba(95,34,200,.35), 0 0 0 5px rgba(168,85,247,.12);
+  box-shadow:0 10px 24px rgba(95,34,200,.35), 0 0 0 4px rgba(168,85,247,.12);
 }
 
 .turn-icon{
   width:66px;
   height:48px;
-  margin:0 auto 8px;
+  margin:10px auto 8px;
   transition:transform .22s ease, filter .22s ease;
 }
 
@@ -76,22 +76,22 @@
 
 @media (max-width:1120px){
   .turn-grid{
-    row-gap:34px;
+    row-gap:14px;
   }
 }
 
 @media (max-width:760px){
   .turn-grid{
-    padding-top:28px;
-    row-gap:30px;
+    padding-top:8px;
+    row-gap:14px;
   }
 
   .turn-grid article{
     min-height:auto;
-    padding:38px 18px 20px;
+    padding:46px 18px 20px;
   }
 
   .turn-number{
-    top:-20px;
+    top:14px;
   }
 }
