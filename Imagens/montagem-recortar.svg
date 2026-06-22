@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" role="img" aria-labelledby="title desc">
+  <title id="title">Pessoa recortando os materiais</title>
+  <desc id="desc">Ilustração em tons de roxo de uma pessoa recortando cartas impressas do jogo.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#ead8ff"/></linearGradient>
+    <linearGradient id="purple" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#a855f7"/><stop offset="1" stop-color="#5f22c8"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#5f22c8" flood-opacity=".25"/></filter>
+  </defs>
+  <rect width="420" height="260" rx="28" fill="url(#bg)"/>
+  <circle cx="350" cy="58" r="48" fill="#a855f7" opacity=".13"/>
+  <circle cx="58" cy="205" r="54" fill="#5f22c8" opacity=".10"/>
+  <g filter="url(#shadow)">
+    <rect x="128" y="70" width="170" height="122" rx="14" fill="#fff" stroke="#d8c6ff" stroke-width="3"/>
+    <rect x="150" y="92" width="46" height="64" rx="7" fill="url(#purple)"/>
+    <rect x="212" y="92" width="46" height="64" rx="7" fill="url(#purple)" opacity=".85"/>
+    <path d="M205 72v122" stroke="#a855f7" stroke-width="2" stroke-dasharray="8 8" opacity=".7"/>
+    <path d="M172 126h64" stroke="#fff" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+  </g>
+  <g transform="translate(274 135) rotate(-18)">
+    <circle cx="18" cy="18" r="14" fill="none" stroke="#18063d" stroke-width="8"/>
+    <circle cx="56" cy="18" r="14" fill="none" stroke="#18063d" stroke-width="8"/>
+    <path d="M31 26l80 72M42 27l72-72" stroke="#18063d" stroke-width="9" stroke-linecap="round"/>
+    <path d="M73 58l42 38" stroke="#a855f7" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <g>
+    <circle cx="88" cy="118" r="22" fill="#fff" stroke="#7c3aed" stroke-width="3"/>
+    <path d="M70 156c12-22 34-22 50 0l12 54H54z" fill="url(#purple)"/>
+    <path d="M122 164l38-18" stroke="#7c3aed" stroke-width="10" stroke-linecap="round"/>
+  </g>
+</svg>
