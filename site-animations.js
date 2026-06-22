@@ -279,6 +279,52 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(componentStyle);
   }
 
+  const quickRules = document.querySelectorAll('.quick-rules .quick-grid article');
+
+  if (quickRules.length >= 7) {
+    const rulesText = [
+      {
+        title: 'Preparação dos materiais',
+        text: 'Separe as cartas numéricas e as cartas de efeito. Embaralhe cada monte separadamente e deixe-os virados para baixo, ao alcance dos jogadores.'
+      },
+      {
+        title: 'Cartas iniciais',
+        text: 'Cada jogador inicia a partida com 7 cartas na mão. As cartas podem ser numéricas ou de efeito, conforme a composição definida para o baralho.'
+      },
+      {
+        title: 'Objetivo da partida',
+        text: 'O objetivo é ser o primeiro jogador a descartar todas as cartas da mão, escolhendo bem os dados e usando efeitos no momento certo.'
+      },
+      {
+        title: 'Escolha dos dados',
+        text: 'Em seu turno, o jogador escolhe dois dados entre os disponíveis. Essa escolha define as somas possíveis e suas chances de descarte.'
+      },
+      {
+        title: 'Descarte por soma',
+        text: 'Após lançar os dados, some os resultados. Se tiver uma ou mais cartas com esse valor, descarte todas elas no mesmo turno. O coringa pode substituir qualquer carta numérica.'
+      },
+      {
+        title: 'Cartas de efeito',
+        text: 'As cartas de efeito só podem ser usadas no próprio turno do jogador. Elas permitem novas ações, compras, bloqueios ou mudanças na jogada.'
+      },
+      {
+        title: 'Fim do turno',
+        text: 'Depois de descartar, usar uma carta de efeito ou não conseguir jogar, o turno termina e a vez passa para o próximo jogador, respeitando os efeitos ativos.'
+      }
+    ];
+
+    quickRules.forEach((rule, index) => {
+      const content = rulesText[index];
+      const title = rule.querySelector('h3');
+      const paragraph = rule.querySelector('p');
+
+      if (content && title && paragraph) {
+        title.textContent = content.title;
+        paragraph.textContent = content.text;
+      }
+    });
+  }
+
   const animateItems = document.querySelectorAll('.js-animate-on-scroll');
 
   if (!animateItems.length) return;
