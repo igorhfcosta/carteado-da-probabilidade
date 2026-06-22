@@ -107,6 +107,62 @@
 
 .language-option small{ color:inherit; opacity:.72; font-weight:900; }
 
+.site-header .language-widget.language-widget--nav{
+  position:relative;
+  right:auto;
+  top:auto;
+  z-index:20;
+  flex:0 0 auto;
+  margin-left:8px;
+  display:flex;
+  align-items:center;
+}
+
+.site-header .language-widget.language-widget--nav .language-toggle{
+  width:38px;
+  min-height:38px;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  border:1px solid rgba(255,255,255,.34);
+  border-radius:12px;
+  color:#fff;
+  background:linear-gradient(135deg, rgba(168,85,247,.98), rgba(95,34,200,.96));
+  box-shadow:0 10px 22px rgba(35,11,80,.22), inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+.site-header .language-widget.language-widget--nav .language-toggle:hover,
+.site-header .language-widget.language-widget--nav .language-toggle:focus-visible{
+  transform:translateY(-2px);
+  box-shadow:0 14px 26px rgba(95,34,200,.34), inset 0 1px 0 rgba(255,255,255,.22);
+  outline:2px solid rgba(255,255,255,.42);
+  outline-offset:3px;
+}
+
+.site-header .language-widget.language-widget--nav .language-globe{
+  font-size:.92rem;
+  line-height:1;
+}
+
+.site-header .language-widget.language-widget--nav .language-current{
+  margin-top:1px;
+  font-size:.58rem;
+  line-height:1;
+  font-weight:950;
+  letter-spacing:.03em;
+}
+
+.site-header .language-widget.language-widget--nav .language-panel{
+  position:absolute;
+  top:calc(100% + 12px);
+  right:0;
+  width:min(282px, calc(100vw - 28px));
+  transform:none;
+}
+
 html.a11y-contrast .language-toggle{
   color:#000 !important;
   background:#ffd400 !important;
@@ -138,6 +194,13 @@ html.a11y-contrast .language-option[aria-pressed="true"]{
   background:#ffd400 !important;
 }
 
+@media (max-width:980px){
+  .site-header .language-widget.language-widget--nav{
+    margin-left:auto;
+    margin-right:8px;
+  }
+}
+
 @media (max-width:680px){
   .language-widget{
     top:auto;
@@ -154,6 +217,27 @@ html.a11y-contrast .language-option[aria-pressed="true"]{
     top:auto;
     right:56px;
     bottom:0;
+    transform:none;
+  }
+
+  .site-header .language-widget.language-widget--nav{
+    top:auto;
+    right:auto;
+    bottom:auto;
+    margin-left:auto;
+    margin-right:8px;
+  }
+
+  .site-header .language-widget.language-widget--nav .language-toggle{
+    width:36px;
+    min-height:36px;
+    border-radius:11px;
+  }
+
+  .site-header .language-widget.language-widget--nav .language-panel{
+    top:calc(100% + 12px);
+    right:-52px;
+    bottom:auto;
     transform:none;
   }
 }
