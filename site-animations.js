@@ -69,7 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
           buttonRect.top <= footerRect.bottom &&
           buttonRect.right >= footerRect.left &&
           buttonRect.left <= footerRect.right;
-
         btn.classList.toggle('on-footer', isOverFooter);
       } else {
         btn.classList.remove('on-footer');
@@ -90,13 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.realizacao-footer .footer-logo-block').forEach((block, index) => {
     const config = footerLinks[index];
     if (!config) return;
-
     block.classList.add('is-clickable');
     block.setAttribute('role', 'link');
     block.setAttribute('tabindex', '0');
     block.setAttribute('aria-label', config.label);
     block.setAttribute('title', config.label);
-
     const openTarget = () => window.open(config.url, '_blank', 'noopener,noreferrer');
     block.addEventListener('click', openTarget);
     block.addEventListener('keydown', (event) => {
@@ -190,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
     `;
-
     faqSection.querySelectorAll('.home-faq-item').forEach((item) => {
       item.addEventListener('toggle', () => {
         if (!item.open) return;
@@ -199,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
-
     homeRealizacaoFooter.insertAdjacentElement('beforebegin', faqSection);
   }
 
@@ -215,7 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
       @media (max-width:760px){ .package-strip{ grid-template-columns:1fr; text-align:left; } .package-strip .download-btn{ width:100%; } }
     `;
     document.head.appendChild(packageStyle);
-
     const filesSection = document.querySelector('.files-section');
     if (filesSection) {
       const packageSection = document.createElement('section');
@@ -275,7 +269,6 @@ document.addEventListener('DOMContentLoaded', () => {
       { sourceIndex: 5, title: 'Cartas de efeito', text: 'Só podem ser usadas no próprio turno e alteram a jogada, a compra ou a ação dos oponentes.' },
       { sourceIndex: 6, title: 'Fim do turno', text: 'Após descartar, usar efeito ou não conseguir jogar, a vez passa para o próximo jogador.' }
     ];
-
     quickRulesGrid.innerHTML = '';
     compactRules.forEach((content, index) => {
       const baseRule = quickRules[content.sourceIndex] || quickRules[index];
@@ -319,56 +312,54 @@ document.addEventListener('DOMContentLoaded', () => {
       html.a11y-font-1{ font-size:106%; }
       html.a11y-font-2{ font-size:112%; }
       html.a11y-font-3{ font-size:118%; }
-      html.a11y-spacing body{ letter-spacing:.04em; line-height:1.75; }
+      html.a11y-spacing body{ letter-spacing:.04em; line-height:1.78; }
       html.a11y-underline a{ text-decoration:underline !important; text-underline-offset:.18em; }
       html.a11y-no-motion, html.a11y-no-motion *{ scroll-behavior:auto !important; }
       html.a11y-no-motion *, html.a11y-no-motion *::before, html.a11y-no-motion *::after{ animation:none !important; transition:none !important; }
 
+      html.a11y-contrast,
       html.a11y-contrast body,
       html.a11y-contrast main,
       html.a11y-contrast section,
+      html.a11y-contrast header,
+      html.a11y-contrast footer,
       html.a11y-contrast .home-faq-section,
       html.a11y-contrast .package-section,
       html.a11y-contrast .download-page,
       html.a11y-contrast .content-section,
-      html.a11y-contrast .page-section{
+      html.a11y-contrast .page-section,
+      html.a11y-contrast .hero,
+      html.a11y-contrast .teacher-section,
+      html.a11y-contrast .explore-section,
+      html.a11y-contrast .features-section,
+      html.a11y-contrast .materials-section{
         background:#05000d !important;
         color:#fff !important;
       }
 
-      html.a11y-contrast p,
-      html.a11y-contrast span,
-      html.a11y-contrast li,
-      html.a11y-contrast label,
-      html.a11y-contrast small,
-      html.a11y-contrast .hero-text,
-      html.a11y-contrast .hero-lead,
-      html.a11y-contrast .section-label,
-      html.a11y-contrast .home-faq-answer,
-      html.a11y-contrast .package-strip p,
-      html.a11y-contrast .footer-logo-text span,
-      html.a11y-contrast .footer-credit{
-        color:#fff !important;
+      html.a11y-contrast .hero::before,
+      html.a11y-contrast .hero::after,
+      html.a11y-contrast section::before,
+      html.a11y-contrast section::after{
+        opacity:.16 !important;
       }
 
-      html.a11y-contrast a,
-      html.a11y-contrast button,
-      html.a11y-contrast h1,
-      html.a11y-contrast h2,
-      html.a11y-contrast h3,
-      html.a11y-contrast h4,
-      html.a11y-contrast strong,
-      html.a11y-contrast summary{
+      html.a11y-contrast *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon){
         color:#fff !important;
+        text-shadow:none !important;
       }
 
       html.a11y-contrast article,
+      html.a11y-contrast .card,
+      html.a11y-contrast .feature-card,
+      html.a11y-contrast .explore-card,
       html.a11y-contrast .component-card,
       html.a11y-contrast .home-faq-item,
       html.a11y-contrast .package-strip,
       html.a11y-contrast .footer-logo-block,
       html.a11y-contrast .quick-rules .quick-grid article,
       html.a11y-contrast .step-card,
+      html.a11y-contrast .turn-step,
       html.a11y-contrast .file-card,
       html.a11y-contrast .download-card,
       html.a11y-contrast .contact-card,
@@ -380,11 +371,39 @@ document.addEventListener('DOMContentLoaded', () => {
       html.a11y-contrast .effect-info,
       html.a11y-contrast .number-card,
       html.a11y-contrast .site-header-inner,
-      html.a11y-contrast .mobile-panel{
+      html.a11y-contrast .mobile-panel,
+      html.a11y-contrast .home-faq-badge,
+      html.a11y-contrast .info-card,
+      html.a11y-contrast .stat-card,
+      html.a11y-contrast .material-card,
+      html.a11y-contrast .proposal-card,
+      html.a11y-contrast .method-card,
+      html.a11y-contrast .pill,
+      html.a11y-contrast .badge{
         background:#12002f !important;
         color:#fff !important;
         border-color:#facc15 !important;
-        box-shadow:0 0 0 2px rgba(250,204,21,.45), 0 18px 38px rgba(0,0,0,.35) !important;
+        box-shadow:0 0 0 2px rgba(250,204,21,.42), 0 18px 38px rgba(0,0,0,.35) !important;
+      }
+
+      html.a11y-contrast a,
+      html.a11y-contrast button,
+      html.a11y-contrast summary,
+      html.a11y-contrast input,
+      html.a11y-contrast textarea,
+      html.a11y-contrast select{
+        border-color:#facc15 !important;
+      }
+
+      html.a11y-contrast .btn,
+      html.a11y-contrast .button,
+      html.a11y-contrast .download-btn,
+      html.a11y-contrast .cta-button,
+      html.a11y-contrast .primary,
+      html.a11y-contrast .secondary{
+        background:#facc15 !important;
+        color:#05000d !important;
+        border-color:#facc15 !important;
       }
 
       html.a11y-contrast input,
@@ -392,17 +411,51 @@ document.addEventListener('DOMContentLoaded', () => {
       html.a11y-contrast select{
         background:#05000d !important;
         color:#fff !important;
-        border-color:#facc15 !important;
+      }
+      html.a11y-contrast input::placeholder,
+      html.a11y-contrast textarea::placeholder{ color:#f4e7ff !important; }
+      html.a11y-contrast img{ filter:none !important; }
+      html.a11y-contrast a:focus-visible,
+      html.a11y-contrast button:focus-visible,
+      html.a11y-contrast input:focus-visible,
+      html.a11y-contrast textarea:focus-visible,
+      html.a11y-contrast select:focus-visible,
+      html.a11y-contrast [tabindex]:focus-visible{
+        outline:4px solid #facc15 !important;
+        outline-offset:4px !important;
       }
 
-      html.a11y-contrast input::placeholder,
-      html.a11y-contrast textarea::placeholder{ color:#e7d7ff !important; }
+      .accessibility-widget{ position:fixed; right:0; top:50%; transform:translateY(-50%); z-index:1200; font-family:inherit; }
+      .accessibility-toggle{ width:44px; height:54px; border:0; border-radius:18px 0 0 18px; display:grid; place-items:center; color:#fff; font-size:1.02rem; font-weight:950; cursor:pointer; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 18px 34px rgba(35,11,80,.30), 0 0 0 4px rgba(255,255,255,.80); transition:transform .2s ease, box-shadow .2s ease; }
+      .accessibility-toggle:hover{ transform:translateX(-4px); box-shadow:0 22px 38px rgba(35,11,80,.34), 0 0 0 4px rgba(255,255,255,.94); }
+      .accessibility-toggle:focus-visible{ outline:4px solid rgba(168,85,247,.42); outline-offset:6px; }
+      .accessibility-toggle .a11y-icon{ width:22px; height:22px; display:block; }
+      .accessibility-toggle .a11y-icon path{ stroke:currentColor; }
 
-      html.a11y-contrast .accessibility-widget{ color:#12002f !important; }
+      .accessibility-panel{ position:absolute; right:58px; top:50%; transform:translateY(-50%); width:min(360px, calc(100vw - 82px)); padding:18px; border:1px solid rgba(168,85,247,.30); border-radius:24px; background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(250,246,255,.98)); color:#160337; box-shadow:0 24px 60px rgba(35,11,80,.25); backdrop-filter:blur(14px); }
+      .accessibility-panel[hidden]{ display:none; }
+      .accessibility-panel h2{ margin:0; color:#160337; font-size:1.1rem; line-height:1.2; }
+      .accessibility-panel p{ margin:6px 0 14px; color:#594a72; font-size:.88rem; line-height:1.45; }
+      .font-control{ grid-column:1 / -1; padding:14px; border:1px solid rgba(168,85,247,.22); border-radius:18px; background:linear-gradient(180deg, #fff, #fbf7ff); box-shadow:inset 0 0 0 1px rgba(255,255,255,.75), 0 12px 24px rgba(95,34,200,.07); }
+      .font-control-top{ display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:12px; }
+      .font-range-label{ color:#2b0b63; font-weight:950; font-size:.92rem; }
+      .font-range-value{ min-width:62px; padding:4px 8px; border-radius:999px; color:#5f22c8; background:#f0e5ff; font-weight:950; font-size:.78rem; text-align:center; }
+      .font-range{ width:100%; height:8px; appearance:none; -webkit-appearance:none; border-radius:999px; background:linear-gradient(90deg, #8b3df1 var(--a11y-range-progress, 0%), #e5d7f5 var(--a11y-range-progress, 0%)); cursor:pointer; outline:none; }
+      .font-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:22px; height:22px; border:3px solid #fff; border-radius:50%; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 8px 18px rgba(95,34,200,.35); cursor:pointer; }
+      .font-range::-moz-range-thumb{ width:22px; height:22px; border:3px solid #fff; border-radius:50%; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 8px 18px rgba(95,34,200,.35); cursor:pointer; }
+      .accessibility-actions{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      .accessibility-action{ min-height:50px; padding:11px 13px; border:1px solid rgba(168,85,247,.24); border-radius:16px; color:#2b0b63; font-weight:900; text-align:left; cursor:pointer; background:linear-gradient(180deg, #fff, #f8f2ff); box-shadow:0 10px 18px rgba(35,11,80,.06); transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease; }
+      .accessibility-action:hover{ transform:translateY(-2px); border-color:rgba(139,61,241,.48); box-shadow:0 14px 24px rgba(95,34,200,.12); }
+      .accessibility-action[aria-pressed="true"]{ color:#fff; border-color:transparent; background:linear-gradient(135deg, #8b3df1, #5f22c8); }
+      .accessibility-action.full{ grid-column:1 / -1; text-align:center; justify-content:center; }
+      .accessibility-status{ margin-top:12px; color:#5f22c8; font-size:.82rem; font-weight:900; }
+
+      html.a11y-contrast .accessibility-widget,
+      html.a11y-contrast .accessibility-widget *{ color:#12002f !important; }
       html.a11y-contrast .accessibility-toggle{
         color:#05000d !important;
         background:#facc15 !important;
-        box-shadow:0 18px 34px rgba(0,0,0,.45), 0 0 0 6px rgba(255,255,255,.98) !important;
+        box-shadow:0 18px 34px rgba(0,0,0,.45), 0 0 0 5px rgba(255,255,255,.98) !important;
       }
       html.a11y-contrast .accessibility-panel{
         background:#fff !important;
@@ -415,9 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
       html.a11y-contrast .accessibility-panel span,
       html.a11y-contrast .accessibility-status,
       html.a11y-contrast .font-range-label,
-      html.a11y-contrast .font-range-value{
-        color:#12002f !important;
-      }
+      html.a11y-contrast .font-range-value{ color:#12002f !important; }
       html.a11y-contrast .accessibility-action{
         background:#12002f !important;
         color:#fff !important;
@@ -427,39 +478,17 @@ document.addEventListener('DOMContentLoaded', () => {
         background:#facc15 !important;
         color:#12002f !important;
       }
-      html.a11y-contrast .font-range{
-        accent-color:#5f22c8;
-      }
+      html.a11y-contrast .font-control{ background:#fff !important; border-color:#facc15 !important; }
+      html.a11y-contrast .font-range{ background:linear-gradient(90deg, #facc15 var(--a11y-range-progress, 0%), #d1d5db var(--a11y-range-progress, 0%)) !important; }
+      html.a11y-contrast .font-range::-webkit-slider-thumb{ background:#facc15 !important; border-color:#12002f !important; }
+      html.a11y-contrast .font-range::-moz-range-thumb{ background:#facc15 !important; border-color:#12002f !important; }
 
-      html.a11y-contrast a:focus-visible,
-      html.a11y-contrast button:focus-visible,
-      html.a11y-contrast input:focus-visible,
-      html.a11y-contrast textarea:focus-visible,
-      html.a11y-contrast [tabindex]:focus-visible{
-        outline:4px solid #facc15 !important;
-        outline-offset:4px !important;
+      @media (max-width:680px){
+        .accessibility-widget{ top:auto; right:0; bottom:92px; transform:none; }
+        .accessibility-toggle{ width:42px; height:52px; }
+        .accessibility-panel{ right:52px; top:auto; bottom:0; transform:none; width:min(340px, calc(100vw - 74px)); padding:16px; }
+        .accessibility-actions{ grid-template-columns:1fr; }
       }
-
-      .accessibility-widget{ position:fixed; left:22px; bottom:22px; z-index:1200; font-family:inherit; }
-      .accessibility-toggle{ width:58px; height:58px; border:0; border-radius:50%; display:grid; place-items:center; color:#fff; font-size:1.55rem; font-weight:950; cursor:pointer; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 18px 34px rgba(35,11,80,.30), 0 0 0 6px rgba(255,255,255,.82); transition:transform .2s ease, box-shadow .2s ease; }
-      .accessibility-toggle:hover{ transform:translateY(-3px); box-shadow:0 22px 38px rgba(35,11,80,.34), 0 0 0 6px rgba(255,255,255,.94); }
-      .accessibility-toggle:focus-visible{ outline:4px solid rgba(168,85,247,.42); outline-offset:8px; }
-      .accessibility-panel{ position:absolute; left:0; bottom:74px; width:min(350px, calc(100vw - 28px)); padding:18px; border:1px solid rgba(168,85,247,.26); border-radius:24px; background:rgba(255,255,255,.96); color:#160337; box-shadow:0 24px 60px rgba(35,11,80,.25); backdrop-filter:blur(14px); }
-      .accessibility-panel[hidden]{ display:none; }
-      .accessibility-panel h2{ margin:0; color:#160337; font-size:1.08rem; line-height:1.2; }
-      .accessibility-panel p{ margin:6px 0 14px; color:#594a72; font-size:.88rem; line-height:1.45; }
-      .font-control{ grid-column:1 / -1; padding:12px; border:1px solid rgba(168,85,247,.18); border-radius:16px; background:linear-gradient(180deg, #fff, #fbf7ff); }
-      .font-control-top{ display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:10px; }
-      .font-range-label{ color:#2b0b63; font-weight:900; font-size:.92rem; }
-      .font-range-value{ color:#5f22c8; font-weight:950; font-size:.84rem; }
-      .font-range{ width:100%; accent-color:#8b3df1; cursor:pointer; }
-      .accessibility-actions{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-      .accessibility-action{ min-height:46px; padding:10px 12px; border:1px solid rgba(168,85,247,.22); border-radius:14px; color:#2b0b63; font-weight:850; text-align:left; cursor:pointer; background:linear-gradient(180deg, #fff, #f8f2ff); box-shadow:0 10px 18px rgba(35,11,80,.06); transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
-      .accessibility-action:hover{ transform:translateY(-2px); border-color:rgba(139,61,241,.48); box-shadow:0 14px 24px rgba(95,34,200,.12); }
-      .accessibility-action[aria-pressed="true"]{ color:#fff; border-color:transparent; background:linear-gradient(135deg, #8b3df1, #5f22c8); }
-      .accessibility-action.full{ grid-column:1 / -1; text-align:center; justify-content:center; }
-      .accessibility-status{ margin-top:12px; color:#5f22c8; font-size:.82rem; font-weight:800; }
-      @media (max-width:680px){ .accessibility-widget{ left:14px; bottom:14px; } .accessibility-toggle{ width:52px; height:52px; font-size:1.35rem; } .accessibility-panel{ bottom:66px; padding:16px; } .accessibility-actions{ grid-template-columns:1fr; } }
     `;
     document.head.appendChild(accessibilityStyle);
 
@@ -467,7 +496,12 @@ document.addEventListener('DOMContentLoaded', () => {
     widget.className = 'accessibility-widget';
     widget.setAttribute('aria-label', 'Ferramentas de acessibilidade');
     widget.innerHTML = `
-      <button class="accessibility-toggle" type="button" aria-label="Abrir ferramentas de acessibilidade" aria-expanded="false" aria-controls="accessibility-panel">A</button>
+      <button class="accessibility-toggle" type="button" aria-label="Abrir ferramentas de acessibilidade" aria-expanded="false" aria-controls="accessibility-panel">
+        <svg class="a11y-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 4.2a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.2 10.2h13.6M12 10.4v9.4M8.2 20l1.15-5.1M15.8 20l-1.15-5.1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
       <div class="accessibility-panel" id="accessibility-panel" hidden>
         <h2>Acessibilidade</h2>
         <p>Ajuste a leitura e a navegação do site.</p>
@@ -500,6 +534,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!fontRange || !fontRangeValue) return;
       fontRange.value = String(state.font);
       fontRangeValue.textContent = state.font === 0 ? 'Padrão' : `+${state.font}`;
+      const progress = Math.max(0, Math.min(100, (Number(state.font) / 3) * 100));
+      fontRange.style.setProperty('--a11y-range-progress', `${progress}%`);
     };
 
     const applyState = (message) => {
@@ -537,7 +573,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const action = event.target.closest('[data-a11y]');
       if (!action) return;
       const type = action.dataset.a11y;
-
       if (type === 'contrast') {
         state.contrast = !state.contrast;
         applyState(state.contrast ? 'Alto contraste ativado.' : 'Alto contraste desativado.');
@@ -561,44 +596,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('click', (event) => {
-      if (!panel.hidden && !widget.contains(event.target)) {
-        panel.hidden = true;
-        toggle.setAttribute('aria-expanded', 'false');
-      }
+      if (panel.hidden || widget.contains(event.target)) return;
+      panel.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
     });
 
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !panel.hidden) {
-        panel.hidden = true;
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.focus();
-      }
+      if (event.key !== 'Escape' || panel.hidden) return;
+      panel.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
     });
 
-    applyState();
+    applyState('Configurações carregadas.');
   };
 
   initializeAccessibilityBar();
-
-  const animateItems = document.querySelectorAll('.js-animate-on-scroll');
-  if (animateItems.length) {
-    const firstItem = animateItems[0];
-    if (firstItem) firstItem.classList.add('is-visible');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.12,
-      rootMargin: '0px 0px -40px 0px'
-    });
-
-    animateItems.forEach(item => {
-      if (!item.classList.contains('is-visible')) observer.observe(item);
-    });
-  }
 });
