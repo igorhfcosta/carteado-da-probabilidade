@@ -1,3 +1,8 @@
+const accessibilityOverrideLink = document.createElement("link");
+accessibilityOverrideLink.rel = "stylesheet";
+accessibilityOverrideLink.href = "accessibility-overrides.css?v=20260622";
+document.head.appendChild(accessibilityOverrideLink);
+
 fetch("menu.html")
   .then(res => res.text())
   .then(data => {
