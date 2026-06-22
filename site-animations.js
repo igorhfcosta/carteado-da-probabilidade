@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         max-width:none;
         padding:64px max(22px, calc((100vw - 1180px) / 2)) 70px;
         background:#fff;
-        border-top:1px solid rgba(168,85,247,.10);
+        border-top:0;
         overflow:hidden;
       }
 
