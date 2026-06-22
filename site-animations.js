@@ -561,25 +561,277 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const animateItems = document.querySelectorAll('.js-animate-on-scroll');
-  if (!animateItems.length) return;
+  const initializeAccessibilityBar = () => {
+    const path = window.location.pathname.toLowerCase();
+    if (path.includes('simulador') || document.querySelector('.accessibility-widget')) return;
 
-  const firstItem = animateItems[0];
-  if (firstItem) firstItem.classList.add('is-visible');
+    const STORAGE_KEY = 'carteadoAcessibilidade';
+    const defaultState = {
+      font: 0,
+      contrast: false,
+      reduceMotion: false,
+      underlineLinks: false,
+      textSpacing: false
+    };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+    const loadState = () => {
+      try {
+        return { ...defaultState, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') };
+      } catch (error) {
+        return { ...defaultState };
+      }
+    };
+
+    let state = loadState();
+
+    const accessibilityStyle = document.createElement('style');
+    accessibilityStyle.id = 'accessibility-style';
+    accessibilityStyle.textContent = `
+      html.a11y-font-1{ font-size:106%; }
+      html.a11y-font-2{ font-size:112%; }
+      html.a11y-font-3{ font-size:118%; }
+      html.a11y-spacing body{ letter-spacing:.04em; line-height:1.75; }
+      html.a11y-underline a{ text-decoration:underline !important; text-underline-offset:.18em; }
+      html.a11y-no-motion, html.a11y-no-motion *{ scroll-behavior:auto !important; }
+      html.a11y-no-motion *,
+      html.a11y-no-motion *::before,
+      html.a11y-no-motion *::after{
+        animation:none !important;
+        transition:none !important;
+      }
+      html.a11y-contrast body,
+      html.a11y-contrast main,
+      html.a11y-contrast section{
+        background:#05000d !important;
+        color:#fff !important;
+      }
+      html.a11y-contrast p,
+      html.a11y-contrast span,
+      html.a11y-contrast li,
+      html.a11y-contrast .hero-text,
+      html.a11y-contrast .hero-lead{
+        color:#fff !important;
+      }
+      html.a11y-contrast a,
+      html.a11y-contrast button,
+      html.a11y-contrast h1,
+      html.a11y-contrast h2,
+      html.a11y-contrast h3,
+      html.a11y-contrast strong{
+        color:#fff !important;
+      }
+      html.a11y-contrast article,
+      html.a11y-contrast .component-card,
+      html.a11y-contrast .home-faq-item,
+      html.a11y-contrast .package-strip,
+      html.a11y-contrast .footer-logo-block{
+        background:#12002f !important;
+        border-color:#facc15 !important;
+        box-shadow:0 0 0 2px rgba(250,204,21,.35) !important;
+      }
+      html.a11y-contrast a:focus-visible,
+      html.a11y-contrast button:focus-visible,
+      html.a11y-contrast [tabindex]:focus-visible{
+        outline:4px solid #facc15 !important;
+        outline-offset:4px !important;
+      }
+
+      .accessibility-widget{
+        position:fixed;
+        left:22px;
+        bottom:22px;
+        z-index:1200;
+        font-family:inherit;
+      }
+      .accessibility-toggle{
+        width:58px;
+        height:58px;
+        border:0;
+        border-radius:50%;
+        display:grid;
+        place-items:center;
+        color:#fff;
+        font-size:1.55rem;
+        font-weight:950;
+        cursor:pointer;
+        background:linear-gradient(135deg, #a855f7, #5f22c8);
+        box-shadow:0 18px 34px rgba(35,11,80,.30), 0 0 0 6px rgba(255,255,255,.82);
+        transition:transform .2s ease, box-shadow .2s ease;
+      }
+      .accessibility-toggle:hover{ transform:translateY(-3px); box-shadow:0 22px 38px rgba(35,11,80,.34), 0 0 0 6px rgba(255,255,255,.94); }
+      .accessibility-toggle:focus-visible{ outline:4px solid rgba(168,85,247,.42); outline-offset:8px; }
+
+      .accessibility-panel{
+        position:absolute;
+        left:0;
+        bottom:74px;
+        width:min(330px, calc(100vw - 28px));
+        padding:18px;
+        border:1px solid rgba(168,85,247,.26);
+        border-radius:24px;
+        background:rgba(255,255,255,.96);
+        color:#160337;
+        box-shadow:0 24px 60px rgba(35,11,80,.25);
+        backdrop-filter:blur(14px);
+      }
+      .accessibility-panel[hidden]{ display:none; }
+      .accessibility-panel h2{ margin:0; color:#160337; font-size:1.08rem; line-height:1.2; }
+      .accessibility-panel p{ margin:6px 0 14px; color:#594a72; font-size:.88rem; line-height:1.45; }
+      .accessibility-actions{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+      .accessibility-action{
+        min-height:46px;
+        padding:10px 12px;
+        border:1px solid rgba(168,85,247,.22);
+        border-radius:14px;
+        color:#2b0b63;
+        font-weight:850;
+        text-align:left;
+        cursor:pointer;
+        background:linear-gradient(180deg, #fff, #f8f2ff);
+        box-shadow:0 10px 18px rgba(35,11,80,.06);
+        transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      }
+      .accessibility-action:hover{ transform:translateY(-2px); border-color:rgba(139,61,241,.48); box-shadow:0 14px 24px rgba(95,34,200,.12); }
+      .accessibility-action[aria-pressed="true"]{
+        color:#fff;
+        border-color:transparent;
+        background:linear-gradient(135deg, #8b3df1, #5f22c8);
+      }
+      .accessibility-action.full{ grid-column:1 / -1; text-align:center; justify-content:center; }
+      .accessibility-status{ margin-top:12px; color:#5f22c8; font-size:.82rem; font-weight:800; }
+
+      @media (max-width:680px){
+        .accessibility-widget{ left:14px; bottom:14px; }
+        .accessibility-toggle{ width:52px; height:52px; font-size:1.35rem; }
+        .accessibility-panel{ bottom:66px; padding:16px; }
+        .accessibility-actions{ grid-template-columns:1fr; }
+      }
+    `;
+    document.head.appendChild(accessibilityStyle);
+
+    const widget = document.createElement('aside');
+    widget.className = 'accessibility-widget';
+    widget.setAttribute('aria-label', 'Ferramentas de acessibilidade');
+    widget.innerHTML = `
+      <button class="accessibility-toggle" type="button" aria-label="Abrir ferramentas de acessibilidade" aria-expanded="false" aria-controls="accessibility-panel">A</button>
+      <div class="accessibility-panel" id="accessibility-panel" hidden>
+        <h2>Acessibilidade</h2>
+        <p>Ajuste a leitura e a navegação do site.</p>
+        <div class="accessibility-actions">
+          <button class="accessibility-action" type="button" data-a11y="increase-font">Aumentar fonte</button>
+          <button class="accessibility-action" type="button" data-a11y="decrease-font">Diminuir fonte</button>
+          <button class="accessibility-action" type="button" data-a11y="contrast" aria-pressed="false">Alto contraste</button>
+          <button class="accessibility-action" type="button" data-a11y="motion" aria-pressed="false">Pausar animações</button>
+          <button class="accessibility-action" type="button" data-a11y="underline" aria-pressed="false">Sublinhar links</button>
+          <button class="accessibility-action" type="button" data-a11y="spacing" aria-pressed="false">Espaçamento maior</button>
+          <button class="accessibility-action full" type="button" data-a11y="reset">Voltar ao padrão</button>
+        </div>
+        <div class="accessibility-status" aria-live="polite">Configurações padrão.</div>
+      </div>
+    `;
+    document.body.appendChild(widget);
+
+    const toggle = widget.querySelector('.accessibility-toggle');
+    const panel = widget.querySelector('.accessibility-panel');
+    const status = widget.querySelector('.accessibility-status');
+
+    const applyState = (message) => {
+      document.documentElement.classList.remove('a11y-font-1', 'a11y-font-2', 'a11y-font-3');
+      if (state.font > 0) document.documentElement.classList.add(`a11y-font-${state.font}`);
+      document.documentElement.classList.toggle('a11y-contrast', state.contrast);
+      document.documentElement.classList.toggle('a11y-no-motion', state.reduceMotion);
+      document.documentElement.classList.toggle('a11y-underline', state.underlineLinks);
+      document.documentElement.classList.toggle('a11y-spacing', state.textSpacing);
+
+      widget.querySelector('[data-a11y="contrast"]').setAttribute('aria-pressed', String(state.contrast));
+      widget.querySelector('[data-a11y="motion"]').setAttribute('aria-pressed', String(state.reduceMotion));
+      widget.querySelector('[data-a11y="underline"]').setAttribute('aria-pressed', String(state.underlineLinks));
+      widget.querySelector('[data-a11y="spacing"]').setAttribute('aria-pressed', String(state.textSpacing));
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      if (status) status.textContent = message || `Fonte ${state.font === 0 ? 'padrão' : '+' + state.font}.`;
+    };
+
+    toggle.addEventListener('click', () => {
+      const willOpen = panel.hidden;
+      panel.hidden = !willOpen;
+      toggle.setAttribute('aria-expanded', String(willOpen));
+    });
+
+    widget.addEventListener('click', (event) => {
+      const action = event.target.closest('[data-a11y]');
+      if (!action) return;
+      const type = action.dataset.a11y;
+
+      if (type === 'increase-font') {
+        state.font = Math.min(3, state.font + 1);
+        applyState('Fonte aumentada.');
+      }
+      if (type === 'decrease-font') {
+        state.font = Math.max(0, state.font - 1);
+        applyState('Fonte diminuída.');
+      }
+      if (type === 'contrast') {
+        state.contrast = !state.contrast;
+        applyState(state.contrast ? 'Alto contraste ativado.' : 'Alto contraste desativado.');
+      }
+      if (type === 'motion') {
+        state.reduceMotion = !state.reduceMotion;
+        applyState(state.reduceMotion ? 'Animações pausadas.' : 'Animações reativadas.');
+      }
+      if (type === 'underline') {
+        state.underlineLinks = !state.underlineLinks;
+        applyState(state.underlineLinks ? 'Links sublinhados.' : 'Sublinhado removido.');
+      }
+      if (type === 'spacing') {
+        state.textSpacing = !state.textSpacing;
+        applyState(state.textSpacing ? 'Espaçamento ampliado.' : 'Espaçamento padrão.');
+      }
+      if (type === 'reset') {
+        state = { ...defaultState };
+        applyState('Configurações restauradas.');
       }
     });
-  }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
-  });
 
-  animateItems.forEach(item => {
-    if (!item.classList.contains('is-visible')) observer.observe(item);
-  });
+    document.addEventListener('click', (event) => {
+      if (!panel.hidden && !widget.contains(event.target)) {
+        panel.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !panel.hidden) {
+        panel.hidden = true;
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+
+    applyState();
+  };
+
+  initializeAccessibilityBar();
+
+  const animateItems = document.querySelectorAll('.js-animate-on-scroll');
+  if (animateItems.length) {
+    const firstItem = animateItems[0];
+    if (firstItem) firstItem.classList.add('is-visible');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    animateItems.forEach(item => {
+      if (!item.classList.contains('is-visible')) observer.observe(item);
+    });
+  }
 });
