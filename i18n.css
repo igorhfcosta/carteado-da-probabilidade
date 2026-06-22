@@ -9,3 +9,19 @@
   visibility:hidden !important;
   pointer-events:none !important;
 }
+
+/*
+  Correção preventiva do botão de acessibilidade.
+  A home cria o botão por JavaScript e, por alguns instantes, herdava o estilo amarelo antigo
+  antes do CSS final carregar. Esta regra mantém o botão roxo desde o primeiro desenho.
+*/
+.accessibility-widget .accessibility-toggle{
+  background:linear-gradient(135deg, #9b4dff, #5f22c8) !important;
+  color:#fff !important;
+  border-color:rgba(255,255,255,.9) !important;
+  box-shadow:0 16px 28px rgba(35,11,80,.24), 0 0 0 3px rgba(255,255,255,.9) !important;
+}
+
+.accessibility-widget .accessibility-toggle .a11y-icon{
+  stroke:currentColor !important;
+}
