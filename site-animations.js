@@ -130,35 +130,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (homePage) {
     const homeEnhancementStyle = document.createElement('style');
     homeEnhancementStyle.textContent = `
-      .hero-card{
-        animation:homeCardFloat 5.8s ease-in-out infinite;
-        will-change:transform;
-      }
-
+      .hero-card{ animation:homeCardFloat 5.8s ease-in-out infinite; will-change:transform; }
       .hero-card.card-b{ animation-delay:.35s; }
       .hero-card.card-c{ animation-delay:.7s; }
-
-      .hero-die{
-        animation:homeDiceFloat 4.8s ease-in-out infinite;
-        will-change:transform;
-      }
-
+      .hero-die{ animation:homeDiceFloat 4.8s ease-in-out infinite; will-change:transform; }
       .hero-die.die-white{ animation-delay:.45s; }
-
       .hero:hover .hero-card,
-      .hero:hover .hero-die{
-        animation-play-state:paused;
-      }
-
-      @keyframes homeCardFloat{
-        0%, 100%{ translate:0 0; }
-        50%{ translate:0 -12px; }
-      }
-
-      @keyframes homeDiceFloat{
-        0%, 100%{ translate:0 0; }
-        50%{ translate:0 -10px; }
-      }
+      .hero:hover .hero-die{ animation-play-state:paused; }
+      @keyframes homeCardFloat{ 0%, 100%{ translate:0 0; } 50%{ translate:0 -12px; } }
+      @keyframes homeDiceFloat{ 0%, 100%{ translate:0 0; } 50%{ translate:0 -10px; } }
     `;
     document.head.appendChild(homeEnhancementStyle);
   }
@@ -166,143 +146,26 @@ document.addEventListener('DOMContentLoaded', () => {
   if (homePage && homeRealizacaoFooter && !document.querySelector('.home-faq-section')) {
     const faqStyle = document.createElement('style');
     faqStyle.textContent = `
-      .home-faq-section{
-        position:relative;
-        width:100%;
-        max-width:none;
-        padding:64px max(22px, calc((100vw - 1180px) / 2)) 70px;
-        background:#fff;
-        border-top:0;
-        overflow:hidden;
-      }
-
-      .home-faq-section::before,
-      .home-faq-section::after{ display:none; }
-
-      .home-faq-inner{
-        position:relative;
-        z-index:1;
-        width:min(1180px, 100%);
-        margin:0 auto;
-        display:grid;
-        grid-template-columns:minmax(260px, .82fr) minmax(0, 1.18fr);
-        gap:42px;
-        align-items:start;
-      }
-
+      .home-faq-section{ position:relative; width:100%; max-width:none; padding:64px max(22px, calc((100vw - 1180px) / 2)) 70px; background:#fff; border-top:0; overflow:hidden; }
+      .home-faq-section::before, .home-faq-section::after{ display:none; }
+      .home-faq-inner{ position:relative; z-index:1; width:min(1180px, 100%); margin:0 auto; display:grid; grid-template-columns:minmax(260px, .82fr) minmax(0, 1.18fr); gap:42px; align-items:start; }
       .home-faq-copy .section-label{ color:var(--purple-700); }
-
-      .home-faq-copy h2{
-        color:var(--ink);
-        font-size:clamp(2rem, 3.4vw, 3.25rem);
-        line-height:1.06;
-        letter-spacing:-.045em;
-      }
-
+      .home-faq-copy h2{ color:var(--ink); font-size:clamp(2rem, 3.4vw, 3.25rem); line-height:1.06; letter-spacing:-.045em; }
       .home-faq-copy h2 span{ color:var(--purple-600); }
-
-      .home-faq-copy p{
-        max-width:420px;
-        margin-top:16px;
-        color:var(--muted);
-        font-size:1rem;
-      }
-
-      .home-faq-badge{
-        width:78px;
-        height:78px;
-        margin-top:26px;
-        display:grid;
-        place-items:center;
-        border-radius:24px;
-        color:#fff;
-        font-size:2rem;
-        font-weight:950;
-        background:linear-gradient(135deg, #a855f7, #5f22c8);
-        box-shadow:0 18px 34px rgba(95,34,200,.22);
-        transform:rotate(-5deg);
-      }
-
+      .home-faq-copy p{ max-width:420px; margin-top:16px; color:var(--muted); font-size:1rem; }
+      .home-faq-badge{ width:78px; height:78px; margin-top:26px; display:grid; place-items:center; border-radius:24px; color:#fff; font-size:2rem; font-weight:950; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 18px 34px rgba(95,34,200,.22); transform:rotate(-5deg); }
       .home-faq-list{ display:grid; gap:14px; }
-
-      .home-faq-item{
-        position:relative;
-        border:1px solid rgba(168,85,247,.22);
-        border-radius:18px;
-        background:rgba(255,255,255,.92);
-        box-shadow:0 14px 30px rgba(35,11,80,.08);
-        overflow:hidden;
-        transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
-      }
-
-      .home-faq-item:hover{
-        transform:translateY(-3px);
-        border-color:rgba(139,61,241,.42);
-        box-shadow:0 20px 38px rgba(95,34,200,.13);
-      }
-
-      .home-faq-item[open]{
-        border-color:rgba(139,61,241,.52);
-        background:linear-gradient(180deg, #fff 0%, #f8f2ff 100%);
-      }
-
-      .home-faq-item summary{
-        list-style:none;
-        min-height:68px;
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:18px;
-        padding:18px 22px;
-        color:var(--ink);
-        font-size:1rem;
-        font-weight:900;
-        cursor:pointer;
-      }
-
+      .home-faq-item{ position:relative; border:1px solid rgba(168,85,247,.22); border-radius:18px; background:rgba(255,255,255,.92); box-shadow:0 14px 30px rgba(35,11,80,.08); overflow:hidden; transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease; }
+      .home-faq-item:hover{ transform:translateY(-3px); border-color:rgba(139,61,241,.42); box-shadow:0 20px 38px rgba(95,34,200,.13); }
+      .home-faq-item[open]{ border-color:rgba(139,61,241,.52); background:linear-gradient(180deg, #fff 0%, #f8f2ff 100%); }
+      .home-faq-item summary{ list-style:none; min-height:68px; display:flex; align-items:center; justify-content:space-between; gap:18px; padding:18px 22px; color:var(--ink); font-size:1rem; font-weight:900; cursor:pointer; }
       .home-faq-item summary::-webkit-details-marker{ display:none; }
-
-      .home-faq-item summary::after{
-        content:"+";
-        width:34px;
-        height:34px;
-        flex:0 0 34px;
-        display:grid;
-        place-items:center;
-        border-radius:50%;
-        color:#fff;
-        font-size:1.35rem;
-        line-height:1;
-        background:linear-gradient(135deg, #a855f7, #5f22c8);
-        box-shadow:0 10px 18px rgba(95,34,200,.18);
-        transition:transform .2s ease;
-      }
-
-      .home-faq-item[open] summary::after{
-        content:"−";
-        transform:rotate(180deg);
-      }
-
-      .home-faq-answer{
-        padding:0 22px 22px;
-        color:var(--muted);
-        font-size:.96rem;
-        line-height:1.65;
-      }
-
+      .home-faq-item summary::after{ content:"+"; width:34px; height:34px; flex:0 0 34px; display:grid; place-items:center; border-radius:50%; color:#fff; font-size:1.35rem; line-height:1; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 10px 18px rgba(95,34,200,.18); transition:transform .2s ease; }
+      .home-faq-item[open] summary::after{ content:"−"; transform:rotate(180deg); }
+      .home-faq-answer{ padding:0 22px 22px; color:var(--muted); font-size:.96rem; line-height:1.65; }
       .home-faq-answer strong{ color:var(--purple-700); }
-
-      @media (max-width: 980px){
-        .home-faq-inner{ grid-template-columns:1fr; gap:28px; }
-        .home-faq-copy p{ max-width:680px; }
-      }
-
-      @media (max-width: 680px){
-        .home-faq-section{ padding:52px 18px 56px; }
-        .home-faq-badge{ width:62px; height:62px; border-radius:18px; font-size:1.55rem; }
-        .home-faq-item summary{ align-items:flex-start; min-height:auto; padding:16px 16px; font-size:.95rem; }
-        .home-faq-answer{ padding:0 16px 18px; font-size:.9rem; }
-      }
+      @media (max-width: 980px){ .home-faq-inner{ grid-template-columns:1fr; gap:28px; } .home-faq-copy p{ max-width:680px; } }
+      @media (max-width: 680px){ .home-faq-section{ padding:52px 18px 56px; } .home-faq-badge{ width:62px; height:62px; border-radius:18px; font-size:1.55rem; } .home-faq-item summary{ align-items:flex-start; min-height:auto; padding:16px 16px; font-size:.95rem; } .home-faq-answer{ padding:0 16px 18px; font-size:.9rem; } }
     `;
     document.head.appendChild(faqStyle);
 
@@ -317,32 +180,13 @@ document.addEventListener('DOMContentLoaded', () => {
           <p>Respostas diretas para quem quer conhecer, baixar, imprimir ou aplicar o jogo em sala de aula.</p>
           <div class="home-faq-badge" aria-hidden="true">?</div>
         </div>
-
         <div class="home-faq-list">
-          <details class="home-faq-item" open>
-            <summary>O jogo é gratuito?</summary>
-            <div class="home-faq-answer">Sim. O material foi pensado como um <strong>recurso educacional</strong> para apoiar aulas, oficinas e projetos envolvendo probabilidade.</div>
-          </details>
-          <details class="home-faq-item">
-            <summary>Para qual público o jogo é indicado?</summary>
-            <div class="home-faq-answer">Ele pode ser usado principalmente com estudantes dos anos finais do Ensino Fundamental, Ensino Médio, EJA e também em contextos de formação de professores.</div>
-          </details>
-          <details class="home-faq-item">
-            <summary>Preciso imprimir todos os materiais?</summary>
-            <div class="home-faq-answer">Para jogar a versão física, o ideal é imprimir as cartas, os dados planificados e o manual. A página de downloads reúne os arquivos necessários.</div>
-          </details>
-          <details class="home-faq-item">
-            <summary>Posso adaptar as regras para minha turma?</summary>
-            <div class="home-faq-answer">Pode. O jogo foi pensado para permitir mediação docente. O professor pode ajustar o tempo, a quantidade de rodadas e o foco da discussão matemática.</div>
-          </details>
-          <details class="home-faq-item">
-            <summary>Existe uma versão digital?</summary>
-            <div class="home-faq-answer">Sim. O site possui uma área para jogar/simular, pensada para experimentar possibilidades e apoiar o uso do jogo também no ambiente digital.</div>
-          </details>
-          <details class="home-faq-item">
-            <summary>Como posso enviar sugestões ou relatos de uso?</summary>
-            <div class="home-faq-answer">Use a página de contato para enviar mensagens, sugestões, links de materiais ou relatos de aplicação. Isso ajuda a aprimorar o projeto.</div>
-          </details>
+          <details class="home-faq-item" open><summary>O jogo é gratuito?</summary><div class="home-faq-answer">Sim. O material foi pensado como um <strong>recurso educacional</strong> para apoiar aulas, oficinas e projetos envolvendo probabilidade.</div></details>
+          <details class="home-faq-item"><summary>Para qual público o jogo é indicado?</summary><div class="home-faq-answer">Ele pode ser usado principalmente com estudantes dos anos finais do Ensino Fundamental, Ensino Médio, EJA e também em contextos de formação de professores.</div></details>
+          <details class="home-faq-item"><summary>Preciso imprimir todos os materiais?</summary><div class="home-faq-answer">Para jogar a versão física, o ideal é imprimir as cartas, os dados planificados e o manual. A página de downloads reúne os arquivos necessários.</div></details>
+          <details class="home-faq-item"><summary>Posso adaptar as regras para minha turma?</summary><div class="home-faq-answer">Pode. O jogo foi pensado para permitir mediação docente. O professor pode ajustar o tempo, a quantidade de rodadas e o foco da discussão matemática.</div></details>
+          <details class="home-faq-item"><summary>Existe uma versão digital?</summary><div class="home-faq-answer">Sim. O site possui uma área para jogar/simular, pensada para experimentar possibilidades e apoiar o uso do jogo também no ambiente digital.</div></details>
+          <details class="home-faq-item"><summary>Como posso enviar sugestões ou relatos de uso?</summary><div class="home-faq-answer">Use a página de contato para enviar mensagens, sugestões, links de materiais ou relatos de aplicação. Isso ajuda a aprimorar o projeto.</div></details>
         </div>
       </div>
     `;
@@ -360,64 +204,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const downloadPage = document.querySelector('.download-page');
-
   if (downloadPage && !document.querySelector('.package-section')) {
     const packageStyle = document.createElement('style');
     packageStyle.textContent = `
-      .package-section{
-        padding:0 0 46px;
-        color:#150b2f;
-        background:#fff;
-      }
-
-      .package-strip{
-        width:100%;
-        padding:30px clamp(22px, 4vw, 42px);
-        display:grid;
-        grid-template-columns:minmax(0, 1fr) auto;
-        gap:24px;
-        align-items:center;
-        border:1px solid rgba(168,85,247,.22);
-        border-radius:24px;
-        background:
-          radial-gradient(circle at 88% 20%, rgba(168,85,247,.18), transparent 34%),
-          linear-gradient(135deg, #fff 0%, #f7efff 100%);
-        box-shadow:0 20px 44px rgba(35,11,80,.10);
-      }
-
-      .package-strip strong{
-        display:block;
-        color:#150b2f;
-        font-size:clamp(1.35rem, 2.2vw, 2rem);
-        line-height:1.1;
-        letter-spacing:-.035em;
-      }
-
-      .package-strip p{
-        max-width:680px;
-        margin:8px 0 0;
-        color:#514763;
-        line-height:1.55;
-      }
-
-      .package-strip .download-btn{
-        min-width:210px;
-        color:#fff;
-        border:0;
-        background:linear-gradient(135deg, #a855f7, #5f22c8);
-        box-shadow:0 14px 30px rgba(95,34,200,.24);
-      }
-
-      @media (max-width:760px){
-        .package-strip{
-          grid-template-columns:1fr;
-          text-align:left;
-        }
-
-        .package-strip .download-btn{
-          width:100%;
-        }
-      }
+      .package-section{ padding:0 0 46px; color:#150b2f; background:#fff; }
+      .package-strip{ width:100%; padding:30px clamp(22px, 4vw, 42px); display:grid; grid-template-columns:minmax(0, 1fr) auto; gap:24px; align-items:center; border:1px solid rgba(168,85,247,.22); border-radius:24px; background:radial-gradient(circle at 88% 20%, rgba(168,85,247,.18), transparent 34%), linear-gradient(135deg, #fff 0%, #f7efff 100%); box-shadow:0 20px 44px rgba(35,11,80,.10); }
+      .package-strip strong{ display:block; color:#150b2f; font-size:clamp(1.35rem, 2.2vw, 2rem); line-height:1.1; letter-spacing:-.035em; }
+      .package-strip p{ max-width:680px; margin:8px 0 0; color:#514763; line-height:1.55; }
+      .package-strip .download-btn{ min-width:210px; color:#fff; border:0; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 14px 30px rgba(95,34,200,.24); }
+      @media (max-width:760px){ .package-strip{ grid-template-columns:1fr; text-align:left; } .package-strip .download-btn{ width:100%; } }
     `;
     document.head.appendChild(packageStyle);
 
@@ -442,97 +237,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const componentsSection = document.querySelector('.components-section');
-
   if (componentsSection) {
     const componentStyle = document.createElement('style');
     componentStyle.textContent = `
-      .dice-item{
-        transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
-        will-change:transform;
-      }
-
-      .dice-photo,
-      .dice-photo img{
-        transition:transform .22s ease, filter .22s ease, background .22s ease;
-      }
-
-      .dice-item:hover{
-        transform:translateY(-8px);
-        border-color:rgba(139,61,241,.34);
-        background:linear-gradient(180deg, #fff 0%, #f5edff 100%);
-        box-shadow:0 18px 30px rgba(95,34,200,.14);
-      }
-
-      .dice-item:hover .dice-photo{
-        transform:rotate(-4deg) scale(1.05);
-        background:rgba(168,85,247,.16);
-      }
-
-      .dice-item:hover .dice-photo img{
-        transform:translateY(-4px) rotate(7deg) scale(1.06);
-        filter:drop-shadow(0 18px 18px rgba(95,34,200,.28));
-      }
+      .dice-item{ transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease; will-change:transform; }
+      .dice-photo, .dice-photo img{ transition:transform .22s ease, filter .22s ease, background .22s ease; }
+      .dice-item:hover{ transform:translateY(-8px); border-color:rgba(139,61,241,.34); background:linear-gradient(180deg, #fff 0%, #f5edff 100%); box-shadow:0 18px 30px rgba(95,34,200,.14); }
+      .dice-item:hover .dice-photo{ transform:rotate(-4deg) scale(1.05); background:rgba(168,85,247,.16); }
+      .dice-item:hover .dice-photo img{ transform:translateY(-4px) rotate(7deg) scale(1.06); filter:drop-shadow(0 18px 18px rgba(95,34,200,.28)); }
     `;
     document.head.appendChild(componentStyle);
   }
 
   const quickRulesGrid = document.querySelector('.quick-rules .quick-grid');
   const quickRules = quickRulesGrid ? Array.from(quickRulesGrid.querySelectorAll('article')) : [];
-
   if (quickRulesGrid && quickRules.length >= 7) {
     const quickRulesStyle = document.createElement('style');
     quickRulesStyle.textContent = `
       .quick-rules{ padding-bottom:30px !important; }
-
-      .quick-rules .quick-grid{
-        grid-template-columns:repeat(5, minmax(0, 1fr)) !important;
-        gap:18px !important;
-      }
-
-      .quick-rules .quick-grid article{
-        position:relative;
-        min-height:236px !important;
-        padding:24px 18px 22px !important;
-        border-color:rgba(168,85,247,.22) !important;
-        border-radius:18px !important;
-        background:
-          radial-gradient(circle at 50% 0%, rgba(168,85,247,.10), transparent 46%),
-          linear-gradient(180deg, #fff 0%, #fbf8ff 100%) !important;
-        box-shadow:0 16px 34px rgba(18,9,47,.07) !important;
-        overflow:hidden;
-        transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-      }
-
-      .quick-rules .quick-grid article::after{
-        content:"";
-        position:absolute;
-        inset:auto -34px -40px auto;
-        width:110px;
-        height:110px;
-        border:1px dashed rgba(168,85,247,.22);
-        border-radius:50%;
-      }
-
-      .quick-rules .quick-grid article:hover{
-        transform:translateY(-6px);
-        border-color:rgba(139,61,241,.42) !important;
-        box-shadow:0 20px 38px rgba(95,34,200,.13) !important;
-      }
-
+      .quick-rules .quick-grid{ grid-template-columns:repeat(5, minmax(0, 1fr)) !important; gap:18px !important; }
+      .quick-rules .quick-grid article{ position:relative; min-height:236px !important; padding:24px 18px 22px !important; border-color:rgba(168,85,247,.22) !important; border-radius:18px !important; background:radial-gradient(circle at 50% 0%, rgba(168,85,247,.10), transparent 46%), linear-gradient(180deg, #fff 0%, #fbf8ff 100%) !important; box-shadow:0 16px 34px rgba(18,9,47,.07) !important; overflow:hidden; transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+      .quick-rules .quick-grid article::after{ content:""; position:absolute; inset:auto -34px -40px auto; width:110px; height:110px; border:1px dashed rgba(168,85,247,.22); border-radius:50%; }
+      .quick-rules .quick-grid article:hover{ transform:translateY(-6px); border-color:rgba(139,61,241,.42) !important; box-shadow:0 20px 38px rgba(95,34,200,.13) !important; }
       .quick-rules .rule-icon{ width:62px !important; height:54px !important; margin-bottom:6px !important; }
       .quick-rules .rule-number{ width:28px !important; height:28px !important; box-shadow:0 8px 16px rgba(95,34,200,.18); }
       .quick-rules .quick-grid h3{ margin:16px 0 10px !important; color:#12002f; font-size:1rem !important; line-height:1.12 !important; }
       .quick-rules .quick-grid p{ max-width:190px; margin:0 auto !important; color:#4f4567 !important; font-size:.89rem !important; line-height:1.45 !important; }
-
-      @media (max-width: 1100px){
-        .quick-rules .quick-grid{ grid-template-columns:repeat(3, minmax(0, 1fr)) !important; }
-      }
-
-      @media (max-width: 680px){
-        .quick-rules .quick-grid{ grid-template-columns:1fr !important; }
-        .quick-rules .quick-grid article{ min-height:auto !important; align-items:flex-start !important; text-align:left !important; padding:22px 24px !important; }
-        .quick-rules .quick-grid p{ max-width:none !important; margin:0 !important; }
-      }
+      @media (max-width: 1100px){ .quick-rules .quick-grid{ grid-template-columns:repeat(3, minmax(0, 1fr)) !important; } }
+      @media (max-width: 680px){ .quick-rules .quick-grid{ grid-template-columns:1fr !important; } .quick-rules .quick-grid article{ min-height:auto !important; align-items:flex-start !important; text-align:left !important; padding:22px 24px !important; } .quick-rules .quick-grid p{ max-width:none !important; margin:0 !important; } }
     `;
     document.head.appendChild(quickRulesStyle);
 
@@ -545,18 +277,15 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     quickRulesGrid.innerHTML = '';
-
     compactRules.forEach((content, index) => {
       const baseRule = quickRules[content.sourceIndex] || quickRules[index];
       const rule = baseRule.cloneNode(true);
       const number = rule.querySelector('.rule-number');
       const title = rule.querySelector('h3');
       const paragraph = rule.querySelector('p');
-
       if (number) number.textContent = String(index + 1);
       if (title) title.textContent = content.title;
       if (paragraph) paragraph.textContent = content.text;
-
       quickRulesGrid.appendChild(rule);
     });
   }
@@ -593,119 +322,144 @@ document.addEventListener('DOMContentLoaded', () => {
       html.a11y-spacing body{ letter-spacing:.04em; line-height:1.75; }
       html.a11y-underline a{ text-decoration:underline !important; text-underline-offset:.18em; }
       html.a11y-no-motion, html.a11y-no-motion *{ scroll-behavior:auto !important; }
-      html.a11y-no-motion *,
-      html.a11y-no-motion *::before,
-      html.a11y-no-motion *::after{
-        animation:none !important;
-        transition:none !important;
-      }
+      html.a11y-no-motion *, html.a11y-no-motion *::before, html.a11y-no-motion *::after{ animation:none !important; transition:none !important; }
+
       html.a11y-contrast body,
       html.a11y-contrast main,
-      html.a11y-contrast section{
+      html.a11y-contrast section,
+      html.a11y-contrast .home-faq-section,
+      html.a11y-contrast .package-section,
+      html.a11y-contrast .download-page,
+      html.a11y-contrast .content-section,
+      html.a11y-contrast .page-section{
         background:#05000d !important;
         color:#fff !important;
       }
+
       html.a11y-contrast p,
       html.a11y-contrast span,
       html.a11y-contrast li,
+      html.a11y-contrast label,
+      html.a11y-contrast small,
       html.a11y-contrast .hero-text,
-      html.a11y-contrast .hero-lead{
+      html.a11y-contrast .hero-lead,
+      html.a11y-contrast .section-label,
+      html.a11y-contrast .home-faq-answer,
+      html.a11y-contrast .package-strip p,
+      html.a11y-contrast .footer-logo-text span,
+      html.a11y-contrast .footer-credit{
         color:#fff !important;
       }
+
       html.a11y-contrast a,
       html.a11y-contrast button,
       html.a11y-contrast h1,
       html.a11y-contrast h2,
       html.a11y-contrast h3,
-      html.a11y-contrast strong{
+      html.a11y-contrast h4,
+      html.a11y-contrast strong,
+      html.a11y-contrast summary{
         color:#fff !important;
       }
+
       html.a11y-contrast article,
       html.a11y-contrast .component-card,
       html.a11y-contrast .home-faq-item,
       html.a11y-contrast .package-strip,
-      html.a11y-contrast .footer-logo-block{
+      html.a11y-contrast .footer-logo-block,
+      html.a11y-contrast .quick-rules .quick-grid article,
+      html.a11y-contrast .step-card,
+      html.a11y-contrast .file-card,
+      html.a11y-contrast .download-card,
+      html.a11y-contrast .contact-card,
+      html.a11y-contrast .form-card,
+      html.a11y-contrast .timeline-card,
+      html.a11y-contrast .author-card,
+      html.a11y-contrast .value-card,
+      html.a11y-contrast .dice-item,
+      html.a11y-contrast .effect-info,
+      html.a11y-contrast .number-card,
+      html.a11y-contrast .site-header-inner,
+      html.a11y-contrast .mobile-panel{
         background:#12002f !important;
+        color:#fff !important;
         border-color:#facc15 !important;
-        box-shadow:0 0 0 2px rgba(250,204,21,.35) !important;
+        box-shadow:0 0 0 2px rgba(250,204,21,.45), 0 18px 38px rgba(0,0,0,.35) !important;
       }
+
+      html.a11y-contrast input,
+      html.a11y-contrast textarea,
+      html.a11y-contrast select{
+        background:#05000d !important;
+        color:#fff !important;
+        border-color:#facc15 !important;
+      }
+
+      html.a11y-contrast input::placeholder,
+      html.a11y-contrast textarea::placeholder{ color:#e7d7ff !important; }
+
+      html.a11y-contrast .accessibility-widget{ color:#12002f !important; }
+      html.a11y-contrast .accessibility-toggle{
+        color:#05000d !important;
+        background:#facc15 !important;
+        box-shadow:0 18px 34px rgba(0,0,0,.45), 0 0 0 6px rgba(255,255,255,.98) !important;
+      }
+      html.a11y-contrast .accessibility-panel{
+        background:#fff !important;
+        color:#12002f !important;
+        border:3px solid #facc15 !important;
+        box-shadow:0 24px 60px rgba(0,0,0,.55) !important;
+      }
+      html.a11y-contrast .accessibility-panel h2,
+      html.a11y-contrast .accessibility-panel p,
+      html.a11y-contrast .accessibility-panel span,
+      html.a11y-contrast .accessibility-status,
+      html.a11y-contrast .font-range-label,
+      html.a11y-contrast .font-range-value{
+        color:#12002f !important;
+      }
+      html.a11y-contrast .accessibility-action{
+        background:#12002f !important;
+        color:#fff !important;
+        border-color:#facc15 !important;
+      }
+      html.a11y-contrast .accessibility-action[aria-pressed="true"]{
+        background:#facc15 !important;
+        color:#12002f !important;
+      }
+      html.a11y-contrast .font-range{
+        accent-color:#5f22c8;
+      }
+
       html.a11y-contrast a:focus-visible,
       html.a11y-contrast button:focus-visible,
+      html.a11y-contrast input:focus-visible,
+      html.a11y-contrast textarea:focus-visible,
       html.a11y-contrast [tabindex]:focus-visible{
         outline:4px solid #facc15 !important;
         outline-offset:4px !important;
       }
 
-      .accessibility-widget{
-        position:fixed;
-        left:22px;
-        bottom:22px;
-        z-index:1200;
-        font-family:inherit;
-      }
-      .accessibility-toggle{
-        width:58px;
-        height:58px;
-        border:0;
-        border-radius:50%;
-        display:grid;
-        place-items:center;
-        color:#fff;
-        font-size:1.55rem;
-        font-weight:950;
-        cursor:pointer;
-        background:linear-gradient(135deg, #a855f7, #5f22c8);
-        box-shadow:0 18px 34px rgba(35,11,80,.30), 0 0 0 6px rgba(255,255,255,.82);
-        transition:transform .2s ease, box-shadow .2s ease;
-      }
+      .accessibility-widget{ position:fixed; left:22px; bottom:22px; z-index:1200; font-family:inherit; }
+      .accessibility-toggle{ width:58px; height:58px; border:0; border-radius:50%; display:grid; place-items:center; color:#fff; font-size:1.55rem; font-weight:950; cursor:pointer; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 18px 34px rgba(35,11,80,.30), 0 0 0 6px rgba(255,255,255,.82); transition:transform .2s ease, box-shadow .2s ease; }
       .accessibility-toggle:hover{ transform:translateY(-3px); box-shadow:0 22px 38px rgba(35,11,80,.34), 0 0 0 6px rgba(255,255,255,.94); }
       .accessibility-toggle:focus-visible{ outline:4px solid rgba(168,85,247,.42); outline-offset:8px; }
-
-      .accessibility-panel{
-        position:absolute;
-        left:0;
-        bottom:74px;
-        width:min(330px, calc(100vw - 28px));
-        padding:18px;
-        border:1px solid rgba(168,85,247,.26);
-        border-radius:24px;
-        background:rgba(255,255,255,.96);
-        color:#160337;
-        box-shadow:0 24px 60px rgba(35,11,80,.25);
-        backdrop-filter:blur(14px);
-      }
+      .accessibility-panel{ position:absolute; left:0; bottom:74px; width:min(350px, calc(100vw - 28px)); padding:18px; border:1px solid rgba(168,85,247,.26); border-radius:24px; background:rgba(255,255,255,.96); color:#160337; box-shadow:0 24px 60px rgba(35,11,80,.25); backdrop-filter:blur(14px); }
       .accessibility-panel[hidden]{ display:none; }
       .accessibility-panel h2{ margin:0; color:#160337; font-size:1.08rem; line-height:1.2; }
       .accessibility-panel p{ margin:6px 0 14px; color:#594a72; font-size:.88rem; line-height:1.45; }
+      .font-control{ grid-column:1 / -1; padding:12px; border:1px solid rgba(168,85,247,.18); border-radius:16px; background:linear-gradient(180deg, #fff, #fbf7ff); }
+      .font-control-top{ display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:10px; }
+      .font-range-label{ color:#2b0b63; font-weight:900; font-size:.92rem; }
+      .font-range-value{ color:#5f22c8; font-weight:950; font-size:.84rem; }
+      .font-range{ width:100%; accent-color:#8b3df1; cursor:pointer; }
       .accessibility-actions{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-      .accessibility-action{
-        min-height:46px;
-        padding:10px 12px;
-        border:1px solid rgba(168,85,247,.22);
-        border-radius:14px;
-        color:#2b0b63;
-        font-weight:850;
-        text-align:left;
-        cursor:pointer;
-        background:linear-gradient(180deg, #fff, #f8f2ff);
-        box-shadow:0 10px 18px rgba(35,11,80,.06);
-        transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
-      }
+      .accessibility-action{ min-height:46px; padding:10px 12px; border:1px solid rgba(168,85,247,.22); border-radius:14px; color:#2b0b63; font-weight:850; text-align:left; cursor:pointer; background:linear-gradient(180deg, #fff, #f8f2ff); box-shadow:0 10px 18px rgba(35,11,80,.06); transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
       .accessibility-action:hover{ transform:translateY(-2px); border-color:rgba(139,61,241,.48); box-shadow:0 14px 24px rgba(95,34,200,.12); }
-      .accessibility-action[aria-pressed="true"]{
-        color:#fff;
-        border-color:transparent;
-        background:linear-gradient(135deg, #8b3df1, #5f22c8);
-      }
+      .accessibility-action[aria-pressed="true"]{ color:#fff; border-color:transparent; background:linear-gradient(135deg, #8b3df1, #5f22c8); }
       .accessibility-action.full{ grid-column:1 / -1; text-align:center; justify-content:center; }
       .accessibility-status{ margin-top:12px; color:#5f22c8; font-size:.82rem; font-weight:800; }
-
-      @media (max-width:680px){
-        .accessibility-widget{ left:14px; bottom:14px; }
-        .accessibility-toggle{ width:52px; height:52px; font-size:1.35rem; }
-        .accessibility-panel{ bottom:66px; padding:16px; }
-        .accessibility-actions{ grid-template-columns:1fr; }
-      }
+      @media (max-width:680px){ .accessibility-widget{ left:14px; bottom:14px; } .accessibility-toggle{ width:52px; height:52px; font-size:1.35rem; } .accessibility-panel{ bottom:66px; padding:16px; } .accessibility-actions{ grid-template-columns:1fr; } }
     `;
     document.head.appendChild(accessibilityStyle);
 
@@ -718,8 +472,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <h2>Acessibilidade</h2>
         <p>Ajuste a leitura e a navegação do site.</p>
         <div class="accessibility-actions">
-          <button class="accessibility-action" type="button" data-a11y="increase-font">Aumentar fonte</button>
-          <button class="accessibility-action" type="button" data-a11y="decrease-font">Diminuir fonte</button>
+          <div class="font-control">
+            <div class="font-control-top">
+              <span class="font-range-label">Tamanho da fonte</span>
+              <span class="font-range-value">Padrão</span>
+            </div>
+            <input class="font-range" type="range" min="0" max="3" step="1" value="0" aria-label="Variar tamanho da fonte">
+          </div>
           <button class="accessibility-action" type="button" data-a11y="contrast" aria-pressed="false">Alto contraste</button>
           <button class="accessibility-action" type="button" data-a11y="motion" aria-pressed="false">Pausar animações</button>
           <button class="accessibility-action" type="button" data-a11y="underline" aria-pressed="false">Sublinhar links</button>
@@ -734,6 +493,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggle = widget.querySelector('.accessibility-toggle');
     const panel = widget.querySelector('.accessibility-panel');
     const status = widget.querySelector('.accessibility-status');
+    const fontRange = widget.querySelector('.font-range');
+    const fontRangeValue = widget.querySelector('.font-range-value');
+
+    const updateFontLabel = () => {
+      if (!fontRange || !fontRangeValue) return;
+      fontRange.value = String(state.font);
+      fontRangeValue.textContent = state.font === 0 ? 'Padrão' : `+${state.font}`;
+    };
 
     const applyState = (message) => {
       document.documentElement.classList.remove('a11y-font-1', 'a11y-font-2', 'a11y-font-3');
@@ -747,6 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
       widget.querySelector('[data-a11y="motion"]').setAttribute('aria-pressed', String(state.reduceMotion));
       widget.querySelector('[data-a11y="underline"]').setAttribute('aria-pressed', String(state.underlineLinks));
       widget.querySelector('[data-a11y="spacing"]').setAttribute('aria-pressed', String(state.textSpacing));
+      updateFontLabel();
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       if (status) status.textContent = message || `Fonte ${state.font === 0 ? 'padrão' : '+' + state.font}.`;
@@ -758,19 +526,18 @@ document.addEventListener('DOMContentLoaded', () => {
       toggle.setAttribute('aria-expanded', String(willOpen));
     });
 
+    if (fontRange) {
+      fontRange.addEventListener('input', () => {
+        state.font = Number(fontRange.value);
+        applyState(state.font === 0 ? 'Fonte padrão.' : `Fonte ajustada para +${state.font}.`);
+      });
+    }
+
     widget.addEventListener('click', (event) => {
       const action = event.target.closest('[data-a11y]');
       if (!action) return;
       const type = action.dataset.a11y;
 
-      if (type === 'increase-font') {
-        state.font = Math.min(3, state.font + 1);
-        applyState('Fonte aumentada.');
-      }
-      if (type === 'decrease-font') {
-        state.font = Math.max(0, state.font - 1);
-        applyState('Fonte diminuída.');
-      }
       if (type === 'contrast') {
         state.contrast = !state.contrast;
         applyState(state.contrast ? 'Alto contraste ativado.' : 'Alto contraste desativado.');
