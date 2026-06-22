@@ -98,27 +98,16 @@ document.addEventListener('DOMContentLoaded', () => {
         position:relative;
         width:100%;
         max-width:none;
-        padding:72px max(22px, calc((100vw - 1180px) / 2)) 76px;
-        background:
-          radial-gradient(circle at 12% 18%, rgba(168,85,247,.14), transparent 26%),
-          radial-gradient(circle at 88% 76%, rgba(139,61,241,.16), transparent 28%),
-          linear-gradient(180deg, #fff 0%, #fbf8ff 100%);
+        padding:64px max(22px, calc((100vw - 1180px) / 2)) 70px;
+        background:#fff;
+        border-top:1px solid rgba(168,85,247,.10);
         overflow:hidden;
       }
 
       .home-faq-section::before,
       .home-faq-section::after{
-        content:"";
-        position:absolute;
-        width:280px;
-        height:96px;
-        border:2px dashed rgba(168,85,247,.18);
-        border-radius:50%;
-        pointer-events:none;
+        display:none;
       }
-
-      .home-faq-section::before{ left:-96px; top:72px; transform:rotate(18deg); }
-      .home-faq-section::after{ right:-82px; bottom:62px; transform:rotate(-14deg); }
 
       .home-faq-inner{
         position:relative;
@@ -177,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
         position:relative;
         border:1px solid rgba(168,85,247,.22);
         border-radius:18px;
-        background:rgba(255,255,255,.86);
+        background:rgba(255,255,255,.92);
         box-shadow:0 14px 30px rgba(35,11,80,.08);
         overflow:hidden;
         transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
@@ -191,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       .home-faq-item[open]{
         border-color:rgba(139,61,241,.52);
-        background:linear-gradient(180deg, #fff 0%, #f6efff 100%);
+        background:linear-gradient(180deg, #fff 0%, #f8f2ff 100%);
       }
 
       .home-faq-item summary{
