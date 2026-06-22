@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
       meta = document.createElement('meta');
       document.head.appendChild(meta);
     }
-
     Object.entries(attributes).forEach(([key, value]) => meta.setAttribute(key, value));
   };
 
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
       link = document.createElement('link');
       document.head.appendChild(link);
     }
-
     Object.entries(attributes).forEach(([key, value]) => link.setAttribute(key, value));
   };
 
@@ -44,12 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
   upsertLink('link[rel="apple-touch-icon"]', { rel: 'apple-touch-icon', href: 'logo/logo.png' });
 
   const header = document.querySelector('.site-header');
-
   if (header) {
-    const updateHeaderState = () => {
-      header.classList.toggle('is-scrolled', window.scrollY > 12);
-    };
-
+    const updateHeaderState = () => header.classList.toggle('is-scrolled', window.scrollY > 12);
     updateHeaderState();
     window.addEventListener('scroll', updateHeaderState, { passive: true });
   }
@@ -85,21 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
     updateBackToTopState();
     window.addEventListener('scroll', updateBackToTopState, { passive: true });
     window.addEventListener('resize', updateBackToTopState);
-
-    btn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
   const footerLinks = [
-    {
-      label: 'Abrir site da Universidade Federal de Uberlândia',
-      url: 'https://ufu.br/'
-    },
-    {
-      label: 'Abrir site do PPGECM UFU',
-      url: 'https://ppgecm.ufu.br/'
-    }
+    { label: 'Abrir site da Universidade Federal de Uberlândia', url: 'https://ufu.br/' },
+    { label: 'Abrir site do PPGECM UFU', url: 'https://ppgecm.ufu.br/' }
   ];
 
   document.querySelectorAll('.realizacao-footer .footer-logo-block').forEach((block, index) => {
@@ -112,10 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     block.setAttribute('aria-label', config.label);
     block.setAttribute('title', config.label);
 
-    const openTarget = () => {
-      window.open(config.url, '_blank', 'noopener,noreferrer');
-    };
-
+    const openTarget = () => window.open(config.url, '_blank', 'noopener,noreferrer');
     block.addEventListener('click', openTarget);
     block.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
@@ -126,23 +108,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const homeRealizacaoFooter = document.querySelector('.home-footer.realizacao-footer');
-
   if (homeRealizacaoFooter) {
     homeRealizacaoFooter.querySelectorAll('.footer-dice, .footer-card').forEach((item) => item.remove());
   }
 
   const openAllMaterials = () => {
     MATERIAL_LINKS.forEach((link, index) => {
-      window.setTimeout(() => {
-        window.open(link, '_blank', 'noopener,noreferrer');
-      }, index * 120);
+      window.setTimeout(() => window.open(link, '_blank', 'noopener,noreferrer'), index * 120);
     });
   };
 
   document.addEventListener('click', (event) => {
     const openAllButton = event.target.closest('[data-open-all-materials]');
     if (!openAllButton) return;
-
     event.preventDefault();
     openAllMaterials();
   });
@@ -181,72 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
         0%, 100%{ translate:0 0; }
         50%{ translate:0 -10px; }
       }
-
-      .home-download-strip{
-        width:min(1180px, calc(100% - 48px));
-        margin:62px auto 0;
-        padding:30px clamp(22px, 4vw, 42px);
-        display:grid;
-        grid-template-columns:minmax(0, 1fr) auto;
-        gap:24px;
-        align-items:center;
-        border:1px solid rgba(168,85,247,.22);
-        border-radius:24px;
-        background:
-          radial-gradient(circle at 88% 20%, rgba(168,85,247,.18), transparent 34%),
-          linear-gradient(135deg, #fff 0%, #f7efff 100%);
-        box-shadow:0 20px 44px rgba(35,11,80,.10);
-      }
-
-      .home-download-strip strong{
-        display:block;
-        color:var(--ink);
-        font-size:clamp(1.35rem, 2.2vw, 2rem);
-        line-height:1.1;
-        letter-spacing:-.035em;
-      }
-
-      .home-download-strip p{
-        max-width:680px;
-        margin:8px 0 0;
-        color:var(--muted);
-      }
-
-      .home-download-strip .btn{
-        min-width:210px;
-        color:#fff;
-        border:0;
-        background:linear-gradient(135deg, #a855f7, #5f22c8);
-        box-shadow:0 14px 30px rgba(95,34,200,.24);
-      }
-
-      @media (max-width:760px){
-        .home-download-strip{
-          width:min(100% - 32px, 1180px);
-          grid-template-columns:1fr;
-          text-align:left;
-        }
-
-        .home-download-strip .btn{
-          width:100%;
-        }
-      }
     `;
     document.head.appendChild(homeEnhancementStyle);
-
-    const teacherSection = document.querySelector('.teacher-section');
-    if (teacherSection && !document.querySelector('.home-download-strip')) {
-      const downloadStrip = document.createElement('section');
-      downloadStrip.className = 'home-download-strip';
-      downloadStrip.innerHTML = `
-        <div>
-          <strong>Baixe o pacote completo do jogo.</strong>
-          <p>Acesse cartas, manual, caixa e dados em um único caminho para preparar o material com mais facilidade.</p>
-        </div>
-        <a class="btn" href="baixar.html#pacote-completo">Baixar tudo</a>
-      `;
-      teacherSection.insertAdjacentElement('afterend', downloadStrip);
-    }
   }
 
   if (homePage && homeRealizacaoFooter && !document.querySelector('.home-faq-section')) {
@@ -263,9 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       .home-faq-section::before,
-      .home-faq-section::after{
-        display:none;
-      }
+      .home-faq-section::after{ display:none; }
 
       .home-faq-inner{
         position:relative;
@@ -278,9 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
         align-items:start;
       }
 
-      .home-faq-copy .section-label{
-        color:var(--purple-700);
-      }
+      .home-faq-copy .section-label{ color:var(--purple-700); }
 
       .home-faq-copy h2{
         color:var(--ink);
@@ -289,9 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
         letter-spacing:-.045em;
       }
 
-      .home-faq-copy h2 span{
-        color:var(--purple-600);
-      }
+      .home-faq-copy h2 span{ color:var(--purple-600); }
 
       .home-faq-copy p{
         max-width:420px;
@@ -315,10 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         transform:rotate(-5deg);
       }
 
-      .home-faq-list{
-        display:grid;
-        gap:14px;
-      }
+      .home-faq-list{ display:grid; gap:14px; }
 
       .home-faq-item{
         position:relative;
@@ -385,44 +290,18 @@ document.addEventListener('DOMContentLoaded', () => {
         line-height:1.65;
       }
 
-      .home-faq-answer strong{
-        color:var(--purple-700);
-      }
+      .home-faq-answer strong{ color:var(--purple-700); }
 
       @media (max-width: 980px){
-        .home-faq-inner{
-          grid-template-columns:1fr;
-          gap:28px;
-        }
-
-        .home-faq-copy p{
-          max-width:680px;
-        }
+        .home-faq-inner{ grid-template-columns:1fr; gap:28px; }
+        .home-faq-copy p{ max-width:680px; }
       }
 
       @media (max-width: 680px){
-        .home-faq-section{
-          padding:52px 18px 56px;
-        }
-
-        .home-faq-badge{
-          width:62px;
-          height:62px;
-          border-radius:18px;
-          font-size:1.55rem;
-        }
-
-        .home-faq-item summary{
-          align-items:flex-start;
-          min-height:auto;
-          padding:16px 16px;
-          font-size:.95rem;
-        }
-
-        .home-faq-answer{
-          padding:0 16px 18px;
-          font-size:.9rem;
-        }
+        .home-faq-section{ padding:52px 18px 56px; }
+        .home-faq-badge{ width:62px; height:62px; border-radius:18px; font-size:1.55rem; }
+        .home-faq-item summary{ align-items:flex-start; min-height:auto; padding:16px 16px; font-size:.95rem; }
+        .home-faq-answer{ padding:0 16px 18px; font-size:.9rem; }
       }
     `;
     document.head.appendChild(faqStyle);
@@ -486,103 +365,57 @@ document.addEventListener('DOMContentLoaded', () => {
     const packageStyle = document.createElement('style');
     packageStyle.textContent = `
       .package-section{
-        padding:44px 0 0;
+        padding:0 0 46px;
         color:#150b2f;
         background:#fff;
       }
 
-      .package-card{
-        position:relative;
+      .package-strip{
+        width:100%;
+        padding:30px clamp(22px, 4vw, 42px);
         display:grid;
         grid-template-columns:minmax(0, 1fr) auto;
         gap:24px;
         align-items:center;
-        padding:30px clamp(22px, 4vw, 42px);
-        border:1px solid rgba(168,85,247,.24);
+        border:1px solid rgba(168,85,247,.22);
         border-radius:24px;
         background:
-          radial-gradient(circle at 92% 18%, rgba(168,85,247,.18), transparent 34%),
-          linear-gradient(135deg, #fff 0%, #f8f2ff 100%);
+          radial-gradient(circle at 88% 20%, rgba(168,85,247,.18), transparent 34%),
+          linear-gradient(135deg, #fff 0%, #f7efff 100%);
         box-shadow:0 20px 44px rgba(35,11,80,.10);
-        overflow:hidden;
       }
 
-      .package-card::after{
-        content:"";
-        position:absolute;
-        right:-56px;
-        bottom:-62px;
-        width:180px;
-        height:180px;
-        border:1px dashed rgba(168,85,247,.28);
-        border-radius:50%;
-      }
-
-      .package-card span{
-        display:inline-flex;
-        margin-bottom:10px;
-        color:#5f22c8;
-        font-size:.82rem;
-        font-weight:950;
-        letter-spacing:.05em;
-        text-transform:uppercase;
-      }
-
-      .package-card h2{
-        margin:0;
+      .package-strip strong{
+        display:block;
         color:#150b2f;
-        font-size:clamp(1.9rem, 3vw, 2.65rem);
-        line-height:1.06;
-        letter-spacing:-.045em;
+        font-size:clamp(1.35rem, 2.2vw, 2rem);
+        line-height:1.1;
+        letter-spacing:-.035em;
       }
 
-      .package-card p{
-        max-width:720px;
-        margin:12px 0 0;
+      .package-strip p{
+        max-width:680px;
+        margin:8px 0 0;
         color:#514763;
-        line-height:1.65;
+        line-height:1.55;
       }
 
-      .package-actions{
-        position:relative;
-        z-index:1;
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-        min-width:230px;
-      }
-
-      .package-actions .download-btn{
-        width:100%;
+      .package-strip .download-btn{
+        min-width:210px;
         color:#fff;
-      }
-
-      .package-small-links{
-        display:flex;
-        flex-wrap:wrap;
-        gap:8px;
-        margin-top:14px;
-      }
-
-      .package-small-links a{
-        display:inline-flex;
-        padding:8px 10px;
-        border:1px solid rgba(168,85,247,.22);
-        border-radius:999px;
-        color:#5f22c8;
-        text-decoration:none;
-        font-size:.82rem;
-        font-weight:800;
-        background:#fff;
+        border:0;
+        background:linear-gradient(135deg, #a855f7, #5f22c8);
+        box-shadow:0 14px 30px rgba(95,34,200,.24);
       }
 
       @media (max-width:760px){
-        .package-card{
+        .package-strip{
           grid-template-columns:1fr;
+          text-align:left;
         }
 
-        .package-actions{
-          min-width:0;
+        .package-strip .download-btn{
+          width:100%;
         }
       }
     `;
@@ -595,26 +428,16 @@ document.addEventListener('DOMContentLoaded', () => {
       packageSection.id = 'pacote-completo';
       packageSection.innerHTML = `
         <div class="page-shell">
-          <div class="package-card">
+          <div class="package-strip">
             <div>
-              <span>Baixar tudo</span>
-              <h2>Pacote completo do Carteado.</h2>
-              <p>Abra os arquivos principais do jogo: cartas, manual, caixa e dados. Use este bloco quando quiser preparar o material inteiro sem procurar cada item separadamente.</p>
-              <div class="package-small-links" aria-label="Links separados dos materiais">
-                <a target="_blank" rel="noopener noreferrer" href="${MATERIAL_LINKS[0]}">Cartas</a>
-                <a target="_blank" rel="noopener noreferrer" href="${MATERIAL_LINKS[1]}">Manual</a>
-                <a target="_blank" rel="noopener noreferrer" href="${MATERIAL_LINKS[2]}">Caixa</a>
-                <a target="_blank" rel="noopener noreferrer" href="${MATERIAL_LINKS[3]}">Dados</a>
-              </div>
+              <strong>Baixe o pacote completo do jogo.</strong>
+              <p>Acesse cartas, manual, caixa e dados em um único caminho para preparar o material com mais facilidade.</p>
             </div>
-            <div class="package-actions">
-              <a class="download-btn primary" href="#" data-open-all-materials>Abrir pacote completo</a>
-              <a class="download-btn secondary" href="#downloads">Ver arquivos separados</a>
-            </div>
+            <a class="download-btn primary" href="#" data-open-all-materials>Baixar tudo</a>
           </div>
         </div>
       `;
-      filesSection.insertAdjacentElement('beforebegin', packageSection);
+      filesSection.insertAdjacentElement('afterend', packageSection);
     }
   }
 
@@ -714,31 +537,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(quickRulesStyle);
 
     const compactRules = [
-      {
-        sourceIndex: 0,
-        title: 'Preparação',
-        text: 'Separe cartas numéricas, cartas de efeito e dados. Embaralhe os montes antes de começar.'
-      },
-      {
-        sourceIndex: 1,
-        title: 'Cartas iniciais',
-        text: 'Cada jogador começa com 7 cartas na mão. As demais ficam nos montes de compra.'
-      },
-      {
-        sourceIndex: 2,
-        title: 'Objetivo',
-        text: 'Vence quem descartar todas as cartas primeiro, usando estratégia e efeitos no momento certo.'
-      },
-      {
-        sourceIndex: 5,
-        title: 'Cartas de efeito',
-        text: 'Só podem ser usadas no próprio turno e alteram a jogada, a compra ou a ação dos oponentes.'
-      },
-      {
-        sourceIndex: 6,
-        title: 'Fim do turno',
-        text: 'Após descartar, usar efeito ou não conseguir jogar, a vez passa para o próximo jogador.'
-      }
+      { sourceIndex: 0, title: 'Preparação', text: 'Separe cartas numéricas, cartas de efeito e dados. Embaralhe os montes antes de começar.' },
+      { sourceIndex: 1, title: 'Cartas iniciais', text: 'Cada jogador começa com 7 cartas na mão. As demais ficam nos montes de compra.' },
+      { sourceIndex: 2, title: 'Objetivo', text: 'Vence quem descartar todas as cartas primeiro, usando estratégia e efeitos no momento certo.' },
+      { sourceIndex: 5, title: 'Cartas de efeito', text: 'Só podem ser usadas no próprio turno e alteram a jogada, a compra ou a ação dos oponentes.' },
+      { sourceIndex: 6, title: 'Fim do turno', text: 'Após descartar, usar efeito ou não conseguir jogar, a vez passa para o próximo jogador.' }
     ];
 
     quickRulesGrid.innerHTML = '';
@@ -759,13 +562,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const animateItems = document.querySelectorAll('.js-animate-on-scroll');
-
   if (!animateItems.length) return;
 
   const firstItem = animateItems[0];
-  if (firstItem) {
-    firstItem.classList.add('is-visible');
-  }
+  if (firstItem) firstItem.classList.add('is-visible');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -780,8 +580,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   animateItems.forEach(item => {
-    if (!item.classList.contains('is-visible')) {
-      observer.observe(item);
-    }
+    if (!item.classList.contains('is-visible')) observer.observe(item);
   });
 });
