@@ -279,49 +279,146 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(componentStyle);
   }
 
-  const quickRules = document.querySelectorAll('.quick-rules .quick-grid article');
+  const quickRulesGrid = document.querySelector('.quick-rules .quick-grid');
+  const quickRules = quickRulesGrid ? Array.from(quickRulesGrid.querySelectorAll('article')) : [];
 
-  if (quickRules.length >= 7) {
-    const rulesText = [
+  if (quickRulesGrid && quickRules.length >= 7) {
+    const quickRulesStyle = document.createElement('style');
+    quickRulesStyle.textContent = `
+      .quick-rules{
+        padding-bottom:30px !important;
+      }
+
+      .quick-rules .quick-grid{
+        grid-template-columns:repeat(5, minmax(0, 1fr)) !important;
+        gap:18px !important;
+      }
+
+      .quick-rules .quick-grid article{
+        position:relative;
+        min-height:236px !important;
+        padding:24px 18px 22px !important;
+        border-color:rgba(168,85,247,.22) !important;
+        border-radius:18px !important;
+        background:
+          radial-gradient(circle at 50% 0%, rgba(168,85,247,.10), transparent 46%),
+          linear-gradient(180deg, #fff 0%, #fbf8ff 100%) !important;
+        box-shadow:0 16px 34px rgba(18,9,47,.07) !important;
+        overflow:hidden;
+        transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      }
+
+      .quick-rules .quick-grid article::after{
+        content:"";
+        position:absolute;
+        inset:auto -34px -40px auto;
+        width:110px;
+        height:110px;
+        border:1px dashed rgba(168,85,247,.22);
+        border-radius:50%;
+      }
+
+      .quick-rules .quick-grid article:hover{
+        transform:translateY(-6px);
+        border-color:rgba(139,61,241,.42) !important;
+        box-shadow:0 20px 38px rgba(95,34,200,.13) !important;
+      }
+
+      .quick-rules .rule-icon{
+        width:62px !important;
+        height:54px !important;
+        margin-bottom:6px !important;
+      }
+
+      .quick-rules .rule-number{
+        width:28px !important;
+        height:28px !important;
+        box-shadow:0 8px 16px rgba(95,34,200,.18);
+      }
+
+      .quick-rules .quick-grid h3{
+        margin:16px 0 10px !important;
+        color:#12002f;
+        font-size:1rem !important;
+        line-height:1.12 !important;
+      }
+
+      .quick-rules .quick-grid p{
+        max-width:190px;
+        margin:0 auto !important;
+        color:#4f4567 !important;
+        font-size:.89rem !important;
+        line-height:1.45 !important;
+      }
+
+      @media (max-width: 1100px){
+        .quick-rules .quick-grid{
+          grid-template-columns:repeat(3, minmax(0, 1fr)) !important;
+        }
+      }
+
+      @media (max-width: 680px){
+        .quick-rules .quick-grid{
+          grid-template-columns:1fr !important;
+        }
+
+        .quick-rules .quick-grid article{
+          min-height:auto !important;
+          align-items:flex-start !important;
+          text-align:left !important;
+          padding:22px 24px !important;
+        }
+
+        .quick-rules .quick-grid p{
+          max-width:none !important;
+          margin:0 !important;
+        }
+      }
+    `;
+    document.head.appendChild(quickRulesStyle);
+
+    const compactRules = [
       {
-        title: 'Preparação dos materiais',
-        text: 'Separe as cartas numéricas e as cartas de efeito. Embaralhe cada monte separadamente e deixe-os virados para baixo, ao alcance dos jogadores.'
+        sourceIndex: 0,
+        title: 'Preparação',
+        text: 'Separe cartas numéricas, cartas de efeito e dados. Embaralhe os montes antes de começar.'
       },
       {
+        sourceIndex: 1,
         title: 'Cartas iniciais',
-        text: 'Cada jogador inicia a partida com 7 cartas na mão. As cartas podem ser numéricas ou de efeito, conforme a composição definida para o baralho.'
+        text: 'Cada jogador começa com 7 cartas na mão. As demais ficam nos montes de compra.'
       },
       {
-        title: 'Objetivo da partida',
-        text: 'O objetivo é ser o primeiro jogador a descartar todas as cartas da mão, escolhendo bem os dados e usando efeitos no momento certo.'
+        sourceIndex: 2,
+        title: 'Objetivo',
+        text: 'Vence quem descartar todas as cartas primeiro, usando estratégia e efeitos no momento certo.'
       },
       {
-        title: 'Escolha dos dados',
-        text: 'Em seu turno, o jogador escolhe dois dados entre os disponíveis. Essa escolha define as somas possíveis e suas chances de descarte.'
-      },
-      {
-        title: 'Descarte por soma',
-        text: 'Após lançar os dados, some os resultados. Se tiver uma ou mais cartas com esse valor, descarte todas elas no mesmo turno. O coringa pode substituir qualquer carta numérica.'
-      },
-      {
+        sourceIndex: 5,
         title: 'Cartas de efeito',
-        text: 'As cartas de efeito só podem ser usadas no próprio turno do jogador. Elas permitem novas ações, compras, bloqueios ou mudanças na jogada.'
+        text: 'Só podem ser usadas no próprio turno e alteram a jogada, a compra ou a ação dos oponentes.'
       },
       {
+        sourceIndex: 6,
         title: 'Fim do turno',
-        text: 'Depois de descartar, usar uma carta de efeito ou não conseguir jogar, o turno termina e a vez passa para o próximo jogador, respeitando os efeitos ativos.'
+        text: 'Após descartar, usar efeito ou não conseguir jogar, a vez passa para o próximo jogador.'
       }
     ];
 
-    quickRules.forEach((rule, index) => {
-      const content = rulesText[index];
+    quickRulesGrid.innerHTML = '';
+
+    compactRules.forEach((content, index) => {
+      const baseRule = quickRules[content.sourceIndex] || quickRules[index];
+      const rule = baseRule.cloneNode(true);
+      const number = rule.querySelector('.rule-number');
       const title = rule.querySelector('h3');
       const paragraph = rule.querySelector('p');
 
-      if (content && title && paragraph) {
-        title.textContent = content.title;
-        paragraph.textContent = content.text;
-      }
+      if (number) number.textContent = String(index + 1);
+      if (title) title.textContent = content.title;
+      if (paragraph) paragraph.textContent = content.text;
+
+      quickRulesGrid.appendChild(rule);
     });
   }
 
