@@ -115,6 +115,30 @@ fetch("menu.html")
         }
       }
     });
+
+    const placeLanguageWidgetInMenu = () => {
+      if (path.toLowerCase().includes("simulador")) return true;
+      const playButton = document.querySelector(".site-header .nav-play");
+      const widget = document.querySelector(".language-widget");
+      if (!playButton || !widget) return false;
+      if (!widget.classList.contains("language-widget--nav")) {
+        widget.classList.add("language-widget--nav");
+      }
+      if (widget.parentElement !== playButton.parentElement || widget.previousElementSibling !== playButton) {
+        playButton.insertAdjacentElement("afterend", widget);
+      }
+      return true;
+    };
+
+    if (!placeLanguageWidgetInMenu()) {
+      let tries = 0;
+      const languagePlacementTimer = window.setInterval(() => {
+        tries += 1;
+        if (placeLanguageWidgetInMenu() || tries > 40) {
+          window.clearInterval(languagePlacementTimer);
+        }
+      }, 100);
+    }
   })
   .catch(err => console.error("Erro ao carregar menu:", err));
 
