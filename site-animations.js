@@ -1,3 +1,20 @@
+(() => {
+  const path = window.location.pathname.toLowerCase();
+  if (path.includes('simulador')) return;
+  if (!document.querySelector('link[href^="i18n.css"]')) {
+    const i18nCss = document.createElement('link');
+    i18nCss.rel = 'stylesheet';
+    i18nCss.href = 'i18n.css?v=20260622';
+    document.head.appendChild(i18nCss);
+  }
+  if (!document.querySelector('script[src^="i18n.js"]')) {
+    const i18nScript = document.createElement('script');
+    i18nScript.src = 'i18n.js?v=20260622';
+    i18nScript.defer = true;
+    document.head.appendChild(i18nScript);
+  }
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   document.documentElement.classList.add('js-enabled');
 
@@ -7,10 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     'https://drive.google.com/drive/folders/1k-2uPY4gMdtZBwX31OE3FDmcndl1MD2s?usp=drive_link',
     'https://drive.google.com/drive/folders/17w4_b_AV8Mmw2rY_1SPoJJ5eeD7yzB3w?usp=sharing'
   ];
-
-  const PROJECT_TITLE = 'Carteado da Probabilidade';
-  const PROJECT_DESCRIPTION = 'Jogo educativo com cartas e dados para aprender probabilidade por meio de estratégia, análise de possibilidades e tomada de decisão.';
-  const PROJECT_IMAGE = new URL('logo/logo.png', window.location.href).href;
 
   const upsertMeta = (selector, attributes) => {
     let meta = document.head.querySelector(selector);
@@ -30,6 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
     Object.entries(attributes).forEach(([key, value]) => link.setAttribute(key, value));
   };
 
+  const PROJECT_TITLE = 'Carteado da Probabilidade';
+  const PROJECT_DESCRIPTION = 'Jogo educativo com cartas e dados para aprender probabilidade por meio de estratégia, análise de possibilidades e tomada de decisão.';
+  const PROJECT_IMAGE = new URL('logo/logo.png', window.location.href).href;
+
   upsertMeta('meta[property="og:title"]', { property: 'og:title', content: PROJECT_TITLE });
   upsertMeta('meta[property="og:description"]', { property: 'og:description', content: PROJECT_DESCRIPTION });
   upsertMeta('meta[property="og:type"]', { property: 'og:type', content: 'website' });
@@ -48,37 +65,35 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', updateHeaderState, { passive: true });
   }
 
-  const btn = document.getElementById('backToTop');
+  const backToTop = document.getElementById('backToTop');
   const progress = document.querySelector('.progress-bar');
   const circumference = 2 * Math.PI * 18;
-
-  if (btn && progress) {
+  if (backToTop && progress) {
     const updateBackToTopState = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollPercent = docHeight > 0 ? scrollTop / docHeight : 0;
       progress.style.strokeDashoffset = circumference - scrollPercent * circumference;
-      btn.classList.toggle('show', scrollTop > 200);
+      backToTop.classList.toggle('show', scrollTop > 200);
 
       const footer = document.querySelector('.home-footer.realizacao-footer, .site-footer');
-      if (footer) {
-        const buttonRect = btn.getBoundingClientRect();
-        const footerRect = footer.getBoundingClientRect();
-        const isOverFooter =
-          buttonRect.bottom >= footerRect.top &&
-          buttonRect.top <= footerRect.bottom &&
-          buttonRect.right >= footerRect.left &&
-          buttonRect.left <= footerRect.right;
-        btn.classList.toggle('on-footer', isOverFooter);
-      } else {
-        btn.classList.remove('on-footer');
+      if (!footer) {
+        backToTop.classList.remove('on-footer');
+        return;
       }
+      const buttonRect = backToTop.getBoundingClientRect();
+      const footerRect = footer.getBoundingClientRect();
+      const isOverFooter =
+        buttonRect.bottom >= footerRect.top &&
+        buttonRect.top <= footerRect.bottom &&
+        buttonRect.right >= footerRect.left &&
+        buttonRect.left <= footerRect.right;
+      backToTop.classList.toggle('on-footer', isOverFooter);
     };
-
     updateBackToTopState();
     window.addEventListener('scroll', updateBackToTopState, { passive: true });
     window.addEventListener('resize', updateBackToTopState);
-    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
   const footerLinks = [
@@ -123,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const homePage = document.querySelector('.home-page');
-
   if (homePage) {
     const homeEnhancementStyle = document.createElement('style');
     homeEnhancementStyle.textContent = `
@@ -288,22 +302,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (path.includes('simulador') || document.querySelector('.accessibility-widget')) return;
 
     const STORAGE_KEY = 'carteadoAcessibilidade';
-    const defaultState = {
-      font: 0,
-      contrast: false,
-      reduceMotion: false,
-      underlineLinks: false,
-      textSpacing: false
-    };
-
+    const defaultState = { font: 0, contrast: false, reduceMotion: false, underlineLinks: false, textSpacing: false };
     const loadState = () => {
-      try {
-        return { ...defaultState, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') };
-      } catch (error) {
-        return { ...defaultState };
-      }
+      try { return { ...defaultState, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') }; }
+      catch (error) { return { ...defaultState }; }
     };
-
     let state = loadState();
 
     const accessibilityStyle = document.createElement('style');
@@ -316,187 +319,39 @@ document.addEventListener('DOMContentLoaded', () => {
       html.a11y-underline a{ text-decoration:underline !important; text-underline-offset:.18em; }
       html.a11y-no-motion, html.a11y-no-motion *{ scroll-behavior:auto !important; }
       html.a11y-no-motion *, html.a11y-no-motion *::before, html.a11y-no-motion *::after{ animation:none !important; transition:none !important; }
-
-      html.a11y-contrast,
-      html.a11y-contrast body,
-      html.a11y-contrast main,
-      html.a11y-contrast section,
-      html.a11y-contrast header,
-      html.a11y-contrast footer,
-      html.a11y-contrast .home-faq-section,
-      html.a11y-contrast .package-section,
-      html.a11y-contrast .download-page,
-      html.a11y-contrast .content-section,
-      html.a11y-contrast .page-section,
-      html.a11y-contrast .hero,
-      html.a11y-contrast .teacher-section,
-      html.a11y-contrast .explore-section,
-      html.a11y-contrast .features-section,
-      html.a11y-contrast .materials-section{
-        background:#05000d !important;
-        color:#fff !important;
-      }
-
-      html.a11y-contrast .hero::before,
-      html.a11y-contrast .hero::after,
-      html.a11y-contrast section::before,
-      html.a11y-contrast section::after{
-        opacity:.16 !important;
-      }
-
-      html.a11y-contrast *:not(svg):not(path):not(circle):not(rect):not(line):not(polyline):not(polygon){
-        color:#fff !important;
-        text-shadow:none !important;
-      }
-
-      html.a11y-contrast article,
-      html.a11y-contrast .card,
-      html.a11y-contrast .feature-card,
-      html.a11y-contrast .explore-card,
-      html.a11y-contrast .component-card,
-      html.a11y-contrast .home-faq-item,
-      html.a11y-contrast .package-strip,
-      html.a11y-contrast .footer-logo-block,
-      html.a11y-contrast .quick-rules .quick-grid article,
-      html.a11y-contrast .step-card,
-      html.a11y-contrast .turn-step,
-      html.a11y-contrast .file-card,
-      html.a11y-contrast .download-card,
-      html.a11y-contrast .contact-card,
-      html.a11y-contrast .form-card,
-      html.a11y-contrast .timeline-card,
-      html.a11y-contrast .author-card,
-      html.a11y-contrast .value-card,
-      html.a11y-contrast .dice-item,
-      html.a11y-contrast .effect-info,
-      html.a11y-contrast .number-card,
-      html.a11y-contrast .site-header-inner,
-      html.a11y-contrast .mobile-panel,
-      html.a11y-contrast .home-faq-badge,
-      html.a11y-contrast .info-card,
-      html.a11y-contrast .stat-card,
-      html.a11y-contrast .material-card,
-      html.a11y-contrast .proposal-card,
-      html.a11y-contrast .method-card,
-      html.a11y-contrast .pill,
-      html.a11y-contrast .badge{
-        background:#12002f !important;
-        color:#fff !important;
-        border-color:#facc15 !important;
-        box-shadow:0 0 0 2px rgba(250,204,21,.42), 0 18px 38px rgba(0,0,0,.35) !important;
-      }
-
-      html.a11y-contrast a,
-      html.a11y-contrast button,
-      html.a11y-contrast summary,
-      html.a11y-contrast input,
-      html.a11y-contrast textarea,
-      html.a11y-contrast select{
-        border-color:#facc15 !important;
-      }
-
-      html.a11y-contrast .btn,
-      html.a11y-contrast .button,
-      html.a11y-contrast .download-btn,
-      html.a11y-contrast .cta-button,
-      html.a11y-contrast .primary,
-      html.a11y-contrast .secondary{
-        background:#facc15 !important;
-        color:#05000d !important;
-        border-color:#facc15 !important;
-      }
-
-      html.a11y-contrast input,
-      html.a11y-contrast textarea,
-      html.a11y-contrast select{
-        background:#05000d !important;
-        color:#fff !important;
-      }
-      html.a11y-contrast input::placeholder,
-      html.a11y-contrast textarea::placeholder{ color:#f4e7ff !important; }
-      html.a11y-contrast img{ filter:none !important; }
-      html.a11y-contrast a:focus-visible,
-      html.a11y-contrast button:focus-visible,
-      html.a11y-contrast input:focus-visible,
-      html.a11y-contrast textarea:focus-visible,
-      html.a11y-contrast select:focus-visible,
-      html.a11y-contrast [tabindex]:focus-visible{
-        outline:4px solid #facc15 !important;
-        outline-offset:4px !important;
-      }
-
-      .accessibility-widget{ position:fixed; right:0; top:50%; transform:translateY(-50%); z-index:1200; font-family:inherit; }
-      .accessibility-toggle{ width:44px; height:54px; border:0; border-radius:18px 0 0 18px; display:grid; place-items:center; color:#fff; font-size:1.02rem; font-weight:950; cursor:pointer; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 18px 34px rgba(35,11,80,.30), 0 0 0 4px rgba(255,255,255,.80); transition:transform .2s ease, box-shadow .2s ease; }
-      .accessibility-toggle:hover{ transform:translateX(-4px); box-shadow:0 22px 38px rgba(35,11,80,.34), 0 0 0 4px rgba(255,255,255,.94); }
-      .accessibility-toggle:focus-visible{ outline:4px solid rgba(168,85,247,.42); outline-offset:6px; }
-      .accessibility-toggle .a11y-icon{ width:22px; height:22px; display:block; }
-      .accessibility-toggle .a11y-icon path{ stroke:currentColor; }
-
-      .accessibility-panel{ position:absolute; right:58px; top:50%; transform:translateY(-50%); width:min(360px, calc(100vw - 82px)); padding:18px; border:1px solid rgba(168,85,247,.30); border-radius:24px; background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(250,246,255,.98)); color:#160337; box-shadow:0 24px 60px rgba(35,11,80,.25); backdrop-filter:blur(14px); }
+      html.a11y-contrast, html.a11y-contrast body, html.a11y-contrast main, html.a11y-contrast section, html.a11y-contrast header, html.a11y-contrast footer{ background:#05000d !important; color:#fff !important; }
+      html.a11y-contrast *{ text-shadow:none !important; }
+      html.a11y-contrast h1, html.a11y-contrast h2, html.a11y-contrast h3, html.a11y-contrast h4, html.a11y-contrast p, html.a11y-contrast span, html.a11y-contrast li, html.a11y-contrast label, html.a11y-contrast small, html.a11y-contrast strong{ color:#fff !important; }
+      html.a11y-contrast a{ color:#ffd400 !important; }
+      html.a11y-contrast .download-btn, html.a11y-contrast .btn, html.a11y-contrast button:not(.accessibility-toggle):not(.language-toggle){ border:2px solid #ffd400 !important; color:#000 !important; background:#ffd400 !important; }
+      html.a11y-contrast article, html.a11y-contrast .card, html.a11y-contrast .feature-card, html.a11y-contrast .explore-card, html.a11y-contrast .quick-grid article, html.a11y-contrast .turn-grid article, html.a11y-contrast .dice-item, html.a11y-contrast .package-strip, html.a11y-contrast .home-faq-item, html.a11y-contrast .contact-card, html.a11y-contrast .timeline-card, html.a11y-contrast .info-card{ background:#12002f !important; border-color:#ffd400 !important; color:#fff !important; box-shadow:none !important; }
+      html.a11y-contrast input, html.a11y-contrast textarea, html.a11y-contrast select{ background:#fff !important; color:#000 !important; border:2px solid #ffd400 !important; }
+      .accessibility-widget{ position:fixed; right:0; top:50%; z-index:9998; transform:translateY(0); font-family:inherit; }
+      .accessibility-toggle{ width:50px; min-height:46px; display:grid; place-items:center; border:2px solid rgba(255,255,255,.78); border-right:0; border-radius:18px 0 0 18px; color:#12002f; background:#ffd400; box-shadow:0 14px 28px rgba(35,11,80,.24); cursor:pointer; transition:transform .22s ease, box-shadow .22s ease; }
+      .accessibility-toggle:hover, .accessibility-toggle:focus-visible{ transform:translateX(-4px); outline:3px solid rgba(255,212,0,.32); outline-offset:3px; }
+      .a11y-icon{ width:24px; height:24px; stroke:currentColor; }
+      .accessibility-panel{ position:absolute; right:60px; top:50%; width:min(330px, calc(100vw - 84px)); padding:16px; border:1px solid rgba(168,85,247,.24); border-radius:22px; background:rgba(255,255,255,.97); color:#170036; box-shadow:0 22px 48px rgba(18,0,47,.22); transform:translateY(-50%); backdrop-filter:blur(16px); }
       .accessibility-panel[hidden]{ display:none; }
-      .accessibility-panel h2{ margin:0; color:#160337; font-size:1.1rem; line-height:1.2; }
-      .accessibility-panel p{ margin:6px 0 14px; color:#594a72; font-size:.88rem; line-height:1.45; }
-      .font-control{ grid-column:1 / -1; padding:14px; border:1px solid rgba(168,85,247,.22); border-radius:18px; background:linear-gradient(180deg, #fff, #fbf7ff); box-shadow:inset 0 0 0 1px rgba(255,255,255,.75), 0 12px 24px rgba(95,34,200,.07); }
-      .font-control-top{ display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:12px; }
-      .font-range-label{ color:#2b0b63; font-weight:950; font-size:.92rem; }
-      .font-range-value{ min-width:62px; padding:4px 8px; border-radius:999px; color:#5f22c8; background:#f0e5ff; font-weight:950; font-size:.78rem; text-align:center; }
-      .font-range{ width:100%; height:8px; appearance:none; -webkit-appearance:none; border-radius:999px; background:linear-gradient(90deg, #8b3df1 var(--a11y-range-progress, 0%), #e5d7f5 var(--a11y-range-progress, 0%)); cursor:pointer; outline:none; }
-      .font-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:22px; height:22px; border:3px solid #fff; border-radius:50%; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 8px 18px rgba(95,34,200,.35); cursor:pointer; }
-      .font-range::-moz-range-thumb{ width:22px; height:22px; border:3px solid #fff; border-radius:50%; background:linear-gradient(135deg, #a855f7, #5f22c8); box-shadow:0 8px 18px rgba(95,34,200,.35); cursor:pointer; }
+      .accessibility-panel h2{ margin:0; font-size:1.18rem; color:#170036; }
+      .accessibility-panel p{ margin:6px 0 14px; color:#5b4a75; font-size:.92rem; }
       .accessibility-actions{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-      .accessibility-action{ min-height:50px; padding:11px 13px; border:1px solid rgba(168,85,247,.24); border-radius:16px; color:#2b0b63; font-weight:900; text-align:left; cursor:pointer; background:linear-gradient(180deg, #fff, #f8f2ff); box-shadow:0 10px 18px rgba(35,11,80,.06); transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease; }
-      .accessibility-action:hover{ transform:translateY(-2px); border-color:rgba(139,61,241,.48); box-shadow:0 14px 24px rgba(95,34,200,.12); }
-      .accessibility-action[aria-pressed="true"]{ color:#fff; border-color:transparent; background:linear-gradient(135deg, #8b3df1, #5f22c8); }
-      .accessibility-action.full{ grid-column:1 / -1; text-align:center; justify-content:center; }
-      .accessibility-status{ margin-top:12px; color:#5f22c8; font-size:.82rem; font-weight:900; }
-
-      html.a11y-contrast .accessibility-widget,
-      html.a11y-contrast .accessibility-widget *{ color:#12002f !important; }
-      html.a11y-contrast .accessibility-toggle{
-        color:#05000d !important;
-        background:#facc15 !important;
-        box-shadow:0 18px 34px rgba(0,0,0,.45), 0 0 0 5px rgba(255,255,255,.98) !important;
-      }
-      html.a11y-contrast .accessibility-panel{
-        background:#fff !important;
-        color:#12002f !important;
-        border:3px solid #facc15 !important;
-        box-shadow:0 24px 60px rgba(0,0,0,.55) !important;
-      }
-      html.a11y-contrast .accessibility-panel h2,
-      html.a11y-contrast .accessibility-panel p,
-      html.a11y-contrast .accessibility-panel span,
-      html.a11y-contrast .accessibility-status,
-      html.a11y-contrast .font-range-label,
-      html.a11y-contrast .font-range-value{ color:#12002f !important; }
-      html.a11y-contrast .accessibility-action{
-        background:#12002f !important;
-        color:#fff !important;
-        border-color:#facc15 !important;
-      }
-      html.a11y-contrast .accessibility-action[aria-pressed="true"]{
-        background:#facc15 !important;
-        color:#12002f !important;
-      }
-      html.a11y-contrast .font-control{ background:#fff !important; border-color:#facc15 !important; }
-      html.a11y-contrast .font-range{ background:linear-gradient(90deg, #facc15 var(--a11y-range-progress, 0%), #d1d5db var(--a11y-range-progress, 0%)) !important; }
-      html.a11y-contrast .font-range::-webkit-slider-thumb{ background:#facc15 !important; border-color:#12002f !important; }
-      html.a11y-contrast .font-range::-moz-range-thumb{ background:#facc15 !important; border-color:#12002f !important; }
-
-      @media (max-width:680px){
-        .accessibility-widget{ top:auto; right:0; bottom:92px; transform:none; }
-        .accessibility-toggle{ width:42px; height:52px; }
-        .accessibility-panel{ right:52px; top:auto; bottom:0; transform:none; width:min(340px, calc(100vw - 74px)); padding:16px; }
-        .accessibility-actions{ grid-template-columns:1fr; }
-      }
+      .accessibility-action, .font-control{ min-height:58px; padding:12px; border:1px solid rgba(168,85,247,.22); border-radius:14px; color:#25104c; background:linear-gradient(180deg, #fff, #fbf7ff); font:inherit; font-weight:900; text-align:left; cursor:pointer; }
+      .accessibility-action[aria-pressed="true"]{ color:#fff; border-color:transparent; background:linear-gradient(135deg, #a855f7, #5f22c8); }
+      .accessibility-action.full, .font-control{ grid-column:1/-1; }
+      .font-control{ cursor:default; }
+      .font-control-top{ display:flex; justify-content:space-between; gap:12px; margin-bottom:10px; color:#25104c; font-weight:950; }
+      .font-range{ width:100%; accent-color:#8b3df1; }
+      .accessibility-status{ grid-column:1/-1; color:#5f22c8; font-weight:850; font-size:.9rem; }
+      html.a11y-contrast .accessibility-panel, html.a11y-contrast .accessibility-panel *{ color:#fff !important; background:#05000d !important; }
+      html.a11y-contrast .accessibility-action, html.a11y-contrast .font-control{ border-color:#ffd400 !important; }
+      @media (max-width:680px){ .accessibility-widget{ top:auto; bottom:38px; transform:none; } .accessibility-panel{ top:auto; bottom:0; transform:none; } }
     `;
     document.head.appendChild(accessibilityStyle);
 
-    const widget = document.createElement('aside');
+    const widget = document.createElement('div');
     widget.className = 'accessibility-widget';
-    widget.setAttribute('aria-label', 'Ferramentas de acessibilidade');
     widget.innerHTML = `
-      <button class="accessibility-toggle" type="button" aria-label="Abrir ferramentas de acessibilidade" aria-expanded="false" aria-controls="accessibility-panel">
+      <button class="accessibility-toggle" type="button" aria-label="Acessibilidade" aria-expanded="false" aria-controls="accessibility-panel">
         <svg class="a11y-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 4.2a2.1 2.1 0 1 0 0 4.2 2.1 2.1 0 0 0 0-4.2Z" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M5.2 10.2h13.6M12 10.4v9.4M8.2 20l1.15-5.1M15.8 20l-1.15-5.1" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -507,10 +362,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <p>Ajuste a leitura e a navegação do site.</p>
         <div class="accessibility-actions">
           <div class="font-control">
-            <div class="font-control-top">
-              <span class="font-range-label">Tamanho da fonte</span>
-              <span class="font-range-value">Padrão</span>
-            </div>
+            <div class="font-control-top"><span class="font-range-label">Tamanho da fonte</span><span class="font-range-value">Padrão</span></div>
             <input class="font-range" type="range" min="0" max="3" step="1" value="0" aria-label="Variar tamanho da fonte">
           </div>
           <button class="accessibility-action" type="button" data-a11y="contrast" aria-pressed="false">Alto contraste</button>
@@ -518,8 +370,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <button class="accessibility-action" type="button" data-a11y="underline" aria-pressed="false">Sublinhar links</button>
           <button class="accessibility-action" type="button" data-a11y="spacing" aria-pressed="false">Espaçamento maior</button>
           <button class="accessibility-action full" type="button" data-a11y="reset">Voltar ao padrão</button>
+          <div class="accessibility-status" aria-live="polite">Configurações padrão.</div>
         </div>
-        <div class="accessibility-status" aria-live="polite">Configurações padrão.</div>
       </div>
     `;
     document.body.appendChild(widget);
@@ -534,8 +386,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!fontRange || !fontRangeValue) return;
       fontRange.value = String(state.font);
       fontRangeValue.textContent = state.font === 0 ? 'Padrão' : `+${state.font}`;
-      const progress = Math.max(0, Math.min(100, (Number(state.font) / 3) * 100));
-      fontRange.style.setProperty('--a11y-range-progress', `${progress}%`);
     };
 
     const applyState = (message) => {
@@ -545,13 +395,11 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.classList.toggle('a11y-no-motion', state.reduceMotion);
       document.documentElement.classList.toggle('a11y-underline', state.underlineLinks);
       document.documentElement.classList.toggle('a11y-spacing', state.textSpacing);
-
       widget.querySelector('[data-a11y="contrast"]').setAttribute('aria-pressed', String(state.contrast));
       widget.querySelector('[data-a11y="motion"]').setAttribute('aria-pressed', String(state.reduceMotion));
       widget.querySelector('[data-a11y="underline"]').setAttribute('aria-pressed', String(state.underlineLinks));
       widget.querySelector('[data-a11y="spacing"]').setAttribute('aria-pressed', String(state.textSpacing));
       updateFontLabel();
-
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       if (status) status.textContent = message || `Fonte ${state.font === 0 ? 'padrão' : '+' + state.font}.`;
     };
@@ -562,37 +410,28 @@ document.addEventListener('DOMContentLoaded', () => {
       toggle.setAttribute('aria-expanded', String(willOpen));
     });
 
-    if (fontRange) {
-      fontRange.addEventListener('input', () => {
-        state.font = Number(fontRange.value);
-        applyState(state.font === 0 ? 'Fonte padrão.' : `Fonte ajustada para +${state.font}.`);
-      });
-    }
+    fontRange?.addEventListener('input', () => {
+      state.font = Number(fontRange.value);
+      applyState(state.font === 0 ? 'Fonte padrão.' : `Fonte ajustada para +${state.font}.`);
+    });
 
     widget.addEventListener('click', (event) => {
       const action = event.target.closest('[data-a11y]');
       if (!action) return;
       const type = action.dataset.a11y;
-      if (type === 'contrast') {
-        state.contrast = !state.contrast;
-        applyState(state.contrast ? 'Alto contraste ativado.' : 'Alto contraste desativado.');
-      }
-      if (type === 'motion') {
-        state.reduceMotion = !state.reduceMotion;
-        applyState(state.reduceMotion ? 'Animações pausadas.' : 'Animações reativadas.');
-      }
-      if (type === 'underline') {
-        state.underlineLinks = !state.underlineLinks;
-        applyState(state.underlineLinks ? 'Links sublinhados.' : 'Sublinhado removido.');
-      }
-      if (type === 'spacing') {
-        state.textSpacing = !state.textSpacing;
-        applyState(state.textSpacing ? 'Espaçamento ampliado.' : 'Espaçamento padrão.');
-      }
-      if (type === 'reset') {
-        state = { ...defaultState };
-        applyState('Configurações restauradas.');
-      }
+      if (type === 'contrast') state.contrast = !state.contrast;
+      if (type === 'motion') state.reduceMotion = !state.reduceMotion;
+      if (type === 'underline') state.underlineLinks = !state.underlineLinks;
+      if (type === 'spacing') state.textSpacing = !state.textSpacing;
+      if (type === 'reset') state = { ...defaultState };
+      const messages = {
+        contrast: state.contrast ? 'Alto contraste ativado.' : 'Alto contraste desativado.',
+        motion: state.reduceMotion ? 'Animações pausadas.' : 'Animações reativadas.',
+        underline: state.underlineLinks ? 'Links sublinhados.' : 'Sublinhado removido.',
+        spacing: state.textSpacing ? 'Espaçamento ampliado.' : 'Espaçamento padrão.',
+        reset: 'Configurações restauradas.'
+      };
+      applyState(messages[type]);
     });
 
     document.addEventListener('click', (event) => {
@@ -600,14 +439,12 @@ document.addEventListener('DOMContentLoaded', () => {
       panel.hidden = true;
       toggle.setAttribute('aria-expanded', 'false');
     });
-
     document.addEventListener('keydown', (event) => {
       if (event.key !== 'Escape' || panel.hidden) return;
       panel.hidden = true;
       toggle.setAttribute('aria-expanded', 'false');
       toggle.focus();
     });
-
     applyState('Configurações carregadas.');
   };
 
