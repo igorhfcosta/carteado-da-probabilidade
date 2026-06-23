@@ -101,3 +101,54 @@
     start();
   }
 })();
+
+/*
+  Replica na home o comportamento do dropdown Professor usado nas outras páginas.
+  Não altera o visual: apenas permite abrir por clique, manter aberto e clicar nas opções.
+*/
+(() => {
+  const initializeHomeProfessorDropdown = () => {
+    const dropdown = document.querySelector('.home-dropdown');
+    const toggle = dropdown?.querySelector('button');
+    const menu = dropdown?.querySelector('.home-dropdown-menu');
+
+    if (!dropdown || !toggle || !menu || dropdown.dataset.professorDropdownReady === 'true') return;
+    dropdown.dataset.professorDropdownReady = 'true';
+    toggle.setAttribute('aria-expanded', 'false');
+
+    const closeDropdown = () => {
+      dropdown.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+
+    const openDropdown = () => {
+      dropdown.classList.add('open');
+      toggle.setAttribute('aria-expanded', 'true');
+    };
+
+    toggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (dropdown.classList.contains('open')) closeDropdown();
+      else openDropdown();
+    });
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', closeDropdown);
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!dropdown.contains(event.target)) closeDropdown();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeDropdown();
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeHomeProfessorDropdown, { once: true });
+  } else {
+    initializeHomeProfessorDropdown();
+  }
+})();

@@ -28,11 +28,15 @@
 
 /*
   Correção do menu Professor na home.
-  O submenu estava abrindo, mas o espaço entre o botão e a caixa fazia o hover se perder
-  antes do clique. O menu agora encosta no botão e cria respiro interno, sem mudança visual.
+  Mantém o submenu com o mesmo comportamento das demais páginas: abre por hover,
+  foco ou clique, e permanece clicável até a escolha de uma opção.
 */
+.home-header{
+  z-index:10050 !important;
+}
+
 .home-dropdown{
-  z-index:10000 !important;
+  z-index:10060 !important;
 }
 
 .home-dropdown::after{
@@ -50,11 +54,12 @@
   top:calc(100% + 2px) !important;
   margin-top:0 !important;
   padding-top:14px !important;
-  z-index:10001 !important;
+  z-index:10070 !important;
   pointer-events:auto !important;
 }
 
 .home-dropdown:hover .home-dropdown-menu,
+.home-dropdown.open .home-dropdown-menu,
 .home-dropdown:focus-within .home-dropdown-menu,
 .home-dropdown-menu:hover{
   display:flex !important;
