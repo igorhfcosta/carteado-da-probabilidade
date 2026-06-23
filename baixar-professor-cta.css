@@ -1,23 +1,17 @@
 .teacher-cta-section{
   position:relative;
-  padding:44px 0 48px;
-  color:#fff;
-  background:
-    radial-gradient(circle at 12% 20%, rgba(168,85,247,.20), transparent 28%),
-    radial-gradient(circle at 88% 85%, rgba(139,61,241,.18), transparent 30%),
-    linear-gradient(135deg, #12002f 0%, #1a0642 48%, #2b0b63 100%);
+  padding:46px 0;
+  color:#12002f;
+  background:#fff;
   overflow:hidden;
 }
 
 .teacher-cta-section::before{
   content:"";
   position:absolute;
-  inset:0;
-  opacity:.20;
-  background:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-  background-size:52px 52px;
+  inset:auto 0 0;
+  height:1px;
+  background:linear-gradient(90deg, transparent, rgba(139,61,241,.16), transparent);
   pointer-events:none;
 }
 
@@ -29,11 +23,12 @@
   gap:24px;
   align-items:center;
   padding:28px;
-  border:1px solid rgba(255,255,255,.16);
-  border-radius:18px;
-  background:linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.045));
-  box-shadow:0 20px 48px rgba(18,0,47,.26);
-  backdrop-filter:blur(10px);
+  border:1px solid rgba(139,61,241,.18);
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(168,85,247,.14), transparent 34%),
+    linear-gradient(135deg, #fff 0%, #fbf8ff 52%, #f5edff 100%);
+  box-shadow:0 18px 44px rgba(18,0,47,.10);
 }
 
 .teacher-cta-icon{
@@ -43,7 +38,7 @@
   place-items:center;
   border-radius:24px;
   background:linear-gradient(135deg, var(--download-purple-2), var(--download-purple-dark));
-  box-shadow:0 18px 34px rgba(95,34,200,.38);
+  box-shadow:0 18px 34px rgba(95,34,200,.22);
 }
 
 .teacher-cta-icon span{
@@ -58,7 +53,7 @@
   align-items:center;
   gap:8px;
   margin-bottom:10px;
-  color:#d9c7ff;
+  color:var(--download-purple-dark);
   font-size:.78rem;
   font-weight:900;
   letter-spacing:.08em;
@@ -76,7 +71,7 @@
 
 .teacher-cta-copy h2{
   margin:0;
-  color:#fff;
+  color:#12002f;
   font-size:clamp(1.6rem, 3vw, 2.45rem);
   line-height:1.08;
   letter-spacing:-.04em;
@@ -85,13 +80,14 @@
 .teacher-cta-copy p{
   max-width:760px;
   margin:12px 0 0;
-  color:#eadfff;
+  color:#4f3d70;
   line-height:1.62;
 }
 
 .teacher-cta-button{
   min-width:210px;
   white-space:nowrap;
+  box-shadow:0 14px 28px rgba(95,34,200,.18);
 }
 
 @media (max-width: 900px){
@@ -115,7 +111,7 @@
 
 @media (max-width: 560px){
   .teacher-cta-section{
-    padding:34px 0 38px;
+    padding:34px 0;
   }
 
   .teacher-cta-card{
