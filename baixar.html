@@ -60,7 +60,7 @@
           </span>
           <h3>Cartas</h3>
           <p>Arquivo com as cartas do jogo para impressão. É o material central da partida e a base do Carteado da Probabilidade.</p>
-          <a class="download-btn primary" target="_blank" rel="noopener noreferrer" href="https://drive.google.com/drive/folders/1-mFXXFyECQVbNoklxSwOKxRK1ZJIeuex?usp=sharing">Baixar cartas</a>
+          <a class="download-btn primary" href="https://drive.usercontent.google.com/download?id=1pE326K9vSx0gH1PVCgOHFmuyVxTaIgno&amp;export=download&amp;authuser=0&amp;confirm=t&amp;uuid=b0008668-f81d-40a2-87ce-ddba5ae3b1de&amp;at=AAINaIK_RF3QWo1g_pcctdr7kVuR:1782255076027">Baixar cartas</a>
         </article>
 
         <article>
@@ -69,7 +69,7 @@
           </span>
           <h3>Manual</h3>
           <p>Documento com orientações do jogo, regras e organização da experiência para quem vai jogar ou aplicar a atividade.</p>
-          <a class="download-btn primary" target="_blank" rel="noopener noreferrer" href="https://drive.google.com/drive/folders/1ejZo6c3CLSsN3bzOSmZ9oI8IRMjX7PJU?usp=sharing">Baixar manual</a>
+          <a class="download-btn primary" href="https://drive.usercontent.google.com/download?id=10_w0dW7kDF4_xs-i2SSDNHizKfof9uDy&amp;export=download&amp;authuser=0&amp;confirm=t&amp;uuid=e8a8f906-b3a3-4ed6-8c63-e9af0caa9d7a&amp;at=AAINaIL7y8vWWSdgORoq0W6YpnuA:1782255377663">Baixar manual</a>
         </article>
 
         <article>
@@ -78,7 +78,7 @@
           </span>
           <h3>Caixa</h3>
           <p>Arquivo para montar a caixa do jogo e deixar o material mais organizado, apresentável e pronto para uso.</p>
-          <a class="download-btn primary" target="_blank" rel="noopener noreferrer" href="https://drive.google.com/drive/folders/1k-2uPY4gMdtZBwX31OE3FDmcndl1MD2s?usp=drive_link">Baixar caixa</a>
+          <a class="download-btn primary" href="https://drive.usercontent.google.com/download?id=19PIZiG72jK4UBEsvE9yQRYb_52Svesmj&amp;export=download&amp;authuser=0&amp;confirm=t&amp;uuid=ada187e6-6a38-4929-a96f-1baf83d082f5&amp;at=AAINaILRpaFNckaHLT8aIiiLAXX-:1782255223012">Baixar caixa</a>
         </article>
 
         <article>
@@ -87,7 +87,7 @@
           </span>
           <h3>Dados</h3>
           <p>Modelos dos dados utilizados no jogo para imprimir, recortar e montar. Essenciais para explorar as probabilidades.</p>
-          <a class="download-btn primary" target="_blank" rel="noopener noreferrer" href="https://drive.google.com/drive/folders/17w4_b_AV8Mmw2rY_1SPoJJ5eeD7yzB3w?usp=sharing">Baixar dados</a>
+          <a class="download-btn primary" href="https://drive.usercontent.google.com/download?id=1G3-5eFMcqzF5Q1qzT8xSCQ8jxR9P8mnJ&amp;export=download&amp;authuser=0&amp;confirm=t&amp;uuid=472525f2-b46e-467f-b06e-38d337198d82&amp;at=AAINaIIAKKWOZ_3DxY4-uArqwVpl:1782255386588">Baixar dados</a>
         </article>
       </div>
     </div>
@@ -210,5 +210,14 @@
 
 <script src="menu.js"></script>
 <script src="site-animations.js"></script>
+<script>
+  document.addEventListener('click', (event) => {
+    const openAllButton = event.target.closest('[data-open-all-materials]');
+    if (!openAllButton) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.location.href = 'https://takeout-download-drive.usercontent.google.com/download/Carteado%20da%20probabilidade%20-%20pacote%20completo%20-20260623T225857Z-3-001.zip?j=54c6bde8-a8f9-4b88-8193-e48d048aa4c1&i=0&user=214897296108&authuser=0';
+  }, true);
+</script>
 </body>
 </html>
