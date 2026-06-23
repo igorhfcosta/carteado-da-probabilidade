@@ -25,3 +25,22 @@
 .accessibility-widget .accessibility-toggle .a11y-icon{
   stroke:currentColor !important;
 }
+
+/*
+  Correção do menu Professor na home.
+  Mantém uma área invisível entre o botão e o submenu para o hover não se perder
+  antes de o usuário conseguir clicar nas opções.
+*/
+.home-dropdown::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:100%;
+  height:14px;
+  background:transparent;
+}
+
+.home-dropdown-menu{
+  z-index:9999 !important;
+}
