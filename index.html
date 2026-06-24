@@ -1,369 +1,40 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Carteado da Probabilidade: jogo educativo com cartas e dados para aprender probabilidade por meio de estratégia, análise de possibilidades e tomada de decisão." />
+  <meta name="author" content="Igor Henrique Ferreira da Costa" />
+  <meta name="theme-color" content="#8b3df1" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Carteado da Probabilidade" />
+  <meta property="og:title" content="Carteado da Probabilidade - Jogo educativo de probabilidade" />
+  <meta property="og:description" content="Conheça, baixe e use o Carteado da Probabilidade em aulas, oficinas e projetos de matemática." />
+  <meta property="og:image" content="logo/logo.png" />
+  <meta property="og:url" content="https://igorhfcosta.github.io/carteado-da-probabilidade/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Carteado da Probabilidade" />
+  <meta name="twitter:description" content="Jogo educativo com cartas e dados para aprender probabilidade." />
+  <meta name="twitter:image" content="logo/logo.png" />
+  <link rel="canonical" href="https://igorhfcosta.github.io/carteado-da-probabilidade/" />
+  <link rel="stylesheet" href="menu.css">
   <link rel="stylesheet" href="site.css">
   <link rel="stylesheet" href="index.css">
   <link rel="preload" as="image" href="cards/fronts/number3.png">
   <link rel="preload" as="image" href="cards/fronts/number7.png">
   <link rel="preload" as="image" href="cards/fronts/number12.png">
   <link rel="icon" type="image/ico" href="favicon.ico">
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Carteado da Probabilidade: jogo educativo com cartas e dados para aprender probabilidade por meio de estratégia, análise de possibilidades e tomada de decisão." />
+  <link rel="apple-touch-icon" href="logo/logo.png">
   <title>Carteado da Probabilidade - Início</title>
-  <style>
-    .home-footer.realizacao-footer{
-      width:100%;
-      max-width:none;
-      min-height:360px;
-      margin:0;
-      padding:58px clamp(24px, 6vw, 72px) 34px;
-      position:relative;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:24px;
-      overflow:hidden;
-      border:0;
-      border-radius:0;
-      color:#fff;
-      background:
-        radial-gradient(circle at 50% 8%, rgba(168,85,247,.32), transparent 31%),
-        radial-gradient(circle at 12% 80%, rgba(139,61,241,.38), transparent 28%),
-        radial-gradient(circle at 91% 82%, rgba(95,34,200,.38), transparent 30%),
-        linear-gradient(135deg, #160337 0%, #24065f 46%, #12002f 100%);
-      box-shadow:0 -18px 48px rgba(35,11,80,.18);
-      isolation:isolate;
-    }
-
-    .realizacao-footer::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      z-index:-3;
-      opacity:.22;
-      background:
-        linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
-      background-size:54px 54px;
-      mask-image:linear-gradient(to bottom, rgba(0,0,0,.78), transparent 92%);
-    }
-
-    .realizacao-footer::after{
-      content:"";
-      position:absolute;
-      left:-4%;
-      right:-4%;
-      bottom:-68px;
-      height:150px;
-      z-index:-2;
-      border-radius:50% 50% 0 0;
-      background:linear-gradient(135deg, rgba(139,61,241,.72), rgba(18,0,47,.88));
-      box-shadow:0 -20px 44px rgba(168,85,247,.18);
-    }
-
-    .footer-orbit{
-      position:absolute;
-      width:310px;
-      height:108px;
-      border:3px dashed rgba(168,85,247,.70);
-      border-radius:50%;
-      opacity:.72;
-      pointer-events:none;
-    }
-
-    .footer-orbit.left{ left:-78px; top:70px; transform:rotate(18deg); }
-    .footer-orbit.right{ right:58px; top:62px; transform:rotate(-14deg); }
-
-    .footer-sparkle{
-      position:absolute;
-      width:18px;
-      height:18px;
-      color:#fff;
-      filter:drop-shadow(0 0 12px rgba(168,85,247,.65));
-    }
-
-    .footer-sparkle::before,
-    .footer-sparkle::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      margin:auto;
-      background:currentColor;
-      border-radius:999px;
-    }
-
-    .footer-sparkle::before{ width:100%; height:32%; }
-    .footer-sparkle::after{ width:32%; height:100%; }
-    .footer-sparkle.one{ left:12%; top:22%; transform:rotate(45deg); }
-    .footer-sparkle.two{ left:19%; top:34%; width:9px; height:9px; color:#dac7ff; transform:rotate(45deg); }
-    .footer-sparkle.three{ right:20%; top:25%; transform:rotate(45deg); }
-    .footer-sparkle.four{ right:14%; top:19%; width:8px; height:8px; color:#a855f7; transform:rotate(45deg); }
-
-    .footer-dice,
-    .footer-card{
-      position:absolute;
-      width:auto;
-      height:auto;
-      object-fit:contain;
-      filter:drop-shadow(0 22px 24px rgba(0,0,0,.34));
-      pointer-events:none;
-      user-select:none;
-      z-index:1;
-    }
-
-    .footer-dice.purple{ width:122px; left:104px; bottom:100px; transform:rotate(-11deg); }
-    .footer-dice.white{ width:132px; left:30px; bottom:30px; transform:rotate(-14deg); }
-    .footer-dice.small{ width:56px; right:164px; bottom:38px; transform:rotate(18deg); opacity:.95; }
-    .footer-card.card-left{ width:112px; right:220px; bottom:42px; transform:rotate(-15deg); }
-    .footer-card.card-center{ width:124px; right:128px; bottom:58px; transform:rotate(4deg); }
-    .footer-card.card-right{ width:112px; right:42px; bottom:36px; transform:rotate(13deg); }
-
-    .realizacao-label{
-      display:grid;
-      grid-template-columns:1fr auto 1fr;
-      align-items:center;
-      gap:18px;
-      width:min(560px, 100%);
-      color:#a855f7;
-      font-weight:950;
-      font-size:1.05rem;
-      letter-spacing:.06em;
-      text-transform:uppercase;
-      position:relative;
-      z-index:2;
-    }
-
-    .realizacao-label::before,
-    .realizacao-label::after{
-      content:"";
-      height:2px;
-      background:linear-gradient(90deg, transparent, rgba(168,85,247,.80));
-    }
-
-    .realizacao-label::after{
-      background:linear-gradient(90deg, rgba(168,85,247,.80), transparent);
-    }
-
-    .footer-logos{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:46px;
-      position:relative;
-      z-index:2;
-      text-align:left;
-    }
-
-    .footer-logo-block{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:18px;
-      min-width:310px;
-      padding:10px 4px;
-    }
-
-    .footer-logo-block img{
-      width:auto;
-      height:82px;
-      max-width:124px;
-      object-fit:contain;
-      filter:brightness(0) invert(1) drop-shadow(0 12px 18px rgba(0,0,0,.20));
-      flex:0 0 auto;
-    }
-
-    .footer-logo-text{
-      display:flex;
-      flex-direction:column;
-      color:#fff;
-      line-height:1.15;
-      text-shadow:0 8px 18px rgba(0,0,0,.18);
-    }
-
-    .footer-logo-text strong{
-      font-size:2.15rem;
-      font-weight:950;
-      letter-spacing:.01em;
-    }
-
-    .footer-logo-text span{
-      max-width:270px;
-      margin-top:5px;
-      color:#f2ebff;
-      font-size:1rem;
-      font-weight:600;
-    }
-
-    .footer-divider{
-      width:1px;
-      height:96px;
-      background:linear-gradient(to bottom, transparent, rgba(168,85,247,.90), transparent);
-    }
-
-    .footer-bottom-line{
-      width:min(760px, 80%);
-      height:1px;
-      margin-top:2px;
-      background:linear-gradient(90deg, transparent, rgba(168,85,247,.56), transparent);
-      position:relative;
-      z-index:2;
-    }
-
-    .footer-credit{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:center;
-      gap:18px;
-      color:#ede7ff;
-      font-size:1rem;
-      text-align:center;
-      position:relative;
-      z-index:2;
-    }
-
-    .footer-credit .heart{
-      color:#a855f7;
-      font-size:1.45rem;
-      filter:drop-shadow(0 0 12px rgba(168,85,247,.70));
-    }
-
-    @media (max-width: 980px){
-      .footer-dice.purple,
-      .footer-dice.white,
-      .footer-dice.small,
-      .footer-card.card-left,
-      .footer-card.card-center,
-      .footer-card.card-right{
-        opacity:.26;
-      }
-    }
-
-    @media (max-width: 860px){
-      .home-footer.realizacao-footer{
-        min-height:auto;
-        padding:42px 20px 30px;
-      }
-
-      .footer-logos{
-        flex-direction:column;
-        gap:22px;
-      }
-
-      .footer-divider{
-        width:min(320px, 82vw);
-        height:1px;
-        background:linear-gradient(90deg, transparent, rgba(168,85,247,.86), transparent);
-      }
-
-      .footer-logo-block{
-        min-width:0;
-        text-align:center;
-        flex-direction:column;
-        gap:10px;
-      }
-
-      .footer-logo-block img{
-        height:68px;
-        max-width:220px;
-      }
-
-      .footer-logo-text{
-        align-items:center;
-      }
-
-      .footer-logo-text strong{
-        font-size:1.75rem;
-      }
-
-      .footer-logo-text span{
-        font-size:.92rem;
-      }
-
-      .footer-orbit{
-        opacity:.18;
-      }
-    }
-
-    @media (max-width: 520px){
-      .home-footer.realizacao-footer{
-        width:100%;
-        border-radius:0;
-        padding:34px 16px 26px;
-      }
-
-      .realizacao-label{
-        gap:10px;
-        font-size:.88rem;
-      }
-
-      .footer-logo-block img{
-        height:56px;
-        max-width:200px;
-      }
-
-      .footer-logo-text strong{
-        font-size:1.45rem;
-      }
-
-      .footer-credit{
-        gap:10px;
-        font-size:.86rem;
-      }
-    }
-  </style>
 </head>
 <body>
+  <div id="menu-container"></div>
+
   <main class="home-page">
     <section class="hero">
-      <header class="home-header">
-        <a class="brand" href="index.html" aria-label="Carteado da Probabilidade - Início">
-          <img src="Imagens/logo.png" alt="Carteado da Probabilidade">
-          <span>Carteado<br><small>da Probabilidade</small></span>
-        </a>
-
-        <nav class="home-nav" aria-label="Navegação principal">
-          <a class="active" href="index.html" aria-current="page">Home</a>
-          <a href="como-jogar.html">Como jogar</a>
-          <a href="baixar.html">Download</a>
-          <div class="home-dropdown">
-            <button type="button">Professor <span>▾</span></button>
-            <div class="home-dropdown-menu">
-              <a href="proposta-didatica.html">Proposta Didática</a>
-              <a href="embasamento-teorico.html">Embasamento Teórico</a>
-            </div>
-          </div>
-          <a href="sobre.html">Sobre</a>
-          <a href="contato.html">Contato</a>
-        </nav>
-
-        <div class="header-actions">
-          <a class="play-pill" href="simulador.html">Jogar agora</a>
-        </div>
-
-        <button class="home-nav-toggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="home-mobile-menu">
-          <span></span><span></span><span></span>
-        </button>
-      </header>
-
-      <div class="home-mobile-panel" id="home-mobile-menu" hidden>
-        <nav class="home-mobile-nav" aria-label="Navegação mobile">
-          <a class="active" href="index.html" aria-current="page">Home</a>
-          <a href="como-jogar.html">Como jogar</a>
-          <a href="baixar.html">Download</a>
-          <a href="proposta-didatica.html">Proposta didática</a>
-          <a href="embasamento-teorico.html">Embasamento teórico</a>
-          <a href="sobre.html">Sobre</a>
-          <a href="contato.html">Contato</a>
-          <a class="mobile-play" href="simulador.html">Jogar agora</a>
-        </nav>
-      </div>
-
       <div class="hero-content">
         <div class="hero-copy">
-          <h1> Probabilidade se aprende <span>jogando</span></h1>
+          <h1>Probabilidade se aprende <span>jogando</span></h1>
           <p>
             O Carteado da Probabilidade é um jogo educativo que combina cartas e dados para explorar
             conceitos de probabilidade de forma prática, desafiadora e significativa.
@@ -374,7 +45,6 @@
             <a class="btn secondary" href="baixar.html">Baixar materiais</a>
             <a class="btn secondary" href="como-jogar.html">Conhecer regras</a>
           </div>
-
         </div>
 
         <div class="hero-visual" aria-hidden="true">
@@ -553,12 +223,6 @@
       <span class="footer-sparkle two" aria-hidden="true"></span>
       <span class="footer-sparkle three" aria-hidden="true"></span>
       <span class="footer-sparkle four" aria-hidden="true"></span>
-      <img class="footer-dice purple" src="dice/d10.png" alt="" aria-hidden="true">
-      <img class="footer-dice white" src="dice/d6.png" alt="" aria-hidden="true">
-      <img class="footer-dice small" src="dice/d8.png" alt="" aria-hidden="true">
-      <img class="footer-card card-left" src="cards/fronts/number3.png" alt="" aria-hidden="true">
-      <img class="footer-card card-center" src="cards/fronts/number12.png" alt="" aria-hidden="true">
-      <img class="footer-card card-right" src="cards/fronts/number7.png" alt="" aria-hidden="true">
 
       <div class="realizacao-label">Realização</div>
       <div class="footer-logos" aria-label="Realização do projeto">
@@ -594,96 +258,52 @@
     </svg>
     <span class="arrow">↑</span>
   </button>
-<script src="site-animations.js"></script>
-<script>
-  const hero = document.querySelector('.hero');
-  const nextSection = document.querySelector('#conteudo');
-  const heroScrollCue = document.querySelector('.hero-scroll-cue');
-  let heroSnapRunning = false;
-  let heroTouchStartY = 0;
-  const usesDesktopSnap = () => window.matchMedia('(min-width: 769px)').matches;
 
-  const scrollToNextSection = () => {
-    if (!nextSection || heroSnapRunning) return;
-    heroSnapRunning = true;
-    nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    window.setTimeout(() => {
-      heroSnapRunning = false;
-    }, 900);
-  };
+  <script src="menu.js"></script>
+  <script src="site-animations.js"></script>
+  <script>
+    const hero = document.querySelector('.hero');
+    const nextSection = document.querySelector('#conteudo');
+    const heroScrollCue = document.querySelector('.hero-scroll-cue');
+    let heroSnapRunning = false;
+    let heroTouchStartY = 0;
+    const usesDesktopSnap = () => window.matchMedia('(min-width: 769px)').matches;
 
-  heroScrollCue?.addEventListener('click', scrollToNextSection);
+    const scrollToNextSection = () => {
+      if (!nextSection || heroSnapRunning) return;
+      heroSnapRunning = true;
+      nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.setTimeout(() => { heroSnapRunning = false; }, 900);
+    };
 
-  window.addEventListener('wheel', (event) => {
-    if (!usesDesktopSnap()) return;
-    if (!hero || !nextSection || event.deltaY <= 0 || window.scrollY > 40) return;
-    event.preventDefault();
-    scrollToNextSection();
-  }, { passive: false });
+    heroScrollCue?.addEventListener('click', scrollToNextSection);
 
-  window.addEventListener('touchstart', (event) => {
-    if (!usesDesktopSnap()) return;
-    heroTouchStartY = event.touches[0]?.clientY || 0;
-  }, { passive: true });
+    window.addEventListener('wheel', (event) => {
+      if (!usesDesktopSnap()) return;
+      if (!hero || !nextSection || event.deltaY <= 0 || window.scrollY > 40) return;
+      event.preventDefault();
+      scrollToNextSection();
+    }, { passive: false });
 
-  window.addEventListener('touchmove', (event) => {
-    if (!usesDesktopSnap()) return;
-    const currentY = event.touches[0]?.clientY || 0;
-    const isSwipingDownPage = heroTouchStartY - currentY > 28;
+    window.addEventListener('touchstart', (event) => {
+      if (!usesDesktopSnap()) return;
+      heroTouchStartY = event.touches[0]?.clientY || 0;
+    }, { passive: true });
 
-    if (!hero || !nextSection || !isSwipingDownPage || window.scrollY > 40) return;
-    event.preventDefault();
-    scrollToNextSection();
-  }, { passive: false });
+    window.addEventListener('touchmove', (event) => {
+      if (!usesDesktopSnap()) return;
+      const currentY = event.touches[0]?.clientY || 0;
+      const isSwipingDownPage = heroTouchStartY - currentY > 28;
+      if (!hero || !nextSection || !isSwipingDownPage || window.scrollY > 40) return;
+      event.preventDefault();
+      scrollToNextSection();
+    }, { passive: false });
 
-  document.querySelectorAll('[data-card] video').forEach((video) => {
-    const card = video.closest('[data-card]');
-
-    card.addEventListener('mouseenter', () => {
-      video.play();
+    document.querySelectorAll('[data-card] video').forEach((video) => {
+      const card = video.closest('[data-card]');
+      card.addEventListener('mouseenter', () => { video.play(); });
+      card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
     });
-
-    card.addEventListener('mouseleave', () => {
-      video.pause();
-      video.currentTime = 0;
-    });
-  });
-
-  const homeMenuToggle = document.querySelector('.home-nav-toggle');
-  const homeMobileMenu = document.querySelector('#home-mobile-menu');
-
-  homeMenuToggle?.addEventListener('click', () => {
-    const willOpen = homeMobileMenu.hidden;
-    homeMobileMenu.hidden = !willOpen;
-    homeMenuToggle.setAttribute('aria-expanded', String(willOpen));
-  });
-
-  homeMobileMenu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      homeMobileMenu.hidden = true;
-      homeMenuToggle?.setAttribute('aria-expanded', 'false');
-    });
-  });
-
-  document.addEventListener('click', (event) => {
-    if (
-      homeMobileMenu &&
-      homeMenuToggle &&
-      !homeMobileMenu.hidden &&
-      !homeMobileMenu.contains(event.target) &&
-      !homeMenuToggle.contains(event.target)
-    ) {
-      homeMobileMenu.hidden = true;
-      homeMenuToggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 680 && homeMobileMenu && homeMenuToggle) {
-      homeMobileMenu.hidden = true;
-      homeMenuToggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-</script>
+  </script>
 </body>
 </html>
