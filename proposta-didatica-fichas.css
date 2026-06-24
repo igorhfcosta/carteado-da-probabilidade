@@ -1,0 +1,269 @@
+.proposta-didatica-page .section-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
+  color:var(--page-purple-dark);
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.proposta-didatica-page .section-kicker::before{
+  content:"";
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--page-purple-2), var(--page-purple-dark));
+  box-shadow:0 0 0 6px rgba(168,85,247,.12);
+}
+
+.proposta-didatica-page .section-heading.dark .section-kicker{
+  color:#d9c6ff;
+}
+
+.didactic-moments-section,
+.teacher-sheets-section{
+  padding-top:26px;
+}
+
+.didactic-heading{
+  max-width:860px;
+}
+
+.didactic-moments-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:18px;
+}
+
+.didactic-moment-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:20px;
+  min-height:220px;
+  padding:28px;
+  border:1px solid rgba(168,85,247,.22);
+  border-radius:22px;
+  color:var(--page-ink);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(168,85,247,.16), transparent 30%),
+    linear-gradient(135deg, #fff, #fbf8ff);
+  box-shadow:0 18px 44px rgba(18,9,47,.08);
+  overflow:hidden;
+}
+
+.didactic-moment-card::after{
+  content:"";
+  position:absolute;
+  right:-52px;
+  bottom:-72px;
+  width:190px;
+  height:190px;
+  border:1px dashed rgba(168,85,247,.22);
+  border-radius:50%;
+}
+
+.moment-icon{
+  width:66px;
+  height:66px;
+  display:grid;
+  place-items:center;
+  border-radius:18px;
+  color:#fff;
+  background:linear-gradient(135deg, var(--page-purple-2), var(--page-purple-dark));
+  box-shadow:0 16px 30px rgba(95,34,200,.24);
+  font-size:1.15rem;
+  font-weight:900;
+}
+
+.didactic-moment-card span:not(.moment-icon){
+  display:inline-flex;
+  margin-bottom:8px;
+  color:var(--page-purple-dark);
+  font-size:.78rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.didactic-moment-card h3,
+.teacher-sheet-card h3{
+  margin:0 0 10px;
+  color:var(--page-ink);
+  font-size:1.35rem;
+  line-height:1.12;
+  letter-spacing:-.035em;
+}
+
+.didactic-moment-card p,
+.teacher-sheet-card p{
+  position:relative;
+  z-index:1;
+  margin:0;
+  color:#463a5e;
+  line-height:1.65;
+}
+
+.classroom-flow-section{
+  position:relative;
+  overflow:hidden;
+}
+
+.classroom-flow-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:.28;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(168,85,247,.28), transparent 26%),
+    radial-gradient(circle at 90% 20%, rgba(139,61,241,.20), transparent 28%);
+  pointer-events:none;
+}
+
+.classroom-flow-section .page-shell{
+  position:relative;
+  z-index:1;
+}
+
+.classroom-flow{
+  display:grid;
+  grid-template-columns:repeat(7, minmax(0, 1fr));
+  gap:14px;
+}
+
+.classroom-flow article{
+  position:relative;
+  min-height:238px;
+  padding:24px 16px 20px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:20px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(168,85,247,.18), transparent 34%),
+    rgba(255,255,255,.055);
+  box-shadow:0 18px 44px rgba(0,0,0,.16);
+  transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+}
+
+.classroom-flow article:hover{
+  transform:translateY(-6px);
+  border-color:rgba(168,85,247,.58);
+  box-shadow:0 26px 54px rgba(0,0,0,.22);
+}
+
+.classroom-flow span{
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  margin-bottom:20px;
+  border-radius:50%;
+  color:#fff;
+  background:linear-gradient(135deg, var(--page-purple-2), var(--page-purple-dark));
+  box-shadow:0 0 0 8px rgba(168,85,247,.12);
+  font-weight:900;
+}
+
+.classroom-flow h3{
+  margin:0 0 10px;
+  color:#fff;
+  font-size:1rem;
+  line-height:1.14;
+}
+
+.classroom-flow p{
+  margin:0;
+  color:#e6d9ff;
+  font-size:.88rem;
+  line-height:1.48;
+}
+
+.teacher-sheets-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:20px;
+}
+
+.teacher-sheet-card{
+  position:relative;
+  padding:30px;
+  border:1px solid rgba(168,85,247,.24);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(168,85,247,.16), transparent 28%),
+    #fff;
+  box-shadow:0 18px 44px rgba(18,9,47,.08);
+  overflow:hidden;
+}
+
+.teacher-sheet-card::before{
+  content:"";
+  position:absolute;
+  right:28px;
+  top:30px;
+  width:86px;
+  height:112px;
+  border:2px solid rgba(168,85,247,.18);
+  border-radius:14px;
+  background:
+    linear-gradient(rgba(168,85,247,.18) 0 0) 18px 28px / 46px 4px no-repeat,
+    linear-gradient(rgba(168,85,247,.12) 0 0) 18px 46px / 52px 4px no-repeat,
+    linear-gradient(rgba(168,85,247,.12) 0 0) 18px 64px / 40px 4px no-repeat,
+    rgba(255,255,255,.45);
+  transform:rotate(5deg);
+}
+
+.sheet-badge{
+  width:max-content;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:22px;
+  padding:8px 14px;
+  border:1px solid rgba(168,85,247,.24);
+  border-radius:999px;
+  color:var(--page-purple-dark);
+  background:rgba(168,85,247,.10);
+  font-size:.78rem;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.teacher-sheet-card .page-btn{
+  position:relative;
+  z-index:1;
+  margin-top:22px;
+  min-width:170px;
+}
+
+@media (max-width: 1120px){
+  .classroom-flow{
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px){
+  .didactic-moments-grid,
+  .teacher-sheets-grid{
+    grid-template-columns:1fr;
+  }
+
+  .didactic-moment-card{
+    grid-template-columns:1fr;
+  }
+
+  .classroom-flow{
+    grid-template-columns:1fr;
+  }
+
+  .classroom-flow article{
+    min-height:auto;
+  }
+
+  .teacher-sheet-card::before{
+    opacity:.24;
+  }
+}
