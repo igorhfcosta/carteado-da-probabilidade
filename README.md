@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🃏 Carteado da Probabilidade
+#  Carteado da Probabilidade
 
 ### Um jogo educacional para aprender probabilidade com cartas, dados, estratégia e tomada de decisão.
 
@@ -12,7 +12,7 @@
 
 ---
 
-## 🎲 Sobre o projeto
+##  Sobre o projeto
 
 O **Carteado da Probabilidade** é um jogo educacional criado para apoiar o ensino e a aprendizagem de conceitos de probabilidade por meio de uma experiência prática, estratégica e interativa.
 
@@ -22,9 +22,9 @@ O projeto teve início em **2024**, no contexto da disciplina de **Laboratório 
 
 ---
 
-## 🌐 Acesse o site
+##  Acesse o site
 
-🔗 **Site oficial:**  
+ **Site oficial:**  
 https://igorhfcosta.github.io/carteado-da-probabilidade/
 
 No site, é possível acessar:
@@ -39,7 +39,7 @@ No site, é possível acessar:
 
 ---
 
-## 🎯 Objetivo educacional
+##  Objetivo educacional
 
 O objetivo do projeto é oferecer um recurso didático que favoreça o ensino de probabilidade de forma investigativa, participativa e contextualizada.
 
@@ -56,7 +56,7 @@ O jogo pode ser utilizado para trabalhar:
 
 ---
 
-## 🧩 Como funciona o jogo
+##  Como funciona o jogo
 
 Durante a partida, os jogadores utilizam cartas e dados para tentar descartar todas as cartas da mão.
 
@@ -73,7 +73,7 @@ Vence o jogador que conseguir descartar todas as cartas primeiro.
 
 ---
 
-## 🃏 Componentes do jogo
+##  Componentes do jogo
 
 O jogo é composto por:
 
@@ -89,7 +89,7 @@ As cartas de efeito também possuem duas cópias de cada tipo.
 
 ---
 
-## 👨‍🏫 Proposta didática
+##  Proposta didática
 
 O jogo pode ser utilizado em dois momentos principais:
 
@@ -113,7 +113,7 @@ A aplicação sugerida envolve:
 
 ---
 
-## 📚 Fundamentação
+##  Fundamentação
 
 O projeto se apoia em discussões sobre ensino de probabilidade, jogos didáticos, aprendizagem ativa e letramento probabilístico.
 
@@ -127,7 +127,7 @@ A proposta busca transformar o jogo em um recurso para:
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+##  Tecnologias utilizadas
 
 O site foi desenvolvido com:
 
@@ -140,7 +140,7 @@ Também foram utilizados recursos de acessibilidade, organização visual respon
 
 ---
 
-## ♿ Acessibilidade
+##  Acessibilidade
 
 O site conta com recursos de acessibilidade, incluindo:
 
@@ -156,7 +156,7 @@ Esses recursos buscam ampliar o acesso ao conteúdo e melhorar a experiência de
 
 ---
 
-## 📦 Materiais disponíveis
+##  Materiais disponíveis
 
 Na página de downloads, é possível acessar:
 
@@ -170,7 +170,7 @@ Os materiais foram organizados para facilitar o uso por professores em sala de a
 
 ---
 
-## 👥 Autoria
+##  Autoria
 
 ### Autor do projeto
 
@@ -185,7 +185,7 @@ Orientador acadêmico do projeto no PPGECM/UFU.
 
 ---
 
-## 🏛️ Realização
+##  Realização
 
 Projeto desenvolvido no contexto da:
 
@@ -194,13 +194,13 @@ Projeto desenvolvido no contexto da:
 
 ---
 
-## 📌 Status do projeto
+##  Status do projeto
 
 O projeto está em desenvolvimento e passa por constantes melhorias em seus materiais, proposta didática, versão digital e site de divulgação.
 
 ---
 
-## 💡 Possíveis melhorias futuras
+##  Possíveis melhorias futuras
 
 Algumas melhorias planejadas ou desejáveis incluem:
 
@@ -214,7 +214,7 @@ Algumas melhorias planejadas ou desejáveis incluem:
 
 ---
 
-## 🤝 Contribuições
+##  Contribuições
 
 Sugestões, relatos de aplicação, adaptações e melhorias são bem-vindas.
 
@@ -230,7 +230,7 @@ Entre em contato pelo site oficial do projeto.
 
 ---
 
-## 📄 Licença
+##  Licença
 
 Este projeto possui finalidade educacional e acadêmica.
 
@@ -240,7 +240,7 @@ Os materiais podem ser utilizados para fins pedagógicos, desde que seja respeit
 
 <div align="center">
 
-### 🃏 Carteado da Probabilidade
+###  Carteado da Probabilidade
 
 **Probabilidade se aprende jogando.**
 
