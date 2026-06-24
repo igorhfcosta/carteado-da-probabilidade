@@ -110,6 +110,22 @@
     linear-gradient(135deg, #fff 0%, #f8f0ff 100%);
 }
 
+.effect-card::before{
+  content:
+    url("cards/fronts/reroll.png")
+    url("cards/fronts/draw-number.png")
+    url("cards/fronts/effect-trigger.png")
+    url("cards/fronts/block-opponent.png")
+    url("cards/fronts/lose-turn.png")
+    url("cards/fronts/joker.png");
+  position:absolute;
+  width:0;
+  height:0;
+  overflow:hidden;
+  opacity:0;
+  pointer-events:none;
+}
+
 .component-copy{
   position:relative;
   z-index:2;
@@ -257,11 +273,11 @@
 }
 
 .single-effect-card img.is-changing{
-  animation:effectCardSwap .24s ease both;
+  animation:effectCardSwap .18s ease both;
 }
 
 @keyframes effectCardSwap{
-  0%{ opacity:.45; transform:translateY(8px) rotate(1deg) scale(.97); }
+  0%{ opacity:.70; transform:translateY(4px) rotate(3deg) scale(.99); }
   100%{ opacity:1; transform:rotate(5deg) scale(1); }
 }
 
