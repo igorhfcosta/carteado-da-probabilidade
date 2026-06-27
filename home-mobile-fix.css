@@ -1,0 +1,17 @@
+/* Ajuste fino da home em telas pequenas.
+   Mantém o desktop intacto e evita que o título do hero fique sob o menu mobile. */
+@media (max-width: 680px){
+  .home-page .hero-content{
+    padding-top:96px !important;
+  }
+}
+
+@media (max-width: 380px){
+  .home-page .hero-content{
+    padding-top:104px !important;
+  }
+
+  .home-page .hero-copy h1{
+    font-size:clamp(2.35rem, 12.2vw, 3.65rem);
+  }
+}
