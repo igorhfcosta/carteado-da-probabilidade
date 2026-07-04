@@ -3,6 +3,11 @@ accessibilityOverrideLink.rel = "stylesheet";
 accessibilityOverrideLink.href = "accessibility-overrides.css?v=20260622";
 document.head.appendChild(accessibilityOverrideLink);
 
+const homeSectionsFixLink = document.createElement("link");
+homeSectionsFixLink.rel = "stylesheet";
+homeSectionsFixLink.href = "home-sections-fix.css?v=20260704";
+document.head.appendChild(homeSectionsFixLink);
+
 (function applyPageSeo() {
   const path = window.location.pathname.split('/').pop() || 'index.html';
   const baseUrl = 'https://igorhfcosta.github.io/carteado-da-probabilidade/';
