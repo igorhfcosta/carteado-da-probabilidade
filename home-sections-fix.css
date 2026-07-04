@@ -1,0 +1,257 @@
+/* Reparo das seções finais da home.
+   Restaura a formatação de "Para professores" e "Perguntas frequentes" sem alterar as demais páginas. */
+
+.home-page .teacher-section{
+  position:relative;
+  width:100%;
+  max-width:none;
+  display:grid;
+  grid-template-columns:minmax(0, .95fr) minmax(320px, .85fr);
+  gap:48px;
+  align-items:center;
+  padding:68px max(22px, calc((100vw - 1180px) / 2));
+  background:linear-gradient(135deg, #fbf8ff 0%, #f2e9ff 100%);
+  overflow:hidden;
+}
+
+.home-page .teacher-section::before{
+  content:"";
+  position:absolute;
+  inset:auto -10% -42% auto;
+  width:520px;
+  height:520px;
+  border:1px dashed rgba(168,85,247,.22);
+  border-radius:50%;
+  pointer-events:none;
+}
+
+.home-page .teacher-copy{
+  max-width:560px;
+  justify-self:start;
+  position:relative;
+  z-index:1;
+}
+
+.home-page .teacher-copy h2{
+  color:var(--ink);
+  font-size:clamp(2rem, 3.2vw, 3.15rem);
+  line-height:1.06;
+  letter-spacing:-.045em;
+}
+
+.home-page .teacher-copy p{
+  margin-top:16px;
+  color:var(--muted);
+  font-size:1.02rem;
+  line-height:1.75;
+}
+
+.home-page .teacher-copy .outline-link{
+  width:max-content;
+  margin-top:28px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:50px;
+  padding:0 22px;
+  border:2px solid var(--purple-500);
+  border-radius:10px;
+  color:var(--purple-700);
+  font-weight:900;
+  text-decoration:none;
+  background:#fff;
+  box-shadow:0 14px 26px rgba(95,34,200,.10);
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.home-page .teacher-copy .outline-link:hover{
+  transform:translateY(-2px);
+  background:#fbf8ff;
+  box-shadow:0 18px 34px rgba(95,34,200,.16);
+}
+
+.home-page .teacher-list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  position:relative;
+  z-index:1;
+}
+
+.home-page .teacher-list div{
+  min-height:86px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:18px;
+  border:1px solid rgba(168,85,247,.20);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 16px 32px rgba(35,11,80,.08);
+  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.home-page .teacher-list div:hover{
+  transform:translateY(-3px);
+  border-color:rgba(168,85,247,.42);
+  box-shadow:0 20px 38px rgba(35,11,80,.13);
+}
+
+.home-page .teacher-list span{
+  width:34px;
+  height:34px;
+  flex:0 0 34px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:#fff;
+  background:linear-gradient(135deg, var(--purple-500), var(--purple-700));
+  font-weight:900;
+  box-shadow:0 10px 20px rgba(168,85,247,.22);
+}
+
+.home-page .teacher-list span::before{
+  display:none;
+}
+
+.home-page .teacher-list p{
+  margin:0;
+  color:var(--ink);
+  font-size:.98rem;
+  font-weight:850;
+  line-height:1.35;
+}
+
+.home-page .home-faq{
+  width:100%;
+  padding:68px max(22px, calc((100vw - 1180px) / 2)) 72px;
+  background:#fff;
+  color:var(--ink);
+}
+
+.home-page .home-faq__inner{
+  width:min(1180px, 100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:minmax(0, .78fr) minmax(360px, 1fr);
+  gap:54px;
+  align-items:start;
+}
+
+.home-page .home-faq__intro h2{
+  margin:0;
+  color:var(--ink);
+  font-size:clamp(2.25rem, 4.1vw, 4rem);
+  line-height:1.02;
+  letter-spacing:-.055em;
+}
+
+.home-page .home-faq__intro h2 span{
+  color:var(--purple-500);
+}
+
+.home-page .home-faq__intro p{
+  max-width:450px;
+  margin-top:18px;
+  color:var(--muted);
+  font-size:1.04rem;
+  line-height:1.7;
+}
+
+.home-page .home-faq__list{
+  display:grid;
+  gap:14px;
+}
+
+.home-page .home-faq__item{
+  border:1px solid rgba(168,85,247,.20);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 14px 30px rgba(35,11,80,.08);
+  overflow:hidden;
+  transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.home-page .home-faq__item:hover{
+  transform:translateY(-2px);
+  border-color:rgba(168,85,247,.42);
+  box-shadow:0 18px 36px rgba(35,11,80,.12);
+}
+
+.home-page .home-faq__item summary{
+  min-height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:18px 22px;
+  color:var(--ink);
+  font-weight:900;
+  cursor:pointer;
+  list-style:none;
+}
+
+.home-page .home-faq__item summary::-webkit-details-marker{
+  display:none;
+}
+
+.home-page .home-faq__item summary::after{
+  content:"+";
+  width:36px;
+  height:36px;
+  flex:0 0 36px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  color:#fff;
+  background:linear-gradient(135deg, var(--purple-500), var(--purple-700));
+  box-shadow:0 10px 20px rgba(168,85,247,.24);
+  font-size:1.35rem;
+  line-height:1;
+}
+
+.home-page .home-faq__item[open] summary::after{
+  content:"−";
+}
+
+.home-page .home-faq__item p{
+  margin:0;
+  padding:0 22px 20px;
+  color:var(--muted);
+  line-height:1.65;
+}
+
+@media (max-width: 900px){
+  .home-page .teacher-section,
+  .home-page .home-faq__inner{
+    grid-template-columns:1fr;
+  }
+
+  .home-page .teacher-list{
+    grid-template-columns:1fr;
+  }
+}
+
+@media (max-width: 560px){
+  .home-page .teacher-section,
+  .home-page .home-faq{
+    padding:46px 16px;
+  }
+
+  .home-page .teacher-copy .outline-link{
+    width:100%;
+  }
+
+  .home-page .home-faq__inner{
+    gap:28px;
+  }
+
+  .home-page .home-faq__item summary{
+    min-height:62px;
+    padding:16px;
+  }
+
+  .home-page .home-faq__item p{
+    padding:0 16px 18px;
+  }
+}
