@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="site.css">
   <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="home-mobile-fix.css">
+  <link rel="stylesheet" href="home-experience.css">
   <link rel="preload" as="image" href="cards/fronts/number3.png">
   <link rel="preload" as="image" href="cards/fronts/number7.png">
   <link rel="preload" as="image" href="cards/fronts/number12.png">
@@ -35,6 +36,7 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-copy">
+          <span class="hero-eyebrow">CARTAS, DADOS E DESCOBERTAS</span>
           <h1>Probabilidade se aprende <span>jogando</span></h1>
           <p>
             O Carteado da Probabilidade é um jogo educativo que combina cartas e dados para explorar
@@ -46,6 +48,7 @@
             <a class="btn secondary" href="baixar.html">Baixar materiais</a>
             <a class="btn secondary" href="como-jogar.html">Conhecer regras</a>
           </div>
+          <div class="hero-facts"><span>2–4 jogadores</span><span>A partir de 12 anos</span><span>Físico e virtual</span></div>
         </div>
 
         <div class="hero-visual" aria-hidden="true">
@@ -64,6 +67,22 @@
       <button class="hero-scroll-cue" type="button" aria-label="Descer para o próximo bloco">
         <span aria-hidden="true"></span>
       </button>
+    </section>
+
+    <section class="chance-lab" aria-labelledby="chance-title">
+      <div class="chance-copy">
+        <span class="section-label">Uma jogada, muitas possibilidades</span>
+        <h2 id="chance-title">A sorte lança.<br><span>Você decide.</span></h2>
+        <p>Experimente dois dados de seis faces. Some os resultados e descubra por que algumas somas aparecem mais que outras.</p>
+        <a class="outline-link" href="como-jogar.html">Entenda como isso vira uma jogada →</a>
+      </div>
+      <div class="chance-table">
+        <span class="chance-caption">EXPERIMENTE UMA SOMA</span>
+        <div class="demo-dice" aria-hidden="true"><span data-demo-die>3</span><b>+</b><span data-demo-die>4</span></div>
+        <p class="chance-result" role="status" aria-live="polite" aria-atomic="true">3 + 4 = 7. Essa soma tem 6 combinações entre os 36 resultados possíveis.</p>
+        <button class="roll-demo" type="button" hidden>Lançar os dados <span aria-hidden="true">↗</span></button>
+        <p class="chance-note">Uma experiência com d6 + d6. No jogo, você escolhe entre dados de 4, 6, 8 e 10 faces.</p>
+      </div>
     </section>
 
     <section class="how-section" id="conteudo">
@@ -168,7 +187,7 @@
           <h3>Professor</h3>
           <p>Veja caminhos didáticos.</p>
         </a>
-        <a href="fundamentacao.html" data-card="fundamentacao">
+        <a href="embasamento-teorico.html" data-card="fundamentacao">
           <span class="path-icon icone-container-animado" aria-hidden="true">
             <video class="icone-video-fundamentacao" muted loop playsinline preload="metadata">
               <source src="Imagens/icones/icone5.mp4" type="video/mp4">
@@ -300,8 +319,6 @@
   </button>
 
   <script src="menu.js"></script>
-  <script src="site.js"></script>
-  <script src="accessibility.js"></script>
-  <script src="index.js"></script>
+  <script src="home-experience.js"></script>
 </body>
 </html>
